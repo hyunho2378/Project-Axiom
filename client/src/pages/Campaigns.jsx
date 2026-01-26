@@ -15,21 +15,21 @@ export default function Campaigns() {
             title: "The Essence of Light",
             subtitle: "Spring 2026 Collection",
             description: "Where luminosity meets precision. A journey through the science of radiance.",
-            color: "from-pink-500/20 to-purple-500/20"
+            color: "from-[#3C7795]/20 to-[#8AAEC0]/20"
         },
         {
             id: 2,
             title: "Hydra Depths",
             subtitle: "The Moisture Revolution",
             description: "Dive into the molecular architecture of perfect hydration.",
-            color: "from-blue-500/20 to-teal-500/20"
+            color: "from-[#1E5672]/20 to-[#3C7795]/20"
         },
         {
             id: 3,
             title: "Midnight Ritual",
             subtitle: "Night Repair Series",
             description: "When the world sleeps, your skin transforms. The power of nocturnal regeneration.",
-            color: "from-purple-500/20 to-indigo-500/20"
+            color: "from-[#1E5672]/20 to-[#8AAEC0]/20"
         }
     ];
 
@@ -38,8 +38,8 @@ export default function Campaigns() {
             {/* Hero */}
             <section className="h-screen flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-pink-500/10 blur-[150px]" />
-                    <div className="absolute bottom-1/4 left-1/3 w-[400px] h-[400px] rounded-full bg-purple-500/10 blur-[120px]" />
+                    <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-[#3C7795]/10 blur-[150px]" />
+                    <div className="absolute bottom-1/4 left-1/3 w-[400px] h-[400px] rounded-full bg-[#1E5672]/10 blur-[120px]" />
                 </div>
 
                 <motion.div
@@ -156,7 +156,7 @@ function CampaignSection({ campaign, index }) {
                         className={`${isEven ? '' : 'lg:col-start-1 lg:row-start-1'}`}
                         style={{ y: textY, opacity }}
                     >
-                        <p className="text-xs uppercase tracking-[0.3em] text-purple-400/80 mb-4">
+                        <p className="text-xs uppercase tracking-[0.3em] text-[#8AAEC0]/80 mb-4">
                             {campaign.subtitle}
                         </p>
                         <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-6 leading-[1.1]">

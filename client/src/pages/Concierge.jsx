@@ -59,7 +59,7 @@ export default function Concierge({ user }) {
         <div className="min-h-screen pt-20 flex flex-col">
             {/* Ambient Background */}
             <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-purple-500/5 blur-[200px]" />
+                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-[#3C7795]/5 blur-[200px]" />
             </div>
 
             {/* Main Content */}
@@ -73,7 +73,7 @@ export default function Concierge({ user }) {
                             transition={{ duration: 0.6 }}
                             className="text-center mb-12"
                         >
-                            <p className="text-xs uppercase tracking-[0.4em] text-purple-400/60 mb-6">
+                            <p className="text-xs uppercase tracking-[0.4em] text-[#3C7795]/60 mb-6">
                                 Concierge
                             </p>
                             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-white mb-4 leading-tight">
@@ -107,10 +107,10 @@ export default function Concierge({ user }) {
                       max-w-[80%] p-5 rounded-2xl
                       ${msg.type === 'user'
                                                 ? 'bg-white/10 border border-white/10'
-                                                : 'bg-purple-500/10 border border-purple-500/20'}
+                                                : 'bg-[#3C7795]/10 border border-[#3C7795]/20'}
                     `}>
                                             {msg.type === 'bot' && (
-                                                <p className="text-xs text-purple-400/80 mb-2">AURA Concierge</p>
+                                                <p className="text-xs text-[#8AAEC0]/80 mb-2">AXIOM Concierge</p>
                                             )}
                                             <p className="text-white/90 leading-relaxed">{msg.text}</p>
                                         </div>
@@ -124,22 +124,22 @@ export default function Concierge({ user }) {
                                         animate={{ opacity: 1, y: 0 }}
                                         className="flex justify-start"
                                     >
-                                        <div className="bg-purple-500/10 border border-purple-500/20 p-5 rounded-2xl">
+                                        <div className="bg-[#3C7795]/10 border border-[#3C7795]/20 p-5 rounded-2xl">
                                             <div className="flex gap-1.5">
                                                 <motion.div
                                                     animate={{ opacity: [0.3, 1, 0.3] }}
                                                     transition={{ duration: 1, repeat: Infinity, delay: 0 }}
-                                                    className="w-2 h-2 rounded-full bg-purple-400/60"
+                                                    className="w-2 h-2 rounded-full bg-[#8AAEC0]/60"
                                                 />
                                                 <motion.div
                                                     animate={{ opacity: [0.3, 1, 0.3] }}
                                                     transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
-                                                    className="w-2 h-2 rounded-full bg-purple-400/60"
+                                                    className="w-2 h-2 rounded-full bg-[#8AAEC0]/60"
                                                 />
                                                 <motion.div
                                                     animate={{ opacity: [0.3, 1, 0.3] }}
                                                     transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
-                                                    className="w-2 h-2 rounded-full bg-purple-400/60"
+                                                    className="w-2 h-2 rounded-full bg-[#8AAEC0]/60"
                                                 />
                                             </div>
                                         </div>
@@ -196,7 +196,7 @@ export default function Concierge({ user }) {
                   w-12 h-12 rounded-xl flex items-center justify-center
                   transition-all duration-300
                   ${inputValue.trim()
-                                        ? 'bg-gradient-to-br from-purple-500 to-blue-500 text-white shadow-lg shadow-purple-500/30'
+                                        ? 'bg-gradient-to-br from-[#1E5672] to-[#3C7795] text-white shadow-lg shadow-[#3C7795]/30'
                                         : 'bg-white/5 text-white/30'}
                 `}
                             >
@@ -211,7 +211,7 @@ export default function Concierge({ user }) {
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                className="absolute right-2 top-1/2 -translate-y-1/2 w-14 h-14 rounded-xl bg-purple-500/20 blur-xl pointer-events-none"
+                                className="absolute right-2 top-1/2 -translate-y-1/2 w-14 h-14 rounded-xl bg-[#3C7795]/20 blur-xl pointer-events-none"
                             />
                         )}
                     </motion.div>

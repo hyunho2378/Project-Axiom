@@ -26,7 +26,7 @@ export default function Algorithm() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.5 }}
                 >
-                    <p className="text-xs uppercase tracking-[0.4em] text-purple-400/80 mb-6">
+                    <p className="text-xs uppercase tracking-[0.4em] text-[#3C7795]/80 mb-6">
                         The Algorithm
                     </p>
                     <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium text-white leading-[0.95]">
@@ -91,7 +91,7 @@ function ParticleField() {
                 vy: (Math.random() - 0.5) * 0.5,
                 size: Math.random() * 2 + 1,
                 opacity: Math.random() * 0.5 + 0.2,
-                hue: Math.random() * 60 + 240 // Purple to blue range
+                hue: Math.random() * 30 + 185 // Teal to cyan range (AXIOM brand)
             });
         }
 
@@ -125,7 +125,7 @@ function ParticleField() {
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
-                        ctx.strokeStyle = `rgba(168, 85, 247, ${0.1 * (1 - dist / 120)})`;
+                        ctx.strokeStyle = `rgba(60, 119, 149, ${0.15 * (1 - dist / 120)})`;
                         ctx.lineWidth = 0.5;
                         ctx.stroke();
                     }
@@ -161,7 +161,7 @@ function ProcessSteps() {
             title: "Sensing",
             subtitle: "Data Capture",
             description: "Our AI scans millions of data points from your skin—texture, tone, moisture levels, and more.",
-            color: "from-purple-500 to-blue-500",
+            color: "from-[#1E5672] to-[#3C7795]",
             icon: (
                 <svg className="w-12 h-12" viewBox="0 0 48 48" fill="none">
                     <circle cx="24" cy="24" r="16" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 4" />
@@ -175,7 +175,7 @@ function ProcessSteps() {
             title: "Analyzing",
             subtitle: "Pattern Recognition",
             description: "Advanced neural networks decode your unique skin signature, identifying patterns invisible to the human eye.",
-            color: "from-blue-500 to-teal-500",
+            color: "from-[#3C7795] to-[#8AAEC0]",
             icon: (
                 <svg className="w-12 h-12" viewBox="0 0 48 48" fill="none">
                     <path d="M8 24h8l4-8 4 16 4-8h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -187,7 +187,7 @@ function ProcessSteps() {
             title: "Sculpting",
             subtitle: "Formula Creation",
             description: "Your data crystallizes into a personalized formula—ingredients precisely calibrated for your skin.",
-            color: "from-teal-500 to-pink-500",
+            color: "from-[#8AAEC0] to-[#3C7795]",
             icon: (
                 <svg className="w-12 h-12" viewBox="0 0 48 48" fill="none">
                     <path d="M24 8v8M24 32v8M8 24h8M32 24h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -256,7 +256,7 @@ function StepCard({ step, index }) {
 
                     {/* Content */}
                     <h3 className="font-serif text-2xl text-white mb-2">{step.title}</h3>
-                    <p className="text-sm text-purple-400/80 mb-4">{step.subtitle}</p>
+                    <p className="text-sm text-[#8AAEC0]/80 mb-4">{step.subtitle}</p>
                     <p className="text-white/50 text-sm leading-relaxed">{step.description}</p>
                 </div>
             </div>

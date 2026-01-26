@@ -2,14 +2,12 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 /**
- * Video Section - LUXURY TECH Aesthetic
+ * Video Section - STRICT 4-COLOR PALETTE
  * 
- * STRICT PALETTE:
- * - Highlight: #3C7795 (Cyan)
- * - Mist: #8AAEC0 (Secondary text)
- * - Surface: #082B35 (Cards)
- * - Void: #000000 (Background)
- * - NO PURPLE
+ * ONLY THESE COLORS:
+ * - #000000 (Global Background)
+ * - #8AAEC0 (Mist Glass)
+ * - #3C7795 (Cyan Highlight)
  */
 export default function VideoSection() {
     const containerRef = useRef(null);
@@ -32,14 +30,14 @@ export default function VideoSection() {
                 className="max-w-screen-xl mx-auto px-6 lg:px-16"
                 style={{ opacity, scale }}
             >
-                {/* Video Container - Luxury Tech Card */}
+                {/* Video Container - Mist Glass */}
                 <div className="relative aspect-video rounded-2xl overflow-hidden 
-                                bg-gradient-to-br from-[#082B35] to-black 
+                                bg-[#8AAEC0]/5 backdrop-blur-md 
                                 border border-[#8AAEC0]/20">
                     {/* Video Placeholder */}
                     <div className="absolute inset-0">
                         {/* Subtle Cyan Gradient Glow */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#3C7795]/10 via-transparent to-[#1E5672]/10" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#3C7795]/10 via-transparent to-[#8AAEC0]/5" />
 
                         {/* Animated Grain */}
                         <div
@@ -50,23 +48,23 @@ export default function VideoSection() {
                         />
                     </div>
 
-                    {/* Dark Overlay */}
+                    {/* Dark Overlay - Uses #0B1518 */}
                     <div className="absolute inset-0 bg-black/40" />
 
-                    {/* Play Button - Cyan accent */}
+                    {/* Play Button - #3C7795 accent */}
                     <div className="absolute inset-0 flex items-center justify-center">
                         <motion.button
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
                             className="w-20 h-20 md:w-24 md:h-24 rounded-full 
-                                       bg-[#082B35]/50 border border-[#3C7795]/50 
+                                       bg-[#8AAEC0]/10 border border-[#3C7795]/50 
                                        flex items-center justify-center 
-                                       hover:bg-[#082B35]/70 hover:border-[#3C7795] 
+                                       hover:bg-[#8AAEC0]/20 hover:border-[#3C7795] 
                                        hover:shadow-[0_0_30px_-10px_rgba(60,119,149,0.50)]
                                        transition-all duration-300"
                         >
                             <svg
-                                className="w-8 h-8 md:w-10 md:h-10 text-white ml-1"
+                                className="w-8 h-8 md:w-10 md:h-10 text-[#8AAEC0] ml-1"
                                 fill="currentColor"
                                 viewBox="0 0 24 24"
                             >
@@ -80,13 +78,13 @@ export default function VideoSection() {
                         <p className="text-[10px] uppercase tracking-[0.2em] text-[#8AAEC0]/50 mb-1 font-sans">
                             Brand Film
                         </p>
-                        <h3 className="font-serif text-xl md:text-2xl text-white">
+                        <h3 className="font-serif text-xl md:text-2xl text-[#8AAEC0]">
                             The Science of You
                         </h3>
                     </div>
                 </div>
 
-                {/* Text Below - Mist color */}
+                {/* Text Below - #8AAEC0 */}
                 <motion.div
                     className="mt-16 text-left max-w-2xl"
                     initial={{ opacity: 0, y: 30 }}
@@ -95,8 +93,8 @@ export default function VideoSection() {
                     viewport={{ once: true }}
                 >
                     <p className="text-lg md:text-xl text-[#8AAEC0] leading-relaxed font-sans">
-                        Every face tells a story. AURA listens—using advanced AI to decode
-                        your skin's unique needs and craft solutions that work for <em className="text-white not-italic">you</em>.
+                        Every face tells a story. AXIOM listens—using advanced AI to decode
+                        your skin's unique needs and craft solutions that work for <em className="text-[#3C7795] not-italic">you</em>.
                     </p>
                 </motion.div>
             </motion.div>

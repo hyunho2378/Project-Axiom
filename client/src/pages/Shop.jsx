@@ -7,10 +7,9 @@ import { ALL_PRODUCTS } from '../data/productsData';
  * 
  * STRICT PALETTE:
  * - Highlight: #3C7795 (Cyan)
- * - Mist: #8AAEC0 (Secondary text)
- * - Surface: #082B35 (Cards)
+ * - Mist: #8AAEC0 (Text + Glass Cards)
  * - Void: #000000 (Background)
- * - NO PURPLE / NO GRAY
+ * - NO PURPLE / NO #082B35
  */
 export default function Shop() {
     const userSkinType = "수부지";
@@ -32,9 +31,9 @@ export default function Shop() {
                         AI Personalized
                     </p>
 
-                    {/* Title - Stark White */}
-                    <h1 className="text-4xl md:text-5xl font-serif text-white mb-4 leading-tight">
-                        <span className="text-white">{userName}</span>님을 위한<br />
+                    {/* Title - #8AAEC0 */}
+                    <h1 className="text-4xl md:text-5xl font-serif text-[#8AAEC0] mb-4 leading-tight">
+                        <span className="text-[#8AAEC0]">{userName}</span>님을 위한<br />
                         <span className="text-gradient-cyan">맞춤 처방</span>
                     </h1>
 
@@ -57,7 +56,7 @@ export default function Shop() {
                 >
                     <div className="px-4 py-2 bg-gradient-to-r from-[#1E5672]/30 to-[#3C7795]/30 border border-[#3C7795]/30 rounded-full">
                         <span className="text-sm font-sans text-[#8AAEC0]">
-                            피부 타입: <span className="font-bold text-white">{userSkinType}</span>
+                            피부 타입: <span className="font-bold text-[#8AAEC0]">{userSkinType}</span>
                         </span>
                     </div>
                     <span className="text-sm text-[#8AAEC0]/50 font-sans">
@@ -86,11 +85,11 @@ export default function Shop() {
                                     to={`/shop/${product.id}`}
                                     className="group block"
                                 >
-                                    {/* Card - LUXURY TECH */}
+                                    {/* Card - MIST GLASS STYLE */}
                                     <div className="relative rounded-3xl overflow-hidden
-                                                    bg-gradient-to-br from-[#082B35] to-black
+                                                    bg-[#8AAEC0]/5 backdrop-blur-md
                                                     border border-[#8AAEC0]/20 
-                                                    hover:border-[#3C7795]/50
+                                                    hover:bg-[#8AAEC0]/10 hover:border-[#3C7795]/50
                                                     hover:shadow-[0_0_30px_-10px_rgba(60,119,149,0.30)]
                                                     transition-all duration-300">
 
@@ -107,7 +106,7 @@ export default function Shop() {
                                         {product.tag && (
                                             <div className="absolute top-3 right-3 z-10">
                                                 <span className="px-2 py-0.5 text-[9px] uppercase tracking-wider font-sans
-                                                               bg-[#082B35]/70 text-[#8AAEC0] rounded-full border border-[#8AAEC0]/20">
+                                                               bg-[#8AAEC0]/10 text-[#8AAEC0] rounded-full border border-[#8AAEC0]/20">
                                                     {product.tag}
                                                 </span>
                                             </div>
@@ -126,7 +125,7 @@ export default function Shop() {
                                             </p>
 
                                             {/* Name */}
-                                            <h3 className="font-serif text-base text-white mb-1 group-hover:text-[#3C7795] transition-colors">
+                                            <h3 className="font-serif text-base text-[#8AAEC0] mb-1 group-hover:text-[#3C7795] transition-colors">
                                                 {product.name}
                                             </h3>
 

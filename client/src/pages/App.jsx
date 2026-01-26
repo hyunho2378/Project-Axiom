@@ -1,27 +1,30 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 
-// Context
-import { LanguageProvider } from './context/LanguageContext';
+// Context (now relative to pages folder)
+import { LanguageProvider } from '../context/LanguageContext';
 
-// Components
-import Header from './components/Header';
-import Footer from './components/Footer';
-import AuthModal from './components/AuthModal';
-import ScrollToTop from './components/ScrollToTop';
+// Components (now relative to pages folder)
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import AuthModal from '../components/AuthModal';
+import ScrollToTop from '../components/ScrollToTop';
 
-// Pages
-import Home from './pages/Home';
-import AuraStory from './pages/AuraStory';
-import BrandStory from './pages/BrandStory';
-import Shop from './pages/Shop';
-import Curations from './pages/Curations';
-import Dashboard from './pages/Dashboard';
-import Algorithm from './pages/Algorithm';
-import ProductDetail from './pages/ProductDetail';
-import Campaigns from './pages/Campaigns';
-import Concierge from './pages/Concierge';
-import Diagnosis from './pages/Diagnosis';
+// Pages (now in same folder)
+import Home from './Home';
+import AuraStory from './AuraStory';
+import BrandStory from './BrandStory';
+import Shop from './Shop';
+import Curations from './Curations';
+import Dashboard from './Dashboard';
+import Algorithm from './Algorithm';
+import ProductDetail from './ProductDetail';
+import Campaigns from './Campaigns';
+import Concierge from './Concierge';
+import Diagnosis from './Diagnosis';
+import Analysis from './Analysis';
+import TeamPage from './TeamPage';
+import MySpacePage from './MySpacePage';
 
 /**
  * App Layout - Wraps all routes with Header and Footer
@@ -101,9 +104,12 @@ function AppContent() {
                 {/* Algorithm Lab */}
                 <Route path="/algorithm" element={<AppLayout {...layoutProps}><Algorithm /></AppLayout>} />
 
-                {/* Analysis (renamed from Diagnosis) */}
-                <Route path="/analysis" element={<AppLayout {...layoutProps}><Diagnosis /></AppLayout>} />
+                {/* Legacy Diagnosis (20-type engine with 3D blob) */}
                 <Route path="/diagnosis" element={<AppLayout {...layoutProps}><Diagnosis /></AppLayout>} />
+
+                {/* AI Skin Analysis (Hybrid Architecture - New) */}
+                <Route path="/skin-analysis" element={<AppLayout {...layoutProps}><Analysis /></AppLayout>} />
+                <Route path="/analysis" element={<AppLayout {...layoutProps}><Analysis /></AppLayout>} />
 
                 {/* Curations */}
                 <Route path="/curations" element={<AppLayout {...layoutProps}><Curations /></AppLayout>} />
@@ -121,6 +127,12 @@ function AppContent() {
 
                 {/* Dashboard */}
                 <Route path="/dashboard" element={<AppLayout {...layoutProps}><Dashboard user={user} isLoggedIn={isLoggedIn} /></AppLayout>} />
+
+                {/* Team DYT - Hidden Easter Egg */}
+                <Route path="/team-dyt" element={<AppLayout {...layoutProps}><TeamPage /></AppLayout>} />
+
+                {/* My Space - 3D Showroom */}
+                <Route path="/my-space" element={<AppLayout {...layoutProps}><MySpacePage /></AppLayout>} />
             </Routes>
 
             <AuthModal

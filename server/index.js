@@ -1,12 +1,123 @@
+import 'dotenv/config'; // env 비밀번호 불러오기
 import express from 'express';
 import cors from 'cors';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+// Initialize Gemini AI (requires GEMINI_API_KEY environment variable)
+const genAI = process.env.GEMINI_API_KEY
+    ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+    : null;
+
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// ============================================
+// AI Skin Analysis Endpoint (Hybrid Architecture)
+// Client-side: Rule-based scoring (100% accurate)
+// Server-side: Gemini AI for poetic advice
+// ============================================
+
+app.post('/api/analyze', async (req, res) => {
+    const { oilScore, sensScore, skinType } = req.body;
+
+    if (oilScore === undefined || sensScore === undefined || !skinType) {
+        return res.status(400).json({
+            success: false,
+            message: 'Missing required fields: oilScore, sensScore, skinType'
+        });
+    }
+
+    // Default professional advice based on skin type
+    const getDefaultAdvice = (type, oil, sens) => {
+        const isOily = oil > 50;
+        const isSensitive = sens > 50;
+
+        if (isOily && isSensitive) {
+            return {
+                headline: "유분 조절과 진정이 동시에 필요합니다",
+                advice: "나이아신아마이드와 센텔라아시아티카 성분이 도움됩니다. 가벼운 수분 젤 제형을 선택하고, 자극적인 클렌저는 피하세요."
+            };
+        } else if (isOily) {
+            return {
+                headline: "피지 조절에 집중하세요",
+                advice: "BHA(살리실산) 성분으로 모공 관리를 하고, 오일프리 보습제를 사용하세요. 주 1-2회 클레이 마스크가 효과적입니다."
+            };
+        } else if (isSensitive) {
+            return {
+                headline: "피부 장벽 강화가 우선입니다",
+                advice: "세라마이드와 판테놀 성분으로 장벽을 보호하세요. 무향료, 저자극 제품을 선택하고 새 제품은 패치 테스트 후 사용하세요."
+            };
+        } else {
+            return {
+                headline: "수분 공급에 집중하세요",
+                advice: "히알루론산과 글리세린이 함유된 보습제를 사용하세요. 주 2-3회 보습 마스크팩으로 수분을 채워주면 좋습니다."
+            };
+        }
+    };
+
+    // If Gemini API is not configured, return professional default advice
+    if (!genAI) {
+        console.log('⚠️  GEMINI_API_KEY not set, using default advice');
+        return res.json({
+            success: true,
+            advice: getDefaultAdvice(skinType, oilScore, sensScore)
+        });
+    }
+
+    try {
+        const model = genAI.getGenerativeModel({ model: 'gemini-flash-latest' });
+
+        const prompt = `역할: 당신은 피부과 전문의이자 화장품 성분 전문가입니다.
+
+분석 데이터:
+- 피부 타입: ${skinType}
+- 유분도: ${oilScore}/100 (50 이상 = 지성, 50 미만 = 건성)
+- 민감도: ${sensScore}/100 (50 이상 = 민감성, 50 미만 = 저항성)
+
+지시사항:
+1. 위 데이터를 바탕으로 한국어로 전문적인 스킨케어 조언을 작성하세요.
+2. 구체적인 성분명을 언급하세요 (예: 히알루론산, 세라마이드, 나이아신아마이드, BHA, 비타민C 등).
+3. 실천 가능한 루틴 팁을 포함하세요.
+4. 시적 표현이나 은유는 절대 사용하지 마세요. 전문적이고 명확하게 작성하세요.
+5. 짧고 간결하게 작성하세요.
+
+다음 JSON 형식으로 정확히 응답하세요:
+{"headline": "핵심 조언 한 줄 (15자 이내)", "advice": "구체적인 성분과 루틴 조언 (2-3문장)"}`;
+
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
+
+        try {
+            const cleanText = text.replace(/```json\n?|\n?```/g, '').trim();
+            const advice = JSON.parse(cleanText);
+
+            res.json({
+                success: true,
+                advice: {
+                    headline: advice.headline || "맞춤 스킨케어 조언",
+                    advice: advice.advice || "피부 타입에 맞는 제품을 선택하세요."
+                }
+            });
+        } catch (parseError) {
+            console.log('Parse error, using default:', text);
+            res.json({
+                success: true,
+                advice: getDefaultAdvice(skinType, oilScore, sensScore)
+            });
+        }
+    } catch (error) {
+        console.error('Gemini API error:', error);
+        res.json({
+            success: true,
+            advice: getDefaultAdvice(skinType, oilScore, sensScore)
+        });
+    }
+});
 
 // ============================================
 // Mock Auth Controller

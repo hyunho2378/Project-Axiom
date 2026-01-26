@@ -76,7 +76,7 @@ export default function Curations() {
                         <p className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-sans mb-4">
                             Curated For You
                         </p>
-                        <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white leading-tight mb-4">
+                        <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#8AAEC0] leading-tight mb-4">
                             Rituals Designed<br />
                             <span className="text-gradient-cyan">For Your Skin</span>
                         </h1>
@@ -105,7 +105,7 @@ export default function Curations() {
                                     px-3 py-1.5 rounded-full text-xs font-sans tracking-wide transition-all duration-300
                                     ${activeSkinType === type
                                         ? 'bg-gradient-to-r from-[#1E5672] to-[#3C7795] text-white border border-white/15'
-                                        : 'bg-[#082B35]/50 text-[#8AAEC0] hover:text-white hover:bg-[#082B35]/70 border border-[#8AAEC0]/15'
+                                        : 'bg-[#8AAEC0]/5 text-[#8AAEC0] hover:text-white hover:bg-[#8AAEC0]/10 border border-[#8AAEC0]/15'
                                     }
                                 `}
                             >
@@ -168,11 +168,11 @@ export default function Curations() {
                                     to={`/curations/${product.id}`}
                                     className="group block"
                                 >
-                                    {/* Card - LUXURY TECH */}
+                                    {/* Card - MIST GLASS STYLE */}
                                     <div className="relative rounded-3xl overflow-hidden
-                                                    bg-gradient-to-br from-[#082B35] to-black
+                                                    bg-[#8AAEC0]/5 backdrop-blur-md
                                                     border border-[#8AAEC0]/20 
-                                                    hover:border-[#3C7795]/50
+                                                    hover:bg-[#8AAEC0]/10 hover:border-[#3C7795]/50
                                                     hover:shadow-[0_0_30px_-10px_rgba(60,119,149,0.30)]
                                                     transition-all duration-300">
 
@@ -188,7 +188,7 @@ export default function Curations() {
 
                                         {/* Skin Type Badge */}
                                         <div className="absolute top-3 right-3 z-10">
-                                            <span className="px-2 py-0.5 text-[9px] font-sans text-[#3C7795] bg-[#082B35]/70 rounded-full border border-[#3C7795]/30">
+                                            <span className="px-2 py-0.5 text-[9px] font-sans text-[#3C7795] bg-[#8AAEC0]/10 rounded-full border border-[#3C7795]/30">
                                                 {product.skinType}
                                             </span>
                                         </div>
@@ -206,7 +206,7 @@ export default function Curations() {
                                             </p>
 
                                             {/* Name */}
-                                            <h3 className="font-serif text-sm text-white mb-1 group-hover:text-[#3C7795] transition-colors line-clamp-1">
+                                            <h3 className="font-serif text-sm text-[#8AAEC0] mb-1 group-hover:text-[#3C7795] transition-colors line-clamp-1">
                                                 {product.name}
                                             </h3>
 
@@ -245,7 +245,7 @@ export default function Curations() {
                                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300
                                     ${currentPage === 1
                                         ? 'text-[#8AAEC0]/20 cursor-not-allowed'
-                                        : 'text-[#8AAEC0] hover:text-white hover:bg-[#082B35]/50'
+                                        : 'text-[#8AAEC0] hover:text-white hover:bg-[#8AAEC0]/10'
                                     }`}
                             >
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -264,7 +264,7 @@ export default function Curations() {
                                             ? 'bg-gradient-to-r from-[#1E5672] to-[#3C7795] text-white font-bold border border-white/15'
                                             : page === '...'
                                                 ? 'text-[#8AAEC0]/40 cursor-default'
-                                                : 'text-[#8AAEC0] hover:text-white hover:bg-[#082B35]/50'
+                                                : 'text-[#8AAEC0] hover:text-white hover:bg-[#8AAEC0]/10'
                                         }`}
                                 >
                                     {page}
@@ -278,7 +278,7 @@ export default function Curations() {
                                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300
                                     ${currentPage === totalPages
                                         ? 'text-[#8AAEC0]/20 cursor-not-allowed'
-                                        : 'text-[#8AAEC0] hover:text-white hover:bg-[#082B35]/50'
+                                        : 'text-[#8AAEC0] hover:text-white hover:bg-[#8AAEC0]/10'
                                     }`}
                             >
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

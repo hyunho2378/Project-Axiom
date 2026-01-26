@@ -32,10 +32,10 @@ export default function Dashboard({ user, isLoggedIn }) {
             { id: 2, name: 'Vitamin C Brightening', price: 72000 }
         ],
         skinMetrics: [
-            { label: 'Hydration', value: 72, color: 'bg-blue-500' },
-            { label: 'Elasticity', value: 85, color: 'bg-purple-500' },
-            { label: 'Pore Size', value: 68, color: 'bg-pink-500' },
-            { label: 'Brightness', value: 80, color: 'bg-amber-500' }
+            { label: 'Hydration', value: 72, color: 'bg-[#3C7795]' },
+            { label: 'Elasticity', value: 85, color: 'bg-[#1E5672]' },
+            { label: 'Pore Size', value: 68, color: 'bg-[#8AAEC0]' },
+            { label: 'Brightness', value: 80, color: 'bg-[#3C7795]' }
         ]
     };
 
@@ -69,7 +69,7 @@ export default function Dashboard({ user, isLoggedIn }) {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="lg:col-span-2 p-8 rounded-3xl bg-gradient-to-br from-purple-500/10 via-blue-500/5 to-transparent border border-white/[0.08]"
+                        className="lg:col-span-2 p-8 rounded-3xl bg-gradient-to-br from-[#1E5672]/10 via-[#3C7795]/5 to-transparent border border-white/[0.08]"
                     >
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                             <div>
@@ -105,8 +105,8 @@ export default function Dashboard({ user, isLoggedIn }) {
                                     />
                                     <defs>
                                         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                            <stop offset="0%" stopColor="#a855f7" />
-                                            <stop offset="100%" stopColor="#3b82f6" />
+                                            <stop offset="0%" stopColor="#3C7795" />
+                                            <stop offset="100%" stopColor="#8AAEC0" />
                                         </linearGradient>
                                     </defs>
                                 </svg>
@@ -165,7 +165,7 @@ export default function Dashboard({ user, isLoggedIn }) {
                             <h3 className="text-sm uppercase tracking-wider text-white/50">
                                 Recommended for You
                             </h3>
-                            <a href="/shop" className="text-sm text-purple-400 hover:text-purple-300 transition-colors">
+                            <a href="/shop" className="text-sm text-[#8AAEC0] hover:text-[#3C7795] transition-colors">
                                 View All →
                             </a>
                         </div>
@@ -175,11 +175,11 @@ export default function Dashboard({ user, isLoggedIn }) {
                                     key={product.name}
                                     className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] transition-colors cursor-pointer"
                                 >
-                                    <div className="w-full h-24 rounded-xl bg-gradient-to-br from-purple-500/20 to-blue-500/10 mb-4 flex items-center justify-center">
+                                    <div className="w-full h-24 rounded-xl bg-gradient-to-br from-[#1E5672]/20 to-[#3C7795]/10 mb-4 flex items-center justify-center">
                                         <div className="w-8 h-14 rounded-lg bg-white/10" />
                                     </div>
                                     <h4 className="text-sm font-medium text-white mb-1">{product.name}</h4>
-                                    <p className="text-xs text-purple-400">{product.match}% match</p>
+                                    <p className="text-xs text-[#8AAEC0]">{product.match}% match</p>
                                 </div>
                             ))}
                         </div>
@@ -201,7 +201,7 @@ export default function Dashboard({ user, isLoggedIn }) {
                                     key={product.id}
                                     className="flex items-center gap-4 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]"
                                 >
-                                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500/20 to-pink-500/10 flex-shrink-0" />
+                                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#1E5672]/20 to-[#3C7795]/10 flex-shrink-0" />
                                     <div className="flex-1 min-w-0">
                                         <h4 className="text-sm font-medium text-white truncate">{product.name}</h4>
                                         <p className="text-xs text-white/50">

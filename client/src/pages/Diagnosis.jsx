@@ -1,26 +1,105 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import diagnosisData from '../data/diagnosisData.json';
+import { Canvas } from '@react-three/fiber';
+import { Environment } from '@react-three/drei';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
+import EvolvingBlob, { EvolvingParticles } from '../components/EvolvingBlob';
+import { QUESTIONS, generateResult } from '../data/questions';
 
 /**
- * Diagnosis Page - AI Skin Type Quiz
+ * Diagnosis Page - Split Screen Layout with Evolving 3D Blob
  * 
- * LUXURY TECH AESTHETIC - NO PURPLE
+ * LAYOUT:
+ * - Desktop: Left (50% sticky 3D) | Right (50% scrollable UI)
+ * - Mobile: Stacked (Top 3D, Bottom UI)
  * 
- * STRICT PALETTE:
- * - #000000 (Black - Background)
- * - #082B35 (Darkest Teal - Surface)
- * - #1E5672 (Deep Teal - Accent)
- * - #3C7795 (Cyan - Highlight)
- * - #8AAEC0 (Mist - Secondary Text)
- * - #FFFFFF (White - Primary Text)
+ * 3D EVOLUTION:
+ * - Blob evolves through 11 stages (0-10) as questions are answered
+ * - Uses procedural MeshDistortMaterial (no external models)
+ * 
+ * COLORS:
+ * - #000000 (Black Background)
+ * - #8AAEC0 (Mist Text)
+ * - #3C7795 (Cyan Accent)
  */
+
+// 3D Scene with Evolving Blob
+function BlobScene({ step }) {
+    return (
+        <Canvas
+            camera={{ position: [0, 0, 6], fov: 45 }}
+            dpr={[1, 2]}
+            gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
+            onCreated={({ gl }) => gl.setClearColor('#000000')}
+        >
+            <Suspense fallback={null}>
+                {/* Lighting */}
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} intensity={2} color="#3C7795" />
+                <pointLight position={[-10, -10, -10]} intensity={1} color="#8AAEC0" />
+                <spotLight
+                    position={[0, 10, 0]}
+                    angle={0.5}
+                    penumbra={1}
+                    intensity={2}
+                    color="#00E0FF"
+                    castShadow={false}
+                />
+
+                {/* Environment for reflections */}
+                <Environment preset="night" />
+
+                {/* The Evolving Blob */}
+                <EvolvingBlob step={step} />
+
+                {/* Orbiting Particles */}
+                <EvolvingParticles step={step} count={60} />
+
+                {/* Post-processing bloom */}
+                <EffectComposer>
+                    <Bloom
+                        luminanceThreshold={0.2}
+                        luminanceSmoothing={0.9}
+                        intensity={0.8 + (step / 10) * 0.8}
+                        mipmapBlur
+                    />
+                </EffectComposer>
+            </Suspense>
+        </Canvas>
+    );
+}
+
+// Progress indicator component
+function ProgressBar({ current, total }) {
+    const progress = ((current + 1) / total) * 100;
+
+    return (
+        <div className="w-full mb-8">
+            <div className="flex justify-between items-center mb-3">
+                <span className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-sans">
+                    Progress
+                </span>
+                <span className="text-sm text-[#8AAEC0]/60 font-sans">
+                    {current + 1} / {total}
+                </span>
+            </div>
+            <div className="w-full h-[2px] bg-[#8AAEC0]/10 rounded-full overflow-hidden">
+                <motion.div
+                    className="h-full bg-gradient-to-r from-[#1E5672] via-[#3C7795] to-[#00E0FF]"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progress}%` }}
+                    transition={{ duration: 0.5, ease: 'easeOut' }}
+                />
+            </div>
+        </div>
+    );
+}
+
 export default function Diagnosis() {
     const navigate = useNavigate();
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [scores, setScores] = useState({ O: 0, D: 0, S: 0, Normal: 0 });
-    const [flagCombination, setFlagCombination] = useState(false);
+    const [answers, setAnswers] = useState({}); // { q1: score, q2: score, ... }
     const [selectedOption, setSelectedOption] = useState(null);
     const [isAnimating, setIsAnimating] = useState(false);
     const [showResult, setShowResult] = useState(false);
@@ -29,52 +108,26 @@ export default function Diagnosis() {
     const [recommendedProducts, setRecommendedProducts] = useState([]);
     const [isSaving, setIsSaving] = useState(false);
 
-    const questions = diagnosisData.questions;
-    const totalQuestions = questions.length;
-    const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+    const totalQuestions = QUESTIONS.length;
 
-    // Calculate Result Type based on scores
+    // Calculate Result using new 20-type engine
     const calculateResult = () => {
-        const { logic_rules, results_mapping } = diagnosisData;
-        const { thresholds, priority_order } = logic_rules;
-
-        for (const typeKey of priority_order) {
-            const threshold = thresholds[typeKey];
-
-            if (!threshold) {
-                return results_mapping[typeKey];
-            }
-
-            if (threshold.variable && scores[threshold.variable] >= threshold.min) {
-                return results_mapping[typeKey];
-            }
-
-            if (threshold.variable_1 && threshold.variable_2) {
-                if (scores[threshold.variable_1] >= threshold.min_1 &&
-                    scores[threshold.variable_2] >= threshold.min_2) {
-                    return results_mapping[typeKey];
-                }
-            }
-
-            if (threshold.flag_check && flagCombination === threshold.value) {
-                return results_mapping[typeKey];
-            }
-        }
-
-        return results_mapping['NORMAL'];
+        return generateResult(answers);
     };
 
     // Save result to API
-    const saveResultToAPI = async (result, finalScores) => {
+    const saveResultToAPI = async (result) => {
         setIsSaving(true);
         try {
             const response = await fetch('http://localhost:4000/api/diagnosis', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    resultType: result.type_name,
+                    resultType: result.title,
                     auraKeyword: result.aura_keyword,
-                    scores: finalScores
+                    axis: result.axis.code,
+                    sensitivity: result.sensitivity.code,
+                    scores: result.scores
                 })
             });
             const data = await response.json();
@@ -93,35 +146,25 @@ export default function Diagnosis() {
         setSelectedOption(index);
         setIsAnimating(true);
 
-        if (option.score) {
-            setScores(prev => {
-                const newScores = { ...prev };
-                Object.entries(option.score).forEach(([key, value]) => {
-                    newScores[key] = (newScores[key] || 0) + value;
-                });
-                return newScores;
-            });
-        }
+        const currentQ = QUESTIONS[currentQuestion];
 
-        if (option.flag_combination !== undefined) {
-            setFlagCombination(option.flag_combination);
-        }
+        // Store answer with score
+        setAnswers(prev => ({
+            ...prev,
+            [currentQ.id]: option.score
+        }));
 
         setTimeout(() => {
             if (currentQuestion < totalQuestions - 1) {
                 setCurrentQuestion(prev => prev + 1);
                 setSelectedOption(null);
             } else {
-                const result = calculateResult();
+                // Calculate final result using new engine
+                const updatedAnswers = { ...answers, [currentQ.id]: option.score };
+                const result = generateResult(updatedAnswers);
                 setResultType(result);
                 setShowResult(true);
-                const finalScores = { ...scores };
-                if (option.score) {
-                    Object.entries(option.score).forEach(([key, value]) => {
-                        finalScores[key] = (finalScores[key] || 0) + value;
-                    });
-                }
-                saveResultToAPI(result, finalScores);
+                saveResultToAPI(result);
             }
             setIsAnimating(false);
         }, 600);
@@ -129,8 +172,7 @@ export default function Diagnosis() {
 
     const handleRestart = () => {
         setCurrentQuestion(0);
-        setScores({ O: 0, D: 0, S: 0, Normal: 0 });
-        setFlagCombination(false);
+        setAnswers({});
         setSelectedOption(null);
         setShowResult(false);
         setResultType(null);
@@ -138,274 +180,346 @@ export default function Diagnosis() {
         setRecommendedProducts([]);
     };
 
-    // Intro Screen - CLEAN, NO BLUR ARTIFACTS
+    // ========================================
+    // INTRO SCREEN - Split Layout
+    // ========================================
     if (!isStarted) {
         return (
-            <div className="min-h-screen pt-24 pb-20 px-6 flex flex-col items-center justify-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="relative z-10 max-w-xl text-center"
-                >
-                    {/* Label - Cyan (NOT purple) */}
-                    <p className="text-xs uppercase tracking-[0.3em] text-[#3C7795] mb-4">
-                        AI Skin Diagnosis
-                    </p>
-                    <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-6">
-                        Discover Your<br />
-                        <span className="text-gradient-cyan">Skin Aura</span>
-                    </h1>
-                    <p className="text-[#8AAEC0] text-lg mb-10 max-w-md mx-auto">
-                        10가지 질문을 통해 당신만의 피부 타입과 맞춤형 케어 솔루션을 찾아보세요.
-                    </p>
+            <div className="min-h-screen bg-black pt-20">
+                <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-80px)]">
+                    {/* Left: 3D Blob (Stage 0 - Dormant) - Seamless, No Borders */}
+                    <div className="relative h-[50vh] lg:h-[calc(100vh-80px)] flex items-center justify-center">
+                        <BlobScene step={0} />
+                        {/* Overlay gradient for mobile */}
+                        <div className="lg:hidden absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent" />
+                    </div>
 
-                    <motion.button
-                        onClick={() => setIsStarted(true)}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="btn-primary text-base px-10 py-4"
-                    >
-                        Start Diagnosis
-                    </motion.button>
+                    {/* Right: Intro Content */}
+                    <div className="flex items-center justify-center px-6 md:px-12 py-16 lg:py-0">
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="max-w-md"
+                        >
+                            <p className="text-[11px] uppercase tracking-[0.4em] text-[#3C7795] font-sans mb-6">
+                                AI Skin Analysis
+                            </p>
+                            <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                                Discover<br />
+                                Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3C7795] to-[#8AAEC0]">Axis</span>
+                            </h1>
+                            <p className="font-sans text-lg text-[#8AAEC0]/70 leading-relaxed mb-10" style={{ wordBreak: 'keep-all' }}>
+                                10가지 질문을 통해 당신만의 피부 타입과 맞춤형 케어 솔루션을 찾아보세요.
+                                AI가 분석한 결과를 3D로 시각화합니다.
+                            </p>
 
-                    <p className="text-[#8AAEC0]/50 text-sm mt-6">
-                        약 2-3분 소요
-                    </p>
-                </motion.div>
+                            <motion.button
+                                onClick={() => setIsStarted(true)}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="inline-flex items-center justify-center px-10 py-4 font-sans text-base font-semibold text-black bg-gradient-to-r from-[#3C7795] to-[#8AAEC0] rounded-full transition-all duration-300 hover:shadow-[0_0_40px_rgba(60,119,149,0.5)]"
+                            >
+                                Start Analysis
+                            </motion.button>
+
+                            <p className="font-sans text-sm text-[#8AAEC0]/40 mt-6">
+                                약 2-3분 소요
+                            </p>
+                        </motion.div>
+                    </div>
+                </div>
             </div>
         );
     }
 
-    // Result Screen - CLEAN
+    // ========================================
+    // RESULT SCREEN - Split Layout with Final Evolution
+    // ========================================
     if (showResult && resultType) {
         return (
-            <div className="min-h-screen pt-24 pb-20 px-6 flex flex-col items-center justify-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                    className="relative z-10 max-w-xl text-center"
-                >
-                    <p className="text-xs uppercase tracking-[0.3em] text-[#8AAEC0]/50 mb-4">
-                        Your Skin Aura
-                    </p>
+            <div className="min-h-screen bg-black pt-20">
+                <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-80px)]">
+                    {/* Left: 3D Blob (Stage 10 - Full Evolution) - Seamless, No Borders */}
+                    <div className="relative h-[50vh] lg:h-[calc(100vh-80px)] flex items-center justify-center">
+                        <BlobScene step={10} />
+                        <div className="lg:hidden absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent" />
+                    </div>
 
-                    {/* Aura Badge - Cyan tones */}
-                    <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", duration: 0.8, delay: 0.5 }}
-                        className="relative w-32 h-32 mx-auto mb-8"
-                    >
-                        <div
-                            className="absolute inset-0 rounded-full"
-                            style={{
-                                background: `radial-gradient(circle, rgba(60,119,149,0.30) 0%, transparent 70%)`
-                            }}
-                        />
-                        <div
-                            className="relative w-full h-full rounded-full flex items-center justify-center bg-gradient-to-br from-[#1E5672] to-[#3C7795] border-2 border-[#3C7795]"
-                        >
-                            <span className="text-3xl font-serif text-white">
-                                {resultType.aura_keyword.charAt(0)}
-                            </span>
-                        </div>
-                    </motion.div>
-
-                    <motion.h1
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.7 }}
-                        className="font-serif text-3xl md:text-4xl lg:text-5xl text-white mb-3"
-                    >
-                        {resultType.aura_keyword}
-                    </motion.h1>
-
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.9 }}
-                        className="text-lg mb-4 text-[#3C7795]"
-                    >
-                        {resultType.type_name}
-                    </motion.p>
-
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1.1 }}
-                        className="text-[#8AAEC0] text-lg mb-10 max-w-md mx-auto"
-                    >
-                        {resultType.description}
-                    </motion.p>
-
-                    {/* Score Display */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1.3 }}
-                        className="bg-gradient-to-br from-[#082B35] to-black border border-[#8AAEC0]/20 rounded-2xl p-6 mb-8 text-left"
-                    >
-                        <p className="text-xs uppercase tracking-wider text-[#8AAEC0]/50 mb-4">Analysis Scores</p>
-                        <div className="grid grid-cols-4 gap-4">
-                            {Object.entries(scores).map(([key, value]) => (
-                                <div key={key} className="text-center">
-                                    <p className="text-2xl font-serif text-white">{value}</p>
-                                    <p className="text-xs text-[#8AAEC0]/50 uppercase">{key}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* Recommended Products */}
-                    {recommendedProducts.length > 0 && (
+                    {/* Right: Result Content */}
+                    <div className="flex items-start justify-center px-6 md:px-12 py-16 lg:py-24 overflow-y-auto">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1.4 }}
-                            className="mb-10"
+                            transition={{ duration: 0.8, delay: 0.3 }}
+                            className="max-w-md w-full"
                         >
-                            <p className="text-xs uppercase tracking-wider text-[#8AAEC0]/50 mb-4 text-left">Curated For You</p>
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                {recommendedProducts.map((product, index) => (
-                                    <motion.button
-                                        key={product.id}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 1.5 + index * 0.1 }}
-                                        onClick={() => navigate(`/shop/${product.id}`)}
-                                        className="bg-gradient-to-br from-[#082B35] to-black border border-[#8AAEC0]/20 rounded-xl p-4 text-left hover:border-[#3C7795]/50 transition-all"
-                                    >
-                                        <div className="w-full h-24 bg-[#082B35]/50 rounded-lg mb-3 flex items-center justify-center">
-                                            <span className="text-2xl">✨</span>
+                            <p className="text-[11px] uppercase tracking-[0.4em] text-[#3C7795] font-sans mb-4">
+                                Your Skin Axis
+                            </p>
+
+                            {/* Aura Badge */}
+                            <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ type: "spring", duration: 0.8, delay: 0.5 }}
+                                className="relative w-24 h-24 mb-8"
+                            >
+                                <div
+                                    className="absolute inset-0 rounded-full blur-xl"
+                                    style={{ background: 'radial-gradient(circle, rgba(0,224,255,0.3) 0%, transparent 70%)' }}
+                                />
+                                <div className="relative w-full h-full rounded-full flex items-center justify-center bg-gradient-to-br from-[#1E5672] to-[#3C7795] border border-[#3C7795]">
+                                    <span className="text-2xl font-bold text-white">
+                                        {resultType.aura_keyword.charAt(0)}
+                                    </span>
+                                </div>
+                            </motion.div>
+
+                            <motion.h1
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.7 }}
+                                className="font-sans text-3xl md:text-4xl font-bold text-white mb-2"
+                            >
+                                {resultType.title}
+                            </motion.h1>
+
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.9 }}
+                                className="font-sans text-lg text-[#3C7795] mb-6"
+                            >
+                                {resultType.titleKo}
+                            </motion.p>
+
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 1.1 }}
+                                className="font-sans text-base text-[#8AAEC0]/70 leading-relaxed mb-8"
+                                style={{ wordBreak: 'keep-all' }}
+                            >
+                                {resultType.description}
+                            </motion.p>
+
+                            {/* Score Display - Axis & Sensitivity */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 1.3 }}
+                                className="bg-gradient-to-b from-white/[0.08] to-transparent backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 mb-8 shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.15)]"
+                            >
+                                <p className="text-[10px] uppercase tracking-[0.25em] text-[#3C7795] font-sans mb-4">
+                                    Analysis Breakdown
+                                </p>
+                                <div className="grid grid-cols-2 gap-6">
+                                    {/* Axis Score */}
+                                    <div>
+                                        <p className="text-[10px] text-[#8AAEC0]/50 uppercase mb-2">Skin Type (Axis)</p>
+                                        <p className="text-xl font-bold text-white mb-1">{resultType.axis.label}</p>
+                                        <div className="w-full h-1 bg-[#8AAEC0]/20 rounded-full overflow-hidden">
+                                            <div
+                                                className="h-full bg-[#3C7795] rounded-full"
+                                                style={{ width: `${(resultType.scores.axisScore / resultType.scores.axisMax) * 100}%` }}
+                                            />
                                         </div>
-                                        <p className="text-sm font-medium text-white truncate">{product.nameKo || product.name}</p>
-                                        <p className="text-xs text-[#8AAEC0]/50 mt-1">₩{product.price?.toLocaleString()}</p>
-                                    </motion.button>
-                                ))}
-                            </div>
+                                    </div>
+                                    {/* Sensitivity Score */}
+                                    <div>
+                                        <p className="text-[10px] text-[#8AAEC0]/50 uppercase mb-2">Sensitivity</p>
+                                        <p className={`text-xl font-bold mb-1 ${resultType.sensitivity.pulse ? 'text-[#FF7043]' : 'text-white'}`}>
+                                            {resultType.sensitivity.prefix}
+                                        </p>
+                                        <div className="w-full h-1 bg-[#8AAEC0]/20 rounded-full overflow-hidden">
+                                            <div
+                                                className={`h-full rounded-full ${resultType.sensitivity.pulse ? 'bg-[#FF7043]' : 'bg-[#8AAEC0]'}`}
+                                                style={{ width: `${(resultType.scores.sensScore / resultType.scores.sensMax) * 100}%` }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Recommended Products */}
+                            {recommendedProducts.length > 0 && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 1.4 }}
+                                    className="mb-10"
+                                >
+                                    <p className="text-[10px] uppercase tracking-[0.25em] text-[#3C7795] font-sans mb-4">
+                                        Curated For You
+                                    </p>
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                        {recommendedProducts.map((product, index) => (
+                                            <motion.button
+                                                key={product.id}
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ delay: 1.5 + index * 0.1 }}
+                                                onClick={() => navigate(`/shop/${product.id}`)}
+                                                className="bg-[#8AAEC0]/5 backdrop-blur-md border border-[#8AAEC0]/15 rounded-xl p-4 text-left hover:bg-[#1E5672]/20 hover:border-[#3C7795]/50 transition-all"
+                                            >
+                                                <div className="w-full h-16 bg-[#8AAEC0]/10 rounded-lg mb-3 flex items-center justify-center">
+                                                    <span className="text-xl">✨</span>
+                                                </div>
+                                                <p className="text-sm font-medium text-[#8AAEC0] truncate">
+                                                    {product.nameKo || product.name}
+                                                </p>
+                                                <p className="text-xs text-[#8AAEC0]/50 mt-1">
+                                                    ₩{product.price?.toLocaleString()}
+                                                </p>
+                                            </motion.button>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            )}
+
+                            {isSaving && (
+                                <p className="font-sans text-sm text-[#8AAEC0]/50 mb-4">
+                                    분석 결과 저장 중...
+                                </p>
+                            )}
+
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 1.5 }}
+                                className="space-y-4"
+                            >
+                                {/* Primary Buttons Row */}
+                                <div className="flex flex-col sm:flex-row gap-4">
+                                    <button
+                                        onClick={() => navigate('/shop')}
+                                        className="flex-1 px-8 py-4 font-sans text-base font-semibold text-black bg-gradient-to-r from-[#3C7795] to-[#8AAEC0] rounded-full transition-all duration-300 hover:shadow-[0_0_30px_rgba(60,119,149,0.4)]"
+                                    >
+                                        맞춤 상품 보러가기
+                                    </button>
+                                    <button
+                                        onClick={handleRestart}
+                                        className="flex-1 px-8 py-4 font-sans text-base font-medium text-[#8AAEC0] bg-[#8AAEC0]/10 border border-[#8AAEC0]/30 rounded-full transition-all duration-300 hover:bg-[#8AAEC0]/20"
+                                    >
+                                        다시하기
+                                    </button>
+                                </div>
+
+                                {/* My Space CTA - Premium Full Width */}
+                                <button
+                                    onClick={() => navigate('/my-space', { state: { skinType: resultType } })}
+                                    className="w-full px-8 py-4 font-sans text-base font-semibold text-white bg-gradient-to-r from-[#1E5672] via-[#3C7795] to-[#1E5672] border border-[#8AAEC0]/40 rounded-full transition-all duration-300 hover:shadow-[0_0_40px_rgba(60,119,149,0.5)] hover:border-[#8AAEC0] group"
+                                >
+                                    <span className="flex items-center justify-center gap-2">
+                                        나만의 공간 보러가기
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform">
+                                            <path d="M5 12h14M12 5l7 7-7 7" />
+                                        </svg>
+                                    </span>
+                                </button>
+                            </motion.div>
                         </motion.div>
-                    )}
-
-                    {isSaving && (
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="text-[#8AAEC0]/50 text-sm mb-4"
-                        >
-                            분석 결과 저장 중...
-                        </motion.p>
-                    )}
-
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1.5 }}
-                        className="flex flex-col sm:flex-row gap-4 justify-center"
-                    >
-                        <button
-                            onClick={() => navigate('/shop')}
-                            className="btn-primary"
-                        >
-                            View Curated Products
-                        </button>
-                        <button
-                            onClick={handleRestart}
-                            className="btn-glass"
-                        >
-                            Retake Quiz
-                        </button>
-                    </motion.div>
-                </motion.div>
+                    </div>
+                </div>
             </div>
         );
     }
 
-    // Quiz Screen
-    const currentQ = questions[currentQuestion];
+    // ========================================
+    // QUIZ SCREEN - Split Layout with Evolving Blob
+    // ========================================
+    const currentQ = QUESTIONS[currentQuestion];
 
     return (
-        <div className="min-h-screen pt-24 pb-20 px-6">
-            {/* Progress Bar - Cyan gradient (NOT purple) */}
-            <div className="fixed top-[80px] left-0 right-0 h-0.5 bg-[#8AAEC0]/10 z-40">
-                <motion.div
-                    className="h-full bg-gradient-to-r from-[#1E5672] to-[#3C7795]"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${progress}%` }}
-                    transition={{ duration: 0.5 }}
-                />
-            </div>
+        <div className="min-h-screen bg-black pt-20">
+            <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-80px)]">
+                {/* Left: 3D Blob (Evolution based on currentQuestion) - Seamless, No Borders */}
+                <div className="relative h-[40vh] lg:h-[calc(100vh-80px)] flex items-center justify-center">
+                    <BlobScene step={currentQuestion} />
+                    {/* Mobile gradient overlay */}
+                    <div className="lg:hidden absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black to-transparent" />
 
-            {/* Question Counter */}
-            <div className="max-w-2xl mx-auto pt-8 mb-12 text-center">
-                <span className="text-[#8AAEC0]/50 text-sm">
-                    Question {currentQuestion + 1} / {totalQuestions}
-                </span>
-            </div>
+                    {/* Stage indicator (desktop only) */}
+                    <div className="hidden lg:block absolute bottom-8 left-8">
+                        <p className="text-[10px] uppercase tracking-[0.3em] text-[#8AAEC0]/40 font-sans mb-2">
+                            Evolution Stage
+                        </p>
+                        <p className="text-2xl font-bold text-[#3C7795]">
+                            {currentQuestion + 1}<span className="text-[#8AAEC0]/30">/10</span>
+                        </p>
+                    </div>
+                </div>
 
-            {/* Question Card */}
-            <div className="max-w-2xl mx-auto">
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={currentQuestion}
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -50 }}
-                        transition={{ duration: 0.4 }}
-                        className="text-center mb-12"
-                    >
-                        <h2 className="font-serif text-2xl md:text-3xl text-white leading-relaxed">
-                            {currentQ.question}
-                        </h2>
-                    </motion.div>
-                </AnimatePresence>
+                {/* Right: Question UI */}
+                <div className="flex flex-col justify-center px-6 md:px-12 py-12 lg:py-24">
+                    <div className="max-w-lg mx-auto w-full">
+                        {/* Progress Bar */}
+                        <ProgressBar current={currentQuestion} total={totalQuestions} />
 
-                {/* Options - Cyan selection (NOT purple) */}
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={`options-${currentQuestion}`}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="space-y-4"
-                    >
-                        {currentQ.options.map((option, index) => (
-                            <motion.button
-                                key={index}
-                                onClick={() => handleOptionSelect(option, index)}
-                                disabled={isAnimating}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                                whileHover={{ scale: 1.01 }}
-                                whileTap={{ scale: 0.99 }}
-                                className={`
-                                    w-full p-5 text-left rounded-2xl transition-all duration-300
-                                    ${selectedOption === index
-                                        ? 'bg-gradient-to-r from-[#1E5672] to-[#3C7795] border-[#3C7795]'
-                                        : 'bg-gradient-to-br from-[#082B35] to-black border border-[#8AAEC0]/20 hover:border-[#3C7795]/50'
-                                    }
-                                `}
+                        {/* Question */}
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={currentQuestion}
+                                initial={{ opacity: 0, x: 30 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -30 }}
+                                transition={{ duration: 0.4 }}
+                                className="mb-10"
                             >
-                                <span className="text-white/90 text-lg">
-                                    {option.text}
-                                </span>
-                            </motion.button>
-                        ))}
-                    </motion.div>
-                </AnimatePresence>
-            </div>
+                                <h2 className="font-sans text-2xl md:text-3xl font-bold text-white leading-relaxed" style={{ wordBreak: 'keep-all' }}>
+                                    {currentQ.question}
+                                </h2>
+                            </motion.div>
+                        </AnimatePresence>
 
-            {/* Skip Button */}
-            <div className="max-w-2xl mx-auto mt-10 text-center">
-                <button
-                    onClick={handleRestart}
-                    className="text-[#8AAEC0]/30 hover:text-[#8AAEC0]/50 text-sm transition-colors"
-                >
-                    처음부터 다시 시작
-                </button>
+                        {/* Options */}
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={`options-${currentQuestion}`}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="space-y-4"
+                            >
+                                {currentQ.options.map((option, index) => (
+                                    <motion.button
+                                        key={index}
+                                        onClick={() => handleOptionSelect(option, index)}
+                                        disabled={isAnimating}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: index * 0.1 }}
+                                        whileHover={{ scale: 1.01 }}
+                                        whileTap={{ scale: 0.99 }}
+                                        className={`
+                                            w-full p-5 text-left rounded-2xl transition-all duration-300
+                                            ${selectedOption === index
+                                                ? 'bg-gradient-to-r from-[#1E5672] to-[#3C7795] border border-[#3C7795]'
+                                                : 'bg-[#8AAEC0]/5 backdrop-blur-md border border-[#8AAEC0]/15 hover:bg-[#1E5672]/20 hover:border-[#3C7795]/40'
+                                            }
+                                        `}
+                                    >
+                                        <span className="font-sans text-base text-[#8AAEC0]" style={{ wordBreak: 'keep-all' }}>
+                                            {option.text}
+                                        </span>
+                                    </motion.button>
+                                ))}
+                            </motion.div>
+                        </AnimatePresence>
+
+                        {/* Restart Link */}
+                        <div className="mt-10 text-center">
+                            <button
+                                onClick={handleRestart}
+                                className="font-sans text-sm text-[#8AAEC0]/30 hover:text-[#8AAEC0]/60 transition-colors"
+                            >
+                                처음부터 다시 시작
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

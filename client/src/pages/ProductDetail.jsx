@@ -7,10 +7,9 @@ import { ALL_PRODUCTS } from '../data/productsData';
  * 
  * STRICT PALETTE:
  * - Highlight: #3C7795 (Cyan)
- * - Mist: #8AAEC0 (Secondary text)
- * - Surface: #082B35 (Cards)
+ * - Mist: #8AAEC0 (Text + Glass Cards)
  * - Void: #000000 (Background)
- * - NO PURPLE
+ * - NO PURPLE / NO #082B35
  * 
  * Layout preserved: max-w-screen-xl mx-auto px-6 lg:px-16
  */
@@ -54,7 +53,7 @@ export default function ProductDetail() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5 }}
                         className={`md:col-span-5 w-full h-[400px] md:h-full rounded-2xl relative overflow-hidden 
-                                    border border-[#8AAEC0]/20 shadow-2xl ${product.imageColor || 'bg-[#082B35]'}`}
+                                    border border-[#8AAEC0]/20 shadow-2xl ${product.imageColor || 'bg-[#8AAEC0]/10'}`}
                     >
                         {/* Badge - Cyan Gradient */}
                         <div className="absolute top-4 left-4 px-3 py-1.5 
@@ -101,13 +100,13 @@ export default function ProductDetail() {
                             <div className="mt-6">
                                 {isAnalysisMode ? (
                                     /* AI Match Score - Cyan glow */
-                                    <div className="flex items-center gap-4 p-4 rounded-xl w-fit bg-gradient-to-br from-[#082B35] to-black border border-[#3C7795]/50 shadow-[0_0_20px_-5px_rgba(60,119,149,0.25)]">
+                                    <div className="flex items-center gap-4 p-4 rounded-xl w-fit bg-[#8AAEC0]/5 backdrop-blur-md border border-[#3C7795]/50 shadow-[0_0_20px_-5px_rgba(60,119,149,0.25)]">
                                         <div className="text-[#3C7795] font-serif text-3xl font-light">{matchRate}%</div>
                                         <div className="text-xs text-[#8AAEC0] font-sans">AI Match Score</div>
                                     </div>
                                 ) : (
                                     /* Recommendation Target */
-                                    <div className="py-3 px-4 rounded-xl bg-gradient-to-br from-[#082B35] to-black border border-[#8AAEC0]/20">
+                                    <div className="py-3 px-4 rounded-xl bg-[#8AAEC0]/5 backdrop-blur-md border border-[#8AAEC0]/20">
                                         <p className="text-[10px] text-[#3C7795] mb-1 uppercase tracking-wider font-sans">
                                             Recommended For
                                         </p>
@@ -127,7 +126,7 @@ export default function ProductDetail() {
                                     <span
                                         key={ing}
                                         className="text-[10px] text-[#8AAEC0] uppercase tracking-wider 
-                                                   bg-[#082B35]/50 border border-[#8AAEC0]/20 
+                                                   bg-[#8AAEC0]/10 border border-[#8AAEC0]/20 
                                                    px-3 py-1.5 rounded-full font-sans"
                                     >
                                         {ing}

@@ -1,5 +1,5 @@
-/* Font Import - MUST be first */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Pretendard:wght@300;400;500;600;700&display=swap');
+/* Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Pretendard:wght@300;400;500;600;700&display=swap');
 
 /* Tailwind CSS Directives */
 @tailwind base;
@@ -7,41 +7,29 @@
 @tailwind utilities;
 
 /* ============================================
-   AURA Design System - LUXURY TECH AESTHETIC
-   Pure Black + Spotlight Gradients
-   NO PURPLE - ONLY Cyan (#3C7795) and Mist (#8AAEC0)
+   AXIOM Design System - PURE BLACK BACKGROUND
+   
+   COLORS:
+   1. #000000 - PURE BLACK (Global Background)
+   2. #1E5672 - Deep Teal (Cards)
+   3. #3C7795 - Cyan Highlight (Buttons/Accents)
+   4. #8AAEC0 - Mist Blue (Text)
    ============================================ */
 
 :root {
-    /* ========================================
-       STRICT COLOR PALETTE (From User Image 4)
-       ======================================== */
+    /* PURE BLACK BACKGROUND */
+    --bg-void: #000000;
+    --bg-deep: #1E5672;
+    --accent: #3C7795;
+    --text: #8AAEC0;
 
-    /* Void - Global Background */
-    --void: #000000;
-
-    /* Surface (Darkest Teal) - Cards */
-    --surface: #082B35;
-
-    /* Deep Accent (Dark Teal) - Gradient Backgrounds */
-    --deep-accent: #1E5672;
-
-    /* Highlight/Glow (Cyan) - Buttons, Icons, Active States */
-    --highlight: #3C7795;
-
-    /* Secondary Text (Mist) - Subtitles, Descriptions */
-    --mist: #8AAEC0;
-
-    /* Pure White - Headings */
-    --white: #FFFFFF;
-
-    /* Typography */
+    /* Typography - FORCE Helvetica Priority */
     --font-serif: 'Playfair Display', Georgia, serif;
-    --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-sans: 'Helvetica Neue', 'Helvetica', 'Arial', 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 /* ============================================
-   Base - LUXURY TECH Background
+   Base
    ============================================ */
 
 *,
@@ -57,11 +45,14 @@ html {
     font-size: 16px;
 }
 
-/* PURE BLACK BACKGROUND - NO GRADIENTS */
+/* PURE BLACK BACKGROUND - Force Helvetica */
 body {
-    font-family: var(--font-sans);
-    background: #000000;
-    color: var(--white);
+    margin: 0;
+    padding: 0;
+    /* English = Helvetica, Korean = Fallback */
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background-color: #000000 !important;
+    color: #8AAEC0;
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -71,6 +62,7 @@ body {
 #root {
     min-height: 100vh;
     position: relative;
+    background-color: #000000;
 }
 
 /* ============================================
@@ -85,50 +77,67 @@ body {
     font-family: var(--font-sans);
 }
 
+/* Force Helvetica for Headings - Bold, Tight Tracking */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    font-family: var(--font-serif);
-    font-weight: 500;
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.1;
-    color: var(--white);
+    color: #8AAEC0;
+}
+
+p {
+    color: #8AAEC0;
 }
 
 /* ============================================
-   CARDS - Luxury Tech Style
+   Text Gradient
    ============================================ */
 
-.glass {
-    background: linear-gradient(135deg, #082B35 0%, #000000 100%);
-    border: 1px solid rgba(138, 174, 192, 0.20);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.50);
+.text-gradient-cyan {
+    background: linear-gradient(135deg, #3C7795 0%, #1E5672 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
+/* ============================================
+   Cards - CRYSTAL GLASS STYLE (Apple Vision Pro)
+   - NO GRAY: Pure white alpha only
+   - Inner shadow for glass thickness
+   - Clean subtle borders
+   ============================================ */
+
 .glass-card {
-    background: linear-gradient(135deg, #082B35 0%, #000000 100%);
-    border: 1px solid rgba(138, 174, 192, 0.20);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), transparent);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 24px;
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.03),
-        0 8px 32px rgba(0, 0, 0, 0.50);
+        inset 0px 1px 0px 0px rgba(255, 255, 255, 0.15),
+        0 8px 24px -4px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease;
 }
 
 .glass-card:hover {
-    border-color: rgba(60, 119, 149, 0.50);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+    border-color: rgba(255, 255, 255, 0.15);
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.05),
-        0 12px 40px rgba(0, 0, 0, 0.60),
-        0 0 30px -10px rgba(60, 119, 149, 0.30);
+        inset 0px 1px 0px 0px rgba(255, 255, 255, 0.2),
+        0 12px 32px -4px rgba(0, 0, 0, 0.6);
     transform: translateY(-2px);
 }
 
 /* ============================================
-   BUTTONS - Cyan Highlight
+   Primary Button - #3C7795 bg, #000000 text
    ============================================ */
 
 .btn-primary {
@@ -140,67 +149,45 @@ h6 {
     font-family: var(--font-sans);
     font-size: 14px;
     font-weight: 600;
-    letter-spacing: 0.1em;
-    color: var(--white);
-    background: linear-gradient(135deg, #1E5672 0%, #3C7795 100%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    letter-spacing: 0.08em;
+    color: #000000;
+    background: #3C7795;
+    border: none;
     border-radius: 50px;
     cursor: pointer;
     overflow: hidden;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(60, 119, 149, 0.25);
+    box-shadow: 0 4px 20px rgba(60, 119, 149, 0.30);
 }
 
 .btn-primary:hover {
-    filter: brightness(1.1);
+    background: #8AAEC0;
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(60, 119, 149, 0.40);
+    box-shadow: 0 8px 32px rgba(60, 119, 149, 0.45);
 }
 
+/* Glass Button */
 .btn-glass {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 28px;
+    padding: 14px 32px;
     font-family: var(--font-sans);
     font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.02em;
-    color: var(--mist);
-    background: transparent;
-    border: 1px solid rgba(138, 174, 192, 0.20);
+    letter-spacing: 0.05em;
+    color: #8AAEC0;
+    background: rgba(30, 86, 114, 0.3);
+    border: 1px solid rgba(138, 174, 192, 0.40);
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .btn-glass:hover {
-    background: rgba(8, 43, 53, 0.50);
-    border-color: rgba(60, 119, 149, 0.50);
-    color: var(--white);
-}
-
-.btn-social {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    width: 100%;
-    padding: 14px 20px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--mist);
-    background: transparent;
-    border: 1px solid rgba(138, 174, 192, 0.15);
-    border-radius: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-social:hover {
-    background: rgba(8, 43, 53, 0.30);
-    border-color: rgba(60, 119, 149, 0.40);
-    color: var(--white);
+    background: rgba(60, 119, 149, 0.20);
+    border-color: #3C7795;
 }
 
 /* ============================================
@@ -213,14 +200,14 @@ h6 {
     font-weight: 500;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--mist);
+    color: #8AAEC0;
     text-decoration: none;
     padding: 8px 0;
     transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-    color: var(--white);
+    color: #3C7795;
 }
 
 .nav-link::after {
@@ -230,7 +217,7 @@ h6 {
     left: 0;
     width: 0;
     height: 1px;
-    background: linear-gradient(90deg, #1E5672, #3C7795);
+    background: #3C7795;
     transition: width 0.3s ease;
 }
 
@@ -239,105 +226,11 @@ h6 {
 }
 
 /* ============================================
-   Form Elements
-   ============================================ */
-
-.input-minimal {
-    width: 100%;
-    padding: 16px 0;
-    font-family: var(--font-sans);
-    font-size: 15px;
-    color: var(--white);
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(138, 174, 192, 0.20);
-    outline: none;
-    transition: border-color 0.3s ease;
-}
-
-.input-minimal::placeholder {
-    color: rgba(138, 174, 192, 0.50);
-}
-
-.input-minimal:focus {
-    border-color: var(--highlight);
-}
-
-.input-glass {
-    width: 100%;
-    padding: 16px 20px;
-    font-family: var(--font-sans);
-    font-size: 15px;
-    color: var(--white);
-    background: rgba(8, 43, 53, 0.30);
-    border: 1px solid rgba(138, 174, 192, 0.20);
-    border-radius: 16px;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.input-glass::placeholder {
-    color: rgba(138, 174, 192, 0.50);
-}
-
-.input-glass:focus {
-    background: rgba(8, 43, 53, 0.50);
-    border-color: var(--highlight);
-    box-shadow: 0 0 20px rgba(60, 119, 149, 0.15);
-}
-
-/* ============================================
-   Modal
-   ============================================ */
-
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.95);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    padding: 20px;
-}
-
-.modal-content {
-    position: relative;
-    width: 100%;
-    max-width: 420px;
-    padding: 48px 40px;
-    background: linear-gradient(135deg, #082B35 0%, #000000 100%);
-    border: 1px solid rgba(138, 174, 192, 0.20);
-    border-radius: 32px;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.05),
-        0 50px 100px rgba(0, 0, 0, 0.80);
-}
-
-/* ============================================
-   AI Match Score - CYAN Glow
-   ============================================ */
-
-.match-score-ring {
-    stroke-dasharray: 314;
-    stroke-dashoffset: 314;
-    animation: score-fill 1.5s ease-out forwards;
-    filter: drop-shadow(0 0 8px rgba(60, 119, 149, 0.50));
-}
-
-@keyframes score-fill {
-    to {
-        stroke-dashoffset: calc(314 - (314 * var(--score)) / 100);
-    }
-}
-
-/* ============================================
-   Scrollbar - Luxury Tech
+   Scrollbar
    ============================================ */
 
 ::-webkit-scrollbar {
     width: 6px;
-    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -345,52 +238,51 @@ h6 {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(60, 119, 149, 0.40);
+    background: #1E5672;
     border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(60, 119, 149, 0.60);
+    background: #3C7795;
 }
 
 /* ============================================
-   Utility Classes - NO PURPLE
+   Selection
+   ============================================ */
+
+::selection {
+    background: rgba(60, 119, 149, 0.30);
+    color: #8AAEC0;
+}
+
+/* ============================================
+   Utility Classes
    ============================================ */
 
 .bg-void {
     background-color: #000000;
 }
 
-.bg-surface {
-    background-color: #082B35;
+.bg-deep {
+    background-color: #1E5672;
+}
+
+.bg-accent {
+    background-color: #3C7795;
 }
 
 .text-mist {
-    color: var(--mist);
+    color: #8AAEC0;
 }
 
-.text-highlight {
-    color: var(--highlight);
+.text-accent {
+    color: #3C7795;
 }
 
-.text-gradient {
-    background: linear-gradient(135deg, #FFFFFF 0%, var(--mist) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.border-mist {
+    border-color: rgba(138, 174, 192, 0.15);
 }
 
-/* REPLACEMENT: text-gradient-purple -> text-gradient-cyan */
-.text-gradient-purple,
-.text-gradient-cyan {
-    background: linear-gradient(135deg, #3C7795 0%, #1E5672 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-/* Selection */
-::selection {
-    background: rgba(60, 119, 149, 0.40);
-    color: var(--white);
+.border-accent {
+    border-color: rgba(60, 119, 149, 0.40);
 }

@@ -1,191 +1,377 @@
 import { motion } from 'framer-motion';
 
 /**
- * Brand Content - Korean text
- * DO NOT TRANSLATE
+ * Brand Story Page - AXIOM Brand Architecture
+ * 
+ * STRICT DESIGN SYSTEM:
+ * - Consistent typography (SectionLabel, SectionTitle, BodyText)
+ * - Standardized 2-column grid with optical alignment
+ * - Unified spacing and margins across all sections
+ * 
+ * COLOR PALETTE:
+ * - #000000 (Pure Black Background)
+ * - #1E5672 (Deep Teal)
+ * - #3C7795 (Cyan Highlight)
+ * - #8AAEC0 (Mist Blue Text)
  */
-const brandContent = {
-    hero: {
-        title: "Where Science Meets Soul",
-        desc: `진정한 아름다움은 당신만큼이나 고유하다는 믿음에서 AURA는 탄생했습니다.
-우리는 AI의 힘을 활용해 당신의 피부를 가장 깊은 곳까지 이해하고, 
-당신만의 빛을 존중하는 개인화된 리추얼을 만듭니다.`
-    },
-    philosophy: {
-        title: "Our Philosophy",
-        desc: "우리는 획일적인 스킨케어 접근 방식을 거부합니다. 대신 각 사람을 특별하게 만드는 피부 결, 톤, 기질의 미세한 차이, 그 복잡성을 온전히 포용합니다."
-    },
-    vision: {
-        title: "Our Vision",
-        desc: "데이터와 감성이 결합된 기술로, 누구나 자신만의 고유한 아우라를 발견하고 주체적인 아름다움을 완성하는 세상을 그립니다."
-    },
-    values: [
-        { id: 1, title: "Hyper-Personalization", desc: "평균이 아닌, 오직 당신 한 사람을 위한 정밀함." },
-        { id: 2, title: "Data Integrity", desc: "투명하고 정확한 데이터 분석을 통한 신뢰." },
-        { id: 3, title: "Soulful Tech", desc: "차가운 기술이 아닌, 삶에 스며드는 따뜻한 혁신." }
-    ]
+
+// ============================================
+// DESIGN SYSTEM COMPONENTS (Strict Typography)
+// ============================================
+
+const SectionLabel = ({ children }) => (
+    <span className="block text-sm font-bold tracking-[0.2em] text-[#3C7795] uppercase mb-4">
+        {children}
+    </span>
+);
+
+const SectionTitle = ({ children, className = '' }) => (
+    <h2 className={`text-5xl md:text-6xl font-bold text-white leading-tight mb-6 ${className}`}>
+        {children}
+    </h2>
+);
+
+const BodyText = ({ children, className = '', style = {} }) => (
+    <p className={`text-lg text-[#8AAEC0] leading-relaxed ${className}`} style={style}>
+        {children}
+    </p>
+);
+
+// Animation variants
+const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } }
 };
 
-/**
- * Brand Story Page - LUXURY TECH Aesthetic
- * 
- * STRICT PALETTE:
- * - #000000 (Black - Background)
- * - #082B35 (Darkest Teal - Surface)
- * - #1E5672 (Deep Teal - Accent)
- * - #3C7795 (Cyan - Highlight)
- * - #8AAEC0 (Mist - Secondary Text)
- * - #FFFFFF (White - Primary Text)
- * 
- * NO PURPLE • NO BLUR ARTIFACTS
- */
-export default function BrandStory() {
+// ============================================
+// SECTION 1: NARRATIVE (The Hook - TOP)
+// ============================================
+
+function NarrativeSection() {
     return (
-        <main className="min-h-screen bg-transparent pt-20 relative z-10">
+        <section className="py-32 border-b border-white/5">
+            <div className="max-w-screen-xl mx-auto px-6 md:px-12">
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                    className="max-w-3xl"
+                >
+                    <SectionLabel>Narrative</SectionLabel>
+                    <SectionTitle>Lost & Found</SectionTitle>
 
-            {/* Hero Section - CLEAN, NO BLUR ARTIFACTS */}
-            <section className="py-24 md:py-32 relative overflow-hidden">
-                <div className="relative max-w-screen-xl mx-auto px-6 lg:px-16">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="max-w-3xl"
-                    >
-                        {/* Label - Cyan (NOT purple) */}
-                        <p className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-sans mb-4">
-                            Our Story
-                        </p>
-                        {/* Title - English (Serif) */}
-                        <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-8">
-                            {brandContent.hero.title}
-                        </h1>
-                        {/* Description - Korean (Sans-serif) - Mist color */}
-                        <p className="font-sans text-lg md:text-xl text-[#8AAEC0] leading-relaxed whitespace-pre-line"
-                            style={{ wordBreak: 'keep-all' }}>
-                            {brandContent.hero.desc}
-                        </p>
-                    </motion.div>
-                </div>
-            </section>
+                    <div className="space-y-6">
+                        <BodyText style={{ wordBreak: 'keep-all' }}>
+                            모든 생명은 탄생의 순간, 자신만의 고유한 중심축(Axis)을 부여받습니다.
+                            그러나 복잡한 환경과 무수한 시간의 소음 속에서 그 축은 점차 방향을 잃고 희미해집니다.
+                        </BodyText>
 
-            {/* Philosophy & Vision Section */}
-            <section className="py-24 border-t border-[#8AAEC0]/10 relative">
-                <div className="max-w-screen-xl mx-auto px-6 lg:px-16">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                        <BodyText style={{ wordBreak: 'keep-all' }}>
+                            AXIOM(엑시옴)은 당신의 피부 깊은 곳에 숨겨진 미세한 신호, 일상의 정교한 패턴,
+                            그리고 누구도 읽어내지 못한 내밀한 취향의 데이터를 추적합니다.
+                        </BodyText>
 
-                        {/* Philosophy Card - Luxury Tech Gradient (NO blur) */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                            className="bg-gradient-to-br from-[#082B35] to-black border border-[#8AAEC0]/20 rounded-3xl p-8 md:p-10"
-                        >
-                            {/* Title - English (Serif) */}
-                            <h2 className="font-serif text-2xl md:text-3xl text-white mb-6">
-                                {brandContent.philosophy.title}
-                            </h2>
-                            {/* Description - Korean (Sans-serif) - Mist */}
-                            <p className="font-sans text-[#8AAEC0] leading-relaxed" style={{ wordBreak: 'keep-all' }}>
-                                {brandContent.philosophy.desc}
-                            </p>
-                        </motion.div>
-
-                        {/* Vision Card - Luxury Tech Gradient (NO blur) */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
-                            className="bg-gradient-to-br from-[#082B35] to-black border border-[#8AAEC0]/20 rounded-3xl p-8 md:p-10"
-                        >
-                            {/* Title - English (Serif) */}
-                            <h2 className="font-serif text-2xl md:text-3xl text-white mb-6">
-                                {brandContent.vision.title}
-                            </h2>
-                            {/* Description - Korean (Sans-serif) - Mist */}
-                            <p className="font-sans text-[#8AAEC0] leading-relaxed" style={{ wordBreak: 'keep-all' }}>
-                                {brandContent.vision.desc}
-                            </p>
-                        </motion.div>
+                        <BodyText className="text-white font-medium" style={{ wordBreak: 'keep-all' }}>
+                            우리는 흩어진 정보들을 모아 당신을 정의하는 단 하나의 자명한 진실(Axiom)을 다시 세웁니다.
+                        </BodyText>
                     </div>
-                </div>
-            </section>
+                </motion.div>
+            </div>
+        </section>
+    );
+}
 
-            {/* Values Section */}
-            <section className="py-24 border-t border-[#8AAEC0]/10 relative overflow-hidden">
-                <div className="relative max-w-screen-xl mx-auto px-6 lg:px-16">
-                    {/* Section Header */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                        className="text-center mb-16"
-                    >
-                        {/* Label - Cyan (NOT purple) */}
-                        <p className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-sans mb-4">
-                            What We Believe
+// ============================================
+// SECTION 2: IDENTITY (Definitions)
+// ============================================
+
+function IdentitySection() {
+    return (
+        <section className="py-32 border-b border-white/5">
+            <div className="max-w-screen-xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-start">
+                {/* LEFT: Title */}
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                >
+                    <SectionLabel>Identity</SectionLabel>
+                    <SectionTitle>AXIOM</SectionTitle>
+                    <BodyText>The Self-Evident Axis of Beauty</BodyText>
+                </motion.div>
+
+                {/* RIGHT: Definitions - Offset to align with "AXIOM" title */}
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                    className="space-y-8 md:mt-14"
+                >
+                    {/* Axis Definition */}
+                    <div className="border-l-2 border-[#3C7795]/40 pl-6">
+                        <p className="text-sm text-[#3C7795] uppercase tracking-wider font-bold mb-2">
+                            Axis (축)
                         </p>
-                        <h2 className="font-serif text-3xl md:text-4xl text-white">
-                            Our Core Values
-                        </h2>
+                        <BodyText style={{ wordBreak: 'keep-all' }}>
+                            남들이 아닌, 나를 중심으로 하는 흔들리지 않는 기준.
+                        </BodyText>
+                    </div>
+
+                    {/* Axiom Definition */}
+                    <div className="border-l-2 border-[#3C7795]/40 pl-6">
+                        <p className="text-sm text-[#3C7795] uppercase tracking-wider font-bold mb-2">
+                            Axiom (자명한 이치)
+                        </p>
+                        <BodyText style={{ wordBreak: 'keep-all' }}>
+                            증명할 필요 없이 그 자체로 확실한 정답.
+                        </BodyText>
+                    </div>
+                </motion.div>
+            </div>
+        </section>
+    );
+}
+
+// ============================================
+// SECTION 3: PHILOSOPHY (The Truth in Data)
+// ============================================
+
+function PhilosophySection() {
+    return (
+        <section className="py-32 border-b border-white/5">
+            <div className="max-w-screen-xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-start">
+                {/* LEFT: Title */}
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                >
+                    <SectionLabel>Philosophy</SectionLabel>
+                    <SectionTitle>
+                        The Truth<br />
+                        <span className="text-[#8AAEC0]">in Data</span>
+                    </SectionTitle>
+                </motion.div>
+
+                {/* RIGHT: Content - OFFSET FIX with md:mt-14 */}
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                    className="md:mt-14"
+                >
+                    <BodyText className="mb-12" style={{ wordBreak: 'keep-all' }}>
+                        우리는 아름다움이 막연한 추측이 아닌, 명확한 데이터 속에 존재한다고 믿습니다.
+                    </BodyText>
+
+                    {/* Cards: Utility & Artistry */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {/* Utility Card */}
+                        <div className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/15 rounded-xl p-6 transition-all duration-300 hover:border-[#3C7795]/40 hover:bg-[#1E5672]/10">
+                            <p className="text-sm text-[#3C7795] uppercase tracking-wider font-bold mb-3">
+                                Utility
+                            </p>
+                            <BodyText className="text-base" style={{ wordBreak: 'keep-all' }}>
+                                피부 고민을 해결하는 맞춤형 화장품과 웰니스 솔루션.
+                            </BodyText>
+                        </div>
+
+                        {/* Artistry Card */}
+                        <div className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/15 rounded-xl p-6 transition-all duration-300 hover:border-[#3C7795]/40 hover:bg-[#1E5672]/10">
+                            <p className="text-sm text-[#3C7795] uppercase tracking-wider font-bold mb-3">
+                                Artistry
+                            </p>
+                            <BodyText className="text-base" style={{ wordBreak: 'keep-all' }}>
+                                나의 데이터가 만들어낸 유일무이한 3D 오브제를 감상하고 소유하는 경험.
+                            </BodyText>
+                        </div>
+                    </div>
+                </motion.div>
+            </div>
+        </section>
+    );
+}
+
+// ============================================
+// SECTION 4: DIRECTION (Vision & Mission)
+// ============================================
+
+function DirectionSection() {
+    return (
+        <section className="py-32 border-b border-white/5">
+            <div className="max-w-screen-xl mx-auto px-6 md:px-12">
+                {/* Header */}
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                    className="mb-16"
+                >
+                    <SectionLabel>Direction</SectionLabel>
+                </motion.div>
+
+                {/* Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Vision Card */}
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeInUp}
+                        className="h-full"
+                    >
+                        <div className="h-full bg-[#1E5672]/10 border border-[#8AAEC0]/15 rounded-2xl p-8 md:p-10 transition-all duration-300 hover:border-[#3C7795]/40">
+                            <p className="text-sm text-[#3C7795] uppercase tracking-wider font-bold mb-4">
+                                Vision
+                            </p>
+                            <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-6" style={{ wordBreak: 'keep-all' }}>
+                                누구나 자신만의 자명한 기준(Axiom)을 가진 세상
+                            </h3>
+                            <BodyText style={{ wordBreak: 'keep-all' }}>
+                                유행을 좇아 남들과 똑같아지는 것이 아니라, 데이터 분석을 통해 찾은 '나만의 고유한 아름다움'을 확신하고 소유하는 세상을 만듭니다.
+                            </BodyText>
+                        </div>
                     </motion.div>
 
-                    {/* Values Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {brandContent.values.map((value, index) => (
-                            <motion.div
-                                key={value.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: index * 0.1 }}
-                                className="group bg-gradient-to-br from-[#082B35] to-black border border-[#8AAEC0]/20 rounded-2xl p-8
-                                           hover:border-[#3C7795]/50 transition-all duration-500"
-                            >
-                                {/* Number - Cyan (NOT purple) */}
-                                <span className="text-[11px] font-sans text-[#3C7795] tracking-[0.15em] mb-4 block">
-                                    {String(value.id).padStart(2, '0')}
+                    {/* Mission Card */}
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeInUp}
+                        className="h-full"
+                    >
+                        <div className="h-full bg-[#1E5672]/10 border border-[#8AAEC0]/15 rounded-2xl p-8 md:p-10 transition-all duration-300 hover:border-[#3C7795]/40">
+                            <p className="text-sm text-[#3C7795] uppercase tracking-wider font-bold mb-4">
+                                Mission
+                            </p>
+                            <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-6" style={{ wordBreak: 'keep-all' }}>
+                                데이터를 가장 자명한 예술로 시각화하다
+                            </h3>
+                            <BodyText style={{ wordBreak: 'keep-all' }}>
+                                우리는 보이지 않는 내면과 피부의 복잡한 데이터를 정교하게 분석하여, 누구나 소장하고 싶은 시각적 예술 작품으로 치환합니다.
+                            </BodyText>
+                        </div>
+                    </motion.div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+// ============================================
+// SECTION 5: CORE VALUES (What We Believe)
+// ============================================
+
+function CoreValuesSection() {
+    const values = [
+        {
+            id: '01',
+            title: 'Fact',
+            titleKR: '압도적 진실',
+            tagline: "우리의 기준은 '감'이 아닌 '데이터'입니다.",
+            desc: '0.1%의 오차도 허용하지 않는 정교한 분석을 통해, 사용자의 상태를 거짓 없이 투명하게 보여줍니다.'
+        },
+        {
+            id: '02',
+            title: 'One & Only',
+            titleKR: '초개인화',
+            tagline: '대중(Mass)이 아닌 개인(Individual)이 우리의 우주입니다.',
+            desc: '70억 인구에게는 70억 개의 서로 다른 정답(Axis)을 제공해야 합니다.'
+        },
+        {
+            id: '03',
+            title: 'Art',
+            titleKR: '미학적 경험',
+            tagline: '기술은 똑똑해야 하지만, 결과물은 아름다워야 합니다.',
+            desc: '분석 결과가 갤러리에 걸린 작품처럼, 바라보는 것만으로도 만족감을 주는 예술적 경험을 만듭니다.'
+        }
+    ];
+
+    return (
+        <section className="py-32">
+            <div className="max-w-screen-xl mx-auto px-6 md:px-12">
+                {/* Header */}
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                    className="mb-16"
+                >
+                    <SectionLabel>Core Values</SectionLabel>
+                    <SectionTitle>What We Believe</SectionTitle>
+                </motion.div>
+
+                {/* Values Grid - 3 Columns */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {values.map((value, index) => (
+                        <motion.div
+                            key={value.id}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            variants={{
+                                hidden: { opacity: 0, y: 30 },
+                                visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: index * 0.1 } }
+                            }}
+                            className="h-full"
+                        >
+                            <div className="h-full bg-[#8AAEC0]/5 border border-[#8AAEC0]/15 rounded-2xl p-8 transition-all duration-300 hover:border-[#3C7795]/40 hover:bg-[#1E5672]/10">
+                                {/* Number */}
+                                <span className="text-sm text-[#3C7795]/50 uppercase tracking-wider mb-4 block">
+                                    {value.id}
                                 </span>
 
-                                {/* Title - English (Serif) */}
-                                <h3 className="font-serif text-xl text-white mb-4">
+                                {/* Title */}
+                                <h3 className="text-2xl font-bold text-white mb-1">
                                     {value.title}
                                 </h3>
 
-                                {/* Description - Korean (Sans-serif) - Mist dimmed */}
-                                <p className="font-sans text-sm text-[#8AAEC0]/60 leading-relaxed" style={{ wordBreak: 'keep-all' }}>
-                                    {value.desc}
+                                {/* Korean Title */}
+                                <p className="text-sm text-[#3C7795] font-bold mb-4">
+                                    {value.titleKR}
                                 </p>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
-            {/* CTA Section */}
-            <section className="py-24 border-t border-[#8AAEC0]/10">
-                <div className="max-w-screen-xl mx-auto px-6 lg:px-16 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <h2 className="font-serif text-2xl md:text-3xl text-white mb-4">
-                            Ready to discover your aura?
-                        </h2>
-                        <p className="font-sans text-[#8AAEC0] mb-8" style={{ wordBreak: 'keep-all' }}>
-                            당신만의 고유한 빛을 찾는 여정을 시작하세요.
-                        </p>
-                        <a href="/analysis" className="btn-primary inline-flex items-center gap-3">
-                            <span className="font-sans text-sm tracking-wide">Start Your Analysis</span>
-                        </a>
-                    </motion.div>
+                                {/* Tagline */}
+                                <BodyText className="mb-4" style={{ wordBreak: 'keep-all' }}>
+                                    {value.tagline}
+                                </BodyText>
+
+                                {/* Description */}
+                                <BodyText className="text-[#8AAEC0]/50 text-base" style={{ wordBreak: 'keep-all' }}>
+                                    {value.desc}
+                                </BodyText>
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
-            </section>
+            </div>
+        </section>
+    );
+}
+
+// ============================================
+// MAIN BRAND STORY COMPONENT
+// ============================================
+
+export default function BrandStory() {
+    return (
+        <main className="bg-black min-h-screen pt-20 md:pt-24">
+            <NarrativeSection />
+            <IdentitySection />
+            <PhilosophySection />
+            <DirectionSection />
+            <CoreValuesSection />
+
+            {/* Bottom Spacing */}
+            <div className="pb-20" />
         </main>
     );
 }
