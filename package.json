@@ -1,10 +1,12 @@
 {
   "dependencies": {
+    "@prisma/client": "^5.22.0",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@react-three/postprocessing": "^3.0.4",
     "@types/three": "^0.182.0",
     "lamina": "^1.2.2",
+    "prisma": "^5.22.0",
     "three": "^0.182.0"
   }
 }
