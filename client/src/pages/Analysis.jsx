@@ -6,6 +6,7 @@ import { Environment } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import EvolvingBlob, { EvolvingParticles } from '../components/EvolvingBlob';
 import { questions } from '../data/questions';
+import { API_URL } from '../config/api';
 
 /**
  * AI Skin Analysis Page - Strict Layout System
@@ -124,7 +125,7 @@ export default function Analysis() {
                 const analysisResult = analyzeSkin(newAnswers);
                 setResult(analysisResult);
                 try {
-                    const response = await fetch('http://localhost:4000/api/analyze', {
+                    const response = await fetch(`${API_URL}/api/analyze`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ oilScore: analysisResult.oilScore, sensScore: analysisResult.sensScore, skinType: analysisResult.skinType.title })
