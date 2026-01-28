@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_URL } from '../config/api';
 
 /**
  * AuthModal Component
@@ -23,7 +24,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
 
         try {
             const endpoint = activeTab === 'login' ? '/api/auth/login' : '/api/auth/signup';
-            const response = await fetch(endpoint, {
+            const response = await fetch(`${API_URL}${endpoint}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
@@ -48,7 +49,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
         setError('');
 
         try {
-            const response = await fetch('/api/auth/social', {
+            const response = await fetch(`${API_URL}/api/auth/social`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ provider })

@@ -6,6 +6,7 @@ import { Environment } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import EvolvingBlob, { EvolvingParticles } from '../components/EvolvingBlob';
 import { QUESTIONS, generateResult } from '../data/questions';
+import { API_URL } from '../config/api';
 
 /**
  * Diagnosis Page - Split Screen Layout with Evolving 3D Blob
@@ -119,7 +120,7 @@ export default function Diagnosis() {
     const saveResultToAPI = async (result) => {
         setIsSaving(true);
         try {
-            const response = await fetch('http://localhost:4000/api/diagnosis', {
+            const response = await fetch(`${API_URL}/api/diagnosis`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
