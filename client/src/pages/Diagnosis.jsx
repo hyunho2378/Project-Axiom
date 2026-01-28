@@ -116,10 +116,26 @@ export default function Diagnosis() {
         return generateResult(answers);
     };
 
-    // Save result to API
-    const saveResultToAPI = async (result) => {
+    // Save result to API (Guest Survey - No Login Required)
+    const saveResultToAPI = async (result, surveyAnswers) => {
         setIsSaving(true);
         try {
+            // Save to Guest Survey endpoint (Supabase persistence)
+            const surveyResponse = await fetch(`${API_URL}/api/surveys/submit`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    answers: surveyAnswers,
+                    skinType: result.title,
+                    scores: result.scores
+                })
+            });
+            const surveyData = await surveyResponse.json();
+            if (surveyData.success) {
+                console.log('✅ Survey saved permanently:', surveyData.data.id);
+            }
+
+            // Also call diagnosis endpoint for recommendations
             const response = await fetch(`${API_URL}/api/diagnosis`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -165,7 +181,7 @@ export default function Diagnosis() {
                 const result = generateResult(updatedAnswers);
                 setResultType(result);
                 setShowResult(true);
-                saveResultToAPI(result);
+                saveResultToAPI(result, updatedAnswers);
             }
             setIsAnimating(false);
         }, 600);

@@ -67,3 +67,14 @@ model SavedProduct {
   
   @@unique([userId, productId])
 }
+
+// Anonymous Guest Survey Responses
+// No relation to User - allows guests to submit without login
+model SurveyResponse {
+  id        String   @id @default(uuid())
+  answers   Json     // Flexible JSON storage for survey answers
+  skinType  String?  // Calculated skin type result
+  scores    Json?    // O, D, S scores breakdown
+  createdAt DateTime @default(now())
+}
+

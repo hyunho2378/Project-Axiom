@@ -2,6 +2,7 @@ import 'dotenv/config'; // env 비밀번호 불러오기
 import express from 'express';
 import cors from 'cors';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { PrismaClient } from '@prisma/client';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -14,6 +15,9 @@ const genAI = process.env.GEMINI_API_KEY
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Initialize Prisma Client for Supabase PostgreSQL
+const prisma = new PrismaClient();
 
 // ============================================
 // AI Skin Analysis Endpoint (Hybrid Architecture)
@@ -381,6 +385,64 @@ app.get('/api/products/:id', (req, res) => {
 // Health check
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// ============================================
+// Guest Survey API (PUBLIC - No Auth Required)
+// Saves anonymous survey responses to Supabase
+// ============================================
+
+app.post('/api/surveys/submit', async (req, res) => {
+    try {
+        const { answers, skinType, scores } = req.body;
+
+        if (!answers) {
+            return res.status(400).json({
+                success: false,
+                message: 'Survey answers are required'
+            });
+        }
+
+        // Save to Supabase via Prisma
+        const surveyResponse = await prisma.surveyResponse.create({
+            data: {
+                answers: answers,
+                skinType: skinType || null,
+                scores: scores || null
+            }
+        });
+
+        console.log('✅ Survey saved to Supabase:', surveyResponse.id);
+
+        res.json({
+            success: true,
+            message: 'Survey saved permanently',
+            data: {
+                id: surveyResponse.id,
+                createdAt: surveyResponse.createdAt
+            }
+        });
+    } catch (error) {
+        console.error('❌ Survey save error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to save survey',
+            error: error.message
+        });
+    }
+});
+
+// GET all survey responses (for admin/analytics)
+app.get('/api/surveys', async (req, res) => {
+    try {
+        const surveys = await prisma.surveyResponse.findMany({
+            orderBy: { createdAt: 'desc' },
+            take: 100
+        });
+        res.json({ success: true, data: surveys, count: surveys.length });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
 });
 
 // Start server
