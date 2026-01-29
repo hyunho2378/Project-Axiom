@@ -473,9 +473,13 @@ export default function Analysis() {
                                 ))}
                             </motion.div>
                         </AnimatePresence>
-                        <div className="mt-8 text-center">
-                            <button onClick={handleRestart} className="text-xs text-[#8AAEC0]/30 hover:text-[#8AAEC0]/60 font-sans">처음부터 다시</button>
-                        </div>
+                        {/* 🔥 BACK BUTTON - Goes to previous question or Age screen */}
+                        <button
+                            onClick={handleBack}
+                            className="mt-8 text-sm text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors font-sans flex items-center gap-2"
+                        >
+                            ← 이전으로
+                        </button>
                     </div>
                 </div>
             </div>
