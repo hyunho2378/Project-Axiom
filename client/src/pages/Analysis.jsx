@@ -259,41 +259,48 @@ export default function Analysis() {
     if (quizPhase === 'gender') {
         return (
             <div className="min-h-screen bg-black pt-20">
-                <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-80px)]">
-                    {/* 3D Blob - Left Side */}
-                    <div className="relative h-[40vh] lg:h-auto flex items-center justify-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 h-[calc(100vh-80px)]">
+                    <div className="relative flex items-center justify-center">
                         <SphereScene step={0} />
-                        <div className="lg:hidden absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black to-transparent" />
                     </div>
-
-                    {/* Content - Right Side */}
-                    <div className="flex flex-col justify-center px-6 md:px-12 py-12 lg:py-24">
+                    <div className="flex flex-col justify-center px-6 md:px-12">
                         <div className="max-w-lg mx-auto w-full">
+                            {/* Eyebrow - Same style as Quiz */}
                             <p className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-sans mb-4">
                                 Before we begin
                             </p>
-                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 leading-tight font-sans">
+
+                            {/* Title - Same style as Question */}
+                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 leading-snug font-sans" style={{ wordBreak: 'keep-all' }}>
                                 성별을 알려주세요.
                             </h2>
 
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 {['남성', '여성'].map((genderOption, i) => (
                                     <motion.button
                                         key={genderOption}
                                         onClick={() => handleDemographic('gender', genderOption)}
-                                        initial={{ opacity: 0, y: 20 }}
+                                        initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: i * 0.1, duration: 0.3 }}
-                                        whileHover={{ scale: 1.01, backgroundColor: 'rgba(30, 86, 114, 0.3)' }}
+                                        transition={{ delay: i * 0.08, duration: 0.3 }}
+                                        whileHover={{ scale: 1.01, backgroundColor: 'rgba(30, 86, 114, 0.1)', borderColor: 'rgba(60, 119, 149, 0.3)' }}
                                         whileTap={{ scale: 0.99 }}
-                                        className="w-full p-6 text-left rounded-2xl backdrop-blur-md transition-all duration-300 bg-[#8AAEC0]/5 border border-[#8AAEC0]/15 hover:border-[#3C7795]/50 group"
+                                        className="w-full p-5 text-left rounded-2xl border transition-all duration-300 bg-[#8AAEC0]/5 border-[#8AAEC0]/15 group"
                                     >
-                                        <span className="text-xl text-[#8AAEC0] group-hover:text-white transition-colors font-sans">
+                                        <span className="text-[#8AAEC0] group-hover:text-white transition-colors font-sans">
                                             {genderOption}
                                         </span>
                                     </motion.button>
                                 ))}
                             </div>
+
+                            {/* Back Button */}
+                            <button
+                                onClick={() => setQuizPhase('intro')}
+                                className="mt-10 text-sm text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors font-sans"
+                            >
+                                ← 처음으로
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -309,20 +316,19 @@ export default function Analysis() {
 
         return (
             <div className="min-h-screen bg-black pt-20">
-                <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-80px)]">
-                    {/* 3D Blob - Left Side */}
-                    <div className="relative h-[40vh] lg:h-auto flex items-center justify-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 h-[calc(100vh-80px)]">
+                    <div className="relative flex items-center justify-center">
                         <SphereScene step={1} />
-                        <div className="lg:hidden absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black to-transparent" />
                     </div>
-
-                    {/* Content - Right Side */}
-                    <div className="flex flex-col justify-center px-6 md:px-12 py-12 lg:py-24">
+                    <div className="flex flex-col justify-center px-6 md:px-12">
                         <div className="max-w-lg mx-auto w-full">
+                            {/* Eyebrow - Same style as Quiz */}
                             <p className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-sans mb-4">
                                 One more thing
                             </p>
-                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 leading-tight font-sans">
+
+                            {/* Title - Same style as Question */}
+                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 leading-snug font-sans" style={{ wordBreak: 'keep-all' }}>
                                 연령대를 알려주세요.
                             </h2>
 
@@ -331,14 +337,14 @@ export default function Analysis() {
                                     <motion.button
                                         key={ageOption}
                                         onClick={() => handleDemographic('age', ageOption)}
-                                        initial={{ opacity: 0, y: 20 }}
+                                        initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: i * 0.08, duration: 0.3 }}
-                                        whileHover={{ scale: 1.01, backgroundColor: 'rgba(30, 86, 114, 0.3)' }}
+                                        whileHover={{ scale: 1.01, backgroundColor: 'rgba(30, 86, 114, 0.1)', borderColor: 'rgba(60, 119, 149, 0.3)' }}
                                         whileTap={{ scale: 0.99 }}
-                                        className="w-full p-5 text-left rounded-2xl backdrop-blur-md transition-all duration-300 bg-[#8AAEC0]/5 border border-[#8AAEC0]/15 hover:border-[#3C7795]/50 group"
+                                        className="w-full p-4 text-left rounded-2xl border transition-all duration-300 bg-[#8AAEC0]/5 border-[#8AAEC0]/15 group"
                                     >
-                                        <span className="text-lg text-[#8AAEC0] group-hover:text-white transition-colors font-sans">
+                                        <span className="text-sm text-[#8AAEC0] group-hover:text-white transition-colors font-sans">
                                             {ageOption}
                                         </span>
                                     </motion.button>
@@ -346,14 +352,12 @@ export default function Analysis() {
                             </div>
 
                             {/* Back Button */}
-                            <div className="mt-10 text-center">
-                                <button
-                                    onClick={() => setQuizPhase('gender')}
-                                    className="text-sm text-[#8AAEC0]/30 hover:text-[#8AAEC0]/60 transition-colors font-sans"
-                                >
-                                    ← 이전으로
-                                </button>
-                            </div>
+                            <button
+                                onClick={() => setQuizPhase('gender')}
+                                className="mt-10 text-sm text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors font-sans"
+                            >
+                                ← 이전으로
+                            </button>
                         </div>
                     </div>
                 </div>
