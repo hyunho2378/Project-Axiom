@@ -223,6 +223,16 @@ export default function Analysis() {
         setAiAdvice(null);
     };
 
+    // 🔥 UNIVERSAL BACK HANDLER
+    const handleBack = () => {
+        if (quizPhase === 'age') setQuizPhase('gender');
+        else if (quizPhase === 'gender') setQuizPhase('intro');
+        else if (quizPhase === 'quiz') {
+            if (currentQuestion > 0) setCurrentQuestion(prev => prev - 1);
+            else setQuizPhase('age'); // Q1 goes back to Age
+        }
+    };
+
     // ============================================
     // RENDER: INTRO PHASE
     // ============================================
@@ -265,14 +275,12 @@ export default function Analysis() {
                     </div>
                     <div className="flex flex-col justify-center px-6 md:px-12">
                         <div className="max-w-lg mx-auto w-full">
-                            {/* Eyebrow - Same style as Quiz */}
                             <p className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-sans mb-4">
-                                Before we begin
+                                Step 1 of 2
                             </p>
 
-                            {/* Title - Same style as Question */}
                             <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 leading-snug font-sans" style={{ wordBreak: 'keep-all' }}>
-                                성별을 알려주세요.
+                                성별을 선택해주세요
                             </h2>
 
                             <div className="space-y-3">
@@ -294,12 +302,11 @@ export default function Analysis() {
                                 ))}
                             </div>
 
-                            {/* Back Button */}
                             <button
-                                onClick={() => setQuizPhase('intro')}
-                                className="mt-10 text-sm text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors font-sans"
+                                onClick={handleBack}
+                                className="mt-8 text-sm text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors font-sans flex items-center gap-2"
                             >
-                                ← 처음으로
+                                ← 이전으로
                             </button>
                         </div>
                     </div>
@@ -322,17 +329,15 @@ export default function Analysis() {
                     </div>
                     <div className="flex flex-col justify-center px-6 md:px-12">
                         <div className="max-w-lg mx-auto w-full">
-                            {/* Eyebrow - Same style as Quiz */}
                             <p className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-sans mb-4">
-                                One more thing
+                                Step 2 of 2
                             </p>
 
-                            {/* Title - Same style as Question */}
                             <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 leading-snug font-sans" style={{ wordBreak: 'keep-all' }}>
-                                연령대를 알려주세요.
+                                연령대를 선택해주세요
                             </h2>
 
-                            <div className="space-y-3">
+                            <div className="grid grid-cols-1 gap-3">
                                 {ageOptions.map((ageOption, i) => (
                                     <motion.button
                                         key={ageOption}
@@ -342,19 +347,18 @@ export default function Analysis() {
                                         transition={{ delay: i * 0.08, duration: 0.3 }}
                                         whileHover={{ scale: 1.01, backgroundColor: 'rgba(30, 86, 114, 0.1)', borderColor: 'rgba(60, 119, 149, 0.3)' }}
                                         whileTap={{ scale: 0.99 }}
-                                        className="w-full p-4 text-left rounded-2xl border transition-all duration-300 bg-[#8AAEC0]/5 border-[#8AAEC0]/15 group"
+                                        className="w-full p-5 text-left rounded-2xl border transition-all duration-300 bg-[#8AAEC0]/5 border-[#8AAEC0]/15 group"
                                     >
-                                        <span className="text-sm text-[#8AAEC0] group-hover:text-white transition-colors font-sans">
+                                        <span className="text-[#8AAEC0] group-hover:text-white transition-colors font-sans">
                                             {ageOption}
                                         </span>
                                     </motion.button>
                                 ))}
                             </div>
 
-                            {/* Back Button */}
                             <button
-                                onClick={() => setQuizPhase('gender')}
-                                className="mt-10 text-sm text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors font-sans"
+                                onClick={handleBack}
+                                className="mt-8 text-sm text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors font-sans flex items-center gap-2"
                             >
                                 ← 이전으로
                             </button>
