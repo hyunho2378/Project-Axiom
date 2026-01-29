@@ -450,6 +450,53 @@ app.get('/api/surveys', async (req, res) => {
     }
 });
 
+// --- ADD THIS STATISTICS ENDPOINT ---
+app.get('/api/stats', async (req, res) => {
+    try {
+        // 1. Get Total Count
+        const totalCount = await prisma.surveyResponse.count();
+
+        // 2. Get Type Distribution
+        const typeGroups = await prisma.surveyResponse.groupBy({
+            by: ['skinType'],
+            _count: { skinType: true },
+        });
+        const typeDistribution = typeGroups.map(g => ({
+            skinType: g.skinType || 'Unidentified',
+            count: g._count.skinType
+        }));
+
+        // 3. Get Recent Activity (Limit 5)
+        const recentActivity = await prisma.surveyResponse.findMany({
+            take: 5,
+            orderBy: { createdAt: 'desc' },
+            select: { skinType: true, createdAt: true, answers: true }
+        });
+
+        // 4. Format Recent Activity
+        const formattedRecent = recentActivity.map(item => {
+            const ans = item.answers || {};
+            return {
+                skinType: item.skinType,
+                // 🔥 KEY CHANGE: Pass raw Korean string. Fallback to '알 수 없음' (Unknown in KR)
+                age: ans.age || '알 수 없음',
+                gender: ans.gender || '알 수 없음',
+                createdAt: item.createdAt
+            };
+        });
+
+        // 5. Send JSON Response
+        res.json({
+            success: true,
+            data: { totalCount, typeDistribution, recentActivity: formattedRecent }
+        });
+
+    } catch (error) {
+        console.error("Stats API Error:", error);
+        res.status(500).json({ success: false, error: "Server Error" });
+    }
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`

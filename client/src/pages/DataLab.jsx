@@ -153,7 +153,7 @@ export default function DataLab() {
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2 text-[11px] text-[#8AAEC0]">
-                                        <span>{entry.gender === 'male' ? '남성' : entry.gender === 'female' ? '여성' : 'User'}</span>
+                                        <span>{entry.gender}</span>
                                         <span className="w-1 h-1 bg-[#8AAEC0]/30 rounded-full"></span>
                                         <span>{entry.age}</span>
                                     </div>
