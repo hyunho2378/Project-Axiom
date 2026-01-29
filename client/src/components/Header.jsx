@@ -15,7 +15,7 @@ import { contentData } from '../data/contentData';
  * - #3C7795 (Cyan Accent)
  */
 
-const MENU_PATHS = ['/', '/brand', '/analysis', '/curations'];
+const MENU_PATHS = ['/', '/brand', '/analysis', '/curations', '/datalab'];
 
 export default function Header({ onLoginClick, isLoggedIn, onLogout, user }) {
     const [isScrolled, setIsScrolled] = useState(false);

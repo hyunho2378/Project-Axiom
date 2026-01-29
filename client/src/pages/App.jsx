@@ -21,8 +21,8 @@ import Algorithm from './Algorithm';
 import ProductDetail from './ProductDetail';
 import Campaigns from './Campaigns';
 import Concierge from './Concierge';
-import Diagnosis from './Diagnosis';
 import Analysis from './Analysis';
+import DataLab from './DataLab';
 import TeamPage from './TeamPage';
 import MySpacePage from './MySpacePage';
 
@@ -104,8 +104,8 @@ function AppContent() {
                 {/* Algorithm Lab */}
                 <Route path="/algorithm" element={<AppLayout {...layoutProps}><Algorithm /></AppLayout>} />
 
-                {/* Legacy Diagnosis (20-type engine with 3D blob) */}
-                <Route path="/diagnosis" element={<AppLayout {...layoutProps}><Diagnosis /></AppLayout>} />
+                {/* AI Skin Analysis - All routes point to Analysis component */}
+                <Route path="/diagnosis" element={<AppLayout {...layoutProps}><Analysis /></AppLayout>} />
 
                 {/* AI Skin Analysis (Hybrid Architecture - New) */}
                 <Route path="/skin-analysis" element={<AppLayout {...layoutProps}><Analysis /></AppLayout>} />
@@ -114,6 +114,9 @@ function AppContent() {
                 {/* Curations */}
                 <Route path="/curations" element={<AppLayout {...layoutProps}><Curations /></AppLayout>} />
                 <Route path="/curations/:id" element={<AppLayout {...layoutProps}><ProductDetail /></AppLayout>} />
+
+                {/* Data Lab - Statistics Visualization */}
+                <Route path="/datalab" element={<AppLayout {...layoutProps}><DataLab /></AppLayout>} />
 
                 {/* Shop */}
                 <Route path="/shop" element={<AppLayout {...layoutProps}><Shop /></AppLayout>} />

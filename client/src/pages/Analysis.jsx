@@ -279,7 +279,7 @@ export default function Analysis() {
                                 Step 1 of 2
                             </p>
 
-                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 leading-snug font-sans" style={{ wordBreak: 'keep-all' }}>
+                            <h2 className="text-3xl font-bold text-white mb-8 leading-snug">
                                 성별을 선택해주세요
                             </h2>
 
@@ -333,7 +333,7 @@ export default function Analysis() {
                                 Step 2 of 2
                             </p>
 
-                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 leading-snug font-sans" style={{ wordBreak: 'keep-all' }}>
+                            <h2 className="text-3xl font-bold text-white mb-8 leading-snug">
                                 연령대를 선택해주세요
                             </h2>
 
