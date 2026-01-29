@@ -120,13 +120,14 @@ export default function Diagnosis() {
 
     // 🔥 SAVE TO DATABASE - Guest Survey (No Login Required)
     const saveResultToAPI = async (result, surveyAnswers) => {
-        console.log("🚀 SAVING TO DB via:", `${API_URL}/api/surveys/submit`);
-        console.log("📦 Data:", { answers: surveyAnswers, skinType: result.title, scores: result.scores });
+        const SUBMIT_URL = "https://project-axiom.onrender.com/api/surveys/submit";
+        console.log("🔥🔥🔥 FORCING REQUEST TO:", SUBMIT_URL);
+        console.log("📦 Payload:", JSON.stringify({ answers: surveyAnswers, skinType: result.title, scores: result.scores }));
 
         setIsSaving(true);
         try {
             // 1. SAVE TO SUPABASE DATABASE
-            const surveyResponse = await fetch(`${API_URL}/api/surveys/submit`, {
+            const surveyResponse = await fetch(SUBMIT_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
