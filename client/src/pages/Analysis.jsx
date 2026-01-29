@@ -254,41 +254,47 @@ export default function Analysis() {
     }
 
     // ============================================
-    // RENDER: GENDER SELECTION PHASE
+    // RENDER: GENDER SELECTION PHASE (Matches Quiz UI)
     // ============================================
     if (quizPhase === 'gender') {
         return (
-            <div className="min-h-screen bg-black text-white pt-32">
-                <div className="flex flex-col md:flex-row min-h-[calc(100vh-128px)]">
-                    <div className="h-[30vh] md:h-auto md:w-1/2 flex items-center justify-center p-4">
-                        <div className="w-full h-full max-w-[80%] max-h-[50vh]"><SphereScene step={1} /></div>
+            <div className="min-h-screen bg-black pt-20">
+                <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-80px)]">
+                    {/* 3D Blob - Left Side */}
+                    <div className="relative h-[40vh] lg:h-auto flex items-center justify-center">
+                        <SphereScene step={0} />
+                        <div className="lg:hidden absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black to-transparent" />
                     </div>
-                    <div className="flex-1 md:w-1/2 flex items-center justify-center px-6 py-8">
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-md w-full">
-                            <p className="text-[10px] uppercase tracking-widest text-[#3C7795] mb-4 font-sans">Step 1 of 2</p>
-                            <h2 className="text-2xl md:text-3xl font-bold mb-8 font-sans">성별을 선택해주세요</h2>
+
+                    {/* Content - Right Side */}
+                    <div className="flex flex-col justify-center px-6 md:px-12 py-12 lg:py-24">
+                        <div className="max-w-lg mx-auto w-full">
+                            <p className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-sans mb-4">
+                                Before we begin
+                            </p>
+                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 leading-tight font-sans">
+                                성별을 알려주세요.
+                            </h2>
 
                             <div className="space-y-4">
-                                {GENDER_OPTIONS.map((option, i) => (
+                                {['남성', '여성'].map((genderOption, i) => (
                                     <motion.button
-                                        key={option.value}
-                                        onClick={() => handleDemographic('gender', option.value)}
+                                        key={genderOption}
+                                        onClick={() => handleDemographic('gender', genderOption)}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: i * 0.1 }}
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        className="w-full p-5 flex items-center gap-4 rounded-2xl bg-white/5 backdrop-blur border border-white/10 hover:bg-[#1E5672]/30 hover:border-[#3C7795]/50 transition-all"
+                                        transition={{ delay: i * 0.1, duration: 0.3 }}
+                                        whileHover={{ scale: 1.01, backgroundColor: 'rgba(30, 86, 114, 0.3)' }}
+                                        whileTap={{ scale: 0.99 }}
+                                        className="w-full p-6 text-left rounded-2xl backdrop-blur-md transition-all duration-300 bg-[#8AAEC0]/5 border border-[#8AAEC0]/15 hover:border-[#3C7795]/50 group"
                                     >
-                                        <span className="text-2xl">{option.icon}</span>
-                                        <div className="text-left">
-                                            <p className="text-lg font-medium text-white">{option.label}</p>
-                                            <p className="text-xs text-[#8AAEC0]/50">{option.labelEn}</p>
-                                        </div>
+                                        <span className="text-xl text-[#8AAEC0] group-hover:text-white transition-colors font-sans">
+                                            {genderOption}
+                                        </span>
                                     </motion.button>
                                 ))}
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -296,45 +302,59 @@ export default function Analysis() {
     }
 
     // ============================================
-    // RENDER: AGE SELECTION PHASE
+    // RENDER: AGE SELECTION PHASE (Matches Quiz UI)
     // ============================================
     if (quizPhase === 'age') {
+        const ageOptions = ['10대', '20대', '30대', '40대', '50대 이상'];
+
         return (
-            <div className="min-h-screen bg-black text-white pt-32">
-                <div className="flex flex-col md:flex-row min-h-[calc(100vh-128px)]">
-                    <div className="h-[30vh] md:h-auto md:w-1/2 flex items-center justify-center p-4">
-                        <div className="w-full h-full max-w-[80%] max-h-[50vh]"><SphereScene step={2} /></div>
+            <div className="min-h-screen bg-black pt-20">
+                <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-80px)]">
+                    {/* 3D Blob - Left Side */}
+                    <div className="relative h-[40vh] lg:h-auto flex items-center justify-center">
+                        <SphereScene step={1} />
+                        <div className="lg:hidden absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black to-transparent" />
                     </div>
-                    <div className="flex-1 md:w-1/2 flex items-center justify-center px-6 py-8">
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-md w-full">
-                            <p className="text-[10px] uppercase tracking-widest text-[#3C7795] mb-4 font-sans">Step 2 of 2</p>
-                            <h2 className="text-2xl md:text-3xl font-bold mb-8 font-sans">연령대를 선택해주세요</h2>
+
+                    {/* Content - Right Side */}
+                    <div className="flex flex-col justify-center px-6 md:px-12 py-12 lg:py-24">
+                        <div className="max-w-lg mx-auto w-full">
+                            <p className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-sans mb-4">
+                                One more thing
+                            </p>
+                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 leading-tight font-sans">
+                                연령대를 알려주세요.
+                            </h2>
 
                             <div className="space-y-3">
-                                {AGE_OPTIONS.map((option, i) => (
+                                {ageOptions.map((ageOption, i) => (
                                     <motion.button
-                                        key={option.value}
-                                        onClick={() => handleDemographic('age', option.value)}
+                                        key={ageOption}
+                                        onClick={() => handleDemographic('age', ageOption)}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: i * 0.08 }}
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        className="w-full p-4 flex items-center gap-4 rounded-xl bg-white/5 backdrop-blur border border-white/10 hover:bg-[#1E5672]/30 hover:border-[#3C7795]/50 transition-all"
+                                        transition={{ delay: i * 0.08, duration: 0.3 }}
+                                        whileHover={{ scale: 1.01, backgroundColor: 'rgba(30, 86, 114, 0.3)' }}
+                                        whileTap={{ scale: 0.99 }}
+                                        className="w-full p-5 text-left rounded-2xl backdrop-blur-md transition-all duration-300 bg-[#8AAEC0]/5 border border-[#8AAEC0]/15 hover:border-[#3C7795]/50 group"
                                     >
-                                        <span className="text-xl">{option.icon}</span>
-                                        <div className="text-left">
-                                            <p className="text-base font-medium text-white">{option.label}</p>
-                                            <p className="text-xs text-[#8AAEC0]/50">{option.labelEn}</p>
-                                        </div>
+                                        <span className="text-lg text-[#8AAEC0] group-hover:text-white transition-colors font-sans">
+                                            {ageOption}
+                                        </span>
                                     </motion.button>
                                 ))}
                             </div>
 
-                            <button onClick={() => setQuizPhase('gender')} className="mt-6 text-xs text-[#8AAEC0]/40 hover:text-[#8AAEC0]/70">
-                                ← 이전으로
-                            </button>
-                        </motion.div>
+                            {/* Back Button */}
+                            <div className="mt-10 text-center">
+                                <button
+                                    onClick={() => setQuizPhase('gender')}
+                                    className="text-sm text-[#8AAEC0]/30 hover:text-[#8AAEC0]/60 transition-colors font-sans"
+                                >
+                                    ← 이전으로
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
