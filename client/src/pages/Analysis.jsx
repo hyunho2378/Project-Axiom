@@ -6,15 +6,13 @@ import { Environment } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import EvolvingBlob, { EvolvingParticles } from '../components/EvolvingBlob';
 import { questions } from '../data/questions';
-import { API_URL } from '../config/api';
+
+// 🔥 NUCLEAR OPTION: HARDCODED URL - NO FALLBACK
+const API_URL = "https://project-axiom.onrender.com";
 
 /**
- * AI Skin Analysis Page - Strict Layout System
- * 
- * LAYOUT CAGE:
- * - pt-32: Strict header clearance (8rem)
- * - 50/50 split on desktop
- * - Sphere constrained: max-h-[50vh] max-w-[80%]
+ * AI Skin Analysis Page
+ * 🔥 FIXED: Now saves to /api/surveys/submit
  */
 
 // Skin Types
@@ -44,7 +42,7 @@ function analyzeSkin(answers) {
     return { oilScore: oilPercent, sensScore: sensPercent, skinType, isOily, isSensitive };
 }
 
-// 3D Sphere - Strictly Contained
+// 3D Sphere Scene
 function SphereScene({ step }) {
     return (
         <Canvas camera={{ position: [0, 0, 6], fov: 45 }} dpr={[1, 2]} gl={{ antialias: true, alpha: false }} onCreated={({ gl }) => gl.setClearColor('#000000')}>
@@ -77,7 +75,7 @@ function ProgressBar({ current, total }) {
     );
 }
 
-// Loading
+// Loading Screen
 function LoadingScreen() {
     return (
         <div className="min-h-screen bg-black text-white pt-32 flex items-center justify-center">
@@ -100,7 +98,7 @@ export default function Analysis() {
     const [result, setResult] = useState(null);
     const [aiAdvice, setAiAdvice] = useState(null);
 
-    // Defensive
+    // Defensive check
     if (!questions || questions.length === 0) {
         return <div className="min-h-screen bg-black text-white pt-32 text-center font-sans">데이터 로딩 중...</div>;
     }
@@ -108,6 +106,45 @@ export default function Analysis() {
     const totalQuestions = questions.length;
     const safeIndex = Math.max(0, Math.min(currentQuestion, totalQuestions - 1));
     const currentQ = questions[safeIndex];
+
+    // 🔥 FIXED: SAVE TO DATABASE FUNCTION
+    const saveToDatabase = async (analysisResult, surveyAnswers) => {
+        const SUBMIT_URL = `${API_URL}/api/surveys/submit`;
+        console.log("🔥🔥🔥 FORCING DB SAVE TO:", SUBMIT_URL);
+        console.log("📦 Payload:", { answers: surveyAnswers, skinType: analysisResult.skinType.title, scores: { oil: analysisResult.oilScore, sens: analysisResult.sensScore } });
+
+        try {
+            // 1. SAVE TO SUPABASE DATABASE
+            const saveResponse = await fetch(SUBMIT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    answers: surveyAnswers,
+                    skinType: analysisResult.skinType.title,
+                    scores: { oil: analysisResult.oilScore, sens: analysisResult.sensScore }
+                })
+            });
+            const saveData = await saveResponse.json();
+            console.log("✅ DB SAVE RESPONSE:", saveData);
+
+            // 2. GET AI ADVICE (Optional - uses /api/analyze)
+            const aiResponse = await fetch(`${API_URL}/api/analyze`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    oilScore: analysisResult.oilScore,
+                    sensScore: analysisResult.sensScore,
+                    skinType: analysisResult.skinType.title
+                })
+            });
+            const aiData = await aiResponse.json();
+            return aiData.success ? aiData.advice : { headline: "피부 관리 팁", advice: "피부 타입에 맞는 제품을 사용하세요." };
+
+        } catch (error) {
+            console.error("❌ API ERROR:", error);
+            return { headline: "피부 관리 팁", advice: "피부 타입에 맞는 제품을 사용하세요." };
+        }
+    };
 
     const handleOptionSelect = async (option, index) => {
         if (isAnimating) return;
@@ -121,38 +158,40 @@ export default function Analysis() {
                 setCurrentQuestion(prev => prev + 1);
                 setSelectedOption(null);
             } else {
+                // 🔥 FINAL QUESTION: Analyze & Save
                 setIsLoading(true);
                 const analysisResult = analyzeSkin(newAnswers);
                 setResult(analysisResult);
-                try {
-                    const response = await fetch(`${API_URL}/api/analyze`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ oilScore: analysisResult.oilScore, sensScore: analysisResult.sensScore, skinType: analysisResult.skinType.title })
-                    });
-                    const data = await response.json();
-                    setAiAdvice(data.success ? data.advice : { headline: "피부 관리 팁", advice: "피부 타입에 맞는 제품을 사용하세요." });
-                } catch {
-                    setAiAdvice({ headline: "피부 관리 팁", advice: "피부 타입에 맞는 제품을 사용하세요." });
-                }
+
+                console.log("🏁 Quiz Finished. Saving to DB...");
+
+                // 🔥 SAVE TO DATABASE FIRST
+                const advice = await saveToDatabase(analysisResult, newAnswers);
+                setAiAdvice(advice);
+
                 setIsLoading(false);
             }
             setIsAnimating(false);
         }, 400);
     };
 
-    const handleRestart = () => { setIsStarted(false); setCurrentQuestion(0); setAnswers({}); setSelectedOption(null); setResult(null); setAiAdvice(null); };
+    const handleRestart = () => {
+        setIsStarted(false);
+        setCurrentQuestion(0);
+        setAnswers({});
+        setSelectedOption(null);
+        setResult(null);
+        setAiAdvice(null);
+    };
 
-    // INTRO
+    // INTRO SCREEN
     if (!isStarted) {
         return (
             <div className="min-h-screen bg-black text-white pt-32">
                 <div className="flex flex-col md:flex-row min-h-[calc(100vh-128px)]">
-                    {/* LEFT: Sphere - Strictly Contained */}
                     <div className="h-[35vh] md:h-auto md:w-1/2 flex items-center justify-center p-4">
                         <div className="w-full h-full max-w-[80%] max-h-[50vh]"><SphereScene step={0} /></div>
                     </div>
-                    {/* RIGHT: Content */}
                     <div className="flex-1 md:w-1/2 flex items-center justify-center px-6 py-8">
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-md text-center md:text-left">
                             <p className="text-[10px] uppercase tracking-widest text-[#3C7795] mb-4 font-sans">AI Skin Analysis</p>
@@ -168,21 +207,18 @@ export default function Analysis() {
 
     if (isLoading) return <LoadingScreen />;
 
-    // RESULT - Compact & Premium
+    // RESULT SCREEN
     if (result && aiAdvice) {
         return (
             <div className="min-h-screen bg-black text-white pt-32">
                 <div className="flex flex-col md:flex-row min-h-[calc(100vh-128px)]">
-                    {/* LEFT: Sphere */}
                     <div className="h-[30vh] md:h-auto md:w-1/2 flex items-center justify-center p-4">
                         <div className="w-full h-full max-w-[80%] max-h-[50vh]"><SphereScene step={10} /></div>
                     </div>
-                    {/* RIGHT: Result Card */}
                     <div className="flex-1 md:w-1/2 flex items-start justify-center px-6 py-8 overflow-y-auto">
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-md w-full">
                             <p className="text-[10px] uppercase tracking-widest text-[#3C7795] mb-6 font-sans">Analysis Complete</p>
 
-                            {/* TYPE ROW: Side-by-side Icon + Title */}
                             <div className="flex items-center gap-4 mb-6">
                                 <div className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center border shrink-0" style={{ borderColor: result.skinType.color, background: `linear-gradient(135deg, ${result.skinType.color}30, transparent)` }}>
                                     <span className="text-xl md:text-2xl">{result.skinType.emoji}</span>
@@ -195,7 +231,6 @@ export default function Analysis() {
 
                             <p className="text-sm text-[#8AAEC0]/70 mb-6 font-sans" style={{ wordBreak: 'keep-all' }}>{result.skinType.descriptionKo}</p>
 
-                            {/* SCORES - Compact */}
                             <div className="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-4 mb-6">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
@@ -215,7 +250,6 @@ export default function Analysis() {
                                 </div>
                             </div>
 
-                            {/* AI ADVICE - No serif/italic */}
                             <div className="bg-[#1E5672]/20 border border-[#3C7795]/30 rounded-xl p-4 mb-8">
                                 <div className="flex items-center gap-2 mb-3">
                                     <div className="w-5 h-5 rounded-full bg-gradient-to-r from-[#3C7795] to-[#00E0FF] flex items-center justify-center text-[10px]">💡</div>
@@ -225,7 +259,6 @@ export default function Analysis() {
                                 <p className="text-sm text-[#8AAEC0]/80 font-sans leading-relaxed" style={{ wordBreak: 'keep-all' }}>{aiAdvice.advice}</p>
                             </div>
 
-                            {/* BUTTONS */}
                             <div className="space-y-3">
                                 <div className="flex gap-3">
                                     <button onClick={() => navigate('/shop')} className="flex-1 py-3 text-sm font-semibold text-black bg-gradient-to-r from-[#3C7795] to-[#8AAEC0] rounded-full font-sans">맞춤 상품</button>
@@ -242,15 +275,13 @@ export default function Analysis() {
         );
     }
 
-    // QUIZ
+    // QUIZ SCREEN
     return (
         <div className="min-h-screen bg-black text-white pt-32">
             <div className="flex flex-col md:flex-row min-h-[calc(100vh-128px)]">
-                {/* LEFT: Sphere */}
                 <div className="h-[30vh] md:h-auto md:w-1/2 flex items-center justify-center p-4">
                     <div className="w-full h-full max-w-[80%] max-h-[50vh]"><SphereScene step={safeIndex} /></div>
                 </div>
-                {/* RIGHT: Question */}
                 <div className="flex-1 md:w-1/2 flex flex-col justify-center px-6 py-8">
                     <div className="max-w-lg mx-auto w-full">
                         <ProgressBar current={safeIndex} total={totalQuestions} />
