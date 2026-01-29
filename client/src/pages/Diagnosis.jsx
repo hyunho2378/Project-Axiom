@@ -6,7 +6,9 @@ import { Environment } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import EvolvingBlob, { EvolvingParticles } from '../components/EvolvingBlob';
 import { QUESTIONS, generateResult } from '../data/questions';
-import { API_URL } from '../config/api';
+
+// 🔥 HARDCODED PRODUCTION URL - NO FALLBACK
+const API_URL = "https://project-axiom.onrender.com";
 
 /**
  * Diagnosis Page - Split Screen Layout with Evolving 3D Blob
@@ -116,11 +118,14 @@ export default function Diagnosis() {
         return generateResult(answers);
     };
 
-    // Save result to API (Guest Survey - No Login Required)
+    // 🔥 SAVE TO DATABASE - Guest Survey (No Login Required)
     const saveResultToAPI = async (result, surveyAnswers) => {
+        console.log("🚀 SAVING TO DB via:", `${API_URL}/api/surveys/submit`);
+        console.log("📦 Data:", { answers: surveyAnswers, skinType: result.title, scores: result.scores });
+
         setIsSaving(true);
         try {
-            // Save to Guest Survey endpoint (Supabase persistence)
+            // 1. SAVE TO SUPABASE DATABASE
             const surveyResponse = await fetch(`${API_URL}/api/surveys/submit`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -131,28 +136,26 @@ export default function Diagnosis() {
                 })
             });
             const surveyData = await surveyResponse.json();
-            if (surveyData.success) {
-                console.log('✅ Survey saved permanently:', surveyData.data.id);
-            }
+            console.log("✅ DB RESPONSE:", surveyData);
 
-            // Also call diagnosis endpoint for recommendations
+            // 2. GET PRODUCT RECOMMENDATIONS
             const response = await fetch(`${API_URL}/api/diagnosis`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     resultType: result.title,
                     auraKeyword: result.aura_keyword,
-                    axis: result.axis.code,
-                    sensitivity: result.sensitivity.code,
+                    axis: result.axis?.code,
+                    sensitivity: result.sensitivity?.code,
                     scores: result.scores
                 })
             });
             const data = await response.json();
-            if (data.success && data.data.recommendedProducts) {
+            if (data.success && data.data?.recommendedProducts) {
                 setRecommendedProducts(data.data.recommendedProducts);
             }
         } catch (error) {
-            console.error('Failed to save diagnosis result:', error);
+            console.error("❌ SAVE FAILED:", error);
         } finally {
             setIsSaving(false);
         }
@@ -176,12 +179,15 @@ export default function Diagnosis() {
                 setCurrentQuestion(prev => prev + 1);
                 setSelectedOption(null);
             } else {
-                // Calculate final result using new engine
+                // FINAL QUESTION - Calculate result
                 const updatedAnswers = { ...answers, [currentQ.id]: option.score };
                 const result = generateResult(updatedAnswers);
+
+                // 🔥 CALL SAVE FUNCTION BEFORE UI CHANGE
+                saveResultToAPI(result, updatedAnswers);
+
                 setResultType(result);
                 setShowResult(true);
-                saveResultToAPI(result, updatedAnswers);
             }
             setIsAnimating(false);
         }, 600);
