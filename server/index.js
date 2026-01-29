@@ -12,8 +12,13 @@ const genAI = process.env.GEMINI_API_KEY
     ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
     : null;
 
-// Middleware
-app.use(cors());
+// Middleware - CORS must be first
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: false  // Must be false when origin is '*'
+}));
 app.use(express.json());
 
 // Initialize Prisma Client for Supabase PostgreSQL
