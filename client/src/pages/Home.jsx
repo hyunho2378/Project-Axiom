@@ -1,10 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Environment } from '@react-three/drei';
-import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import * as THREE from 'three';
+import Scene3D from '../components/Scene3D';
 
 /**
  * Home Page - High-End Tech Style Landing
@@ -29,100 +26,11 @@ import * as THREE from 'three';
 // 3D BACKGROUND COMPONENTS
 // ============================================
 
-function TheOrb() {
-    const meshRef = useRef();
-    const glowRef = useRef();
+// ============================================
+// 3D BACKGROUND COMPONENTS
+// ============================================
 
-    useFrame((state) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.15;
-        }
-        if (glowRef.current) {
-            glowRef.current.material.emissiveIntensity = 1.2 + Math.sin(state.clock.getElapsedTime() * 0.5) * 0.3;
-        }
-    });
-
-    return (
-        <Float speed={1.5} rotationIntensity={0.1} floatIntensity={0.3}>
-            <group position={[0, 0, 0]}>
-                <mesh ref={glowRef} scale={1.5}>
-                    <sphereGeometry args={[1, 32, 32]} />
-                    <meshStandardMaterial
-                        color="#1E5672"
-                        emissive="#3C7795"
-                        emissiveIntensity={1.2}
-                        transparent
-                        opacity={0.5}
-                    />
-                </mesh>
-                <mesh ref={meshRef} scale={1.8}>
-                    <sphereGeometry args={[1, 64, 64]} />
-                    <meshPhysicalMaterial
-                        color="#1E5672"
-                        emissive="#3C7795"
-                        emissiveIntensity={0.2}
-                        roughness={0.1}
-                        metalness={0.2}
-                        transmission={0.8}
-                        thickness={2}
-                        transparent
-                        opacity={0.6}
-                    />
-                </mesh>
-            </group>
-        </Float>
-    );
-}
-
-function FloatingParticles({ count = 40 }) {
-    const pointsRef = useRef();
-    const positions = new Float32Array(count * 3);
-
-    for (let i = 0; i < count; i++) {
-        const radius = 3 + Math.random() * 5;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos(2 * Math.random() - 1);
-        positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-        positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-        positions[i * 3 + 2] = radius * Math.cos(phi);
-    }
-
-    useFrame((state) => {
-        if (pointsRef.current) {
-            pointsRef.current.rotation.y = state.clock.getElapsedTime() * 0.02;
-        }
-    });
-
-    return (
-        <points ref={pointsRef}>
-            <bufferGeometry>
-                <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
-            </bufferGeometry>
-            <pointsMaterial size={0.06} color="#8AAEC0" transparent opacity={0.6} sizeAttenuation />
-        </points>
-    );
-}
-
-function Background3D() {
-    return (
-        <Canvas
-            camera={{ position: [0, 0, 8], fov: 45 }}
-            dpr={[1, 1.5]}
-            gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
-            onCreated={({ gl }) => gl.setClearColor('#000000')}
-        >
-            <ambientLight intensity={1} />
-            <spotLight position={[5, 10, 5]} angle={0.4} penumbra={1} intensity={3} color="#3C7795" />
-            <pointLight position={[-5, 5, 5]} intensity={2} color="#3C7795" />
-            <Environment preset="night" />
-            <TheOrb />
-            <FloatingParticles count={35} />
-            <EffectComposer>
-                <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} intensity={1} />
-            </EffectComposer>
-        </Canvas>
-    );
-}
+// Replaced by Scene3D.jsx
 
 // ============================================
 // ANIMATION VARIANTS
@@ -147,24 +55,31 @@ function HeroSection() {
 
     return (
         <section className="relative w-full min-h-screen bg-black overflow-hidden">
-            {/* 3D Background - Darkened */}
-            <div className="absolute inset-0 z-0 opacity-70">
-                <Background3D />
+            {/* 3D Background - STATIC, TELEPHOTO LENS (no floor visible) */}
+            <div className="absolute inset-0 z-0">
+                <Scene3D
+                    modelUrl="/models/axiom-main-banner.glb"
+                    scale={2}
+                    position={[1, 0, 0]}
+                    isFixed={true}
+                    cameraPos={[0, 0.5, 10]}
+                    fov={25}
+                />
             </div>
 
             {/* Dark Gradient Overlay */}
-            <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/40 via-transparent to-black" />
+            <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
 
-            {/* Content */}
-            <div className="relative z-10 min-h-screen flex items-center justify-center">
-                <div className="w-full max-w-screen-xl mx-auto px-6 md:px-12 text-center">
+            {/* Content - LEFT ALIGNED */}
+            <div className="relative z-10 min-h-screen flex items-center">
+                <div className="w-full max-w-screen-xl mx-auto px-6 md:px-12">
                     <motion.div
                         variants={staggerContainer}
                         initial="hidden"
                         animate="visible"
-                        className="max-w-4xl mx-auto"
+                        className="max-w-xl"
                     >
-                        {/* Massive H1 */}
+                        {/* Massive H1 - LEFT ALIGNED */}
                         <motion.h1
                             variants={fadeInUp}
                             className="font-sans text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05] mb-6 text-[#8AAEC0]"
@@ -178,13 +93,13 @@ function HeroSection() {
                         {/* Subtitle */}
                         <motion.p
                             variants={fadeInUp}
-                            className="font-sans text-lg md:text-xl text-[#8AAEC0]/70 max-w-2xl mx-auto mb-10 leading-relaxed"
+                            className="font-sans text-lg md:text-xl text-[#8AAEC0]/70 max-w-md mb-10 leading-relaxed"
                         >
                             The precision of data. The art of beauty.<br className="hidden md:block" />
                             AXIOM creates your unique formula.
                         </motion.p>
 
-                        {/* CTA Button - Pill with Cyan Glow */}
+                        {/* CTA Button */}
                         <motion.div variants={fadeInUp}>
                             <button
                                 onClick={() => navigate('/analysis')}
@@ -220,6 +135,7 @@ function HeroSection() {
 function AlgorithmSection() {
     return (
         <section className="relative py-24 md:py-32 bg-black overflow-hidden">
+            {/* NO 3D Background - Removed leaking personal-space model */}
             <div className="w-full max-w-screen-xl mx-auto px-6 md:px-12">
                 {/* Section Header */}
                 <motion.div
@@ -516,45 +432,22 @@ function TechnologySection() {
 // ============================================
 
 function FooterCTA() {
-    const navigate = useNavigate();
-
     return (
         <section className="relative py-24 md:py-32 bg-black overflow-hidden">
-            {/* Gradient Background */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1E5672]/10 to-transparent pointer-events-none" />
-
-            {/* Glow */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#3C7795]/15 rounded-full blur-[120px] pointer-events-none" />
-
-            <div className="relative z-10 w-full max-w-screen-xl mx-auto px-6 md:px-12 text-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <p className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-sans mb-6">
-                        Start Now
-                    </p>
-                    <h2 className="font-sans text-3xl md:text-5xl lg:text-6xl font-bold text-[#8AAEC0] mb-6 leading-tight">
-                        Ready to find<br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3C7795] to-[#8AAEC0]">
-                            your standard?
-                        </span>
-                    </h2>
-                    <p className="font-sans text-base md:text-lg text-[#8AAEC0]/60 mb-10 max-w-md mx-auto" style={{ wordBreak: 'keep-all' }}>
-                        지금 바로 AXIOM 여정을 시작하세요.
-                    </p>
-
-                    {/* Large CTA Button with Strong Glow */}
-                    <button
-                        onClick={() => navigate('/analysis')}
-                        className="relative inline-flex items-center justify-center px-12 py-5 md:px-16 md:py-6 font-sans text-lg md:text-xl font-bold text-black bg-gradient-to-r from-[#3C7795] to-[#8AAEC0] rounded-full transition-all duration-300 hover:scale-105 shadow-[0_0_60px_rgba(60,119,149,0.5)] hover:shadow-[0_0_100px_rgba(60,119,149,0.7)]"
-                    >
-                        Begin Journey
-                    </button>
-                </motion.div>
+            {/* 3D Model ONLY - Clean visual, no text, no button */}
+            <div className="absolute inset-0 z-0">
+                <Scene3D
+                    modelUrl="/models/axiom-main-bottom-section.glb"
+                    scale={3}
+                    position={[0, -2, 0]}
+                    isFixed={true}
+                    cameraPos={[0, 3, 15]}
+                    fov={10}
+                />
             </div>
+
+            {/* Empty spacer for section height */}
+            <div className="relative z-10 min-h-[400px]" />
         </section>
     );
 }

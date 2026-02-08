@@ -31,7 +31,6 @@ export default function Footer() {
                             <img src="/images/Axiom_logo.svg" alt="AXIOM" className="h-8 w-auto object-contain hover:opacity-80 transition-opacity" />
                         </Link>
                         <p className="font-sans text-sm text-[#8AAEC0]/70 mt-4 leading-relaxed max-w-[220px]" style={{ wordBreak: 'keep-all' }}>
-                            Define Your Axis.<br />
                             데이터가 보여주는 가장 아름다운 진실
                         </p>
                     </motion.div>
@@ -168,6 +167,6 @@ export default function Footer() {
                     </div>
                 </motion.div>
             </div>
-        </footer>
+        </footer >
     );
 }

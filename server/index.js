@@ -47,23 +47,39 @@ app.post('/api/analyze', async (req, res) => {
 
         if (isOily && isSensitive) {
             return {
-                headline: "유분 조절과 진정이 동시에 필요합니다",
-                advice: "나이아신아마이드와 센텔라아시아티카 성분이 도움됩니다. 가벼운 수분 젤 제형을 선택하고, 자극적인 클렌저는 피하세요."
+                headline: "유분 조절과 진정, 둘 다 챙겨요! 💪",
+                advice: "피지도 많고 자극에도 예민한 피부시네요. 가벼운 수분 젤 제형을 사용하면서 나이아신아마이드와 센텔라 성분을 찾아보세요. 자극적인 세안제는 피하는 게 좋아요!",
+                glossary: [
+                    { term: "나이아신아마이드", definition: "피부 톤을 밝게 하고 모공을 조여주는 비타민B 성분이에요" },
+                    { term: "센텔라", definition: "병풀에서 추출한 성분으로 피부를 진정시켜줘요" }
+                ]
             };
         } else if (isOily) {
             return {
-                headline: "피지 조절에 집중하세요",
-                advice: "BHA(살리실산) 성분으로 모공 관리를 하고, 오일프리 보습제를 사용하세요. 주 1-2회 클레이 마스크가 효과적입니다."
+                headline: "모공 관리가 핵심이에요! ✨",
+                advice: "피지가 많은 피부시네요. BHA 성분으로 모공 관리를 하고, 오일프리 보습제를 사용해보세요. 일주일에 1-2번 클레이 마스크도 효과적이에요!",
+                glossary: [
+                    { term: "BHA", definition: "살리실산이라고도 하며, 모공 속 노폐물을 녹여주는 성분이에요" },
+                    { term: "오일프리", definition: "기름 성분이 없어서 번들거림 없이 촉촉함을 유지해줘요" }
+                ]
             };
         } else if (isSensitive) {
             return {
-                headline: "피부 장벽 강화가 우선입니다",
-                advice: "세라마이드와 판테놀 성분으로 장벽을 보호하세요. 무향료, 저자극 제품을 선택하고 새 제품은 패치 테스트 후 사용하세요."
+                headline: "피부 장벽부터 튼튼하게! 🛡️",
+                advice: "자극에 예민한 피부시네요. 세라마이드와 판테놀 성분으로 장벽을 보호하세요. 새 제품은 꼭 손목에 먼저 발라보고, 무향료 제품을 선택하면 좋아요!",
+                glossary: [
+                    { term: "세라마이드", definition: "피부 장벽을 구성하는 지질 성분으로 보호막을 만들어줘요" },
+                    { term: "판테놀", definition: "비타민B5로 피부를 진정시키고 촉촉하게 해줘요" }
+                ]
             };
         } else {
             return {
-                headline: "수분 공급에 집중하세요",
-                advice: "히알루론산과 글리세린이 함유된 보습제를 사용하세요. 주 2-3회 보습 마스크팩으로 수분을 채워주면 좋습니다."
+                headline: "수분 충전에 집중하세요! 💧",
+                advice: "건조하지만 안정적인 피부시네요. 히알루론산과 글리세린이 들어간 보습제를 사용하세요. 일주일에 2-3번 수분 마스크팩으로 촉촉함을 채워주면 더 좋아요!",
+                glossary: [
+                    { term: "히알루론산", definition: "자기 무게의 1000배 수분을 끌어당기는 보습 성분이에요" },
+                    { term: "글리세린", definition: "피부에 수분을 잡아두는 대표적인 보습제예요" }
+                ]
             };
         }
     };
@@ -80,45 +96,64 @@ app.post('/api/analyze', async (req, res) => {
     try {
         const model = genAI.getGenerativeModel({ model: 'gemini-flash-latest' });
 
-        const prompt = `역할: 당신은 피부과 전문의이자 화장품 성분 전문가입니다.
+        const prompt = `역할: 당신은 친절한 피부 관리 상담사입니다. 피부 지식이 없는 일반인도 이해할 수 있게 쉽게 설명해주세요.
 
 분석 데이터:
 - 피부 타입: ${skinType}
-- 유분도: ${oilScore}/100 (50 이상 = 지성, 50 미만 = 건성)
-- 민감도: ${sensScore}/100 (50 이상 = 민감성, 50 미만 = 저항성)
+- 유분도: ${oilScore}/100 (높을수록 기름기가 많아요)
+- 민감도: ${sensScore}/100 (높을수록 자극에 예민해요)
 
 지시사항:
-1. 위 데이터를 바탕으로 한국어로 전문적인 스킨케어 조언을 작성하세요.
-2. 구체적인 성분명을 언급하세요 (예: 히알루론산, 세라마이드, 나이아신아마이드, BHA, 비타민C 등).
-3. 실천 가능한 루틴 팁을 포함하세요.
-4. 시적 표현이나 은유는 절대 사용하지 마세요. 전문적이고 명확하게 작성하세요.
-5. 짧고 간결하게 작성하세요.
+1. 친구에게 말하듯 친근하고 쉬운 한국어로 조언해주세요.
+2. 어려운 전문 용어(예: 나이아신아마이드, 레티놀, BHA 등)를 사용할 때는 본문에서 설명하지 마세요.
+3. 대신, 글 마지막에 용어 설명을 별도로 정리해주세요.
+4. 따뜻하고 응원하는 톤으로 작성하세요.
 
-다음 JSON 형식으로 정확히 응답하세요:
-{"headline": "핵심 조언 한 줄 (15자 이내)", "advice": "구체적인 성분과 루틴 조언 (2-3문장)"}`;
+IMPORTANT OUTPUT RULE:
+다음 형식으로 정확히 응답하세요. ---GLOSSARY--- 구분선을 반드시 포함하세요:
+
+[핵심 한 줄 메시지]
+
+[친근한 조언 2-3문장]
+
+---GLOSSARY---
+[용어1]: [쉬운 설명]
+[용어2]: [쉬운 설명]`;
 
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();
 
-        try {
-            const cleanText = text.replace(/```json\n?|\n?```/g, '').trim();
-            const advice = JSON.parse(cleanText);
+        // Parse the ---GLOSSARY--- format
+        const parts = text.split('---GLOSSARY---');
+        const mainText = parts[0].trim();
+        const glossaryText = parts[1] ? parts[1].trim() : '';
 
-            res.json({
-                success: true,
-                advice: {
-                    headline: advice.headline || "맞춤 스킨케어 조언",
-                    advice: advice.advice || "피부 타입에 맞는 제품을 선택하세요."
+        // Extract headline (first line) and advice (rest)
+        const lines = mainText.split('\n').filter(line => line.trim());
+        const headline = lines[0] || '맞춤 스킨케어 조언';
+        const advice = lines.slice(1).join(' ').trim() || '피부 타입에 맞는 제품을 선택하세요.';
+
+        // Parse glossary terms
+        const glossary = [];
+        if (glossaryText) {
+            const glossaryLines = glossaryText.split('\n').filter(line => line.includes(':'));
+            glossaryLines.forEach(line => {
+                const colonIndex = line.indexOf(':');
+                if (colonIndex > 0) {
+                    const term = line.substring(0, colonIndex).trim().replace(/^[-*•]\s*/, '');
+                    const definition = line.substring(colonIndex + 1).trim();
+                    if (term && definition) {
+                        glossary.push({ term, definition });
+                    }
                 }
             });
-        } catch (parseError) {
-            console.log('Parse error, using default:', text);
-            res.json({
-                success: true,
-                advice: getDefaultAdvice(skinType, oilScore, sensScore)
-            });
         }
+
+        res.json({
+            success: true,
+            advice: { headline, advice, glossary }
+        });
     } catch (error) {
         console.error('Gemini API error:', error);
         res.json({
