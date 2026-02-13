@@ -13,7 +13,7 @@ import ScrollToTop from '../components/ScrollToTop';
 // Pages (now in same folder)
 import Home from './Home';
 import AuraStory from './AuraStory';
-import BrandStory from './BrandStory';
+import About from './About';
 import Shop from './Shop';
 import Curations from './Curations';
 import Dashboard from './Dashboard';
@@ -96,7 +96,7 @@ function AppContent() {
                 <Route path="/" element={<AppLayout {...layoutProps}><Home /></AppLayout>} />
 
                 {/* Brand Story (new) */}
-                <Route path="/brand" element={<AppLayout {...layoutProps}><BrandStory /></AppLayout>} />
+                <Route path="/brand" element={<AppLayout {...layoutProps}><About /></AppLayout>} />
 
                 {/* Aura Story (legacy) */}
                 <Route path="/aura" element={<AppLayout {...layoutProps}><AuraStory /></AppLayout>} />

@@ -11,9 +11,22 @@ export default {
                 'void-light': '#0A0A0A',
                 'void-lighter': '#121212',
             },
+            // 폰트 시스템: Serif(영어/제목), Sans(한글/본문), Mono(데이터/테크)
             fontFamily: {
-                serif: ['"Playfair Display"', 'Georgia', 'serif'],
-                sans: ['"Pretendard Variable"', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                serif: ['"Playfair Display"', 'serif'], // 하이엔드 럭셔리
+                sans: ['Pretendard', 'sans-serif'],     // 모던 테크니컬
+                mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'], // 로우 데이터
+            },
+            // 행간 시스템 (Leading)
+            lineHeight: {
+                'title': '1.3', // 제목용 (130%)
+                'body': '1.2',  // 본문용 (120%)
+            },
+            // 자간 시스템 (Tracking)
+            letterSpacing: {
+                'normal': '0em',      // 기본 본문
+                'tightest': '-0.02em', // 굵은 제목용
+                'widest': '0.2em',    // 테크 라벨용 (font-mono와 함께 사용)
             },
             backdropBlur: {
                 'glass': '20px',

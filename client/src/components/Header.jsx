@@ -5,14 +5,9 @@ import { useLanguage } from '../context/LanguageContext';
 import { contentData } from '../data/contentData';
 
 /**
- * Sticky Header Component
- * - State A (Top): Transparent, py-6
- * - State B (Scrolled): Dark glassmorphism, py-4
- * 
- * BRAND COLORS:
- * - #0a0a0a (Dark BG)
- * - #8AAEC0 (Mist Blue Text)
- * - #3C7795 (Cyan Accent)
+ * FIXED SIZE Sticky Header Component
+ * - Size is locked to py-4 (padding-top/bottom) whether scrolled or not.
+ * - Only the background and border change on scroll.
  */
 
 const MENU_PATHS = ['/', '/brand', '/analysis', '/curations', '/datalab'];
@@ -46,10 +41,11 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout, user }) {
                 transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
                 className={`
                     fixed top-0 left-0 right-0 z-50
-                    transition-all duration-500 ease-in-out
+                    transition-colors duration-500 ease-in-out
+                    py-4 /* 🔥 FIX: Padding is permanently locked to py-4 */
                     ${isScrolled
-                        ? 'bg-[#0a0a0a]/70 backdrop-blur-md shadow-lg border-b border-white/10 py-4'
-                        : 'bg-transparent py-6'}
+                        ? 'bg-[#0a0a0a]/70 backdrop-blur-md shadow-lg border-b border-white/10' // Scrolled: Glass effect
+                        : 'bg-transparent border-b border-transparent'} // Default: Transparent, no border
                 `}
             >
                 <div className="w-full max-w-screen-xl mx-auto px-6 md:px-12 flex items-center justify-between">
