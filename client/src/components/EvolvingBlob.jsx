@@ -1,6 +1,6 @@
 import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { MeshDistortMaterial, Sphere, Float } from '@react-three/drei';
+import { MeshDistortMaterial, Float } from '@react-three/drei';
 import * as THREE from 'three';
 
 /**
@@ -46,12 +46,6 @@ function lerp(start, end, t) {
     return start + (end - start) * t;
 }
 
-// Smooth color interpolation
-function lerpColor(colorA, colorB, t) {
-    const a = new THREE.Color(colorA);
-    const b = new THREE.Color(colorB);
-    return a.lerp(b, t);
-}
 
 export default function EvolvingBlob({ step = 0 }) {
     const meshRef = useRef();
@@ -131,6 +125,56 @@ export default function EvolvingBlob({ step = 0 }) {
                 />
             </mesh>
         </Float>
+    );
+}
+
+/**
+ * Starfield — Continuous flowing star particle background
+ * 1200 points distributed in a deep-space sphere around the blob.
+ * Slowly rotates on all axes for a living atmosphere.
+ */
+export function Starfield({ count = 1200 }) {
+    const ref = useRef();
+
+    const positions = useMemo(() => {
+        const pos = new Float32Array(count * 3);
+        for (let i = 0; i < count; i++) {
+            const r = 8 + Math.random() * 12;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos(2 * Math.random() - 1);
+            pos[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
+            pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+            pos[i * 3 + 2] = r * Math.cos(phi);
+        }
+        return pos;
+    }, [count]);
+
+    useFrame((state) => {
+        if (!ref.current) return;
+        const t = state.clock.elapsedTime;
+        ref.current.rotation.y = t * 0.012;
+        ref.current.rotation.x = Math.sin(t * 0.008) * 0.15;
+        ref.current.rotation.z = Math.cos(t * 0.006) * 0.08;
+    });
+
+    return (
+        <points ref={ref}>
+            <bufferGeometry>
+                <bufferAttribute
+                    attach="attributes-position"
+                    count={count}
+                    array={positions}
+                    itemSize={3}
+                />
+            </bufferGeometry>
+            <pointsMaterial
+                size={0.018}
+                color="#8AAEC0"
+                transparent
+                opacity={0.45}
+                sizeAttenuation
+            />
+        </points>
     );
 }
 

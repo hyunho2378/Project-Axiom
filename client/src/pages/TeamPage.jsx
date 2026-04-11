@@ -15,54 +15,54 @@ import { Link } from 'react-router-dom';
 
 const TEAM_MEMBERS = [
     {
-        name: "Hyunho Ju",
-        role: "PM & Product Designer",
+        name: "주현호",
+        role: "PM · 프로덕트 디자이너",
         tasks: [
-            "Project Scheduling & Management",
-            "UX Strategy & IA Design",
-            "UI System Architecture & GUI Direction",
-            "BX Guideline Formulation",
-            "Full-Stack Implementation (Antigravity based)",
-            "3D Asset Integration & Deployment (Vercel)"
+            "프로젝트 일정 수립 및 총괄 관리",
+            "UX 전략 수립 및 정보 구조(IA) 설계",
+            "UI 시스템 아키텍처 및 GUI 총괄 디렉션",
+            "BX 가이드라인 수립",
+            "풀스택 구현 (Antigravity 기반)",
+            "3D 에셋 통합 및 배포 (Vercel)"
         ]
     },
     {
-        name: "Jiwoo Lim",
-        role: "Planner & BX Designer",
+        name: "임지우",
+        role: "플래너 · BX 디자이너",
         tasks: [
-            "Brand Naming, Worldview & Persona",
-            "User Diagnosis Algorithm Design",
-            "Web Copywriting & Storyboard Planning",
-            "BX Guideline Formulation"
+            "브랜드 네이밍, 세계관 및 페르소나 기획",
+            "사용자 진단 알고리즘 설계",
+            "웹 카피라이팅 및 스토리보드 기획",
+            "BX 가이드라인 수립"
         ]
     },
     {
-        name: "Jiyeon Kim",
-        role: "Art Director & 3D Motion Designer",
+        name: "김지연",
+        role: "아트 디렉터 · 3D 모션 디자이너",
         tasks: [
-            "Color & Design Tone-and-Manner",
-            "Main Hero Object Modeling & Texturing",
-            "Cinematic 3D Motion Graphics (Intro)"
+            "컬러 및 디자인 톤앤매너 정의",
+            "메인 히어로 오브젝트 모델링 및 텍스처링",
+            "시네마틱 3D 모션 그래픽 (인트로)"
         ]
     },
     {
-        name: "Hyuna Yoon",
-        role: "3D Modeler & Technical Designer",
+        name: "윤현아",
+        role: "3D 모델러 · 테크니컬 디자이너",
         tasks: [
-            "Data-Driven 3D Morphing Logic (Shader)",
-            "Web-Optimization R&D for 3D Models",
-            "Result Graphs & Sub-Object Design",
-            "Product Container Modeling"
+            "데이터 기반 3D 모핑 로직 (셰이더)",
+            "3D 모델 웹 최적화 연구·개발",
+            "결과 그래프 및 서브 오브젝트 디자인",
+            "제품 용기 모델링"
         ]
     },
     {
-        name: "Donggyu Yeo",
-        role: "3D Modeler & Package Designer",
+        name: "여동규",
+        role: "3D 모델러 · 패키지 디자이너",
         tasks: [
-            "Interactive Space Design & Modeling",
-            "Product Package Modeling",
-            "Texture Variations by Skin Type",
-            "Asset Optimization"
+            "인터랙티브 공간 디자인 및 모델링",
+            "제품 패키지 모델링",
+            "피부 타입별 텍스처 변형 디자인",
+            "에셋 최적화"
         ]
     }
 ];
@@ -132,7 +132,7 @@ export default function TeamPage() {
             {/* Background Glow */}
             <div className="fixed top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#3C7795]/5 rounded-full blur-[200px] pointer-events-none" />
 
-            <div className="relative z-10 max-w-screen-xl mx-auto px-6 md:px-12">
+            <div className="relative z-10 max-w-7xl mx-auto px-6">
                 {/* Hero Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -141,23 +141,23 @@ export default function TeamPage() {
                     className="text-center mb-20"
                 >
                     {/* Easter Egg Label */}
-                    <p className="text-sm font-bold tracking-[0.3em] text-[#3C7795] uppercase mb-6">
-                        Secret Credits
+                    <p className="font-mono text-[10px] font-bold tracking-[0.3em] text-[#3C7795] uppercase mb-6">
+                        비밀 크레딧
                     </p>
 
                     {/* Team Name */}
-                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
+                    <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
                         Team DYT
                     </h1>
 
-                    {/* Full Name (Treated Elegantly) */}
-                    <p className="text-lg md:text-xl text-[#8AAEC0]/50 italic mb-8">
-                        "Dongdaemun Yupgi Tteokbokki"
+                    {/* Full Name */}
+                    <p className="font-sans text-base md:text-lg text-[#8AAEC0]/40 italic mb-8">
+                        "동대문 유기 떡볶이"
                     </p>
 
                     {/* Tagline */}
-                    <p className="text-lg text-[#8AAEC0] max-w-xl mx-auto leading-relaxed">
-                        The minds behind AXIOM. Data-driven beauty, designed with precision and passion.
+                    <p className="font-sans text-base text-[#8AAEC0] max-w-xl mx-auto leading-relaxed">
+                        AXIOM을 설계한 사람들. 데이터와 열정으로 빚어낸 고정밀 뷰티 테크의 이면.
                     </p>
                 </motion.div>
 
@@ -182,12 +182,12 @@ export default function TeamPage() {
                 >
                     <Link
                         to="/"
-                        className="inline-flex items-center gap-2 text-sm text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors duration-300"
+                        className="inline-flex items-center gap-2 font-sans text-sm text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors duration-300"
                     >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                             <path d="M19 12H5M12 19l-7-7 7-7" />
                         </svg>
-                        Return to AXIOM
+                        AXIOM으로 돌아가기
                     </Link>
                 </motion.div>
 
@@ -196,9 +196,9 @@ export default function TeamPage() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.2, duration: 0.8 }}
-                    className="mt-16 text-center text-xs text-[#8AAEC0]/30"
+                    className="mt-16 text-center font-mono text-xs text-[#8AAEC0]/30"
                 >
-                    You found us. Now go define your axis.
+                    당신이 우리를 찾아냈습니다. 이제 당신의 축을 정의하십시오.
                 </motion.p>
             </div>
         </main>

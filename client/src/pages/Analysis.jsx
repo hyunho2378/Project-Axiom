@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import EvolvingBlob, { EvolvingParticles } from '../components/EvolvingBlob';
+import EvolvingBlob, { EvolvingParticles, Starfield } from '../components/EvolvingBlob';
 import { questions } from '../data/questions';
 import { getRecommendedProducts, getSkinDescription } from '../data/axiomData';
 
@@ -208,8 +208,18 @@ export default function Analysis() {
                                 <ambientLight intensity={0.5} />
                                 <spotLight position={[10, 10, 10]} intensity={1} color="#00E0FF" />
                                 <Suspense fallback={null}>
-                                    <EvolvingBlob progress={(currentQuestion + 1) / questions.length} />
-                                    <EvolvingParticles />
+                                    <Starfield />
+                                    <EvolvingBlob step={
+                                        quizPhase === 'intro' ? 0 :
+                                        quizPhase === 'gender' ? 1 :
+                                        quizPhase === 'age' ? 2 :
+                                        quizPhase === 'quiz' ? Math.min(3 + Math.round((currentQuestion / Math.max(questions.length - 1, 1)) * 6), 9) :
+                                        quizPhase === 'loading' ? 9 : 10
+                                    } />
+                                    <EvolvingParticles step={
+                                        quizPhase === 'intro' ? 0 :
+                                        quizPhase === 'quiz' ? Math.round((currentQuestion / Math.max(questions.length - 1, 1)) * 10) : 10
+                                    } />
                                     <Environment preset="city" />
                                 </Suspense>
                                 <EffectComposer><Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} height={300} /></EffectComposer>

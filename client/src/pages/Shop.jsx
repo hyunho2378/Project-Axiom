@@ -20,7 +20,7 @@ export default function Shop() {
     return (
         <main className="min-h-screen bg-transparent relative z-10">
             {/* Header Section */}
-            <div className="max-w-5xl mx-auto px-6 pt-24 pb-6">
+            <div className="max-w-7xl mx-auto px-6 pt-24 pb-6">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}

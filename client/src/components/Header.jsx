@@ -12,10 +12,10 @@ import { contentData } from '../data/contentData';
 
 const MENU_PATHS = ['/', '/brand', '/analysis', '/curations', '/datalab'];
 
-export default function Header({ onLoginClick, isLoggedIn, onLogout, user }) {
+export default function Header({ onLoginClick, isLoggedIn, user }) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const { language, toggleLanguage } = useLanguage();
+    const { toggleLanguage } = useLanguage();
     const location = useLocation();
     const { nav } = contentData;
 
@@ -48,7 +48,7 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout, user }) {
                         : 'bg-transparent border-b border-transparent'} // Default: Transparent, no border
                 `}
             >
-                <div className="w-full max-w-screen-xl mx-auto px-6 md:px-12 flex items-center justify-between">
+                <div className="w-full max-w-7xl mx-auto px-6 flex items-center justify-between">
 
                     {/* Logo */}
                     <Link to="/" className="flex items-center">
@@ -103,14 +103,17 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout, user }) {
                                 </svg>
                             </button>
 
-                            {/* User Icon */}
+                            {/* User Icon / Name */}
                             {isLoggedIn ? (
                                 <Link
                                     to="/dashboard"
-                                    className="text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
+                                    className="flex items-center gap-2 text-[#8AAEC0] hover:text-white transition-colors duration-300 group"
                                     aria-label="My Page"
                                 >
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <span className="font-mono text-[10px] tracking-widest uppercase opacity-70 group-hover:opacity-100 transition-opacity">
+                                        {user?.name || user?.email?.split('@')[0] || 'MY PAGE'}
+                                    </span>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                         <circle cx="12" cy="7" r="4" />
                                     </svg>

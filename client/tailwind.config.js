@@ -13,7 +13,7 @@ export default {
             },
             // 폰트 시스템: Serif(영어/제목), Sans(한글/본문), Mono(데이터/테크)
             fontFamily: {
-                serif: ['"Playfair Display"', 'serif'], // 하이엔드 럭셔리
+                serif: ['BentonModDisp', '"Playfair Display"', 'serif'], // AXIOM 시그니처 디스플레이
                 sans: ['Pretendard', 'sans-serif'],     // 모던 테크니컬
                 mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'], // 로우 데이터
             },

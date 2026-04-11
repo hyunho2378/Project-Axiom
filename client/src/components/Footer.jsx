@@ -15,7 +15,7 @@ export default function Footer() {
             {/* Subtle accent line - #3C7795 */}
             <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-[#3C7795]/30 to-transparent" />
 
-            <div className="w-full max-w-screen-xl mx-auto px-6 md:px-12">
+            <div className="w-full max-w-7xl mx-auto px-6">
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
 
@@ -157,9 +157,9 @@ export default function Footer() {
                         </p>
 
                         <div className="flex items-center gap-6">
-                            <a href="#" className="font-sans text-xs text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors">
+                            <Link to="/privacy" target="_blank" rel="noopener noreferrer" className="font-sans text-xs text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors">
                                 개인정보처리방침
-                            </a>
+                            </Link>
                             <a href="#" className="font-sans text-xs text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors">
                                 이용약관
                             </a>

@@ -25,6 +25,7 @@ import Analysis from './Analysis';
 import DataLab from './DataLab';
 import TeamPage from './TeamPage';
 import MySpacePage from './MySpacePage';
+import Privacy from './Privacy';
 
 /**
  * App Layout - Wraps all routes with Header and Footer
@@ -136,6 +137,9 @@ function AppContent() {
 
                 {/* My Space - 3D Showroom */}
                 <Route path="/my-space" element={<AppLayout {...layoutProps}><MySpacePage /></AppLayout>} />
+
+                {/* Privacy Policy */}
+                <Route path="/privacy" element={<AppLayout {...layoutProps}><Privacy /></AppLayout>} />
             </Routes>
 
             <AuthModal
