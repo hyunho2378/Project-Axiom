@@ -1,173 +1,195 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 
 /**
- * AXIOM Home — YSL Beauty Aesthetic
+ * AXIOM Home — YSL Beauty Standard
  *
- * Architecture: Natural single scroll
- * - Section 1: Full-viewport cinematic hero
- * - Section 2: Data Intelligence grid
- * - Section 3: Three-phase protocol
- * - Section 4: CTA finale
- * Footer follows naturally after Section 4.
- *
- * NO inner scroll container.
- * NO snap scroll.
- * Single window scroll — Header detects normally.
+ * Architecture: CSS Snap Scroll (5 sections, window-isolated)
+ * - Mounts: document.body.overflow = 'hidden' (eliminates dual scrollbar)
+ * - Unmounts: restores body overflow
+ * - Scroll container: this component's root div (h-screen, overflow-y-scroll)
+ * - Footer: integrated in Section 5 (HomeLayout excludes global Footer)
  */
 
 const COPY = {
     ko: {
-        label: 'AXIOM LABORATORY',
-        headline: ['Define', 'Your Axis.'],
-        sub: '데이터로 증명된, 당신만의\n흔들리지 않는 아름다움의 기준.',
-        cta: '분석 시작',
+        s1label: 'AXIOM LABORATORY',
+        s1line1: 'Define',
+        s1line2: 'Your Axis.',
+        s1sub: '데이터로 증명된, 당신만의\n흔들리지 않는 아름다움의 기준.',
+        s1cta: '진단 시작',
         s2label: 'DATA INTELLIGENCE',
-        s2head: 'The Precision\nof Pure Science.',
+        s2head1: 'The Precision',
+        s2head2: 'of Pure Science.',
         s2body: '감각이나 유행이 아닌, 피부 타입과 컨디션,\n성분 반응 데이터를 기준으로 피부를 해석합니다.',
         s3label: 'AXIOM PROTOCOL',
-        s3head: 'A Three-Phase\nDiagnosis System.',
+        s3head1: 'A Three-Phase',
+        s3head2: 'Diagnosis System.',
         steps: [
             { num: '01', title: 'Capture', desc: '초정밀 AI 스캐닝으로 피부 텍스처와 빛 반응 데이터를 포착합니다.' },
             { num: '02', title: 'Analyze', desc: '6가지 핵심 지표를 분석해 당신만의 고유한 AXIOM 피부 타입을 결정합니다.' },
             { num: '03', title: 'Prescribe', desc: '데이터가 도출한 최적의 처방으로 당신의 축을 리셋합니다.' },
         ],
-        s4head: 'Your Skin Has\na Truth.',
+        s4head1: 'Your Skin',
+        s4head2: 'Has a Truth.',
         s4body: '지금, 당신의 피부 중심축을 발견하십시오.',
         s4cta: 'Begin Analysis',
+        nav: ['Home', 'Brand', 'Analysis', 'Curations', 'Data Lab'],
     },
     en: {
-        label: 'AXIOM LABORATORY',
-        headline: ['Define', 'Your Axis.'],
-        sub: 'Data-driven beauty, precisely calibrated\nfor the singular individual.',
-        cta: 'Start Analysis',
+        s1label: 'AXIOM LABORATORY',
+        s1line1: 'Define',
+        s1line2: 'Your Axis.',
+        s1sub: 'Data-driven beauty, precisely calibrated\nfor the singular individual.',
+        s1cta: 'Start Analysis',
         s2label: 'DATA INTELLIGENCE',
-        s2head: 'The Precision\nof Pure Science.',
-        s2body: 'Not intuition. Not trends. AXIOM interprets your skin\nthrough biometric data, condition metrics, and ingredient response.',
+        s2head1: 'The Precision',
+        s2head2: 'of Pure Science.',
+        s2body: 'Not intuition. Not trends. AXIOM interprets your skin\nthrough biometric data and ingredient response.',
         s3label: 'AXIOM PROTOCOL',
-        s3head: 'A Three-Phase\nDiagnosis System.',
+        s3head1: 'A Three-Phase',
+        s3head2: 'Diagnosis System.',
         steps: [
             { num: '01', title: 'Capture', desc: 'Hyper-precision AI scanning captures skin texture and light response at a cellular level.' },
-            { num: '02', title: 'Analyze', desc: 'Six core biometric indices are measured to determine your unique AXIOM skin archetype.' },
+            { num: '02', title: 'Analyze', desc: 'Six core biometric indices determine your unique AXIOM skin archetype.' },
             { num: '03', title: 'Prescribe', desc: 'The algorithm delivers a data-verified prescription, resetting your skin to its optimal axis.' },
         ],
-        s4head: 'Your Skin Has\na Truth.',
+        s4head1: 'Your Skin',
+        s4head2: 'Has a Truth.',
         s4body: 'Discover your singular axis. Begin the AXIOM protocol.',
         s4cta: 'Begin Analysis',
+        nav: ['Home', 'Brand', 'Analysis', 'Curations', 'Data Lab'],
     },
 };
 
 const DATA_METRICS = [
-    { label: 'OIL BALANCE',  val: '78.4%', color: '#3C7795' },
-    { label: 'SENSITIVITY',  val: '32.1%', color: '#8AAEC0' },
-    { label: 'HYDRATION',    val: '61.9%', color: '#1E5672' },
-    { label: 'BARRIER FX',   val: '89.2%', color: '#3C7795' },
-    { label: 'ELASTICITY',   val: '54.7%', color: '#8AAEC0' },
-    { label: 'PIGMENT IDX',  val: '12.3%', color: '#1E5672' },
+    { label: 'OIL BALANCE',  val: '78.4', unit: '%' },
+    { label: 'SENSITIVITY',  val: '32.1', unit: '%' },
+    { label: 'HYDRATION',    val: '61.9', unit: '%' },
+    { label: 'BARRIER FX',   val: '89.2', unit: '%' },
+    { label: 'ELASTICITY',   val: '54.7', unit: '%' },
+    { label: 'PIGMENT IDX',  val: '12.3', unit: '%' },
 ];
 
 export default function Home() {
     const { language } = useLanguage();
     const c = COPY[language] || COPY.ko;
 
+    // Prevent body scroll while Home is mounted — eliminates dual scrollbar
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = ''; };
+    }, []);
+
     return (
-        <div className="bg-black">
+        <div
+            className="h-screen overflow-y-scroll"
+            style={{ scrollSnapType: 'y mandatory', scrollBehavior: 'smooth' }}
+        >
 
-            {/* ── SECTION 1: CINEMATIC HERO ── */}
-            <section className="relative min-h-screen w-full flex flex-col justify-center bg-black overflow-hidden">
+            {/* ══════════════════════════════════════════
+                SECTION 1 — CINEMATIC WORDMARK HERO
+            ══════════════════════════════════════════ */}
+            <section
+                className="relative h-screen w-full flex flex-col justify-center bg-black overflow-hidden"
+                style={{ scrollSnapAlign: 'start' }}
+            >
+                {/* Deep-space atmospheric void */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-[#1E5672]/8 blur-[220px] pointer-events-none" />
+                <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] rounded-full bg-[#3C7795]/5 blur-[100px] pointer-events-none" />
 
-                {/* Atmospheric depth glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-[#1E5672]/8 blur-[200px] pointer-events-none" />
-                <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full bg-[#3C7795]/5 blur-[100px] pointer-events-none" />
+                {/* Vertical accent rule */}
+                <div className="absolute right-[8%] top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#3C7795]/12 to-transparent hidden lg:block" />
 
-                {/* Thin vertical rule — right edge accent */}
-                <div className="absolute right-[10%] top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#3C7795]/15 to-transparent hidden lg:block" />
+                <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-24">
 
-                <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-28 pb-20">
-
-                    {/* Section label */}
                     <motion.p
                         initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                         className="font-mono text-[#3C7795] text-[10px] tracking-[0.35em] uppercase mb-10"
                     >
-                        {c.label}
+                        {c.s1label}
                     </motion.p>
 
-                    {/* Cinematic headline — stagger */}
+                    <div className="overflow-hidden mb-2">
+                        <motion.h1
+                            initial={{ opacity: 0, y: 100 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1.1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                            className="font-serif text-[clamp(4.5rem,12vw,11rem)] leading-none tracking-tight text-white block"
+                        >
+                            {c.s1line1}
+                        </motion.h1>
+                    </div>
                     <div className="overflow-hidden mb-10">
-                        {c.headline.map((line, i) => (
-                            <motion.h1
-                                key={i}
-                                initial={{ opacity: 0, y: 80 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 1.0, delay: 0.1 + i * 0.14, ease: [0.16, 1, 0.3, 1] }}
-                                className="font-serif text-[clamp(4rem,11vw,10rem)] leading-none tracking-tight text-white block"
-                            >
-                                {line}
-                            </motion.h1>
-                        ))}
+                        <motion.h1
+                            initial={{ opacity: 0, y: 100 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1.1, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                            className="font-serif text-[clamp(4.5rem,12vw,11rem)] leading-none tracking-tight text-white block"
+                        >
+                            {c.s1line2}
+                        </motion.h1>
                     </div>
 
-                    {/* Thin rule under headline */}
                     <motion.div
-                        initial={{ scaleX: 0, opacity: 0 }}
-                        animate={{ scaleX: 1, opacity: 1 }}
-                        transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        className="origin-left w-24 h-[1px] bg-[#3C7795]/40 mb-10"
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.9, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        className="origin-left w-20 h-[1px] bg-[#3C7795]/30 mb-10"
                     />
 
-                    {/* Subtext */}
                     <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ duration: 0.9, delay: 0.7 }}
+                        transition={{ duration: 0.8, delay: 0.75 }}
                         className="font-sans text-[#8AAEC0] text-base md:text-lg leading-body max-w-sm mb-14 whitespace-pre-line"
                     >
-                        {c.sub}
+                        {c.s1sub}
                     </motion.p>
 
-                    {/* CTA */}
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.9 }}
+                        transition={{ duration: 0.6, delay: 0.95 }}
                     >
                         <Link
                             to="/diagnosis"
-                            className="inline-flex items-center gap-4 px-12 py-4 bg-[#3C7795] hover:bg-[#8AAEC0] text-white text-sm font-sans font-semibold tracking-[0.18em] uppercase rounded-full transition-all duration-300 shadow-[0_0_28px_rgba(60,119,149,0.35)] hover:shadow-[0_0_44px_rgba(60,119,149,0.5)]"
+                            className="inline-flex items-center gap-4 px-12 py-4 bg-[#3C7795] hover:bg-[#8AAEC0] text-white text-sm font-sans font-semibold tracking-[0.2em] uppercase rounded-full transition-all duration-300 shadow-[0_0_30px_rgba(60,119,149,0.35)] hover:shadow-[0_0_50px_rgba(60,119,149,0.5)]"
                         >
-                            {c.cta}
+                            {c.s1cta}
                             <span className="text-base leading-none">→</span>
                         </Link>
                     </motion.div>
                 </div>
 
-                {/* Scroll indicator */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 1.4 }}
+                    transition={{ delay: 1.5 }}
                     className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
                 >
-                    <div className="w-[1px] h-14 bg-gradient-to-b from-transparent to-[#3C7795]/40" />
+                    <div className="w-[1px] h-14 bg-gradient-to-b from-transparent to-[#3C7795]/35" />
                     <span className="font-mono text-[#3C7795]/40 text-[9px] tracking-[0.35em] uppercase">Scroll</span>
                 </motion.div>
             </section>
 
-            {/* ── SECTION 2: DATA INTELLIGENCE ── */}
-            <section className="relative py-40 bg-[#03070a] border-t border-[#111] overflow-hidden">
+            {/* ══════════════════════════════════════════
+                SECTION 2 — DATA INTELLIGENCE
+            ══════════════════════════════════════════ */}
+            <section
+                className="relative h-screen w-full bg-[#03070a] border-t border-[#0d0d0d] overflow-hidden flex items-center"
+                style={{ scrollSnapAlign: 'start' }}
+            >
+                <div className="absolute left-0 top-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-[#1E5672]/15 to-transparent" />
 
-                {/* Subtle horizontal rule */}
-                <div className="absolute left-0 top-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-[#1E5672]/20 to-transparent" />
+                <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
 
-                <div className="relative z-10 max-w-7xl mx-auto px-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-start">
-
-                        {/* Left: Copy */}
-                        <div className="lg:col-span-5 lg:sticky lg:top-32">
+                        <div className="lg:col-span-5">
                             <motion.p
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
@@ -176,44 +198,40 @@ export default function Home() {
                             >
                                 {c.s2label}
                             </motion.p>
-                            <motion.h2
-                                initial={{ opacity: 0, x: -24 }}
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.8 }}
-                                className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-title whitespace-pre-line mb-8"
+                                transition={{ duration: 0.9 }}
                             >
-                                {c.s2head}
-                            </motion.h2>
-                            <div className="w-8 h-[1px] bg-[#3C7795]/40 mb-8" />
+                                <h2 className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block">{c.s2head1}</h2>
+                                <h2 className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block mb-8">{c.s2head2}</h2>
+                            </motion.div>
+                            <div className="w-8 h-[1px] bg-[#3C7795]/30 mb-8" />
                             <motion.p
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2 }}
-                                className="font-sans text-[#8AAEC0] text-base leading-body whitespace-pre-line"
+                                className="font-sans text-[#8AAEC0] text-sm md:text-base leading-body whitespace-pre-line"
                             >
                                 {c.s2body}
                             </motion.p>
                         </div>
 
-                        {/* Right: Data metric grid */}
-                        <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-3">
                             {DATA_METRICS.map((item, i) => (
                                 <motion.div
                                     key={item.label}
-                                    initial={{ opacity: 0, y: 24 }}
+                                    initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: i * 0.07 }}
-                                    className="bg-[#05080a] border border-[#1a1a1a] hover:border-[#222] rounded-2xl p-6 transition-colors"
+                                    transition={{ delay: i * 0.06 }}
+                                    className="bg-black/40 border border-[#1a1a1a] hover:border-[#2a2a2a] rounded-xl p-6 transition-colors group"
                                 >
-                                    <div className="font-mono text-[9px] tracking-[0.25em] text-[#3a3a3a] uppercase mb-4">{item.label}</div>
-                                    <div
-                                        className="font-mono text-2xl md:text-3xl font-bold leading-none"
-                                        style={{ color: item.color }}
-                                    >
-                                        {item.val}
+                                    <div className="font-mono text-[9px] tracking-[0.25em] text-[#333] uppercase mb-4">{item.label}</div>
+                                    <div className="font-mono text-2xl md:text-3xl font-bold leading-none text-[#3C7795] group-hover:text-[#8AAEC0] transition-colors">
+                                        {item.val}<span className="text-base opacity-60">{item.unit}</span>
                                     </div>
                                 </motion.div>
                             ))}
@@ -222,49 +240,53 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* ── SECTION 3: THE PROTOCOL ── */}
-            <section className="relative py-40 bg-black border-t border-[#111]">
-                <div className="max-w-7xl mx-auto px-6">
+            {/* ══════════════════════════════════════════
+                SECTION 3 — THE PROTOCOL
+            ══════════════════════════════════════════ */}
+            <section
+                className="relative h-screen w-full bg-black border-t border-[#0d0d0d] overflow-hidden flex items-center"
+                style={{ scrollSnapAlign: 'start' }}
+            >
+                <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
 
-                    <div className="mb-20">
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            className="font-mono text-[#3C7795] text-[10px] tracking-[0.3em] uppercase mb-8"
-                        >
-                            {c.s3label}
-                        </motion.p>
-                        <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
-                            className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-title whitespace-pre-line"
-                        >
-                            {c.s3head}
-                        </motion.h2>
-                    </div>
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        className="font-mono text-[#3C7795] text-[10px] tracking-[0.3em] uppercase mb-8"
+                    >
+                        {c.s3label}
+                    </motion.p>
 
-                    {/* Three steps — full-width divided columns */}
-                    <div className="border-t border-[#222]">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="mb-16"
+                    >
+                        <h2 className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block">{c.s3head1}</h2>
+                        <h2 className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block">{c.s3head2}</h2>
+                    </motion.div>
+
+                    <div className="border-t border-[#1a1a1a]">
                         {c.steps.map((step, i) => (
                             <motion.div
                                 key={step.num}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 16 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.7, delay: i * 0.1 }}
-                                className="grid grid-cols-12 gap-8 py-12 border-b border-[#222] group"
+                                transition={{ duration: 0.6, delay: i * 0.1 }}
+                                className="grid grid-cols-12 gap-6 py-10 border-b border-[#1a1a1a] group"
                             >
-                                <div className="col-span-1 md:col-span-1">
+                                <div className="col-span-1">
                                     <span className="font-mono text-[#3C7795] text-[10px] tracking-[0.2em]">{step.num}</span>
                                 </div>
-                                <div className="col-span-11 md:col-span-4">
-                                    <h3 className="font-serif text-2xl md:text-3xl text-white leading-title group-hover:text-[#8AAEC0] transition-colors duration-300">{step.title}</h3>
+                                <div className="col-span-11 md:col-span-3">
+                                    <h3 className="font-serif text-xl md:text-2xl text-white leading-title group-hover:text-[#8AAEC0] transition-colors duration-300">{step.title}</h3>
                                 </div>
-                                <div className="col-span-11 col-start-2 md:col-span-7 md:col-start-auto">
-                                    <p className="font-sans text-[#8AAEC0] text-sm md:text-base leading-body max-w-xl">{step.desc}</p>
+                                <div className="col-span-11 col-start-2 md:col-span-8 md:col-start-auto">
+                                    <p className="font-sans text-[#8AAEC0]/70 text-sm leading-body">{step.desc}</p>
                                 </div>
                             </motion.div>
                         ))}
@@ -272,12 +294,15 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* ── SECTION 4: CTA FINALE ── */}
-            <section className="relative py-48 bg-[#03070a] border-t border-[#111] overflow-hidden text-center">
-
-                {/* Atmospheric glow */}
+            {/* ══════════════════════════════════════════
+                SECTION 4 — CTA FINALE
+            ══════════════════════════════════════════ */}
+            <section
+                className="relative h-screen w-full bg-[#03070a] border-t border-[#0d0d0d] overflow-hidden flex flex-col items-center justify-center text-center"
+                style={{ scrollSnapAlign: 'start' }}
+            >
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-[600px] h-[600px] rounded-full bg-[#1E5672]/10 blur-[120px]" />
+                    <div className="w-[700px] h-[700px] rounded-full bg-[#1E5672]/8 blur-[150px]" />
                 </div>
 
                 <div className="relative z-10 max-w-7xl mx-auto px-6">
@@ -286,29 +311,38 @@ export default function Home() {
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        className="flex items-center justify-center gap-6 mb-12"
+                        className="flex items-center justify-center gap-6 mb-14"
                     >
-                        <div className="w-16 h-[1px] bg-[#3C7795]/30" />
-                        <span className="font-mono text-[#3C7795] text-[10px] tracking-[0.35em] uppercase">AXIOM</span>
-                        <div className="w-16 h-[1px] bg-[#3C7795]/30" />
+                        <div className="w-16 h-[1px] bg-[#3C7795]/25" />
+                        <span className="font-mono text-[#3C7795] text-[10px] tracking-[0.4em] uppercase">AXIOM</span>
+                        <div className="w-16 h-[1px] bg-[#3C7795]/25" />
                     </motion.div>
 
                     <motion.h2
-                        initial={{ opacity: 0, y: 32 }}
+                        initial={{ opacity: 0, y: 40 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-                        className="font-serif text-5xl md:text-7xl lg:text-[6rem] text-white leading-none whitespace-pre-line mb-10 tracking-tight"
+                        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+                        className="font-serif text-[clamp(3rem,9vw,8rem)] text-white leading-none tracking-tight mb-3"
                     >
-                        {c.s4head}
+                        {c.s4head1}
+                    </motion.h2>
+                    <motion.h2
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.1, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+                        className="font-serif text-[clamp(3rem,9vw,8rem)] text-white leading-none tracking-tight mb-14"
+                    >
+                        {c.s4head2}
                     </motion.h2>
 
                     <motion.p
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.25 }}
-                        className="font-sans text-[#8AAEC0] text-base md:text-lg leading-body mb-16"
+                        transition={{ delay: 0.3 }}
+                        className="font-sans text-[#8AAEC0] text-base md:text-lg leading-body mb-14"
                     >
                         {c.s4body}
                     </motion.p>
@@ -317,7 +351,7 @@ export default function Home() {
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.4 }}
+                        transition={{ delay: 0.45 }}
                     >
                         <Link
                             to="/diagnosis"
@@ -326,6 +360,82 @@ export default function Home() {
                             {c.s4cta}
                         </Link>
                     </motion.div>
+                </div>
+            </section>
+
+            {/* ══════════════════════════════════════════
+                SECTION 5 — INTEGRATED FOOTER
+            ══════════════════════════════════════════ */}
+            <section
+                className="relative h-screen w-full bg-black border-t border-[#0d0d0d] overflow-hidden flex flex-col"
+                style={{ scrollSnapAlign: 'start' }}
+            >
+                <div className="flex-1 max-w-7xl mx-auto px-6 w-full grid grid-cols-2 md:grid-cols-4 gap-10 items-start pt-20 md:pt-32">
+
+                    {/* Brand */}
+                    <div className="col-span-2 md:col-span-1">
+                        <Link to="/">
+                            <img src="/images/Axiom_logo.svg" alt="AXIOM" className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity mb-5" />
+                        </Link>
+                        <p className="font-sans text-sm text-[#8AAEC0]/50 leading-relaxed max-w-[200px]" style={{ wordBreak: 'keep-all' }}>
+                            데이터가 보여주는 가장 아름다운 진실
+                        </p>
+                    </div>
+
+                    {/* Shop */}
+                    <div>
+                        <p className="font-mono text-[10px] text-[#8AAEC0]/30 tracking-[0.25em] uppercase mb-6">Shop</p>
+                        <ul className="space-y-4">
+                            <li><Link to="/curations" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">전체 상품</Link></li>
+                            <li><Link to="/analysis" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">AI 피부 진단</Link></li>
+                            <li><Link to="/shop" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">맞춤 처방</Link></li>
+                        </ul>
+                    </div>
+
+                    {/* Company */}
+                    <div>
+                        <p className="font-mono text-[10px] text-[#8AAEC0]/30 tracking-[0.25em] uppercase mb-6">Company</p>
+                        <ul className="space-y-4">
+                            <li><Link to="/brand" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">브랜드 스토리</Link></li>
+                            <li><Link to="/datalab" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">데이터 랩</Link></li>
+                            <li><Link to="/editorial" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">리서처 에디토리얼</Link></li>
+                            <li><Link to="/data-map" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">글로벌 데이터 맵</Link></li>
+                            <li><Link to="/team-dyt" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">팀 소개</Link></li>
+                        </ul>
+                    </div>
+
+                    {/* Follow */}
+                    <div>
+                        <p className="font-mono text-[10px] text-[#8AAEC0]/30 tracking-[0.25em] uppercase mb-6">Follow</p>
+                        <ul className="space-y-4">
+                            <li>
+                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#8AAEC0] transition-colors inline-flex items-center gap-2.5">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="20" height="20" rx="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
+                                    Instagram
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#8AAEC0] transition-colors inline-flex items-center gap-2.5">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" /><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" /></svg>
+                                    YouTube
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                {/* Bottom bar */}
+                <div className="max-w-7xl mx-auto px-6 w-full py-10 border-t border-[#0d0d0d]">
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                        <p className="font-sans text-xs text-[#8AAEC0]/25">
+                            © 2026 AXIOM Inc. All rights reserved. Designed by{' '}
+                            <Link to="/team-dyt" className="hover:text-[#8AAEC0]/60 transition-colors">Team DYT</Link>
+                        </p>
+                        <div className="flex items-center gap-6">
+                            <Link to="/privacy" target="_blank" className="font-sans text-xs text-[#8AAEC0]/25 hover:text-[#8AAEC0]/60 transition-colors">개인정보처리방침</Link>
+                            <span className="font-sans text-xs text-[#8AAEC0]/25">이용약관</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 

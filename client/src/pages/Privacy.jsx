@@ -126,8 +126,8 @@ export default function Privacy() {
             <section className="max-w-7xl mx-auto px-6 py-20">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
 
-                    {/* Sticky sidebar */}
-                    <div className="lg:col-span-3">
+                    {/* Sticky sidebar — hidden on mobile, full sidebar on md+ */}
+                    <div className="hidden md:block lg:col-span-3">
                         <div className="lg:sticky lg:top-32 space-y-2">
                             <p className="font-mono text-[10px] text-[#3C7795] tracking-[0.2em] uppercase mb-4">목차</p>
                             {SECTIONS.map((s) => (
@@ -147,7 +147,7 @@ export default function Privacy() {
                         </div>
                     </div>
 
-                    {/* Body */}
+                    {/* Body — full width on mobile, 9-col on lg */}
                     <div className="lg:col-span-9 space-y-16">
                         {SECTIONS.map((section, i) => (
                             <motion.div

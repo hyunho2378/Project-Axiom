@@ -43,7 +43,7 @@ export default function DataLab() {
     // Loading State (Cyan Pulse)
     if (loading) return (
         <div className="min-h-screen bg-black flex flex-col justify-center items-center gap-4">
-            <div className="w-8 h-8 border-2 border-[#3C7795] border-t-[#00E0FF] rounded-full animate-spin"></div>
+            <div className="w-8 h-8 border-2 border-[#3C7795] border-t-[#3C7795] rounded-full animate-spin"></div>
             <p className="text-[#3C7795] text-xs tracking-widest animate-pulse">CONNECTING TO SATELLITE...</p>
         </div>
     );
@@ -64,8 +64,8 @@ export default function DataLab() {
         : { skinType: 'N/A', count: 0 };
 
     return (
-        <div className="min-h-screen bg-black text-white pt-24 px-4 md:px-8 overflow-hidden font-sans">
-            <div className="max-w-6xl mx-auto h-full flex flex-col">
+        <div className="min-h-screen bg-black text-white pt-24 overflow-hidden font-sans">
+            <div className="max-w-7xl mx-auto px-6 h-full flex flex-col">
 
                 {/* 1. Header Section */}
                 <div className="mb-6 flex items-end justify-between">
@@ -76,10 +76,10 @@ export default function DataLab() {
                     <div className="text-right hidden md:block">
                         <div className="flex items-center justify-end gap-2">
                             <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00E0FF] opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00E0FF]"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3C7795] opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3C7795]"></span>
                             </span>
-                            <span className="text-[#00E0FF] text-[10px] font-mono">LIVE FEED</span>
+                            <span className="text-[#3C7795] text-[10px] font-mono">LIVE FEED</span>
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@ export default function DataLab() {
                     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="col-span-2 bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-xl p-4 flex items-center justify-between">
                         <div>
                             <h3 className="text-[#8AAEC0] text-[10px] uppercase tracking-wider mb-1">Dominant Skin Type</h3>
-                            <p className="text-xl font-bold text-[#00E0FF]">{mostCommon.skinType}</p>
+                            <p className="text-xl font-bold text-[#3C7795]">{mostCommon.skinType}</p>
                         </div>
                         <div className="text-right">
                             <p className="text-2xl font-bold text-white">{mostCommon.count}</p>
@@ -107,7 +107,7 @@ export default function DataLab() {
                     {/* Today's Count (Placeholder logic or derived) */}
                     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-xl p-4">
                         <h3 className="text-[#8AAEC0] text-[10px] uppercase tracking-wider mb-1">Real-time Status</h3>
-                        <p className="text-sm text-[#00E0FF] mt-2">● OPERATIONAL</p>
+                        <p className="text-sm text-[#3C7795] mt-2">● OPERATIONAL</p>
                     </motion.div>
                 </div>
 
@@ -124,11 +124,11 @@ export default function DataLab() {
                                     <div key={item.skinType} className="group">
                                         <div className="flex justify-between text-xs mb-1">
                                             <span className="text-[#8AAEC0] group-hover:text-white transition-colors">{item.skinType}</span>
-                                            <span className="text-[#00E0FF] font-mono">{percentage.toFixed(1)}%</span>
+                                            <span className="text-[#3C7795] font-mono">{percentage.toFixed(1)}%</span>
                                         </div>
                                         <div className="w-full bg-[#8AAEC0]/10 h-1.5 rounded-full overflow-hidden">
                                             <motion.div
-                                                className="h-full bg-gradient-to-r from-[#1E5672] to-[#00E0FF]"
+                                                className="h-full bg-gradient-to-r from-[#1E5672] to-[#8AAEC0]"
                                                 initial={{ width: 0 }}
                                                 animate={{ width: `${percentage}%` }}
                                                 transition={{ duration: 1, delay: index * 0.1 }}
@@ -147,7 +147,7 @@ export default function DataLab() {
                             {stats.recentActivity.map((entry, index) => (
                                 <div key={index} className="p-3 bg-black/40 rounded border border-[#8AAEC0]/10 hover:border-[#3C7795] transition-colors">
                                     <div className="flex justify-between items-start mb-1">
-                                        <span className="text-[#00E0FF] text-xs font-bold">{entry.skinType}</span>
+                                        <span className="text-[#3C7795] text-xs font-bold">{entry.skinType}</span>
                                         <span className="text-[#8AAEC0]/50 text-[10px] font-mono">
                                             {new Date(entry.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                         </span>

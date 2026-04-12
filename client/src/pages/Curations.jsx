@@ -29,7 +29,7 @@ export default function Curations() {
     const currentProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
     return (
-        <main className="min-h-screen bg-black text-white selection:bg-[#00E0FF] selection:text-black">
+        <main className="min-h-screen bg-black text-white selection:bg-[#3C7795] selection:text-black">
 
             {/* Header Area */}
             <section className="pt-32 pb-16 px-6 border-b border-[#222] bg-[#05080a]">
@@ -54,8 +54,8 @@ export default function Curations() {
                                 onClick={() => { setActiveCategory(cat); setCurrentPage(1); }}
                                 className={`px-5 py-2 rounded-full font-sans text-[11px] md:text-xs tracking-widest uppercase transition-all duration-300 border
                                     ${activeCategory === cat
-                                        ? 'bg-[#00E0FF] text-black font-bold border-[#00E0FF]'
-                                        : 'bg-transparent text-[#8AAEC0] border-[#333] hover:border-[#00E0FF]/50 hover:text-white'}`}
+                                        ? 'bg-[#3C7795] text-black font-bold border-[#3C7795]'
+                                        : 'bg-transparent text-[#8AAEC0] border-[#333] hover:border-[#3C7795]/50 hover:text-white'}`}
                             >
                                 {cat}
                             </button>
@@ -69,7 +69,7 @@ export default function Curations() {
                                 onClick={() => { setActiveSkinType(type); setCurrentPage(1); }}
                                 className={`text-[11px] md:text-xs font-sans tracking-normal transition-colors pb-1 border-b-2
                                     ${activeSkinType === type
-                                        ? 'text-white border-[#00E0FF] font-bold'
+                                        ? 'text-white border-[#3C7795] font-bold'
                                         : 'text-[#555] border-transparent hover:text-white'}`}
                             >
                                 {type}
@@ -87,14 +87,14 @@ export default function Curations() {
                             {currentProducts.map((product, index) => (
                                 <motion.div key={product.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: (index % 10) * 0.05 }} className="group cursor-pointer">
                                     <Link to={`/curations/${product.id}`} className="block">
-                                        <div className={`relative aspect-[4/5] rounded-[2rem] overflow-hidden mb-6 ${product.imageColor} border border-[#222] group-hover:border-[#00E0FF]/50 transition-colors flex items-center justify-center shadow-xl`}>
-                                            <div className="absolute top-4 left-4 bg-[#00E0FF] text-black text-[10px] font-mono font-bold px-2 py-1 rounded-sm uppercase tracking-widest">{product.skinType}</div>
+                                        <div className={`relative aspect-[4/5] rounded-[2rem] overflow-hidden mb-6 ${product.imageColor} border border-[#222] group-hover:border-[#3C7795]/50 transition-colors flex items-center justify-center shadow-xl`}>
+                                            <div className="absolute top-4 left-4 bg-[#3C7795] text-black text-[10px] font-mono font-bold px-2 py-1 rounded-sm uppercase tracking-widest">{product.skinType}</div>
                                             <div className="w-1/2 h-1/2 border border-white/5 rounded-full group-hover:scale-110 transition-transform duration-700"></div>
                                         </div>
 
                                         <div className="space-y-2 px-1">
-                                            <p className="text-[#00E0FF] text-[10px] font-mono font-bold uppercase tracking-widest">{product.category}</p>
-                                            <h3 className="font-serif font-bold text-white text-base md:text-lg leading-title group-hover:text-[#00E0FF] transition-colors line-clamp-1">
+                                            <p className="text-[#3C7795] text-[10px] font-mono font-bold uppercase tracking-widest">{product.category}</p>
+                                            <h3 className="font-serif font-bold text-white text-base md:text-lg leading-title group-hover:text-[#3C7795] transition-colors line-clamp-1">
                                                 {product.nameKr}
                                             </h3>
                                             <p className="text-[#8AAEC0] text-[10px] md:text-xs font-serif italic truncate opacity-60 tracking-normal">{product.name}</p>
@@ -103,7 +103,7 @@ export default function Curations() {
 
                                             <div className="pt-4 font-sans font-bold text-white text-sm md:text-base tracking-normal border-t border-[#222] mt-4 flex justify-between items-center">
                                                 <span>{product.price}</span>
-                                                <span className="text-[#333] group-hover:text-[#00E0FF] transition-colors">→</span>
+                                                <span className="text-[#333] group-hover:text-[#3C7795] transition-colors">→</span>
                                             </div>
                                         </div>
                                     </Link>

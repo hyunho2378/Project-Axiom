@@ -26,10 +26,11 @@ import DataLab from './DataLab';
 import TeamPage from './TeamPage';
 import MySpacePage from './MySpacePage';
 import Privacy from './Privacy';
+import ResearcherEditorial from './ResearcherEditorial';
+import HumanityDataMap from './HumanityDataMap';
 
 /**
  * App Layout - Wraps all routes with Header and Footer
- * Background: Transparent (uses global Deep Navy from #root)
  */
 function AppLayout({ children, onLoginClick, isLoggedIn, onLogout, user }) {
     return (
@@ -44,6 +45,23 @@ function AppLayout({ children, onLoginClick, isLoggedIn, onLogout, user }) {
                 {children}
             </main>
             <Footer />
+        </div>
+    );
+}
+
+/**
+ * Home Layout - Header only, no Footer.
+ * Home page has its own integrated footer section inside the snap scroll container.
+ */
+function HomeLayout({ children, onLoginClick, isLoggedIn, user }) {
+    return (
+        <div className="bg-black overflow-hidden">
+            <Header
+                onLoginClick={onLoginClick}
+                isLoggedIn={isLoggedIn}
+                user={user}
+            />
+            {children}
         </div>
     );
 }
@@ -93,8 +111,8 @@ function AppContent() {
     return (
         <>
             <Routes>
-                {/* Home */}
-                <Route path="/" element={<AppLayout {...layoutProps}><Home /></AppLayout>} />
+                {/* Home — uses HomeLayout (no global Footer; snap scroll has integrated footer) */}
+                <Route path="/" element={<HomeLayout {...layoutProps}><Home /></HomeLayout>} />
 
                 {/* Brand Story (new) */}
                 <Route path="/brand" element={<AppLayout {...layoutProps}><About /></AppLayout>} />
@@ -140,6 +158,12 @@ function AppContent() {
 
                 {/* Privacy Policy */}
                 <Route path="/privacy" element={<AppLayout {...layoutProps}><Privacy /></AppLayout>} />
+
+                {/* Researcher Editorial — Digital Magazine */}
+                <Route path="/editorial" element={<AppLayout {...layoutProps}><ResearcherEditorial /></AppLayout>} />
+
+                {/* Humanity Data Map — Global Skin Intelligence */}
+                <Route path="/data-map" element={<AppLayout {...layoutProps}><HumanityDataMap /></AppLayout>} />
             </Routes>
 
             <AuthModal
