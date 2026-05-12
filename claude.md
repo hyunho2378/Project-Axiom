@@ -1,37 +1,65 @@
-# AXIOM Project: Master Strategy & Design System (Final v2.1)
+# CLAUDE.md
 
-## 1. Brand Identity & Persona
-- **Brand Identity:** High-end Beauty Tech & Data-driven Skincare.
-- **Persona:** Senior Researcher at "AXIOM Laboratory". 
-- **Tone & Manner:** Absolute luxury, professional, cold but precise. 
-- **Language Policy:** - Use the highest level of Korean honorifics (~합니다, ~로 분석됩니다, ~를 제안합니다).
-    - **Forbidden:** Informal tones (~해요, ~군요), emojis, generic icons.
+Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
-## 2. Design System & Margin Rules (NON-NEGOTIABLE)
-- **Margin & Container:** - All main contents MUST be wrapped in `max-w-7xl mx-auto px-6`.
-    - NEVER break the horizontal margin.
-- **Section Spacing:** Use deep vertical margins (`py-32`, `mb-40`) to maintain a "Gallery" and "Research Report" atmosphere.
-- **Typography:**
-    - English/Major Titles: `font-serif` (Playfair Display) -> luxury.
-    - Korean/Body Text: `font-sans` (Pretendard) -> technical precision.
-    - Labels/Data Points: `font-mono` (ui-monospace) -> raw data feel.
-    - Leading: `leading-title (1.3)`, `leading-body (1.2)`.
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
-## 3. Harness Engineering & Token Management
-- **Efficient Wiring:** Apply 'Harness Engineering' principles. Organize data flow between components like a high-performance wire harness—clean, structured, and no redundant overlaps.
-- **Lean Props:** Keep component props lean. Use shared data files (`axiomData.js`, `productsData.js`) as the "Source of Truth" instead of passing massive objects through multiple layers.
-- **Token Optimization:** Avoid repeating long logic blocks. If a function or UI pattern is reused, abstract it into a utility or a sub-component. 
-- **Code Integrity:** When modifying a file, preserve all existing "wiring" (Prisma DB logic, Auth, 3D Canvas setups) unless explicitly asked to remove.
+## 1. Think Before Coding
 
-## 4. Core File Map
-- `tailwind.config.js`: Master spec for fonts, leading, and colors.
-- `index.js`: Backend logic. Gemini prompt (gemini-1.5-pro) must maintain the "Senior Researcher" persona.
-- `src/pages/Analysis.jsx`: Restore the 3D blob and keep demographics (Male/Female ONLY). 
-- `src/pages/MySpacePage.jsx`: 3D model config: `scale: 4.8`, `rotation: [0, Math.PI, 0]`.
-- `src/data/axiomData.js`: Maps 20 detailed skin types to data-driven solutions.
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
 
-## 5. Operational Rules for Claude
-- **Strict Margins:** If a layout feels cramped, it is WRONG. Add whitespace.
-- **No Emojis/Icons:** Use thin lines (#222, #333) and font-mono for hierarchy.
-- **Result Page Hierarchy:** Split content into [Official Data Analysis] and [AXIOM AI Prescription] with distinct visual styles.
-- **Data Safety:** Never delete Prisma logic or survey submission endpoints during refactoring.
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+## 2. Simplicity First
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## 3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+## 4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+---
+
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.

@@ -51,7 +51,7 @@ export default function Campaigns() {
                     <p className="text-xs uppercase tracking-[0.4em] text-white/40 mb-6">
                         Editorial
                     </p>
-                    <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium text-white">
+                    <h1 className="font-title-en text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium text-white">
                         Campaigns
                     </h1>
                     <p className="mt-6 text-lg text-white/50 max-w-md mx-auto">
@@ -85,7 +85,7 @@ export default function Campaigns() {
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
                 >
-                    <h2 className="font-serif text-3xl md:text-4xl font-medium text-white mb-6">
+                    <h2 className="font-title-en text-3xl md:text-4xl font-medium text-white mb-6">
                         Experience the Collection
                     </h2>
                     <a href="/shop" className="btn-primary inline-block">
@@ -146,7 +146,7 @@ function CampaignSection({ campaign, index }) {
                         </div>
 
                         {/* Campaign Number */}
-                        <div className="absolute -bottom-6 -right-6 md:bottom-6 md:right-6 font-serif text-[120px] md:text-[180px] text-white/5 leading-none pointer-events-none">
+                        <div className="absolute -bottom-6 -right-6 md:bottom-6 md:right-6 font-title-en text-[120px] md:text-[180px] text-white/5 leading-none pointer-events-none">
                             0{campaign.id}
                         </div>
                     </motion.div>
@@ -159,7 +159,7 @@ function CampaignSection({ campaign, index }) {
                         <p className="text-xs uppercase tracking-[0.3em] text-[#8AAEC0]/80 mb-4">
                             {campaign.subtitle}
                         </p>
-                        <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-6 leading-[1.1]">
+                        <h2 className="font-title-en text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-6 leading-[1.1]">
                             {campaign.title}
                         </h2>
                         <p className="text-lg md:text-xl text-white/50 leading-relaxed mb-8 max-w-lg">

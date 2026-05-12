@@ -172,7 +172,7 @@ function PhilosophySection() {
                     {/* Cards: Utility & Artistry */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         {/* Utility Card */}
-                        <div className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/15 rounded-xl p-6 transition-all duration-300 hover:border-[#3C7795]/40 hover:bg-[#1E5672]/10">
+                        <div className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/15 rounded-2xl p-6 transition-all duration-300 hover:border-[#3C7795]/40 hover:bg-[#1E5672]/10">
                             <p className="text-sm text-[#3C7795] uppercase tracking-wider font-bold mb-3">
                                 Utility
                             </p>
@@ -182,7 +182,7 @@ function PhilosophySection() {
                         </div>
 
                         {/* Artistry Card */}
-                        <div className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/15 rounded-xl p-6 transition-all duration-300 hover:border-[#3C7795]/40 hover:bg-[#1E5672]/10">
+                        <div className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/15 rounded-2xl p-6 transition-all duration-300 hover:border-[#3C7795]/40 hover:bg-[#1E5672]/10">
                             <p className="text-sm text-[#3C7795] uppercase tracking-wider font-bold mb-3">
                                 Artistry
                             </p>

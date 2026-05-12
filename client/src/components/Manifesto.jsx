@@ -79,7 +79,7 @@ export default function Manifesto({ language }) {
 
                 {/* Text Block 1 */}
                 <motion.h2
-                    className="absolute font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] xl:text-[7rem] font-medium text-white text-center leading-tight tracking-tight px-6"
+                    className="absolute font-title-en text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] xl:text-[7rem] font-medium text-white text-center leading-tight tracking-tight px-6"
                     style={{ opacity: opacity1, y: y1, scale: scale1 }}
                 >
                     {t[0]}
@@ -87,7 +87,7 @@ export default function Manifesto({ language }) {
 
                 {/* Text Block 2 */}
                 <motion.h2
-                    className="absolute font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] xl:text-[7rem] font-medium text-white text-center leading-tight tracking-tight px-6"
+                    className="absolute font-title-en text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] xl:text-[7rem] font-medium text-white text-center leading-tight tracking-tight px-6"
                     style={{ opacity: opacity2, y: y2, scale: scale2 }}
                 >
                     {t[1]}
@@ -95,7 +95,7 @@ export default function Manifesto({ language }) {
 
                 {/* Text Block 3 */}
                 <motion.h2
-                    className="absolute font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] xl:text-[7rem] font-medium text-white text-center leading-tight tracking-tight px-6 italic"
+                    className="absolute font-title-en text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] xl:text-[7rem] font-medium text-white text-center leading-tight tracking-tight px-6 italic"
                     style={{ opacity: opacity3, y: y3, scale: scale3 }}
                 >
                     {t[2]}

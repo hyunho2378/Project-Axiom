@@ -11,9 +11,9 @@ import AuthModal from '../components/AuthModal';
 import ScrollToTop from '../components/ScrollToTop';
 
 // Pages (now in same folder)
-import Home from './Home';
 import AuraStory from './AuraStory';
 import About from './About';
+import Axiom from './Axiom';
 import Shop from './Shop';
 import Curations from './Curations';
 import Dashboard from './Dashboard';
@@ -22,9 +22,9 @@ import ProductDetail from './ProductDetail';
 import Campaigns from './Campaigns';
 import Concierge from './Concierge';
 import Analysis from './Analysis';
+import Result from './Result';
 import DataLab from './DataLab';
 import TeamPage from './TeamPage';
-import MySpacePage from './MySpacePage';
 import Privacy from './Privacy';
 import ResearcherEditorial from './ResearcherEditorial';
 import HumanityDataMap from './HumanityDataMap';
@@ -112,10 +112,10 @@ function AppContent() {
         <>
             <Routes>
                 {/* Home — uses HomeLayout (no global Footer; snap scroll has integrated footer) */}
-                <Route path="/" element={<HomeLayout {...layoutProps}><Home /></HomeLayout>} />
+                <Route path="/" element={<HomeLayout {...layoutProps}><About /></HomeLayout>} />
 
                 {/* Brand Story (new) */}
-                <Route path="/brand" element={<AppLayout {...layoutProps}><About /></AppLayout>} />
+                <Route path="/axiom" element={<AppLayout {...layoutProps}><Axiom /></AppLayout>} />
 
                 {/* Aura Story (legacy) */}
                 <Route path="/aura" element={<AppLayout {...layoutProps}><AuraStory /></AppLayout>} />
@@ -129,6 +129,7 @@ function AppContent() {
                 {/* AI Skin Analysis (Hybrid Architecture - New) */}
                 <Route path="/skin-analysis" element={<AppLayout {...layoutProps}><Analysis /></AppLayout>} />
                 <Route path="/analysis" element={<AppLayout {...layoutProps}><Analysis /></AppLayout>} />
+                <Route path="/result" element={<AppLayout {...layoutProps}><Result /></AppLayout>} />
 
                 {/* Curations */}
                 <Route path="/curations" element={<AppLayout {...layoutProps}><Curations /></AppLayout>} />
@@ -153,10 +154,7 @@ function AppContent() {
                 {/* Team DYT - Hidden Easter Egg */}
                 <Route path="/team-dyt" element={<AppLayout {...layoutProps}><TeamPage /></AppLayout>} />
 
-                {/* My Space - 3D Showroom */}
-                <Route path="/my-space" element={<AppLayout {...layoutProps}><MySpacePage /></AppLayout>} />
-
-                {/* Privacy Policy */}
+{/* Privacy Policy */}
                 <Route path="/privacy" element={<AppLayout {...layoutProps}><Privacy /></AppLayout>} />
 
                 {/* Researcher Editorial — Digital Magazine */}

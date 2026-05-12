@@ -141,22 +141,22 @@ export default function TeamPage() {
                     className="text-center mb-20"
                 >
                     {/* Easter Egg Label */}
-                    <p className="font-mono text-[10px] font-bold tracking-[0.3em] text-[#3C7795] uppercase mb-6">
+                    <p className="font-body text-[10px] font-bold tracking-[0.3em] text-[#3C7795] uppercase mb-6">
                         비밀 크레딧
                     </p>
 
                     {/* Team Name */}
-                    <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
+                    <h1 className="font-title-en text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
                         Team DYT
                     </h1>
 
                     {/* Full Name */}
-                    <p className="font-sans text-base md:text-lg text-[#8AAEC0]/40 italic mb-8">
-                        "동대문 유기 떡볶이"
+                    <p className="font-body text-base md:text-lg text-[#8AAEC0]/40 italic mb-8">
+                        "동대문 엽기 떡볶이"
                     </p>
 
                     {/* Tagline */}
-                    <p className="font-sans text-base text-[#8AAEC0] max-w-xl mx-auto leading-relaxed">
+                    <p className="font-body text-base text-[#8AAEC0] max-w-xl mx-auto leading-relaxed">
                         AXIOM을 설계한 사람들. 데이터와 열정으로 빚어낸 고정밀 뷰티 테크의 이면.
                     </p>
                 </motion.div>
@@ -182,7 +182,7 @@ export default function TeamPage() {
                 >
                     <Link
                         to="/"
-                        className="inline-flex items-center gap-2 font-sans text-sm text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors duration-300"
+                        className="inline-flex items-center gap-2 font-body text-sm text-[#8AAEC0]/40 hover:text-[#8AAEC0] transition-colors duration-300"
                     >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                             <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -196,7 +196,7 @@ export default function TeamPage() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.2, duration: 0.8 }}
-                    className="mt-16 text-center font-mono text-xs text-[#8AAEC0]/30"
+                    className="mt-16 text-center font-body text-xs text-[#8AAEC0]/30"
                 >
                     당신이 우리를 찾아냈습니다. 이제 당신의 축을 정의하십시오.
                 </motion.p>

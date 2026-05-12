@@ -29,7 +29,7 @@ export default function Algorithm() {
                     <p className="text-xs uppercase tracking-[0.4em] text-[#3C7795]/80 mb-6">
                         The Algorithm
                     </p>
-                    <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium text-white leading-[0.95]">
+                    <h1 className="font-title-en text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium text-white leading-[0.95]">
                         From Data
                         <br />
                         <span className="italic text-white/70">to Matter</span>
@@ -208,7 +208,7 @@ function ProcessSteps() {
                     className="text-center mb-20"
                 >
                     <p className="text-xs uppercase tracking-[0.3em] text-white/50 mb-4">The Process</p>
-                    <h2 className="font-serif text-4xl md:text-5xl font-medium text-white">
+                    <h2 className="font-title-en text-4xl md:text-5xl font-medium text-white">
                         How It Works
                     </h2>
                 </motion.div>
@@ -255,7 +255,7 @@ function StepCard({ step, index }) {
                     </motion.div>
 
                     {/* Content */}
-                    <h3 className="font-serif text-2xl text-white mb-2">{step.title}</h3>
+                    <h3 className="font-title-en text-2xl text-white mb-2">{step.title}</h3>
                     <p className="text-sm text-[#8AAEC0]/80 mb-4">{step.subtitle}</p>
                     <p className="text-white/50 text-sm leading-relaxed">{step.description}</p>
                 </div>
@@ -288,7 +288,7 @@ function TechStats() {
                             viewport={{ once: true }}
                             className="text-center"
                         >
-                            <div className="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-3">
+                            <div className="font-title-en text-4xl md:text-5xl lg:text-6xl text-white mb-3">
                                 {stat.value}
                             </div>
                             <p className="text-sm text-white/40">{stat.label}</p>

@@ -75,10 +75,10 @@ export default function VideoSection() {
 
                     {/* Caption */}
                     <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8">
-                        <p className="text-[10px] uppercase tracking-[0.2em] text-[#8AAEC0]/50 mb-1 font-sans">
+                        <p className="text-[10px] uppercase tracking-[0.2em] text-[#8AAEC0]/50 mb-1 font-body">
                             Brand Film
                         </p>
-                        <h3 className="font-serif text-xl md:text-2xl text-[#8AAEC0]">
+                        <h3 className="font-title-en text-xl md:text-2xl text-[#8AAEC0]">
                             The Science of You
                         </h3>
                     </div>
@@ -92,7 +92,7 @@ export default function VideoSection() {
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
                 >
-                    <p className="text-lg md:text-xl text-[#8AAEC0] leading-relaxed font-sans">
+                    <p className="text-lg md:text-xl text-[#8AAEC0] leading-relaxed font-body">
                         Every face tells a story. AXIOM listens—using advanced AI to decode
                         your skin's unique needs and craft solutions that work for <em className="text-[#3C7795] not-italic">you</em>.
                     </p>

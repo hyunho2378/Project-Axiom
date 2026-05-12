@@ -167,10 +167,10 @@ export default function BentoGrid({ language }) {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6 }}
             >
-                <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-4">
+                <h2 className="font-title-en text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-4">
                     {t.title}
                 </h2>
-                <p className="text-lg text-white/50 font-sans">
+                <p className="text-lg text-white/50 font-body">
                     {t.subtitle}
                 </p>
             </motion.div>
@@ -212,7 +212,7 @@ export default function BentoGrid({ language }) {
 
                             {/* Text */}
                             <div className="mt-8">
-                                <h3 className="font-sans text-xl md:text-2xl font-medium text-white mb-2 tracking-tight">
+                                <h3 className="font-body text-xl md:text-2xl font-medium text-white mb-2 tracking-tight">
                                     {card.title}
                                 </h3>
                                 <p className="text-sm md:text-base text-white/40 group-hover:text-white/60 transition-colors duration-300">

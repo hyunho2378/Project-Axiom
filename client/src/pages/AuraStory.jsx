@@ -44,7 +44,7 @@ export default function AuraStory() {
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.9, delay: 0.1 }}
-                        className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[9rem] font-medium text-white leading-[0.9] tracking-tight"
+                        className="font-title-en text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[9rem] font-medium text-white leading-[0.9] tracking-tight"
                     >
                         Light &
                         <br />
@@ -79,7 +79,7 @@ export default function AuraStory() {
                             <p className="text-xs uppercase tracking-[0.3em] text-purple-400/80 mb-6">
                                 Chapter 01
                             </p>
-                            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-8 leading-[1.1]">
+                            <h2 className="font-title-en text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-8 leading-[1.1]">
                                 Every Face
                                 <br />
                                 <span className="italic text-white/70">Tells a Story</span>
@@ -119,7 +119,7 @@ export default function AuraStory() {
                     viewport={{ once: true }}
                     className="max-w-4xl mx-auto text-center"
                 >
-                    <blockquote className="font-serif text-3xl md:text-4xl lg:text-5xl text-white leading-relaxed italic">
+                    <blockquote className="font-title-en text-3xl md:text-4xl lg:text-5xl text-white leading-relaxed italic">
                         "We don't chase trends.
                         <br />
                         <span className="text-white/60">We decode you."</span>
@@ -139,7 +139,7 @@ export default function AuraStory() {
                         <p className="text-xs uppercase tracking-[0.3em] text-blue-400/80 mb-6">
                             Chapter 02
                         </p>
-                        <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-16 leading-[1.1]">
+                        <h2 className="font-title-en text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-16 leading-[1.1]">
                             Where Science
                             <br />
                             <span className="italic text-white/70">Meets Individuality</span>
@@ -161,10 +161,10 @@ export default function AuraStory() {
                                 viewport={{ once: true }}
                                 className="p-10 rounded-3xl bg-white/[0.02] border border-white/[0.06]"
                             >
-                                <span className="font-serif text-6xl md:text-7xl text-white/90 block mb-4">
+                                <span className="font-title-en text-6xl md:text-7xl text-white/90 block mb-4">
                                     {stat.number}
                                 </span>
-                                <h3 className="font-sans text-lg font-medium text-white mb-2">
+                                <h3 className="font-body text-lg font-medium text-white mb-2">
                                     {stat.label}
                                 </h3>
                                 <p className="text-sm text-white/40">
@@ -198,7 +198,7 @@ export default function AuraStory() {
                             <p className="text-xs uppercase tracking-[0.3em] text-pink-400/80 mb-6">
                                 Chapter 03
                             </p>
-                            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-8 leading-[1.1]">
+                            <h2 className="font-title-en text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-8 leading-[1.1]">
                                 A Promise
                                 <br />
                                 <span className="italic text-white/70">to You</span>
@@ -235,7 +235,7 @@ export default function AuraStory() {
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
                 >
-                    <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-6">
+                    <h2 className="font-title-en text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-6">
                         Ready to discover your Aura?
                     </h2>
                     <p className="text-white/50 mb-10 max-w-md mx-auto">

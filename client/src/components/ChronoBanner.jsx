@@ -81,14 +81,14 @@ export default function ChronoBanner({ className = '' }) {
                             className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0"
                             style={{ backgroundColor: theme.dot }}
                         />
-                        <span className="font-mono text-[9px] tracking-[0.3em] uppercase"
+                        <span className="font-body text-[9px] tracking-[0.3em] uppercase"
                             style={{ color: theme.dot }}>
                             {theme.period}
                         </span>
                     </div>
                     <div className="w-[1px] h-3 bg-white/10 hidden sm:block" />
                     <div>
-                        <span className="font-serif text-white text-sm md:text-base leading-tight">
+                        <span className="font-title-en text-white text-sm md:text-base leading-tight">
                             {theme.headline}
                         </span>
                     </div>
@@ -96,11 +96,11 @@ export default function ChronoBanner({ className = '' }) {
 
                 {/* Right: Tag + Time */}
                 <div className="flex items-center gap-4 flex-shrink-0">
-                    <span className="font-mono text-[9px] tracking-[0.25em] text-white/30 uppercase hidden md:block">
+                    <span className="font-body text-[9px] tracking-[0.25em] text-white/30 uppercase hidden md:block">
                         {theme.tag}
                     </span>
                     <div className="w-[1px] h-3 bg-white/10 hidden md:block" />
-                    <span className="font-mono text-[10px] text-white/40 tracking-widest">
+                    <span className="font-body text-[10px] text-white/40 tracking-widest">
                         {now}
                     </span>
                 </div>
@@ -108,7 +108,7 @@ export default function ChronoBanner({ className = '' }) {
 
             {/* Hover-reveal: full body text */}
             <div className="px-6 pb-4">
-                <p className="font-sans text-[11px] text-white/35 leading-relaxed max-w-xl">
+                <p className="font-body text-[11px] text-white/35 leading-relaxed max-w-xl">
                     {theme.body}
                 </p>
             </div>

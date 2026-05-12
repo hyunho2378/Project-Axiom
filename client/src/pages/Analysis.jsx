@@ -1,11 +1,11 @@
-import { useState, useRef, Suspense } from 'react';
-import html2canvas from 'html2canvas';
+import { useState, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate, Link } from 'react-router-dom';
+import AnalysisLoader from '../components/AnalysisLoader';
+import { useNavigate } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import EvolvingBlob, { EvolvingParticles, Starfield } from '../components/EvolvingBlob';
+import EvolvingBlob, { EvolvingParticles, Starfield } from '../components/three/EvolvingBlob';
 import ChronoBanner from '../components/ChronoBanner';
 import { questions } from '../data/questions';
 import { getRecommendedProducts, getSkinDescription } from '../data/axiomData';
@@ -42,81 +42,37 @@ function analyzeSkin(answers) {
 
 export default function Analysis() {
     const navigate = useNavigate();
-    const receiptRef = useRef(null);
-    const [isSavingReceipt, setIsSavingReceipt] = useState(false);
     const [quizPhase, setQuizPhase] = useState('intro');
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState({});
     const [userData, setUserData] = useState({ gender: null, age: null });
     const [isAnimating, setIsAnimating] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
-    const [aiResult, setAiResult] = useState(null);
-    const [finalSkinType, setFinalSkinType] = useState("");
+    const [resultData, setResultData] = useState(null);
 
-    const saveReceipt = async () => {
-        if (!receiptRef.current || isSavingReceipt) return;
-        setIsSavingReceipt(true);
-        try {
-            const canvas = await html2canvas(receiptRef.current, {
-                backgroundColor: '#000000',
-                scale: 2,
-                useCORS: true,
-                logging: false,
-            });
-            const link = document.createElement('a');
-            link.download = `axiom-${(finalSkinType || 'skin').replace(/\s·\s/g, '-').replace(/\s/g, '_')}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        } catch (e) {
-            console.error('Receipt save failed:', e);
-        } finally {
-            setIsSavingReceipt(false);
-        }
-    };
+    const submitQuiz = (newAnswers) => {
+        const analysisResult = analyzeSkin(newAnswers);
+        const products = getRecommendedProducts(analysisResult.titleKo);
 
-    const submitQuiz = async (newAnswers) => {
+        const finalAnswers = { ...newAnswers, gender: userData.gender, age: userData.age };
+        fetch(`${API_URL}/api/surveys/submit`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                answers: finalAnswers,
+                skinType: analysisResult.titleKo,
+                scores: { oil: analysisResult.oilPercent, sens: analysisResult.sensPercent }
+            })
+        }).catch(e => console.log("DB save error", e));
+
+        setResultData({
+            skinTypeStr: analysisResult.titleKo,
+            description: analysisResult.descriptionKo,
+            products,
+            oilPercent: analysisResult.oilPercent,
+            sensPercent: analysisResult.sensPercent,
+        });
         setQuizPhase('loading');
-        try {
-            const analysisResult = analyzeSkin(newAnswers);
-            setFinalSkinType(analysisResult.titleKo);
-            const finalAnswers = { ...newAnswers, gender: userData.gender, age: userData.age };
-
-            try {
-                await fetch(`${API_URL}/api/surveys/submit`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        answers: finalAnswers,
-                        skinType: analysisResult.titleKo,
-                        scores: { oil: analysisResult.oilPercent, sens: analysisResult.sensPercent }
-                    })
-                });
-            } catch (e) { console.log("DB save error", e); }
-
-            const aiResponse = await fetch(`${API_URL}/api/analyze`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    skinType: analysisResult.titleKo,
-                    description: analysisResult.descriptionKo,
-                    oilScore: analysisResult.oilPercent,
-                    sensScore: analysisResult.sensPercent
-                })
-            });
-            const aiData = await aiResponse.json();
-
-            if (aiData.success && aiData.advice) {
-                setAiResult(aiData.advice);
-            } else {
-                setAiResult({ headline: "AXIOM Diagnosis", advice: analysisResult.descriptionKo, glossary: [] });
-            }
-            setTimeout(() => setQuizPhase('result'), 2000);
-        } catch (error) {
-            const fallbackResult = analyzeSkin(newAnswers);
-            setFinalSkinType(fallbackResult.titleKo);
-            setAiResult({ headline: "AXIOM Diagnosis", advice: fallbackResult.descriptionKo, glossary: [] });
-            setTimeout(() => setQuizPhase('result'), 1500);
-        }
     };
 
     const handleOptionSelect = async (option, index) => {
@@ -145,235 +101,11 @@ export default function Analysis() {
         }
     };
 
-    if (quizPhase === 'result') {
-        const { headline = "AXIOM Diagnosis", advice = "", glossary = [] } = aiResult || {};
-        const realProducts = getRecommendedProducts(finalSkinType);
-        const today = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
-
-        return (
-            <div className="min-h-screen bg-black pt-32 pb-40 px-6">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-32">
-
-                    {/* ── LEFT: Persistent Step-10 3D Sphere ── */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 1 }}
-                        className="h-[50vh] md:h-[60vh] bg-[#05080a] rounded-[2rem] border border-[#222] overflow-hidden relative shadow-2xl"
-                    >
-                        <div className="absolute top-6 left-8 z-10">
-                            <span className="text-[#00E0FF] font-mono text-[10px] tracking-widest uppercase">Data Object · Final Stage</span>
-                        </div>
-                        <div className="absolute inset-0 z-0">
-                            <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
-                                <ambientLight intensity={0.5} />
-                                <spotLight position={[10, 10, 10]} intensity={1.2} color="#00E0FF" />
-                                <pointLight position={[-10, -5, -5]} intensity={0.4} color="#3C7795" />
-                                <Suspense fallback={null}>
-                                    <Starfield />
-                                    <EvolvingBlob step={10} />
-                                    <EvolvingParticles step={10} />
-                                    <Environment preset="city" />
-                                </Suspense>
-                                <EffectComposer>
-                                    <Bloom luminanceThreshold={0.1} luminanceSmoothing={0.9} height={300} intensity={1.5} />
-                                </EffectComposer>
-                            </Canvas>
-                        </div>
-                        <div className="absolute bottom-8 left-8 z-10 pointer-events-none">
-                            <div className="text-[#00E0FF] text-[10px] tracking-widest font-mono font-bold mb-1">ANALYSIS COMPLETE</div>
-                            <div className="text-white/30 text-[9px] font-mono tracking-widest uppercase">STAGE 10 · FULL RADIANCE</div>
-                        </div>
-                    </motion.div>
-
-                    {/* ── RIGHT: Diagnosis + Receipt ── */}
-                    <div className="flex flex-col justify-center">
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-10">
-                            <p className="font-mono text-[#8AAEC0] text-[10px] tracking-widest uppercase mb-4 font-bold">Diagnosis Complete</p>
-                            <h2 className="font-serif text-4xl md:text-5xl font-bold text-white leading-title">{finalSkinType}</h2>
-                        </motion.div>
-
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mb-8">
-                            <div className="bg-[#05080a] p-8 md:p-10 rounded-3xl border border-[#222]">
-                                <h3 className="font-serif font-bold text-[#00E0FF] text-lg md:text-xl mb-4 leading-title">{headline}</h3>
-                                <p className="font-sans text-[#E0E0E0] text-sm md:text-base leading-body tracking-normal whitespace-pre-line">{advice}</p>
-                            </div>
-                        </motion.div>
-
-                        {glossary.length > 0 && (
-                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="mb-8">
-                                <div className="border-l-2 border-[#00E0FF] pl-6 py-2">
-                                    <h4 className="font-mono font-bold text-[#00E0FF] text-[11px] tracking-widest uppercase mb-3">Axiom Glossary</h4>
-                                    {glossary.map((item, idx) => (
-                                        <div key={idx} className="mb-3 group">
-                                            <p className="font-sans text-[#8AAEC0] text-xs md:text-sm leading-body">
-                                                <span className="text-white font-bold">{item.term}</span>
-                                                <span className="text-[#8AAEC0]/50 mx-2">—</span>
-                                                {item.definition}
-                                            </p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </motion.div>
-                        )}
-
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-[#222]">
-                            <Link to="/my-space" className="flex-1 text-center py-4 bg-[#00E0FF] text-black font-sans font-bold text-xs tracking-widest uppercase rounded-full hover:bg-white transition-colors">Enter My Space</Link>
-                            <a href="#products" className="flex-1 text-center py-4 border border-[#333] text-white font-sans font-bold text-xs tracking-widest uppercase rounded-full hover:border-[#00E0FF] hover:text-[#00E0FF] transition-colors">View Solutions</a>
-                            <button
-                                onClick={saveReceipt}
-                                disabled={isSavingReceipt}
-                                className="flex-1 py-4 border border-[#1E5672] text-[#8AAEC0] font-sans font-bold text-xs tracking-widest uppercase rounded-full hover:bg-[#1E5672]/20 transition-colors disabled:opacity-40"
-                            >
-                                {isSavingReceipt ? 'Saving…' : 'Save Card'}
-                            </button>
-                        </motion.div>
-                    </div>
-                </div>
-
-                {/* ── AXIOM RECEIPT CARD (captured by html2canvas) ── */}
-                <div className="max-w-7xl mx-auto mb-24 flex justify-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.7 }}
-                        className="w-full max-w-sm"
-                    >
-                        <p className="font-mono text-[9px] text-[#333] tracking-[0.3em] uppercase mb-4 text-center">
-                            AXIOM Analysis Card · Save for Instagram
-                        </p>
-
-                        {/* Receipt Card — html2canvas target */}
-                        <div
-                            ref={receiptRef}
-                            style={{
-                                background: '#000000',
-                                width: '360px',
-                                minHeight: '640px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                padding: '40px 32px',
-                                border: '1px solid #1a1a1a',
-                                borderRadius: '16px',
-                                fontFamily: 'monospace',
-                            }}
-                        >
-                            {/* Header */}
-                            <div style={{ borderBottom: '1px solid #1a1a1a', paddingBottom: '20px', marginBottom: '24px' }}>
-                                <p style={{ color: '#3C7795', fontSize: '9px', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '6px' }}>
-                                    AXIOM LABORATORY
-                                </p>
-                                <p style={{ color: '#222', fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-                                    Skin Analysis Receipt
-                                </p>
-                            </div>
-
-                            {/* Skin Type — BentonModDisp via font-serif */}
-                            <div style={{ marginBottom: '32px', textAlign: 'center' }}>
-                                <p style={{ color: '#333', fontSize: '9px', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '12px' }}>
-                                    Diagnosed Type
-                                </p>
-                                <p style={{ color: '#ffffff', fontSize: '28px', fontWeight: 'bold', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
-                                    {finalSkinType}
-                                </p>
-                            </div>
-
-                            {/* Divider dots */}
-                            <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginBottom: '32px' }}>
-                                {[0,1,2,3,4,5,6,7,8].map(i => (
-                                    <span key={i} style={{ color: '#222', fontSize: '10px' }}>·</span>
-                                ))}
-                            </div>
-
-                            {/* AI Prescription headline */}
-                            <div style={{ marginBottom: '24px' }}>
-                                <p style={{ color: '#3C7795', fontSize: '9px', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '8px' }}>
-                                    AXIOM Prescription
-                                </p>
-                                <p style={{ color: '#8AAEC0', fontSize: '11px', lineHeight: 1.6, letterSpacing: '0.02em' }}>
-                                    {headline}
-                                </p>
-                            </div>
-
-                            {/* Glossary terms if present */}
-                            {glossary.length > 0 && (
-                                <div style={{ marginBottom: '24px', borderTop: '1px solid #111', paddingTop: '20px' }}>
-                                    <p style={{ color: '#333', fontSize: '8px', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '10px' }}>
-                                        Key Ingredients
-                                    </p>
-                                    {glossary.slice(0, 3).map((item, idx) => (
-                                        <div key={idx} style={{ marginBottom: '6px', display: 'flex', gap: '8px' }}>
-                                            <span style={{ color: '#3C7795', fontSize: '9px', flexShrink: 0 }}>·</span>
-                                            <span style={{ color: '#555', fontSize: '9px', letterSpacing: '0.05em' }}>{item.term}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-
-                            {/* Spacer */}
-                            <div style={{ flex: 1 }} />
-
-                            {/* Footer */}
-                            <div style={{ borderTop: '1px solid #1a1a1a', paddingTop: '20px' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                                    <span style={{ color: '#333', fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Date</span>
-                                    <span style={{ color: '#444', fontSize: '8px', letterSpacing: '0.1em' }}>{today}</span>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                                    <span style={{ color: '#333', fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>System</span>
-                                    <span style={{ color: '#444', fontSize: '8px', letterSpacing: '0.1em' }}>AXIOM v2.6</span>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <span style={{ color: '#333', fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Precision</span>
-                                    <span style={{ color: '#3C7795', fontSize: '8px', letterSpacing: '0.1em' }}>Clinical Grade</span>
-                                </div>
-                                <p style={{ color: '#1a1a1a', fontSize: '8px', letterSpacing: '0.3em', textTransform: 'uppercase', marginTop: '16px', textAlign: 'center' }}>
-                                    axiom.studio · Define Your Axis
-                                </p>
-                            </div>
-                        </div>
-
-                        <button
-                            onClick={saveReceipt}
-                            disabled={isSavingReceipt}
-                            className="w-full mt-4 py-3 bg-[#05080a] border border-[#222] text-[#8AAEC0] font-mono text-[10px] tracking-widest uppercase rounded-xl hover:border-[#3C7795] hover:text-white transition-all disabled:opacity-40"
-                        >
-                            {isSavingReceipt ? '· SAVING ·' : '↓ SAVE ANALYSIS CARD'}
-                        </button>
-                    </motion.div>
-                </div>
-
-                {/* ── PRESCRIBED SOLUTIONS ── */}
-                <div id="products" className="max-w-7xl mx-auto pt-24 border-t border-[#222]">
-                    <div className="mb-16">
-                        <h3 className="font-serif text-3xl font-bold text-white mb-3 leading-title">Prescribed Solutions</h3>
-                        <p className="font-sans text-[#8AAEC0] text-sm tracking-normal">{finalSkinType} 피부를 위한 정밀 처방 매칭 결과입니다.</p>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {realProducts.slice(0, 4).map((product, index) => (
-                            <motion.div key={product.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }} className="group">
-                                <Link to={`/curations/${product.id}`} className="block bg-[#05080a] border border-[#222] rounded-3xl overflow-hidden hover:border-[#00E0FF]/50 transition-all shadow-lg hover:shadow-[0_0_30px_rgba(0,224,255,0.1)]">
-                                    <div className={`relative aspect-[4/5] ${product.imageColor} flex flex-col justify-end p-6 border-b border-[#222]`}>
-                                        <div className="absolute top-4 left-4 bg-[#00E0FF] text-black text-[10px] font-mono px-2 py-1 rounded-sm uppercase tracking-widest">{product.category}</div>
-                                    </div>
-                                    <div className="p-6">
-                                        <h4 className="text-white font-serif font-bold text-lg truncate mb-4 leading-title">{product.nameKr}</h4>
-                                        <div className="flex justify-between items-center pt-4 border-t border-[#222]">
-                                            <span className="text-[#00E0FF] font-sans font-bold text-sm">{product.price}</span>
-                                            <span className="text-[#333] text-lg group-hover:text-[#00E0FF] transition-colors">→</span>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className="min-h-screen bg-black text-white selection:bg-[#00E0FF] selection:text-black pt-[88px] pb-20">
+            {quizPhase === 'loading' && (
+                <AnalysisLoader onComplete={() => navigate('/result', { state: resultData })} />
+            )}
             <div className="max-w-7xl mx-auto px-6 h-[calc(100vh-140px)] min-h-[600px] flex items-center">
                 <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 h-full max-h-[800px]">
                     <div className="hidden lg:block relative rounded-3xl bg-[#05080a] border border-[#222] overflow-hidden">
@@ -400,8 +132,8 @@ export default function Analysis() {
                             </Canvas>
                         </div>
                         <div className="absolute bottom-10 left-10 z-10 pointer-events-none">
-                            <div className="text-[#00E0FF] text-[10px] tracking-widest font-mono font-bold mb-2">SCANNING...</div>
-                            <div className="text-white/40 text-xs font-mono tracking-widest uppercase">
+                            <div className="text-[#00E0FF] text-[10px] tracking-widest font-body font-bold mb-2">SCANNING...</div>
+                            <div className="text-white/40 text-xs font-body tracking-widest uppercase">
                                 {quizPhase === 'intro' ? 'SYSTEM READY' : quizPhase === 'gender' ? 'DEMOGRAPHICS' : quizPhase === 'loading' ? 'ANALYZING' : `DATA POINT ${currentQuestion + 1}`}
                             </div>
                         </div>
@@ -410,22 +142,22 @@ export default function Analysis() {
                     <div className="flex flex-col justify-center h-full">
                         {quizPhase === 'intro' && (
                             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="w-full">
-                                <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 leading-title">Discover Your Axis.</h1>
-                                <p className="text-[#8AAEC0] text-lg font-sans mb-10 leading-body tracking-normal">
+                                <h1 className="text-5xl md:text-7xl font-title-en font-bold mb-6 leading-title">Discover Your Axis.</h1>
+                                <p className="text-[#8AAEC0] text-lg font-body mb-10 leading-body tracking-normal">
                                     수백만 개의 데이터 포인트를 분석하여<br />당신 피부만의 고유한 중심축을 찾아냅니다.
                                 </p>
                                 <ChronoBanner className="mb-10" />
-                                <button onClick={() => setQuizPhase('gender')} className="px-10 py-5 bg-[#00E0FF] text-black font-sans font-bold text-sm tracking-widest uppercase rounded-full hover:bg-white transition-colors">Begin Analysis</button>
+                                <button onClick={() => setQuizPhase('gender')} className="px-10 py-5 bg-[#00E0FF] text-black font-body font-bold text-sm tracking-widest uppercase rounded-full hover:bg-white transition-colors">Begin Analysis</button>
                             </motion.div>
                         )}
 
                         {quizPhase === 'gender' && (
                             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="w-full">
-                                <p className="text-[#8AAEC0] text-[10px] font-mono tracking-widest uppercase mb-4">Step 01</p>
-                                <h2 className="text-3xl font-sans font-bold mb-10 leading-title">정확한 데이터 분석을 위해<br />성별을 선택해 주세요.</h2>
+                                <p className="text-[#8AAEC0] text-[10px] font-body tracking-widest uppercase mb-4">Step 01</p>
+                                <h2 className="text-3xl font-body font-bold mb-10 leading-title">정확한 데이터 분석을 위해<br />성별을 선택해 주세요.</h2>
                                 <div className="grid grid-cols-2 gap-4">
                                     {['여성', '남성'].map(g => (
-                                        <button key={g} onClick={() => { setUserData(p => ({ ...p, gender: g })); setQuizPhase('age'); }} className="p-6 text-center bg-[#05080a] border border-[#222] hover:border-[#00E0FF] rounded-2xl font-sans font-bold text-[#8AAEC0] hover:text-white transition-colors">{g}</button>
+                                        <button key={g} onClick={() => { setUserData(p => ({ ...p, gender: g })); setQuizPhase('age'); }} className="p-6 text-center bg-[#05080a] border border-[#222] hover:border-[#00E0FF] rounded-2xl font-body font-bold text-[#8AAEC0] hover:text-white transition-colors">{g}</button>
                                     ))}
                                 </div>
                             </motion.div>
@@ -433,21 +165,21 @@ export default function Analysis() {
 
                         {quizPhase === 'age' && (
                             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="w-full">
-                                <p className="text-[#8AAEC0] text-[10px] font-mono tracking-widest uppercase mb-4">Step 02</p>
-                                <h2 className="text-3xl font-sans font-bold mb-10 leading-title">연령대를 선택해 주세요.</h2>
+                                <p className="text-[#8AAEC0] text-[10px] font-body tracking-widest uppercase mb-4">Step 02</p>
+                                <h2 className="text-3xl font-body font-bold mb-10 leading-title">연령대를 선택해 주세요.</h2>
                                 <div className="grid grid-cols-2 gap-4">
                                     {['10대', '20대', '30대', '40대', '50대 이상'].map(a => (
-                                        <button key={a} onClick={() => { setUserData(p => ({ ...p, age: a })); setQuizPhase('quiz'); }} className="p-6 bg-[#05080a] border border-[#222] hover:border-[#00E0FF] rounded-2xl font-sans font-bold text-[#8AAEC0] hover:text-white transition-colors text-center">{a}</button>
+                                        <button key={a} onClick={() => { setUserData(p => ({ ...p, age: a })); setQuizPhase('quiz'); }} className="p-6 bg-[#05080a] border border-[#222] hover:border-[#00E0FF] rounded-2xl font-body font-bold text-[#8AAEC0] hover:text-white transition-colors text-center">{a}</button>
                                     ))}
                                 </div>
-                                <button onClick={() => setQuizPhase('gender')} className="mt-8 text-sm text-[#555] hover:text-[#00E0FF] transition-colors font-sans tracking-widest uppercase font-bold">← Back</button>
+                                <button onClick={() => setQuizPhase('gender')} className="mt-8 text-sm text-[#555] hover:text-[#00E0FF] transition-colors font-body tracking-widest uppercase font-bold">← Back</button>
                             </motion.div>
                         )}
 
                         {quizPhase === 'quiz' && (
                             <div className="w-full">
                                 <div className="mb-10">
-                                    <div className="flex justify-between text-[10px] font-bold text-[#8AAEC0] font-mono tracking-widest uppercase mb-4">
+                                    <div className="flex justify-between text-[10px] font-bold text-[#8AAEC0] font-body tracking-widest uppercase mb-4">
                                         <span>Phase 01</span>
                                         <span>{currentQuestion + 1} / {questions.length}</span>
                                     </div>
@@ -457,23 +189,15 @@ export default function Analysis() {
                                 </div>
                                 <AnimatePresence mode="wait">
                                     <motion.div key={currentQuestion} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="mb-10">
-                                        <h2 className="text-2xl font-sans font-bold leading-body tracking-normal" style={{ wordBreak: 'keep-all' }}>{questions[currentQuestion].text}</h2>
+                                        <h2 className="text-2xl font-body font-bold leading-body tracking-normal" style={{ wordBreak: 'keep-all' }}>{questions[currentQuestion].text}</h2>
                                     </motion.div>
                                 </AnimatePresence>
                                 <div className="space-y-3">
                                     {questions[currentQuestion].options.map((opt, i) => (
-                                        <button key={i} onClick={() => handleOptionSelect(opt, i)} disabled={isAnimating} className={`w-full p-5 text-left rounded-2xl transition-all font-sans tracking-normal ${selectedOption === i ? 'bg-[#00E0FF]/10 border border-[#00E0FF] text-white font-bold' : 'bg-[#05080a] border border-[#222] text-[#8AAEC0] hover:border-[#00E0FF]/50 hover:text-white'}`}>{opt.text}</button>
+                                        <button key={i} onClick={() => handleOptionSelect(opt, i)} disabled={isAnimating} className={`w-full p-5 text-left rounded-2xl transition-all font-body tracking-normal ${selectedOption === i ? 'bg-[#00E0FF]/10 border border-[#00E0FF] text-white font-bold' : 'bg-[#05080a] border border-[#222] text-[#8AAEC0] hover:border-[#00E0FF]/50 hover:text-white'}`}>{opt.text}</button>
                                     ))}
                                 </div>
-                                <button onClick={handleBack} className="mt-8 text-sm text-[#555] hover:text-[#00E0FF] transition-colors font-sans tracking-widest uppercase font-bold">← Back</button>
-                            </div>
-                        )}
-
-                        {quizPhase === 'loading' && (
-                            <div className="w-full text-center py-20">
-                                <div className="w-20 h-20 border-t-2 border-[#00E0FF] rounded-full animate-spin mx-auto mb-8"></div>
-                                <h2 className="text-2xl font-serif tracking-widest mb-4 leading-title">Analyzing Data</h2>
-                                <p className="text-[#8AAEC0] font-sans tracking-normal">수백만 개의 데이터 포인트를 분석 중입니다...</p>
+                                <button onClick={handleBack} className="mt-8 text-sm text-[#555] hover:text-[#00E0FF] transition-colors font-body tracking-widest uppercase font-bold">← Back</button>
                             </div>
                         )}
                     </div>

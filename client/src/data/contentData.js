@@ -11,7 +11,7 @@ export const contentData = {
     // Header Navigation
     nav: {
         logo: "AXIOM",
-        menu: ["HOME", "ABOUT", "AI Analysis", "Curations", "Data Lab"],
+        menu: ["ABOUT", "AXIOM", "AI Analysis", "Curations", "Data Lab"],
         utils: ["KR/EN", "Log In"]
     },
 

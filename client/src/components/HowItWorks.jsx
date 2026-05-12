@@ -55,10 +55,10 @@ export default function HowItWorks() {
                     className="text-left mb-16 md:mb-20"
                 >
                     {/* Label - #3C7795 */}
-                    <p className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-sans mb-4">
+                    <p className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-body mb-4">
                         How It Works
                     </p>
-                    <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#8AAEC0] leading-tight">
+                    <h2 className="font-title-en text-3xl md:text-4xl lg:text-5xl text-[#8AAEC0] leading-tight">
                         Your Journey to<br />
                         <span className="text-gradient-cyan">Define Your Axis</span>
                     </h2>
@@ -82,7 +82,7 @@ export default function HowItWorks() {
                             {/* Step Number & Icon */}
                             <div className="flex items-start justify-between mb-8">
                                 {/* Number - #3C7795 */}
-                                <span className="text-[11px] font-sans text-[#3C7795] tracking-[0.15em]">
+                                <span className="text-[11px] font-body text-[#3C7795] tracking-[0.15em]">
                                     {String(step.id).padStart(2, '0')}
                                 </span>
                                 {/* Icon - #8AAEC0 to #3C7795 on hover */}
@@ -92,12 +92,12 @@ export default function HowItWorks() {
                             </div>
 
                             {/* Title - #8AAEC0 */}
-                            <h3 className="font-serif text-xl md:text-2xl text-[#8AAEC0] mb-6 leading-tight">
+                            <h3 className="font-title-en text-xl md:text-2xl text-[#8AAEC0] mb-6 leading-tight">
                                 {step.title}
                             </h3>
 
                             {/* Description - Fade in on hover */}
-                            <p className="font-sans text-sm text-[#8AAEC0]/0 leading-relaxed
+                            <p className="font-body text-sm text-[#8AAEC0]/0 leading-relaxed
                                           group-hover:text-[#8AAEC0]/70
                                           transition-all duration-500 ease-out"
                                 style={{ wordBreak: 'keep-all' }}>
@@ -125,7 +125,7 @@ export default function HowItWorks() {
                         href="/analysis"
                         className="btn-primary inline-flex items-center gap-3"
                     >
-                        <span className="font-sans text-sm tracking-wide">Start Your Analysis</span>
+                        <span className="font-body text-sm tracking-wide">Start Your Analysis</span>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>

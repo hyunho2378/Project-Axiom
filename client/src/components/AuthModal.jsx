@@ -169,8 +169,8 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
 
                         {/* Logo */}
                         <div className="text-center mb-8">
-                            <p className="font-mono text-[10px] text-[#3C7795] tracking-[0.3em] uppercase mb-2">AXIOM Laboratory</p>
-                            <h2 className="font-serif text-2xl text-white tracking-wide">
+                            <p className="font-body text-[10px] text-[#3C7795] tracking-[0.3em] uppercase mb-2">AXIOM Laboratory</p>
+                            <h2 className="font-title-en text-2xl text-white tracking-wide">
                                 {activeTab === 'login' ? 'Welcome Back.' : 'Create Account.'}
                             </h2>
                         </div>
@@ -181,7 +181,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                                 <button
                                     key={tab}
                                     onClick={() => switchTab(tab)}
-                                    className={`relative pb-4 text-xs font-sans font-semibold tracking-[0.12em] uppercase transition-colors ${activeTab === tab ? 'text-white' : 'text-white/30 hover:text-white/60'}`}
+                                    className={`relative pb-4 text-xs font-body font-semibold tracking-[0.12em] uppercase transition-colors ${activeTab === tab ? 'text-white' : 'text-white/30 hover:text-white/60'}`}
                                 >
                                     {tab === 'login' ? 'Log In' : 'Sign Up'}
                                     {activeTab === tab && (
@@ -202,9 +202,9 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                                     initial={{ opacity: 0, y: -8, height: 0 }}
                                     animate={{ opacity: 1, y: 0, height: 'auto' }}
                                     exit={{ opacity: 0, height: 0 }}
-                                    className="mb-6 px-4 py-3 rounded-xl bg-[#3C7795]/10 border border-[#3C7795]/30"
+                                    className="mb-6 px-4 py-3 rounded-2xl bg-[#3C7795]/10 border border-[#3C7795]/30"
                                 >
-                                    <p className="font-mono text-[11px] text-[#8AAEC0] tracking-wide text-center leading-relaxed">
+                                    <p className="font-body text-[11px] text-[#8AAEC0] tracking-wide text-center leading-relaxed">
                                         {error}
                                     </p>
                                 </motion.div>
@@ -224,7 +224,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                             <button
                                 type="button"
                                 disabled={isLoading}
-                                className="w-full mb-6 flex items-center justify-center gap-3 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full font-sans text-sm text-white/70 hover:text-white transition-all duration-200"
+                                className="w-full mb-6 flex items-center justify-center gap-3 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full font-body text-sm text-white/70 hover:text-white transition-all duration-200"
                                 onClick={() => setError('Google 클라이언트 ID가 설정되지 않았습니다. 환경 변수를 확인하여 주십시오.')}
                             >
                                 <svg width="18" height="18" viewBox="0 0 24 24">
@@ -240,7 +240,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                         {/* Divider */}
                         <div className="flex items-center gap-4 mb-6">
                             <div className="flex-1 h-[1px] bg-white/8" />
-                            <span className="font-mono text-[9px] text-white/20 uppercase tracking-[0.2em]">or</span>
+                            <span className="font-body text-[9px] text-white/20 uppercase tracking-[0.2em]">or</span>
                             <div className="flex-1 h-[1px] bg-white/8" />
                         </div>
 
@@ -253,7 +253,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                                         placeholder="Name"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-[#3C7795] rounded-xl px-4 py-3.5 text-sm font-sans text-white placeholder-white/20 outline-none transition-colors"
+                                        className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-[#3C7795] rounded-2xl px-4 py-3.5 text-sm font-body text-white placeholder-white/20 outline-none transition-colors"
                                     />
                                 </div>
                             )}
@@ -264,7 +264,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                                     placeholder="Email address"
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-[#3C7795] rounded-xl px-4 py-3.5 text-sm font-sans text-white placeholder-white/20 outline-none transition-colors"
+                                    className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-[#3C7795] rounded-2xl px-4 py-3.5 text-sm font-body text-white placeholder-white/20 outline-none transition-colors"
                                 />
                             </div>
 
@@ -274,14 +274,14 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                                     placeholder="Password (min. 6 characters)"
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                    className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-[#3C7795] rounded-xl px-4 py-3.5 text-sm font-sans text-white placeholder-white/20 outline-none transition-colors"
+                                    className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-[#3C7795] rounded-2xl px-4 py-3.5 text-sm font-body text-white placeholder-white/20 outline-none transition-colors"
                                 />
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full mt-2 py-4 bg-[#3C7795] hover:bg-[#8AAEC0] disabled:opacity-40 text-white font-sans font-semibold text-sm tracking-[0.12em] uppercase rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(60,119,149,0.25)]"
+                                className="w-full mt-2 py-4 bg-[#3C7795] hover:bg-[#8AAEC0] disabled:opacity-40 text-white font-body font-semibold text-sm tracking-[0.12em] uppercase rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(60,119,149,0.25)]"
                             >
                                 {isLoading ? (
                                     <span className="flex items-center justify-center gap-2">
@@ -295,7 +295,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                         </form>
 
                         {/* Footer note */}
-                        <p className="mt-6 text-center font-mono text-[9px] text-white/15 tracking-wider leading-relaxed">
+                        <p className="mt-6 text-center font-body text-[9px] text-white/15 tracking-wider leading-relaxed">
                             By continuing, you agree to AXIOM's{' '}
                             <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-[#3C7795]/60 hover:text-[#3C7795] transition-colors underline underline-offset-2">
                                 Privacy Policy

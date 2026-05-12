@@ -27,18 +27,18 @@ export default function Shop() {
                     transition={{ duration: 0.6 }}
                 >
                     {/* Label - Cyan */}
-                    <p className="text-[#3C7795] font-bold tracking-widest text-xs mb-3 uppercase font-sans">
+                    <p className="text-[#3C7795] font-bold tracking-widest text-xs mb-3 uppercase font-body">
                         AI Personalized
                     </p>
 
                     {/* Title - #8AAEC0 */}
-                    <h1 className="text-4xl md:text-5xl font-serif text-[#8AAEC0] mb-4 leading-tight">
+                    <h1 className="text-4xl md:text-5xl font-title-en text-[#8AAEC0] mb-4 leading-tight">
                         <span className="text-[#8AAEC0]">{userName}</span>님을 위한<br />
                         <span className="text-gradient-cyan">맞춤 처방</span>
                     </h1>
 
                     {/* Description - Mist */}
-                    <p className="text-[#8AAEC0] text-base md:text-lg mb-6 font-sans whitespace-nowrap overflow-hidden text-ellipsis"
+                    <p className="text-[#8AAEC0] text-base md:text-lg mb-6 font-body whitespace-nowrap overflow-hidden text-ellipsis"
                         style={{ wordBreak: 'keep-all' }}>
                         {userName}님의 피부 타입 분석 결과에 기반한 최적의 솔루션입니다. AI가 분석한 <span className="text-[#3C7795] font-bold">{userSkinType}</span> 피부에 맞는 제품을 추천해 드립니다.
                     </p>
@@ -55,11 +55,11 @@ export default function Shop() {
                     className="flex items-center gap-4 mb-8"
                 >
                     <div className="px-4 py-2 bg-gradient-to-r from-[#1E5672]/30 to-[#3C7795]/30 border border-[#3C7795]/30 rounded-full">
-                        <span className="text-sm font-sans text-[#8AAEC0]">
+                        <span className="text-sm font-body text-[#8AAEC0]">
                             피부 타입: <span className="font-bold text-[#8AAEC0]">{userSkinType}</span>
                         </span>
                     </div>
-                    <span className="text-sm text-[#8AAEC0]/50 font-sans">
+                    <span className="text-sm text-[#8AAEC0]/50 font-body">
                         {recommendedProducts.length}개의 맞춤 제품
                     </span>
                 </motion.div>
@@ -95,7 +95,7 @@ export default function Shop() {
 
                                         {/* Match Score Badge - Cyan Gradient */}
                                         <div className="absolute top-3 left-3 z-10">
-                                            <span className="px-2.5 py-1 text-[10px] font-bold tracking-wider font-sans
+                                            <span className="px-2.5 py-1 text-[10px] font-bold tracking-wider font-body
                                                            bg-gradient-to-r from-[#1E5672] to-[#3C7795] 
                                                            text-white rounded-full border border-white/15">
                                                 {matchRate}% Match
@@ -105,7 +105,7 @@ export default function Shop() {
                                         {/* Tag */}
                                         {product.tag && (
                                             <div className="absolute top-3 right-3 z-10">
-                                                <span className="px-2 py-0.5 text-[9px] uppercase tracking-wider font-sans
+                                                <span className="px-2 py-0.5 text-[9px] uppercase tracking-wider font-body
                                                                bg-[#8AAEC0]/10 text-[#8AAEC0] rounded-full border border-[#8AAEC0]/20">
                                                     {product.tag}
                                                 </span>
@@ -120,22 +120,22 @@ export default function Shop() {
                                         {/* Content */}
                                         <div className="p-5">
                                             {/* Category - Cyan */}
-                                            <p className="text-[10px] uppercase tracking-[0.15em] text-[#3C7795] font-sans mb-1">
+                                            <p className="text-[10px] uppercase tracking-[0.15em] text-[#3C7795] font-body mb-1">
                                                 {product.category}
                                             </p>
 
                                             {/* Name */}
-                                            <h3 className="font-serif text-base text-[#8AAEC0] mb-1 group-hover:text-[#3C7795] transition-colors">
+                                            <h3 className="font-title-en text-base text-[#8AAEC0] mb-1 group-hover:text-[#3C7795] transition-colors">
                                                 {product.name}
                                             </h3>
 
                                             {/* Price - Mist */}
-                                            <p className="font-sans text-sm text-[#8AAEC0] mb-3">
+                                            <p className="font-body text-sm text-[#8AAEC0] mb-3">
                                                 {product.price}
                                             </p>
 
                                             {/* Description - Mist dimmed */}
-                                            <p className="font-sans text-xs text-[#8AAEC0]/60 leading-relaxed line-clamp-2" style={{ wordBreak: 'keep-all' }}>
+                                            <p className="font-body text-xs text-[#8AAEC0]/60 leading-relaxed line-clamp-2" style={{ wordBreak: 'keep-all' }}>
                                                 {product.desc}
                                             </p>
                                         </div>

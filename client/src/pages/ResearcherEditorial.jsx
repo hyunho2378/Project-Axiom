@@ -92,10 +92,10 @@ export default function ResearcherEditorial() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.7 }}
                         >
-                            <p className="font-mono text-[9px] tracking-[0.4em] text-[#3C7795] uppercase mb-3">
+                            <p className="font-body text-[9px] tracking-[0.4em] text-[#3C7795] uppercase mb-3">
                                 {FEATURED.issue}
                             </p>
-                            <h1 className="font-serif text-3xl md:text-4xl text-white leading-title">
+                            <h1 className="font-title-en text-3xl md:text-4xl text-white leading-title">
                                 AXIOM Editorial
                             </h1>
                         </motion.div>
@@ -103,7 +103,7 @@ export default function ResearcherEditorial() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.3 }}
-                            className="font-mono text-[9px] text-[#333] tracking-widest uppercase hidden md:block"
+                            className="font-body text-[9px] text-[#333] tracking-widest uppercase hidden md:block"
                         >
                             Research · Science · Beauty Intelligence
                         </motion.p>
@@ -129,10 +129,10 @@ export default function ResearcherEditorial() {
 
                             <div className="relative z-10 text-center px-12">
                                 <div className="w-px h-20 bg-gradient-to-b from-transparent to-[#3C7795]/40 mx-auto mb-8" />
-                                <p className="font-mono text-[9px] text-[#3C7795]/60 tracking-[0.3em] uppercase mb-3">
+                                <p className="font-body text-[9px] text-[#3C7795]/60 tracking-[0.3em] uppercase mb-3">
                                     AXIOM Laboratory
                                 </p>
-                                <p className="font-sans text-[#8AAEC0]/30 text-xs tracking-normal leading-relaxed max-w-[200px] mx-auto">
+                                <p className="font-body text-[#8AAEC0]/30 text-xs tracking-normal leading-relaxed max-w-[200px] mx-auto">
                                     AI-Generated researcher imagery — coming in v3.0
                                 </p>
                                 <div className="w-px h-20 bg-gradient-to-b from-[#3C7795]/40 to-transparent mx-auto mt-8" />
@@ -140,7 +140,7 @@ export default function ResearcherEditorial() {
 
                             {/* Lab data overlay */}
                             <div className="absolute bottom-8 left-8">
-                                <p className="font-mono text-[8px] text-[#3C7795]/40 tracking-widest uppercase">
+                                <p className="font-body text-[8px] text-[#3C7795]/40 tracking-widest uppercase">
                                     AXIOM SKIN RESEARCH LAB · SEOUL
                                 </p>
                             </div>
@@ -153,26 +153,26 @@ export default function ResearcherEditorial() {
                             transition={{ duration: 0.9, delay: 0.2 }}
                             className="lg:col-span-7 flex flex-col justify-center py-16 lg:pl-16"
                         >
-                            <p className="font-mono text-[9px] tracking-[0.3em] text-[#3C7795] uppercase mb-8">
+                            <p className="font-body text-[9px] tracking-[0.3em] text-[#3C7795] uppercase mb-8">
                                 {FEATURED.category} · COVER STORY
                             </p>
 
-                            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white leading-title mb-8 whitespace-pre-line">
+                            <h2 className="font-title-en text-3xl md:text-4xl lg:text-5xl text-white leading-title mb-8 whitespace-pre-line">
                                 {FEATURED.title}
                             </h2>
 
                             <div className="w-12 h-[1px] bg-[#3C7795]/30 mb-8" />
 
-                            <p className="font-sans text-[#8AAEC0] text-base leading-body mb-10 max-w-xl">
+                            <p className="font-body text-[#8AAEC0] text-base leading-body mb-10 max-w-xl">
                                 {FEATURED.excerpt}
                             </p>
 
                             <div className="flex items-center justify-between border-t border-[#1a1a1a] pt-8">
                                 <div>
-                                    <p className="font-mono text-[9px] text-[#444] tracking-[0.2em] uppercase mb-1">Author</p>
-                                    <p className="font-sans text-[#8AAEC0] text-xs">{FEATURED.author}</p>
+                                    <p className="font-body text-[9px] text-[#444] tracking-[0.2em] uppercase mb-1">Author</p>
+                                    <p className="font-body text-[#8AAEC0] text-xs">{FEATURED.author}</p>
                                 </div>
-                                <p className="font-mono text-[9px] text-[#333] tracking-widest">{FEATURED.date}</p>
+                                <p className="font-body text-[9px] text-[#333] tracking-widest">{FEATURED.date}</p>
                             </div>
                         </motion.div>
                     </div>
@@ -184,11 +184,11 @@ export default function ResearcherEditorial() {
                 <div className="max-w-7xl mx-auto px-6">
 
                     <div className="flex items-center gap-6 mb-16">
-                        <p className="font-mono text-[9px] text-[#3C7795] tracking-[0.3em] uppercase">
+                        <p className="font-body text-[9px] text-[#3C7795] tracking-[0.3em] uppercase">
                             Research Archive
                         </p>
                         <div className="flex-1 h-[1px] bg-[#111]" />
-                        <p className="font-mono text-[9px] text-[#333] tracking-widest hidden md:block">
+                        <p className="font-body text-[9px] text-[#333] tracking-widest hidden md:block">
                             {ARTICLES.length} Reports
                         </p>
                     </div>
@@ -207,7 +207,7 @@ export default function ResearcherEditorial() {
                             >
                                 <div className="flex items-center gap-3 mb-6">
                                     <span
-                                        className="font-mono text-[8px] tracking-[0.25em] uppercase px-2 py-1 rounded-sm"
+                                        className="font-body text-[8px] tracking-[0.25em] uppercase px-2 py-1 rounded-2xl"
                                         style={{
                                             color: TAG_COLORS[article.tag],
                                             border: `1px solid ${TAG_COLORS[article.tag]}30`,
@@ -216,23 +216,23 @@ export default function ResearcherEditorial() {
                                     >
                                         {article.tag}
                                     </span>
-                                    <span className="font-mono text-[8px] text-[#333] tracking-widest">{article.date}</span>
+                                    <span className="font-body text-[8px] text-[#333] tracking-widest">{article.date}</span>
                                 </div>
 
-                                <p className="font-mono text-[9px] text-[#3C7795] tracking-[0.2em] uppercase mb-4">
+                                <p className="font-body text-[9px] text-[#3C7795] tracking-[0.2em] uppercase mb-4">
                                     {article.category}
                                 </p>
-                                <h3 className="font-serif text-xl md:text-2xl text-white leading-title mb-3 group-hover:text-[#8AAEC0] transition-colors duration-300">
+                                <h3 className="font-title-en text-xl md:text-2xl text-white leading-title mb-3 group-hover:text-[#8AAEC0] transition-colors duration-300">
                                     {article.title}
                                 </h3>
-                                <p className="font-serif italic text-[#8AAEC0]/50 text-sm mb-5 leading-title">
+                                <p className="font-title-en italic text-[#8AAEC0]/50 text-sm mb-5 leading-title">
                                     {article.subtitle}
                                 </p>
-                                <p className="font-sans text-[#8AAEC0]/60 text-xs leading-body mb-8">
+                                <p className="font-body text-[#8AAEC0]/60 text-xs leading-body mb-8">
                                     {article.excerpt}
                                 </p>
                                 <div className="flex items-center justify-between">
-                                    <p className="font-mono text-[9px] text-[#444] tracking-widest">{article.author}</p>
+                                    <p className="font-body text-[9px] text-[#444] tracking-widest">{article.author}</p>
                                     <span className="text-[#333] group-hover:text-[#3C7795] transition-colors">→</span>
                                 </div>
                             </motion.article>
@@ -254,7 +254,7 @@ export default function ResearcherEditorial() {
                             >
                                 <div className="flex items-center gap-3 mb-5">
                                     <span
-                                        className="font-mono text-[8px] tracking-[0.25em] uppercase px-2 py-1 rounded-sm"
+                                        className="font-body text-[8px] tracking-[0.25em] uppercase px-2 py-1 rounded-2xl"
                                         style={{
                                             color: TAG_COLORS[article.tag],
                                             border: `1px solid ${TAG_COLORS[article.tag]}30`,
@@ -265,20 +265,20 @@ export default function ResearcherEditorial() {
                                     </span>
                                 </div>
 
-                                <p className="font-mono text-[9px] text-[#3C7795] tracking-[0.2em] uppercase mb-3">
+                                <p className="font-body text-[9px] text-[#3C7795] tracking-[0.2em] uppercase mb-3">
                                     {article.category}
                                 </p>
-                                <h3 className="font-serif text-lg text-white leading-title mb-2 group-hover:text-[#8AAEC0] transition-colors duration-300">
+                                <h3 className="font-title-en text-lg text-white leading-title mb-2 group-hover:text-[#8AAEC0] transition-colors duration-300">
                                     {article.title}
                                 </h3>
-                                <p className="font-serif italic text-[#8AAEC0]/40 text-xs mb-4 leading-title">
+                                <p className="font-title-en italic text-[#8AAEC0]/40 text-xs mb-4 leading-title">
                                     {article.subtitle}
                                 </p>
-                                <p className="font-sans text-[#8AAEC0]/50 text-xs leading-body mb-6">
+                                <p className="font-body text-[#8AAEC0]/50 text-xs leading-body mb-6">
                                     {article.excerpt}
                                 </p>
                                 <div className="flex items-center justify-between">
-                                    <p className="font-mono text-[8px] text-[#333] tracking-widest">{article.date}</p>
+                                    <p className="font-body text-[8px] text-[#333] tracking-widest">{article.date}</p>
                                     <span className="text-[#333] group-hover:text-[#3C7795] transition-colors">→</span>
                                 </div>
                             </motion.article>
@@ -298,26 +298,26 @@ export default function ResearcherEditorial() {
                         className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center"
                     >
                         <div className="lg:col-span-7">
-                            <p className="font-mono text-[9px] text-[#3C7795] tracking-[0.3em] uppercase mb-6">
+                            <p className="font-body text-[9px] text-[#3C7795] tracking-[0.3em] uppercase mb-6">
                                 AXIOM Research Intelligence
                             </p>
-                            <h2 className="font-serif text-3xl md:text-4xl text-white leading-title mb-6">
+                            <h2 className="font-title-en text-3xl md:text-4xl text-white leading-title mb-6">
                                 피부 과학의 최전선,<br />AXIOM이 먼저 읽습니다.
                             </h2>
-                            <p className="font-sans text-[#8AAEC0] text-base leading-body max-w-lg">
+                            <p className="font-body text-[#8AAEC0] text-base leading-body max-w-lg">
                                 세계 주요 피부 연구 저널과 임상 데이터를 바탕으로, AXIOM 연구팀이 선별한 핵심 인사이트를 정기적으로 아카이빙합니다.
                             </p>
                         </div>
                         <div className="lg:col-span-5 flex flex-col gap-4">
                             <Link
                                 to="/analysis"
-                                className="inline-flex items-center justify-center gap-4 px-10 py-5 bg-[#3C7795] hover:bg-[#8AAEC0] text-white font-sans font-semibold text-xs tracking-[0.2em] uppercase rounded-full transition-all duration-300"
+                                className="inline-flex items-center justify-center gap-4 px-10 py-5 bg-[#3C7795] hover:bg-[#8AAEC0] text-white font-body font-semibold text-xs tracking-[0.2em] uppercase rounded-full transition-all duration-300"
                             >
                                 Begin Your Analysis →
                             </Link>
                             <Link
-                                to="/brand"
-                                className="inline-flex items-center justify-center gap-4 px-10 py-5 border border-[#222] text-[#8AAEC0]/60 hover:border-[#3C7795] hover:text-[#8AAEC0] font-sans text-xs tracking-[0.2em] uppercase rounded-full transition-all duration-300"
+                                to="/axiom"
+                                className="inline-flex items-center justify-center gap-4 px-10 py-5 border border-[#222] text-[#8AAEC0]/60 hover:border-[#3C7795] hover:text-[#8AAEC0] font-body text-xs tracking-[0.2em] uppercase rounded-full transition-all duration-300"
                             >
                                 Brand Philosophy
                             </Link>
@@ -328,7 +328,7 @@ export default function ResearcherEditorial() {
 
             {/* ── WORDMARK ── */}
             <div className="border-t border-[#0a0a0a] py-16 text-center">
-                <span className="font-mono text-[#222] text-[10px] tracking-[0.4em] uppercase">
+                <span className="font-body text-[#222] text-[10px] tracking-[0.4em] uppercase">
                     © 2026 AXIOM Inc. — Research · Intelligence · Precision
                 </span>
             </div>

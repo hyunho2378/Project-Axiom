@@ -20,12 +20,12 @@ export default function MissionSection() {
                     className="max-w-3xl mx-auto text-center"
                 >
                     {/* Title - #8AAEC0 */}
-                    <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#8AAEC0] leading-tight mb-8">
+                    <h2 className="font-title-en text-3xl md:text-4xl lg:text-5xl text-[#8AAEC0] leading-tight mb-8">
                         {mission.title}
                     </h2>
 
                     {/* Description - #8AAEC0 */}
-                    <p className="font-sans text-base md:text-lg text-[#8AAEC0]/70 leading-relaxed whitespace-pre-line">
+                    <p className="font-body text-base md:text-lg text-[#8AAEC0]/70 leading-relaxed whitespace-pre-line">
                         {mission.description}
                     </p>
                 </motion.div>

@@ -67,7 +67,7 @@ export default function Curations({ language }) {
                 {/* Section Header */}
                 <div className="px-6 md:px-12 lg:px-24 mb-12">
                     <motion.h2
-                        className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-3"
+                        className="font-title-en text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-3"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
@@ -108,7 +108,7 @@ export default function Curations({ language }) {
                                 {/* Product Image Placeholder */}
                                 <div className="absolute inset-0 flex items-center justify-center">
                                     <div className="w-32 h-48 md:w-40 md:h-56 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                                        <span className="text-white/30 text-4xl font-serif">{product.id}</span>
+                                        <span className="text-white/30 text-4xl font-title-en">{product.id}</span>
                                     </div>
                                 </div>
 
@@ -117,7 +117,7 @@ export default function Curations({ language }) {
                                     <span className="inline-block px-3 py-1 text-xs uppercase tracking-wider text-white/60 bg-white/10 rounded-full mb-3">
                                         {product.category}
                                     </span>
-                                    <h3 className="font-sans text-xl md:text-2xl font-medium text-white mb-2">
+                                    <h3 className="font-body text-xl md:text-2xl font-medium text-white mb-2">
                                         {product.name}
                                     </h3>
                                     <p className="text-sm text-white/50 group-hover:text-white/70 transition-colors duration-300">

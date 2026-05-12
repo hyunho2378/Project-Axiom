@@ -15,6 +15,7 @@
         "@react-three/postprocessing": "^2.16.0",
         "framer-motion": "^10.16.4",
         "html2canvas": "^1.4.1",
+        "lucide-react": "^1.14.0",
         "maath": "^0.10.7",
         "postprocessing": "^6.36.0",
         "react": "^18.2.0",

@@ -56,7 +56,7 @@ export default function Concierge({ user }) {
     ];
 
     return (
-        <div className="min-h-screen pt-20 flex flex-col">
+        <div className="min-h-screen pt-24 flex flex-col">
             {/* Ambient Background */}
             <div className="fixed inset-0 pointer-events-none">
                 <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-[#3C7795]/5 blur-[200px]" />
@@ -76,7 +76,7 @@ export default function Concierge({ user }) {
                             <p className="text-xs uppercase tracking-[0.4em] text-[#3C7795]/60 mb-6">
                                 Concierge
                             </p>
-                            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-white mb-4 leading-tight">
+                            <h1 className="font-title-en text-3xl sm:text-4xl md:text-5xl font-medium text-white mb-4 leading-tight">
                                 How can we assist
                                 <br />
                                 <span className="italic text-white/70">your journey, {userName}?</span>
@@ -193,7 +193,7 @@ export default function Concierge({ user }) {
                                 onClick={handleSend}
                                 disabled={!inputValue.trim()}
                                 className={`
-                  w-12 h-12 rounded-xl flex items-center justify-center
+                  w-12 h-12 rounded-2xl flex items-center justify-center
                   transition-all duration-300
                   ${inputValue.trim()
                                         ? 'bg-gradient-to-br from-[#1E5672] to-[#3C7795] text-white shadow-lg shadow-[#3C7795]/30'
@@ -211,7 +211,7 @@ export default function Concierge({ user }) {
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                className="absolute right-2 top-1/2 -translate-y-1/2 w-14 h-14 rounded-xl bg-[#3C7795]/20 blur-xl pointer-events-none"
+                                className="absolute right-2 top-1/2 -translate-y-1/2 w-14 h-14 rounded-2xl bg-[#3C7795]/20 blur-xl pointer-events-none"
                             />
                         )}
                     </motion.div>

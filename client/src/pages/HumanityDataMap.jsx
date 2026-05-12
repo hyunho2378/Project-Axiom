@@ -102,10 +102,10 @@ export default function HumanityDataMap() {
                 >
                     <div className="flex items-end justify-between">
                         <div>
-                            <p className="font-mono text-[9px] tracking-[0.35em] text-[#3C7795] uppercase mb-3">
+                            <p className="font-body text-[9px] tracking-[0.35em] text-[#3C7795] uppercase mb-3">
                                 AXIOM Global Intelligence Network
                             </p>
-                            <h1 className="font-serif text-3xl md:text-4xl text-white leading-title">
+                            <h1 className="font-title-en text-3xl md:text-4xl text-white leading-title">
                                 Humanity Data Map
                             </h1>
                         </div>
@@ -114,7 +114,7 @@ export default function HumanityDataMap() {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3C7795] opacity-75" />
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3C7795]" />
                             </span>
-                            <span className="font-mono text-[9px] text-[#3C7795] tracking-widest uppercase">Live Feed</span>
+                            <span className="font-body text-[9px] text-[#3C7795] tracking-widest uppercase">Live Feed</span>
                         </div>
                     </div>
                 </motion.div>
@@ -132,10 +132,10 @@ export default function HumanityDataMap() {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.07 }}
-                            className="bg-[#05080a] border border-[#111] rounded-xl p-4"
+                            className="bg-[#05080a] border border-[#111] rounded-2xl p-4"
                         >
-                            <p className="font-mono text-[8px] text-[#333] tracking-[0.25em] uppercase mb-2">{s.label}</p>
-                            <p className="font-mono text-xl text-[#3C7795]">{s.val}<span className="text-xs text-[#444]">{s.unit}</span></p>
+                            <p className="font-body text-[8px] text-[#333] tracking-[0.25em] uppercase mb-2">{s.label}</p>
+                            <p className="font-body text-xl text-[#3C7795]">{s.val}<span className="text-xs text-[#444]">{s.unit}</span></p>
                         </motion.div>
                     ))}
                 </div>
@@ -192,12 +192,12 @@ export default function HumanityDataMap() {
 
                         {/* Labels */}
                         <div className="absolute bottom-4 left-6">
-                            <p className="font-mono text-[8px] text-[#333] tracking-[0.3em] uppercase">
+                            <p className="font-body text-[8px] text-[#333] tracking-[0.3em] uppercase">
                                 AXIOM Global Network · {REGIONS.length} Active Nodes
                             </p>
                         </div>
                         <div className="absolute top-4 right-6">
-                            <p className="font-mono text-[8px] text-[#3C7795]/40 tracking-widest uppercase">
+                            <p className="font-body text-[8px] text-[#3C7795]/40 tracking-widest uppercase">
                                 Real + Modeled Data
                             </p>
                         </div>
@@ -208,7 +208,7 @@ export default function HumanityDataMap() {
 
                         {/* Active node info */}
                         <motion.div
-                            className="bg-[#05080a] border border-[#111] rounded-xl p-6 flex-shrink-0"
+                            className="bg-[#05080a] border border-[#111] rounded-2xl p-6 flex-shrink-0"
                             layout
                         >
                             {activeRegion ? (
@@ -217,19 +217,19 @@ export default function HumanityDataMap() {
                                     initial={{ opacity: 0, y: 8 }}
                                     animate={{ opacity: 1, y: 0 }}
                                 >
-                                    <p className="font-mono text-[8px] text-[#3C7795] tracking-[0.3em] uppercase mb-4">
+                                    <p className="font-body text-[8px] text-[#3C7795] tracking-[0.3em] uppercase mb-4">
                                         Selected Node
                                     </p>
-                                    <h3 className="font-serif text-2xl text-white mb-2 leading-title">{activeRegion.name}</h3>
-                                    <p className="font-mono text-[10px] text-[#3C7795] tracking-widest mb-5">{activeRegion.concern}</p>
+                                    <h3 className="font-title-en text-2xl text-white mb-2 leading-title">{activeRegion.name}</h3>
+                                    <p className="font-body text-[10px] text-[#3C7795] tracking-widest mb-5">{activeRegion.concern}</p>
                                     <div className="grid grid-cols-2 gap-4 border-t border-[#111] pt-5">
                                         <div>
-                                            <p className="font-mono text-[8px] text-[#333] tracking-widest uppercase mb-1">Users</p>
-                                            <p className="font-mono text-xl text-[#8AAEC0]">{activeRegion.users.toLocaleString()}</p>
+                                            <p className="font-body text-[8px] text-[#333] tracking-widest uppercase mb-1">Users</p>
+                                            <p className="font-body text-xl text-[#8AAEC0]">{activeRegion.users.toLocaleString()}</p>
                                         </div>
                                         <div>
-                                            <p className="font-mono text-[8px] text-[#333] tracking-widest uppercase mb-1">Share</p>
-                                            <p className="font-mono text-xl text-[#8AAEC0]">
+                                            <p className="font-body text-[8px] text-[#333] tracking-widest uppercase mb-1">Share</p>
+                                            <p className="font-body text-xl text-[#8AAEC0]">
                                                 {((activeRegion.users / totalNodes) * 100).toFixed(1)}%
                                             </p>
                                         </div>
@@ -237,8 +237,8 @@ export default function HumanityDataMap() {
                                 </motion.div>
                             ) : (
                                 <div className="text-center py-4">
-                                    <p className="font-mono text-[8px] text-[#333] tracking-[0.3em] uppercase mb-3">Node Detail</p>
-                                    <p className="font-sans text-[#444] text-xs">지도의 노드를 클릭하면 상세 데이터가 표시됩니다.</p>
+                                    <p className="font-body text-[8px] text-[#333] tracking-[0.3em] uppercase mb-3">Node Detail</p>
+                                    <p className="font-body text-[#444] text-xs">지도의 노드를 클릭하면 상세 데이터가 표시됩니다.</p>
                                 </div>
                             )}
                         </motion.div>
@@ -249,9 +249,9 @@ export default function HumanityDataMap() {
                                 initial={{ opacity: 0, x: 10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.5 }}
-                                className="bg-[#05080a] border border-[#111] rounded-xl p-6 flex-1"
+                                className="bg-[#05080a] border border-[#111] rounded-2xl p-6 flex-1"
                             >
-                                <p className="font-mono text-[8px] text-[#3C7795] tracking-[0.3em] uppercase mb-5">
+                                <p className="font-body text-[8px] text-[#3C7795] tracking-[0.3em] uppercase mb-5">
                                     Live DB Distribution
                                 </p>
                                 <div className="space-y-3">
@@ -262,8 +262,8 @@ export default function HumanityDataMap() {
                                         return (
                                             <div key={item.skinType}>
                                                 <div className="flex justify-between text-[9px] mb-1">
-                                                    <span className="font-sans text-[#8AAEC0]">{item.skinType}</span>
-                                                    <span className="font-mono text-[#3C7795]">{pct.toFixed(1)}%</span>
+                                                    <span className="font-body text-[#8AAEC0]">{item.skinType}</span>
+                                                    <span className="font-body text-[#3C7795]">{pct.toFixed(1)}%</span>
                                                 </div>
                                                 <div className="w-full bg-[#111] h-[2px] rounded-full overflow-hidden">
                                                     <motion.div
@@ -290,8 +290,8 @@ export default function HumanityDataMap() {
                     className="border border-[#111] rounded-2xl overflow-hidden mb-24"
                 >
                     <div className="border-b border-[#111] px-6 py-4 flex items-center justify-between">
-                        <p className="font-mono text-[9px] text-[#3C7795] tracking-[0.25em] uppercase">Regional Signal Index</p>
-                        <p className="font-mono text-[8px] text-[#333] tracking-widest">{REGIONS.length} regions · 2026.04</p>
+                        <p className="font-body text-[9px] text-[#3C7795] tracking-[0.25em] uppercase">Regional Signal Index</p>
+                        <p className="font-body text-[8px] text-[#333] tracking-widest">{REGIONS.length} regions · 2026.04</p>
                     </div>
                     <div className="divide-y divide-[#0a0a0a]">
                         {REGIONS.sort((a, b) => b.users - a.users).map((region, i) => (
@@ -304,7 +304,7 @@ export default function HumanityDataMap() {
                                 className="grid grid-cols-12 gap-4 px-6 py-4 hover:bg-[#03050a] transition-colors group"
                             >
                                 <div className="col-span-1 flex items-center">
-                                    <span className="font-mono text-[9px] text-[#333] tracking-widest">
+                                    <span className="font-body text-[9px] text-[#333] tracking-widest">
                                         {String(i + 1).padStart(2, '0')}
                                     </span>
                                 </div>
@@ -313,17 +313,17 @@ export default function HumanityDataMap() {
                                         className="w-1.5 h-1.5 rounded-full mr-3 flex-shrink-0"
                                         style={{ backgroundColor: CONCERN_COLORS[region.concern] || '#3C7795' }}
                                     />
-                                    <span className="font-sans text-sm text-white group-hover:text-[#8AAEC0] transition-colors">
+                                    <span className="font-body text-sm text-white group-hover:text-[#8AAEC0] transition-colors">
                                         {region.name}
                                     </span>
                                 </div>
                                 <div className="col-span-4 flex items-center">
-                                    <span className="font-mono text-[10px] text-[#3C7795] tracking-widest">
+                                    <span className="font-body text-[10px] text-[#3C7795] tracking-widest">
                                         {region.concern}
                                     </span>
                                 </div>
                                 <div className="col-span-2 flex items-center justify-end">
-                                    <span className="font-mono text-[10px] text-[#8AAEC0]">
+                                    <span className="font-body text-[10px] text-[#8AAEC0]">
                                         {region.users.toLocaleString()}
                                     </span>
                                 </div>

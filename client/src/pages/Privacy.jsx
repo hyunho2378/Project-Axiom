@@ -107,13 +107,13 @@ export default function Privacy() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <p className="font-mono text-[10px] text-[#3C7795] tracking-[0.3em] uppercase mb-6">
+                        <p className="font-body text-[10px] text-[#3C7795] tracking-[0.3em] uppercase mb-6">
                             Legal Document · v2.1 · 2026.01
                         </p>
-                        <h1 className="font-serif text-4xl md:text-6xl text-white leading-title mb-6">
+                        <h1 className="font-title-en text-4xl md:text-6xl text-white leading-title mb-6">
                             Privacy Policy
                         </h1>
-                        <p className="font-sans text-[#8AAEC0] text-base leading-body max-w-2xl">
+                        <p className="font-body text-[#8AAEC0] text-base leading-body max-w-2xl">
                             AXIOM Inc.(이하 '회사')은 이용자의 개인정보를 소중히 여기며, 「개인정보 보호법」 및 관련 법령을 준수합니다.
                             본 개인정보처리방침은 회사가 제공하는 서비스(이하 'AXIOM')를 이용하는 과정에서
                             수집·이용·보관·파기되는 개인정보에 관한 사항을 규정합니다.
@@ -129,18 +129,18 @@ export default function Privacy() {
                     {/* Sticky sidebar — hidden on mobile, full sidebar on md+ */}
                     <div className="hidden md:block lg:col-span-3">
                         <div className="lg:sticky lg:top-32 space-y-2">
-                            <p className="font-mono text-[10px] text-[#3C7795] tracking-[0.2em] uppercase mb-4">목차</p>
+                            <p className="font-body text-[10px] text-[#3C7795] tracking-[0.2em] uppercase mb-4">목차</p>
                             {SECTIONS.map((s) => (
                                 <a
                                     key={s.index}
                                     href={`#section-${s.index}`}
-                                    className="block font-mono text-[11px] text-[#444] hover:text-[#8AAEC0] tracking-wider transition-colors py-1"
+                                    className="block font-body text-[11px] text-[#444] hover:text-[#8AAEC0] tracking-wider transition-colors py-1"
                                 >
                                     {s.index} · {s.title}
                                 </a>
                             ))}
                             <LineDivider />
-                            <p className="font-mono text-[9px] text-[#333] leading-relaxed">
+                            <p className="font-body text-[9px] text-[#333] leading-relaxed">
                                 시행일: 2026년 01월 01일<br />
                                 최종 수정일: 2026년 04월 12일
                             </p>
@@ -159,10 +159,10 @@ export default function Privacy() {
                                 transition={{ duration: 0.6, delay: i * 0.05 }}
                             >
                                 <div className="flex items-center gap-4 mb-6">
-                                    <span className="font-mono text-[10px] text-[#3C7795] tracking-[0.2em]">{section.index}</span>
+                                    <span className="font-body text-[10px] text-[#3C7795] tracking-[0.2em]">{section.index}</span>
                                     <div className="flex-1 h-[1px] bg-[#222]" />
                                 </div>
-                                <h2 className="font-serif text-xl md:text-2xl text-white leading-title mb-6">
+                                <h2 className="font-title-ko text-xl md:text-2xl text-white leading-title mb-6">
                                     {section.title}
                                 </h2>
                                 <ul className="space-y-3">
@@ -171,7 +171,7 @@ export default function Privacy() {
                                             {j > 0 && (
                                                 <span className="mt-[9px] w-1 h-1 rounded-full bg-[#3C7795]/40 flex-shrink-0" />
                                             )}
-                                            <p className={`font-sans text-sm leading-body ${j === 0 ? 'text-white/60 font-medium' : 'text-[#8AAEC0]'} ${j > 0 ? '' : 'w-full'}`}>
+                                            <p className={`font-body text-sm leading-body ${j === 0 ? 'text-white/60 font-medium' : 'text-[#8AAEC0]'} ${j > 0 ? '' : 'w-full'}`}>
                                                 {line}
                                             </p>
                                         </li>
@@ -184,7 +184,7 @@ export default function Privacy() {
 
                         {/* Contact */}
                         <div>
-                            <p className="font-mono text-[10px] text-[#3C7795] tracking-[0.2em] uppercase mb-4">개인정보 보호 책임자</p>
+                            <p className="font-body text-[10px] text-[#3C7795] tracking-[0.2em] uppercase mb-4">개인정보 보호 책임자</p>
                             <div className="bg-[#05080a] border border-[#222] rounded-2xl p-8">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {[
@@ -194,8 +194,8 @@ export default function Privacy() {
                                         { label: 'JURISDICTION', value: '대한민국 서울특별시' },
                                     ].map(item => (
                                         <div key={item.label}>
-                                            <p className="font-mono text-[9px] text-[#444] tracking-[0.2em] mb-1">{item.label}</p>
-                                            <p className="font-sans text-sm text-[#8AAEC0]">{item.value}</p>
+                                            <p className="font-body text-[9px] text-[#444] tracking-[0.2em] mb-1">{item.label}</p>
+                                            <p className="font-body text-sm text-[#8AAEC0]">{item.value}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -207,7 +207,7 @@ export default function Privacy() {
 
             {/* Footer stamp */}
             <div className="border-t border-[#111] py-12 text-center">
-                <span className="font-mono text-[#333] text-[10px] tracking-[0.4em] uppercase">
+                <span className="font-body text-[#333] text-[10px] tracking-[0.4em] uppercase">
                     © 2026 AXIOM Inc. — Define Your Axis.
                 </span>
             </div>

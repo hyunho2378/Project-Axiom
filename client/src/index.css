@@ -2,7 +2,6 @@
    @import — ALL imports must precede @font-face & @tailwind
    ============================================ */
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
 /* ============================================
    BentonModDisp — AXIOM Primary Display Font
@@ -56,7 +55,7 @@
     }
 
     body {
-        @apply bg-black text-white font-sans antialiased;
+        @apply bg-black text-white font-body antialiased;
         line-height: 1.6;
         letter-spacing: 0;
         overflow-x: hidden;
@@ -122,7 +121,7 @@
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 24px;
+    border-radius: 16px;
     box-shadow:
         inset 0px 1px 0px 0px rgba(255, 255, 255, 0.15),
         0 8px 24px -4px rgba(0, 0, 0, 0.5);
@@ -148,7 +147,7 @@
     align-items: center;
     justify-content: center;
     padding: 14px 32px;
-    font-family: 'Pretendard', sans-serif;
+    font-family: 'Pretendard Variable', sans-serif;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.08em;
@@ -174,7 +173,7 @@
     align-items: center;
     justify-content: center;
     padding: 14px 32px;
-    font-family: 'Pretendard', sans-serif;
+    font-family: 'Pretendard Variable', sans-serif;
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.05em;
@@ -189,6 +188,44 @@
 .btn-glass:hover {
     background: rgba(60, 119, 149, 0.20);
     border-color: #3C7795;
+}
+
+/* ============================================
+   btn-glow — Neon border glow on hover
+   ============================================ */
+
+.btn-glow {
+    position: relative;
+    border: 1px solid #2A6885;
+    background: transparent;
+    color: #fff;
+    transition: all 0.35s ease;
+    overflow: visible;
+}
+
+.btn-glow::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: inherit;
+    background: linear-gradient(135deg,
+        rgba(0, 212, 255, 0.25),
+        rgba(42, 104, 133, 0.15),
+        rgba(30, 86, 114, 0.20));
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: -1;
+    filter: blur(12px);
+}
+
+.btn-glow:hover {
+    border-color: #00D4FF;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2),
+                0 0 40px rgba(0, 212, 255, 0.08);
+}
+
+.btn-glow:hover::before {
+    opacity: 1;
 }
 
 /* ============================================
@@ -286,4 +323,42 @@
 
 .border-accent {
     border-color: rgba(60, 119, 149, 0.40);
+}
+
+/* ============================================
+   Chip — 카테고리 / 피부타입 필터 버튼
+   ============================================ */
+
+.chip {
+    padding: 6px 16px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    border: 1px solid rgba(42, 104, 133, 0.4);
+    background: transparent;
+    color: rgba(192, 216, 224, 0.65);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: 'Pretendard Variable', sans-serif;
+}
+
+.chip:hover {
+    color: #ffffff;
+    border-color: #6CA0BC;
+}
+
+.chip-active {
+    background: rgba(42, 104, 133, 0.5);
+    color: #ffffff;
+    border-color: #8AAEC0;
+}
+
+/* ============================================
+   chip-sm — 카드 내 소형 칩
+   ============================================ */
+
+.chip-sm {
+    padding: 3px 10px;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    border-radius: 9999px;
 }

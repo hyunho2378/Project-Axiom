@@ -1,37 +1,51 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
 import { contentData } from '../data/contentData';
 
-/**
- * FIXED SIZE Sticky Header Component
- * - Size is locked to py-4 (padding-top/bottom) whether scrolled or not.
- * - Only the background and border change on scroll.
- */
-
-const MENU_PATHS = ['/', '/brand', '/analysis', '/curations', '/datalab'];
+const MENU_PATHS = ['/', '/axiom', '/analysis', '/curations', '/datalab'];
 
 export default function Header({ onLoginClick, isLoggedIn, user }) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const { toggleLanguage } = useLanguage();
+    const [showLangToast, setShowLangToast] = useState(false);
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const userMenuRef = useRef(null);
     const location = useLocation();
     const { nav } = contentData;
 
-    // Scroll detection
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 50);
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Close mobile menu on route change
     useEffect(() => {
         setIsMobileMenuOpen(false);
     }, [location.pathname]);
 
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+                setIsUserMenuOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
     const isActive = (href) => location.pathname === href;
+
+    const handleLogout = () => {
+        localStorage.removeItem('aura_token');
+        localStorage.removeItem('aura_user');
+        window.location.href = '/';
+    };
+
+    const handleLangToast = () => {
+        setShowLangToast(true);
+        setTimeout(() => setShowLangToast(false), 2000);
+    };
 
     return (
         <>
@@ -42,10 +56,10 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                 className={`
                     fixed top-0 left-0 right-0 z-50
                     transition-colors duration-500 ease-in-out
-                    py-4 /* 🔥 FIX: Padding is permanently locked to py-4 */
+                    py-4
                     ${isScrolled
-                        ? 'bg-[#0a0a0a]/70 backdrop-blur-md shadow-lg border-b border-white/10' // Scrolled: Glass effect
-                        : 'bg-transparent border-b border-transparent'} // Default: Transparent, no border
+                        ? 'bg-[#0a0a0a]/70 backdrop-blur-md shadow-lg border-b border-white/10'
+                        : 'bg-void-deep/80 backdrop-blur-md border-b border-transparent'}
                 `}
             >
                 <div className="w-full max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -69,7 +83,7 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                                     key={label}
                                     to={MENU_PATHS[index]}
                                     className={`
-                                        relative text-[13px] tracking-[0.1em] uppercase font-sans
+                                        relative text-[13px] tracking-[0.1em] uppercase font-body
                                         ${isActive(MENU_PATHS[index])
                                             ? 'text-[#3C7795]'
                                             : 'text-white/80'}
@@ -90,34 +104,68 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                         <div className="w-[1px] h-4 bg-white/15" />
 
                         <div className="flex items-center gap-5">
-                            {/* Language Toggle */}
-                            <button
-                                onClick={toggleLanguage}
-                                className="text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
-                                aria-label="Toggle Language"
-                            >
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <line x1="2" y1="12" x2="22" y2="12" />
-                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                                </svg>
-                            </button>
-
-                            {/* User Icon / Name */}
-                            {isLoggedIn ? (
-                                <Link
-                                    to="/dashboard"
-                                    className="flex items-center gap-2 text-[#8AAEC0] hover:text-white transition-colors duration-300 group"
-                                    aria-label="My Page"
+                            {/* Language — Coming Soon toast */}
+                            <div className="relative">
+                                <button
+                                    onClick={handleLangToast}
+                                    className="text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
+                                    aria-label="Language"
                                 >
-                                    <span className="font-mono text-[10px] tracking-widest uppercase opacity-70 group-hover:opacity-100 transition-opacity">
-                                        {user?.name || user?.email?.split('@')[0] || 'MY PAGE'}
-                                    </span>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                        <circle cx="12" cy="7" r="4" />
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <line x1="2" y1="12" x2="22" y2="12" />
+                                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                                     </svg>
-                                </Link>
+                                </button>
+                                {showLangToast && (
+                                    <div className="absolute top-8 right-0 px-4 py-2 bg-void-light border border-ui-border rounded-2xl text-xs text-ui-textMuted whitespace-nowrap z-50">
+                                        번역 기능은 준비 중입니다
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* User Icon — dropdown when logged in */}
+                            {isLoggedIn ? (
+                                <div ref={userMenuRef} className="relative">
+                                    <button
+                                        onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                                        className="flex items-center gap-2 text-[#8AAEC0] hover:text-white transition-colors duration-300 group"
+                                        aria-label="My Page"
+                                    >
+                                        <span className="font-body text-[10px] tracking-widest uppercase opacity-70 group-hover:opacity-100 transition-opacity">
+                                            {user?.name || user?.email?.split('@')[0] || 'MY PAGE'}
+                                        </span>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                            <circle cx="12" cy="7" r="4" />
+                                        </svg>
+                                    </button>
+                                    {isUserMenuOpen && (
+                                        <div className="absolute top-8 right-0 bg-void-light border border-ui-border rounded-2xl py-2 min-w-[140px] z-50">
+                                            <Link
+                                                to="/dashboard"
+                                                className="block px-4 py-2 text-sm text-ui-textSecondary hover:bg-void-lighter transition-colors"
+                                                onClick={() => setIsUserMenuOpen(false)}
+                                            >
+                                                대시보드
+                                            </Link>
+                                            <Link
+                                                to="/profile"
+                                                className="block px-4 py-2 text-sm text-ui-textSecondary hover:bg-void-lighter transition-colors"
+                                                onClick={() => setIsUserMenuOpen(false)}
+                                            >
+                                                내 프로필
+                                            </Link>
+                                            <div className="my-1 border-t border-ui-border" />
+                                            <button
+                                                onClick={handleLogout}
+                                                className="w-full text-left px-4 py-2 text-sm text-ui-textSecondary hover:bg-void-lighter transition-colors"
+                                            >
+                                                로그아웃
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                             ) : (
                                 <button
                                     onClick={onLoginClick}
@@ -165,7 +213,6 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                         transition={{ duration: 0.3 }}
                         className="fixed inset-0 z-40 lg:hidden"
                     >
-                        {/* Backdrop */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -174,7 +221,6 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                             onClick={() => setIsMobileMenuOpen(false)}
                         />
 
-                        {/* Menu Content */}
                         <motion.nav
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -192,7 +238,7 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                                     <Link
                                         to={MENU_PATHS[index]}
                                         className={`
-                                            text-2xl tracking-[0.15em] uppercase font-sans
+                                            text-2xl tracking-[0.15em] uppercase font-body
                                             ${isActive(MENU_PATHS[index])
                                                 ? 'text-[#3C7795]'
                                                 : 'text-white/80'}
@@ -211,7 +257,7 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                                 className="mt-8 flex items-center gap-6"
                             >
                                 <button
-                                    onClick={toggleLanguage}
+                                    onClick={handleLangToast}
                                     className="text-white/50 hover:text-[#8AAEC0] transition-colors"
                                 >
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -222,15 +268,24 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                                 </button>
 
                                 {isLoggedIn ? (
-                                    <Link
-                                        to="/dashboard"
-                                        className="text-white/50 hover:text-[#8AAEC0] transition-colors"
-                                    >
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                            <circle cx="12" cy="7" r="4" />
-                                        </svg>
-                                    </Link>
+                                    <div className="flex items-center gap-4">
+                                        <Link
+                                            to="/dashboard"
+                                            className="text-white/50 hover:text-[#8AAEC0] transition-colors"
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                        >
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                                <circle cx="12" cy="7" r="4" />
+                                            </svg>
+                                        </Link>
+                                        <button
+                                            onClick={handleLogout}
+                                            className="text-white/50 hover:text-[#8AAEC0] transition-colors font-body text-[10px] tracking-widest uppercase"
+                                        >
+                                            로그아웃
+                                        </button>
+                                    </div>
                                 ) : (
                                     <button
                                         onClick={() => {

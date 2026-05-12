@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><title>AXIOM Jar Cream</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#040A12;overflow:hidden}canvas{display:block;width:100vw;height:100vh}#picker{position:fixed;top:24px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10}.btn{padding:9px 20px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(192,216,224,.65);background:rgba(8,30,50,.4);border:1px solid rgba(42,104,133,.4);cursor:pointer;transition:all .3s;backdrop-filter:blur(10px);font-family:"Noto Sans KR",sans-serif;font-weight:300}.btn:hover{color:#fff;border-color:#6CA0BC}.btn.active{background:rgba(42,104,133,.55);color:#fff;border-color:#8AAEC0}#info{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);color:rgba(138,174,192,.4);font-size:10px;letter-spacing:.3em;text-transform:uppercase}</style>
+</head><body><canvas id="c"></canvas><div id="picker"></div><div id="info">drag to rotate</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const DATA=[
+{skinKo:'건성',nameKo:'시어버터 인텐스 리페어 크림',nameEn:'Shea Butter Intense\nRepair Cream',desc:['시어버터를 함유하여','깊은 건조로 거칠어진 피부를','집중적으로 케어해 줍니다.'],texture:'보습 좋은 밤 제형 / 천천히 흡수',ingredientsKo:'시어버터, 세라마이드, 스쿠알란 함유',ingredientsEn:['Shea Butter','Ceramide','Squalane'],functional:'',volume:'60ml',price:'26,000₩',tint:'#1A4060'},
+{skinKo:'중성',nameKo:'세라마이드 보습 크림',nameEn:'Ceramide\nMoisturizing Cream',desc:['세라마이드 성분을 함유하여','피부 보습막을 형성하고','촉촉함을 오래 유지해 줍니다.'],texture:'밀도 있는 크림 제형 / 촉촉 오래 유지',ingredientsKo:'세라마이드 함유',ingredientsEn:['Ceramide'],functional:'',volume:'60ml',price:'24,000₩',tint:'#1C4268'},
+{skinKo:'지성',nameKo:'병풀 진정 크림',nameEn:'Centella\nCalming Cream',desc:['병풀 성분을 함유하여','민감해진 피부를','편안하게 진정해 줍니다.'],texture:'가벼운 젤 크림 타입 / 산뜻 마무리',ingredientsKo:'병풀, 판테놀, 알란토인 함유',ingredientsEn:['Centella','Panthenol','Allantoin'],functional:'',volume:'60ml',price:'23,000₩',tint:'#154D62'},
+{skinKo:'수부지',nameKo:'판테놀 장벽 크림',nameEn:'Panthenol\nBarrier Cream',desc:['판테놀을 함유하여','피부 장벽을 강화하고','외부 자극으로부터 보호해 줍니다.'],texture:'크림 제형 / 겉보속촉',ingredientsKo:'판테놀, 세라마이드, 스쿠알란 함유',ingredientsEn:['Panthenol','Ceramide','Squalane'],functional:'',volume:'60ml',price:'25,000₩',tint:'#184560'},
+{skinKo:'복합성',nameKo:'시카 리페어 크림',nameEn:'Cica\nRepair Cream',desc:['시카 성분을 함유하여','반복되는 자극으로 지친 피부를','건강하게 관리해 줍니다.'],texture:'크림 제형 / 고르게 흡수',ingredientsKo:'병풀, 마데카소사이드, 판테놀 함유',ingredientsEn:['Centella','Madecassoside','Panthenol'],functional:'',volume:'60ml',price:'24,000₩',tint:'#173D5A'},
+];
+
+const canvas=document.getElementById('c');const W=()=>window.innerWidth,H=()=>window.innerHeight;
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(W(),H());
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.5;
+renderer.outputEncoding=THREE.sRGBEncoding;renderer.physicallyCorrectLights=true;
+const scene=new THREE.Scene();
+scene.add(new THREE.Mesh(new THREE.SphereGeometry(40,32,32),new THREE.ShaderMaterial({side:THREE.BackSide,
+uniforms:{topColor:{value:new THREE.Color('#0B2838')},midColor:{value:new THREE.Color('#040A12')},bottomColor:{value:new THREE.Color('#06121A')}},
+vertexShader:`varying vec3 vW;void main(){vec4 wp=modelMatrix*vec4(position,1.0);vW=wp.xyz;gl_Position=projectionMatrix*viewMatrix*wp;}`,
+fragmentShader:`uniform vec3 topColor,midColor,bottomColor;varying vec3 vW;void main(){float h=normalize(vW).y;vec3 c;if(h>0.0)c=mix(midColor,topColor,smoothstep(0.0,0.7,h));else c=mix(midColor,bottomColor,smoothstep(0.0,0.7,-h));gl_FragColor=vec4(c,1.0);}`})));
+const camera=new THREE.PerspectiveCamera(34,W()/H(),0.1,100);
+camera.position.set(0,0.8,6.5);camera.lookAt(0,0,0);
+const floor=new THREE.Mesh(new THREE.CircleGeometry(10,64),new THREE.MeshPhysicalMaterial({color:0x040A12,metalness:0.88,roughness:0.22}));
+floor.rotation.x=-Math.PI/2;floor.position.y=-1.4;scene.add(floor);
+
+let logoImg=null,fontsReady=false,fontBuildDone=false,activeIdx=0,cur=null;
+const logoEl=new Image();logoEl.onload=()=>{logoImg=logoEl;};logoEl.onerror=()=>{logoImg=null;};
+logoEl.crossOrigin='anonymous';logoEl.src='/images/Axiom_logo.svg';
+Promise.all([new FontFace('PretendardVar','url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.woff2)format("woff2")').load().catch(()=>null),document.fonts.ready]).then(([pf])=>{if(pf)document.fonts.add(pf);fontsReady=true;});
+
+function makeSideLabel(p){
+  const TW=3072,TH=700,c=document.createElement('canvas');c.width=TW;c.height=TH;
+  const ctx=c.getContext('2d');
+  const g=ctx.createLinearGradient(0,0,0,TH);g.addColorStop(0,'#2E6A82');g.addColorStop(1,'#28637E');
+  ctx.fillStyle=g;ctx.fillRect(0,0,TW,TH);
+  for(let i=0;i<2000;i++){ctx.fillStyle=`rgba(255,255,255,${Math.random()*.015})`;ctx.fillRect(Math.random()*TW,Math.random()*TH,1,1);}
+  const KR=fontsReady?'PretendardVar,Noto Sans KR,sans-serif':'Noto Sans KR,sans-serif';
+  const EN='Cormorant Garamond,Georgia,serif';
+  ctx.textAlign='center';const FC=TW/2;
+  // 앞면
+  if(logoImg){ctx.save();ctx.filter='brightness(0) invert(1)';ctx.drawImage(logoImg,FC-132,28,264,100);ctx.restore();}
+  else{ctx.fillStyle='#FFF';ctx.font=`italic 300 66px ${EN}`;ctx.fillText('Axiom',FC,122);ctx.fillStyle='#8AAEC0';ctx.beginPath();ctx.arc(FC+10,80,4,0,Math.PI*2);ctx.fill();}
+  ctx.fillStyle='rgba(255,255,255,.88)';ctx.font=`italic 300 38px ${EN}`;
+  p.nameEn.split('\n').forEach((l,i)=>ctx.fillText(l,FC,232+i*50));
+  ctx.fillStyle='rgba(255,255,255,.75)';ctx.font=`italic 300 26px ${EN}`;
+  p.ingredientsEn.forEach((ing,i)=>ctx.fillText(ing,FC,470+i*34));
+  // 뒷면 — 수직 중앙
+  function drawBack(cx){
+    const dh=p.desc.length*30;
+    const total=46+38+34+dh+24+38+40+36+26+24+24+70;
+    let y=Math.round((TH-total)/2);
+    ctx.fillStyle='#FFF';ctx.font=`300 32px ${KR}`;ctx.fillText(p.nameKo,cx,y);y+=46;
+    ctx.fillStyle='rgba(255,255,255,.65)';ctx.font=`300 italic 20px ${EN}`;ctx.fillText(p.nameEn.replace(/\n/g,' '),cx,y);y+=38;
+    ctx.strokeStyle='rgba(255,255,255,.38)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx-90,y);ctx.lineTo(cx+90,y);ctx.stroke();y+=34;
+    ctx.fillStyle='#FFF';ctx.font=`300 22px ${KR}`;p.desc.forEach(l=>{ctx.fillText(l,cx,y);y+=30;});y+=24;
+    ctx.fillStyle='rgba(255,255,255,.72)';ctx.font=`300 20px ${KR}`;ctx.fillText(p.texture,cx,y);y+=38;
+    ctx.fillStyle='#FFF';ctx.font=`300 21px ${KR}`;ctx.fillText(p.ingredientsKo,cx,y);y+=40;
+    ctx.fillStyle='rgba(255,255,255,.72)';ctx.font=`300 20px ${KR}`;ctx.fillText(p.volume,cx,y);y+=36;
+    ctx.fillStyle='rgba(255,255,255,.55)';ctx.font=`300 17px ${KR}`;
+    ctx.fillText('제조판매업자 Axiom  www.axiom.co.kr',cx,y);y+=26;ctx.fillText('제조업자 (주) Axiom',cx,y);y+=26;ctx.fillText('MADE IN KOREA',cx,y);y+=70;
+    if(logoImg){ctx.save();ctx.filter='brightness(0) invert(0.9)';ctx.drawImage(logoImg,cx-98,y,196,74);ctx.restore();}
+    else{ctx.fillStyle='rgba(255,255,255,.82)';ctx.font=`italic 300 54px ${EN}`;ctx.fillText('Axiom',cx,y+46);}
+  }
+  drawBack(TW/6);drawBack(TW*5/6);
+  const tex=new THREE.CanvasTexture(c);tex.anisotropy=16;return tex;
+}
+
+function makeTopLabel(){
+  const S=512,c=document.createElement('canvas');c.width=S;c.height=S;const ctx=c.getContext('2d');
+  ctx.clearRect(0,0,S,S);const EN='Cormorant Garamond,Georgia,serif';
+  if(logoImg){ctx.save();ctx.filter='brightness(0) invert(0)';ctx.globalAlpha=0.45;ctx.drawImage(logoImg,S/2-88,S/2-35,176,66);ctx.restore();}
+  else{ctx.fillStyle='rgba(20,50,70,0.50)';ctx.textAlign='center';ctx.font=`italic 300 56px ${EN}`;ctx.fillText('Axiom',S/2,S/2+10);}
+  ctx.strokeStyle='rgba(20,50,70,0.18)';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(S/2,S/2,S/2-28,0,Math.PI*2);ctx.stroke();
+  const tex=new THREE.CanvasTexture(c);tex.anisotropy=16;return tex;
+}
+
+function makeBottle(p){
+  const g=new THREE.Group();
+  const profile=[
+    new THREE.Vector2(0.00,-0.72),new THREE.Vector2(0.90,-0.72),
+    new THREE.Vector2(1.15,-0.66),new THREE.Vector2(1.28,-0.55),
+    new THREE.Vector2(1.30,-0.42),new THREE.Vector2(1.30, 0.30),
+    new THREE.Vector2(1.28, 0.42),new THREE.Vector2(1.20, 0.52),new THREE.Vector2(1.12, 0.57),
+  ];
+  const bottleMat=new THREE.MeshPhysicalMaterial({
+    color:new THREE.Color(p.tint),
+    metalness:0.08,roughness:0.05,
+    clearcoat:1.0,clearcoatRoughness:0.02,
+    transmission:0.45,thickness:1.8,ior:1.45,
+    envMapIntensity:2.0,transparent:true,opacity:0.92,
+  });
+  g.add(new THREE.Mesh(new THREE.LatheGeometry(profile,128),bottleMat));
+  const lbl=new THREE.Mesh(new THREE.CylinderGeometry(1.305,1.305,0.92,96,1,true),
+    new THREE.MeshPhysicalMaterial({map:makeSideLabel(p),metalness:0,roughness:0.65,side:THREE.DoubleSide,transparent:true}));
+  lbl.position.y=-0.10;g.add(lbl);
+  const capMat=new THREE.MeshPhysicalMaterial({color:0xFFFFFF,metalness:0.05,roughness:0.10,clearcoat:1.0,clearcoatRoughness:0.04});
+  const cap=new THREE.Mesh(new THREE.CylinderGeometry(1.34,1.30,0.38,96),capMat);
+  cap.position.y=0.76;g.add(cap);
+  const capTop=new THREE.Mesh(new THREE.CircleGeometry(1.33,96),new THREE.MeshPhysicalMaterial({map:makeTopLabel(),color:0xFFFFFF,metalness:0.05,roughness:0.10,clearcoat:1.0,clearcoatRoughness:0.04,transparent:true}));
+  capTop.rotation.x=-Math.PI/2;capTop.position.y=0.951;g.add(capTop);
+  const groove=new THREE.Mesh(new THREE.TorusGeometry(1.32,0.012,8,96),new THREE.MeshPhysicalMaterial({color:0xEEEEEE,metalness:0.15,roughness:0.25}));
+  groove.rotation.x=Math.PI/2;groove.position.y=0.58;g.add(groove);
+  return g;
+}
+
+const stage=new THREE.Group();scene.add(stage);
+function build(i){
+  if(cur){stage.remove(cur);cur.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){if(o.material.map)o.material.map.dispose();o.material.dispose();}});}
+  cur=makeBottle(DATA[i]);stage.add(cur);
+}
+build(0);
+
+scene.add(new THREE.AmbientLight(0x0A1E2A,1.0));
+const kl=new THREE.SpotLight(0xD8EEFF,52,28,Math.PI/4,0.32,1.4);kl.position.set(-3,8,6);kl.target.position.set(0,0,0);scene.add(kl);scene.add(kl.target);
+const rl=new THREE.PointLight(0x00D4FF,24,18,1.8);rl.position.set(4,-1,-5);scene.add(rl);
+const fl=new THREE.PointLight(0x2A6885,15,16,2);fl.position.set(-5,1,4);scene.add(fl);
+const tl=new THREE.PointLight(0x8AAEC0,12,14,2);tl.position.set(0,6,0);scene.add(tl);
+const ul=new THREE.PointLight(0x2A6885,10,10,2);ul.position.set(0,-2,0);scene.add(ul);
+
+let dragging=false,lx=0,ly=0,vx=0,vy=0,autoY=0,manY=0,manX=0;
+canvas.addEventListener('mousedown',e=>{dragging=true;lx=e.clientX;ly=e.clientY;vx=0;vy=0;});
+canvas.addEventListener('mousemove',e=>{if(!dragging)return;vx=(e.clientX-lx)*.008;vy=(e.clientY-ly)*.005;manY+=vx*1.5;manX=Math.max(-.6,Math.min(.6,manX+vy*1.2));lx=e.clientX;ly=e.clientY;});
+canvas.addEventListener('mouseup',()=>dragging=false);canvas.addEventListener('mouseleave',()=>dragging=false);
+canvas.addEventListener('touchstart',e=>{dragging=true;lx=e.touches[0].clientX;ly=e.touches[0].clientY;},{passive:true});
+canvas.addEventListener('touchmove',e=>{if(!dragging)return;vx=(e.touches[0].clientX-lx)*.008;vy=(e.touches[0].clientY-ly)*.005;manY+=vx*1.5;manX=Math.max(-.6,Math.min(.6,manX+vy*1.2));lx=e.touches[0].clientX;ly=e.touches[0].clientY;},{passive:true});
+canvas.addEventListener('touchend',()=>dragging=false);
+
+const picker=document.getElementById('picker');
+DATA.forEach((p,i)=>{const b=document.createElement('button');b.className='btn'+(i===0?' active':'');b.textContent=p.skinKo;
+b.onclick=()=>{activeIdx=i;build(i);document.querySelectorAll('.btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');};picker.appendChild(b);});
+
+const clock=new THREE.Clock();
+function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime();
+if(fontsReady&&!fontBuildDone){fontBuildDone=true;build(activeIdx);}
+if(!dragging){autoY+=.0035;vx*=.92;vy*=.92;manY+=vx;manX+=vy;}
+stage.rotation.y=autoY+manY;stage.rotation.x=manX+Math.sin(t*.18)*.010;stage.position.y=Math.sin(t*.38)*.055;
+kl.position.x=-3+Math.sin(t*.07)*.4;renderer.render(scene,camera);}
+animate();
+window.addEventListener('resize',()=>{camera.aspect=W()/H();camera.updateProjectionMatrix();renderer.setSize(W(),H());});
+</script></body></html>

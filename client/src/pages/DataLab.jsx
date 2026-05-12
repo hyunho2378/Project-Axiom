@@ -51,9 +51,9 @@ export default function DataLab() {
     // Error State
     if (error) return (
         <div className="min-h-screen bg-black flex justify-center items-center">
-            <div className="text-center p-8 border border-red-900/30 bg-red-900/10 rounded-xl">
+            <div className="text-center p-8 border border-red-900/30 bg-red-900/10 rounded-2xl">
                 <p className="text-red-400 mb-2">CONNECTION INTERRUPTED</p>
-                <p className="text-red-500/60 text-xs font-mono">{error}</p>
+                <p className="text-red-500/60 text-xs font-body">{error}</p>
             </div>
         </div>
     );
@@ -64,7 +64,7 @@ export default function DataLab() {
         : { skinType: 'N/A', count: 0 };
 
     return (
-        <div className="min-h-screen bg-black text-white pt-24 overflow-hidden font-sans">
+        <div className="min-h-screen bg-black text-white pt-24 overflow-hidden font-body">
             <div className="max-w-7xl mx-auto px-6 h-full flex flex-col">
 
                 {/* 1. Header Section */}
@@ -79,7 +79,7 @@ export default function DataLab() {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3C7795] opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3C7795]"></span>
                             </span>
-                            <span className="text-[#3C7795] text-[10px] font-mono">LIVE FEED</span>
+                            <span className="text-[#3C7795] text-[10px] font-body">LIVE FEED</span>
                         </div>
                     </div>
                 </div>
@@ -87,13 +87,13 @@ export default function DataLab() {
                 {/* 2. Top Metrics Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                     {/* Total Users */}
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-xl p-4">
+                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-2xl p-4">
                         <h3 className="text-[#8AAEC0] text-[10px] uppercase tracking-wider mb-1">Total Responses</h3>
                         <p className="text-3xl font-bold text-white">{stats.totalCount.toLocaleString()}</p>
                     </motion.div>
 
                     {/* Most Common Type */}
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="col-span-2 bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-xl p-4 flex items-center justify-between">
+                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="col-span-2 bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-2xl p-4 flex items-center justify-between">
                         <div>
                             <h3 className="text-[#8AAEC0] text-[10px] uppercase tracking-wider mb-1">Dominant Skin Type</h3>
                             <p className="text-xl font-bold text-[#3C7795]">{mostCommon.skinType}</p>
@@ -105,7 +105,7 @@ export default function DataLab() {
                     </motion.div>
 
                     {/* Today's Count (Placeholder logic or derived) */}
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-xl p-4">
+                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-2xl p-4">
                         <h3 className="text-[#8AAEC0] text-[10px] uppercase tracking-wider mb-1">Real-time Status</h3>
                         <p className="text-sm text-[#3C7795] mt-2">● OPERATIONAL</p>
                     </motion.div>
@@ -115,7 +115,7 @@ export default function DataLab() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow">
 
                     {/* Left: Skin Type Distribution Bar Chart */}
-                    <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="lg:col-span-2 bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-xl p-6 backdrop-blur-sm">
+                    <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="lg:col-span-2 bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-2xl p-6 backdrop-blur-sm">
                         <h2 className="text-sm font-bold text-white mb-6 border-b border-[#8AAEC0]/10 pb-2">SKIN TYPE DISTRIBUTION</h2>
                         <div className="space-y-4">
                             {stats.typeDistribution.map((item, index) => {
@@ -124,7 +124,7 @@ export default function DataLab() {
                                     <div key={item.skinType} className="group">
                                         <div className="flex justify-between text-xs mb-1">
                                             <span className="text-[#8AAEC0] group-hover:text-white transition-colors">{item.skinType}</span>
-                                            <span className="text-[#3C7795] font-mono">{percentage.toFixed(1)}%</span>
+                                            <span className="text-[#3C7795] font-body">{percentage.toFixed(1)}%</span>
                                         </div>
                                         <div className="w-full bg-[#8AAEC0]/10 h-1.5 rounded-full overflow-hidden">
                                             <motion.div
@@ -141,14 +141,14 @@ export default function DataLab() {
                     </motion.div>
 
                     {/* Right: Recent Activity Feed */}
-                    <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-xl p-6 backdrop-blur-sm flex flex-col">
+                    <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-2xl p-6 backdrop-blur-sm flex flex-col">
                         <h2 className="text-sm font-bold text-white mb-4 border-b border-[#8AAEC0]/10 pb-2">RECENT SIGNALS</h2>
                         <div className="flex-grow overflow-y-auto space-y-3 custom-scrollbar pr-2" style={{ maxHeight: '300px' }}>
                             {stats.recentActivity.map((entry, index) => (
                                 <div key={index} className="p-3 bg-black/40 rounded border border-[#8AAEC0]/10 hover:border-[#3C7795] transition-colors">
                                     <div className="flex justify-between items-start mb-1">
                                         <span className="text-[#3C7795] text-xs font-bold">{entry.skinType}</span>
-                                        <span className="text-[#8AAEC0]/50 text-[10px] font-mono">
+                                        <span className="text-[#8AAEC0]/50 text-[10px] font-body">
                                             {new Date(entry.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                         </span>
                                     </div>

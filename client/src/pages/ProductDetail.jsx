@@ -1,33 +1,29 @@
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ALL_PRODUCTS } from '../data/productsData';
+import { getAllProducts, formatPrice } from '../data/products';
+import ProductPreview from '../components/three/products/ProductPreview';
 
-/**
- * ProductDetail - LUXURY TECH Aesthetic
- * 
- * STRICT PALETTE:
- * - Highlight: #3C7795 (Cyan)
- * - Mist: #8AAEC0 (Text + Glass Cards)
- * - Void: #000000 (Background)
- * - NO PURPLE / NO #082B35
- * 
- * Layout preserved: max-w-screen-xl mx-auto px-6 lg:px-16
- */
+const TYPE_BASE  = { toner: 100, ampoule: 105, tube: 110, jar: 115, sunscreen: 120 };
+const SKIN_INDEX = { '건성': 0, '중성': 1, '지성': 2, '수부지': 3, '복합성': 4 };
+const CATEGORY_LABELS = { toner: '토너', ampoule: '앰플', tube: '튜브 크림', sunscreen: '선크림', jar: '원형 크림' };
+
+function deriveId(p) {
+    return (TYPE_BASE[p.productType] ?? 100) + (SKIN_INDEX[p.skinType] ?? 0);
+}
+
 export default function ProductDetail() {
     const { id } = useParams();
     const location = useLocation();
-
     const isShopRoute = location.pathname.startsWith('/shop');
-    const mode = isShopRoute ? 'analysis' : 'curation';
 
-    const product = ALL_PRODUCTS.find(p => p.id === parseInt(id));
+    const product = getAllProducts().find(p => deriveId(p) === parseInt(id));
 
     if (!product) {
         return (
-            <main className="min-h-screen bg-transparent flex items-center justify-center relative z-10">
+            <main className="min-h-screen bg-void-base flex items-center justify-center">
                 <div className="text-center">
-                    <h1 className="font-serif text-2xl text-white mb-4">제품을 찾을 수 없습니다</h1>
-                    <Link to={isShopRoute ? "/shop" : "/curations"} className="text-[#3C7795] hover:text-white font-sans">
+                    <h1 className="font-body text-2xl text-white mb-4">제품을 찾을 수 없습니다</h1>
+                    <Link to={isShopRoute ? "/shop" : "/curations"} className="text-brand-500 hover:text-white font-body transition-colors">
                         ← 돌아가기
                     </Link>
                 </div>
@@ -35,114 +31,103 @@ export default function ProductDetail() {
         );
     }
 
-    const isAnalysisMode = mode === 'analysis';
-    const matchRate = 85 + (product.id % 15);
-
     return (
-        <main className="min-h-screen bg-transparent text-white flex items-center justify-center relative z-10">
+        <main className="min-h-screen bg-void-base text-white">
+            <div className="max-w-7xl mx-auto px-6 pt-24 pb-16 lg:pt-28 lg:pb-24">
 
-            {/* CONTAINER: matches Header/Footer */}
-            <div className="max-w-screen-xl w-full mx-auto px-6 lg:px-16">
+                <Link
+                    to={isShopRoute ? "/shop" : "/curations"}
+                    className="inline-flex items-center gap-2 font-body text-sm text-ui-textMuted hover:text-brand-400 transition-colors mb-12"
+                >
+                    ← 컬렉션으로 돌아가기
+                </Link>
 
-                {/* GRID: 5:7 Ratio, Fixed 500px Height */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 h-auto md:h-[500px] items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-                    {/* LEFT: Image Section (col-span-5) */}
+                    {/* 좌측: 3D 큰 뷰 */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className={`md:col-span-5 w-full h-[400px] md:h-full rounded-2xl relative overflow-hidden 
-                                    border border-[#8AAEC0]/20 shadow-2xl ${product.imageColor || 'bg-[#8AAEC0]/10'}`}
+                        transition={{ duration: 0.6 }}
+                        className="w-full h-[500px] bg-[#0A1218] rounded-2xl overflow-hidden lg:sticky lg:top-24"
                     >
-                        {/* Badge - Cyan Gradient */}
-                        <div className="absolute top-4 left-4 px-3 py-1.5 
-                                        bg-gradient-to-r from-[#1E5672] to-[#3C7795]
-                                        text-[10px] font-bold tracking-[0.2em] uppercase text-white rounded-full z-10
-                                        border border-white/15">
-                            {isAnalysisMode ? 'Best Match' : product.tag}
-                        </div>
-
-                        {/* Gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                        <ProductPreview product={product} size="large" />
                     </motion.div>
 
-                    {/* RIGHT: Content Section (col-span-7) */}
+                    {/* 우측: 텍스트 정보 전부 */}
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="md:col-span-7 flex flex-col h-auto md:h-full justify-between py-2"
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="flex flex-col gap-6"
                     >
-                        {/* Top Info */}
+                        {/* 칩 */}
+                        <div className="flex flex-wrap gap-2">
+                            <span className="chip chip-sm font-body">{CATEGORY_LABELS[product.productType]}</span>
+                            <span className="chip chip-sm font-body">{product.skinType}</span>
+                            {product.functional && (
+                                <span className="chip chip-sm font-body">{product.functional}</span>
+                            )}
+                        </div>
+
+                        {/* 제품명 */}
                         <div>
-                            {/* Category - Cyan */}
-                            <p className="text-[#3C7795] font-medium tracking-[0.2em] text-xs mb-4 uppercase font-sans">
-                                {product.category}
-                            </p>
-
-                            {/* Name - Stark White Serif */}
-                            <h1 className="text-3xl lg:text-4xl font-serif mb-2 font-light text-white tracking-wide">
-                                {product.name}
+                            <h1 className="font-body text-3xl lg:text-4xl text-ui-textPrimary leading-title">
+                                {product.nameKo}
                             </h1>
-
-                            {/* Price - White */}
-                            <p className="text-lg lg:text-xl font-light text-white font-sans mb-6">
-                                {product.price}
+                            <p className="font-title-en text-brand-400 text-lg italic mt-2">
+                                {product.nameEn}
                             </p>
+                        </div>
 
-                            {/* Description - Mist */}
-                            <p className="text-[#8AAEC0] text-sm leading-loose font-sans opacity-90 border-t border-[#8AAEC0]/15 pt-6 line-clamp-4" style={{ wordBreak: 'keep-all' }}>
-                                {product.desc}
-                            </p>
+                        {/* 가격 */}
+                        <p className="font-body text-brand-300 text-2xl">
+                            {formatPrice(product.price)}
+                        </p>
 
-                            {/* Conditional Box - Luxury Tech */}
-                            <div className="mt-6">
-                                {isAnalysisMode ? (
-                                    /* AI Match Score - Cyan glow */
-                                    <div className="flex items-center gap-4 p-4 rounded-xl w-fit bg-[#8AAEC0]/5 backdrop-blur-md border border-[#3C7795]/50 shadow-[0_0_20px_-5px_rgba(60,119,149,0.25)]">
-                                        <div className="text-[#3C7795] font-serif text-3xl font-light">{matchRate}%</div>
-                                        <div className="text-xs text-[#8AAEC0] font-sans">AI Match Score</div>
-                                    </div>
-                                ) : (
-                                    /* Recommendation Target */
-                                    <div className="py-3 px-4 rounded-xl bg-[#8AAEC0]/5 backdrop-blur-md border border-[#8AAEC0]/20">
-                                        <p className="text-[10px] text-[#3C7795] mb-1 uppercase tracking-wider font-sans">
-                                            Recommended For
-                                        </p>
-                                        <p className="text-sm text-white font-sans" style={{ wordBreak: 'keep-all' }}>
-                                            {product.recommendationTarget}
-                                        </p>
-                                    </div>
-                                )}
+                        <div className="border-t border-ui-border" />
+
+                        {/* 설명 (line-clamp 없이 풀 텍스트) */}
+                        <p className="font-body text-ui-textSecondary text-base leading-body" style={{ wordBreak: 'keep-all' }}>
+                            {product.desc}
+                        </p>
+
+                        <div className="border-t border-ui-border" />
+
+                        {/* 제품 상세 */}
+                        <div className="space-y-4 font-body text-sm">
+                            <div className="flex gap-4">
+                                <span className="text-ui-textMuted w-16 flex-shrink-0">제형</span>
+                                <span className="text-ui-textPrimary">{product.texture}</span>
+                            </div>
+                            <div className="flex gap-4">
+                                <span className="text-ui-textMuted w-16 flex-shrink-0">성분</span>
+                                <span className="text-brand-400">{product.ingredients}</span>
+                            </div>
+                            <div className="flex gap-4">
+                                <span className="text-ui-textMuted w-16 flex-shrink-0">용량</span>
+                                <span className="text-ui-textPrimary">{product.volume}</span>
+                            </div>
+                            {product.functional && (
+                                <div className="flex gap-4">
+                                    <span className="text-ui-textMuted w-16 flex-shrink-0">기능성</span>
+                                    <span className="text-ui-textPrimary">{product.functional}</span>
+                                </div>
+                            )}
+                            <div className="flex gap-4">
+                                <span className="text-ui-textMuted w-16 flex-shrink-0">피부타입</span>
+                                <span className="text-ui-textPrimary">{product.skinType}</span>
                             </div>
                         </div>
 
-                        {/* Bottom Button Group */}
-                        <div className="w-full mt-6 md:mt-0">
-                            {/* Ingredients - Simple Pills */}
-                            <div className="flex flex-wrap gap-2 mb-4">
-                                {product.ingredients.slice(0, 4).map(ing => (
-                                    <span
-                                        key={ing}
-                                        className="text-[10px] text-[#8AAEC0] uppercase tracking-wider 
-                                                   bg-[#8AAEC0]/10 border border-[#8AAEC0]/20 
-                                                   px-3 py-1.5 rounded-full font-sans"
-                                    >
-                                        {ing}
-                                    </span>
-                                ))}
-                            </div>
-
-                            {/* Button - Cyan Gradient */}
-                            <button className="w-full py-4 rounded-full text-sm font-bold tracking-[0.1em] uppercase font-sans
-                                             bg-gradient-to-r from-[#1E5672] to-[#3C7795] text-white
-                                             border border-white/15
-                                             hover:brightness-110 transition-all duration-300
-                                             shadow-lg hover:shadow-[0_8px_32px_rgba(60,119,149,0.40)]">
-                                장바구니 담기
-                            </button>
-                        </div>
+                        {/* 장바구니 버튼 */}
+                        <button className="w-full py-4 rounded-full text-sm font-bold tracking-[0.1em] uppercase font-body
+                                         bg-gradient-to-r from-[#1E5672] to-[#3C7795] text-white
+                                         border border-white/15
+                                         hover:brightness-110 transition-all duration-300
+                                         shadow-lg hover:shadow-[0_8px_32px_rgba(60,119,149,0.40)] mt-2">
+                            장바구니 담기
+                        </button>
                     </motion.div>
                 </div>
             </div>

@@ -1,6 +1,8 @@
+import { Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import AuroraRing from '../components/three/AuroraRing';
 
 /**
  * Dashboard Page - Protected User Area
@@ -42,7 +44,14 @@ export default function Dashboard({ user, isLoggedIn }) {
     if (!isLoggedIn) return null;
 
     return (
-        <div className="min-h-screen bg-void pt-24">
+        <div className="min-h-screen bg-void pt-24 relative overflow-hidden">
+            {/* AuroraRing background — absolute z-0, dashboard content z-10 */}
+            <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
+                <Suspense fallback={null}>
+                    <AuroraRing />
+                </Suspense>
+            </div>
+            <div className="relative z-10">
             {/* Header */}
             <section className="px-6 md:px-12 lg:px-24 pt-12 pb-8">
                 <div className="max-w-7xl mx-auto">
@@ -54,7 +63,7 @@ export default function Dashboard({ user, isLoggedIn }) {
                         <p className="text-sm uppercase tracking-[0.3em] text-white/50 mb-2">
                             Dashboard
                         </p>
-                        <h1 className="font-serif text-3xl md:text-4xl font-medium text-white">
+                        <h1 className="font-title-en text-3xl md:text-4xl font-medium text-white">
                             Welcome back, {user?.name || 'User'}
                         </h1>
                     </motion.div>
@@ -74,7 +83,7 @@ export default function Dashboard({ user, isLoggedIn }) {
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                             <div>
                                 <p className="text-sm text-white/50 mb-2">Your Aura Type</p>
-                                <h2 className="font-serif text-5xl md:text-6xl font-medium text-white mb-2">
+                                <h2 className="font-title-en text-5xl md:text-6xl font-medium text-white mb-2">
                                     {mockData.skinType}
                                 </h2>
                                 <p className="text-white/50">
@@ -175,8 +184,8 @@ export default function Dashboard({ user, isLoggedIn }) {
                                     key={product.name}
                                     className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] transition-colors cursor-pointer"
                                 >
-                                    <div className="w-full h-24 rounded-xl bg-gradient-to-br from-[#1E5672]/20 to-[#3C7795]/10 mb-4 flex items-center justify-center">
-                                        <div className="w-8 h-14 rounded-lg bg-white/10" />
+                                    <div className="w-full h-24 rounded-2xl bg-gradient-to-br from-[#1E5672]/20 to-[#3C7795]/10 mb-4 flex items-center justify-center">
+                                        <div className="w-8 h-14 rounded-2xl bg-white/10" />
                                     </div>
                                     <h4 className="text-sm font-medium text-white mb-1">{product.name}</h4>
                                     <p className="text-xs text-[#8AAEC0]">{product.match}% match</p>
@@ -199,9 +208,9 @@ export default function Dashboard({ user, isLoggedIn }) {
                             {mockData.savedProducts.map((product) => (
                                 <div
                                     key={product.id}
-                                    className="flex items-center gap-4 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]"
+                                    className="flex items-center gap-4 p-3 rounded-2xl bg-white/[0.03] border border-white/[0.06]"
                                 >
-                                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#1E5672]/20 to-[#3C7795]/10 flex-shrink-0" />
+                                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#1E5672]/20 to-[#3C7795]/10 flex-shrink-0" />
                                     <div className="flex-1 min-w-0">
                                         <h4 className="text-sm font-medium text-white truncate">{product.name}</h4>
                                         <p className="text-xs text-white/50">
@@ -211,12 +220,13 @@ export default function Dashboard({ user, isLoggedIn }) {
                                 </div>
                             ))}
                         </div>
-                        <button className="w-full mt-4 py-3 text-sm text-white/60 hover:text-white border border-white/10 rounded-xl hover:bg-white/5 transition-all">
+                        <button className="w-full mt-4 py-3 text-sm text-white/60 hover:text-white border border-white/10 rounded-2xl hover:bg-white/5 transition-all">
                             View All Saved
                         </button>
                     </motion.div>
                 </div>
             </section>
+            </div>{/* /relative z-10 */}
         </div>
     );
 }

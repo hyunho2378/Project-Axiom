@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import HeroIntro from '../components/HeroIntro';
+import ParticleNebula from '../components/three/ParticleNebula';
 
 /**
  * AXIOM Home — YSL Beauty Standard
@@ -15,11 +17,6 @@ import { useLanguage } from '../context/LanguageContext';
 
 const COPY = {
     ko: {
-        s1label: 'AXIOM LABORATORY',
-        s1line1: 'Define',
-        s1line2: 'Your Axis.',
-        s1sub: '데이터로 증명된, 당신만의\n흔들리지 않는 아름다움의 기준.',
-        s1cta: '진단 시작',
         s2label: 'DATA INTELLIGENCE',
         s2head1: 'The Precision',
         s2head2: 'of Pure Science.',
@@ -39,11 +36,6 @@ const COPY = {
         nav: ['Home', 'Brand', 'Analysis', 'Curations', 'Data Lab'],
     },
     en: {
-        s1label: 'AXIOM LABORATORY',
-        s1line1: 'Define',
-        s1line2: 'Your Axis.',
-        s1sub: 'Data-driven beauty, precisely calibrated\nfor the singular individual.',
-        s1cta: 'Start Analysis',
         s2label: 'DATA INTELLIGENCE',
         s2head1: 'The Precision',
         s2head2: 'of Pure Science.',
@@ -83,6 +75,19 @@ export default function Home() {
         return () => { document.body.style.overflow = ''; };
     }, []);
 
+    // Section 4: toggle ParticleNebula gathered state based on visibility
+    const s4Ref = useRef(null);
+    const [s4Gathered, setS4Gathered] = useState(false);
+    useEffect(() => {
+        if (!s4Ref.current) return;
+        const obs = new IntersectionObserver(
+            ([entry]) => setS4Gathered(entry.isIntersecting),
+            { threshold: 0.3 }
+        );
+        obs.observe(s4Ref.current);
+        return () => obs.disconnect();
+    }, []);
+
     return (
         <div
             className="h-screen overflow-y-scroll"
@@ -90,92 +95,9 @@ export default function Home() {
         >
 
             {/* ══════════════════════════════════════════
-                SECTION 1 — CINEMATIC WORDMARK HERO
+                SECTION 1 — HERO INTRO
             ══════════════════════════════════════════ */}
-            <section
-                className="relative h-screen w-full flex flex-col justify-center bg-black overflow-hidden"
-                style={{ scrollSnapAlign: 'start' }}
-            >
-                {/* Deep-space atmospheric void */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-[#1E5672]/8 blur-[220px] pointer-events-none" />
-                <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] rounded-full bg-[#3C7795]/5 blur-[100px] pointer-events-none" />
-
-                {/* Vertical accent rule */}
-                <div className="absolute right-[8%] top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#3C7795]/12 to-transparent hidden lg:block" />
-
-                <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-24">
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="font-mono text-[#3C7795] text-[10px] tracking-[0.35em] uppercase mb-10"
-                    >
-                        {c.s1label}
-                    </motion.p>
-
-                    <div className="overflow-hidden mb-2">
-                        <motion.h1
-                            initial={{ opacity: 0, y: 100 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1.1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            className="font-serif text-[clamp(4.5rem,12vw,11rem)] leading-none tracking-tight text-white block"
-                        >
-                            {c.s1line1}
-                        </motion.h1>
-                    </div>
-                    <div className="overflow-hidden mb-10">
-                        <motion.h1
-                            initial={{ opacity: 0, y: 100 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1.1, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                            className="font-serif text-[clamp(4.5rem,12vw,11rem)] leading-none tracking-tight text-white block"
-                        >
-                            {c.s1line2}
-                        </motion.h1>
-                    </div>
-
-                    <motion.div
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 0.9, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        className="origin-left w-20 h-[1px] bg-[#3C7795]/30 mb-10"
-                    />
-
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.8, delay: 0.75 }}
-                        className="font-sans text-[#8AAEC0] text-base md:text-lg leading-body max-w-sm mb-14 whitespace-pre-line"
-                    >
-                        {c.s1sub}
-                    </motion.p>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.95 }}
-                    >
-                        <Link
-                            to="/diagnosis"
-                            className="inline-flex items-center gap-4 px-12 py-4 bg-[#3C7795] hover:bg-[#8AAEC0] text-white text-sm font-sans font-semibold tracking-[0.2em] uppercase rounded-full transition-all duration-300 shadow-[0_0_30px_rgba(60,119,149,0.35)] hover:shadow-[0_0_50px_rgba(60,119,149,0.5)]"
-                        >
-                            {c.s1cta}
-                            <span className="text-base leading-none">→</span>
-                        </Link>
-                    </motion.div>
-                </div>
-
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.5 }}
-                    className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-                >
-                    <div className="w-[1px] h-14 bg-gradient-to-b from-transparent to-[#3C7795]/35" />
-                    <span className="font-mono text-[#3C7795]/40 text-[9px] tracking-[0.35em] uppercase">Scroll</span>
-                </motion.div>
-            </section>
+            <HeroIntro />
 
             {/* ══════════════════════════════════════════
                 SECTION 2 — DATA INTELLIGENCE
@@ -194,7 +116,7 @@ export default function Home() {
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
-                                className="font-mono text-[#3C7795] text-[10px] tracking-[0.3em] uppercase mb-8"
+                                className="font-body text-[#3C7795] text-[10px] tracking-[0.3em] uppercase mb-8"
                             >
                                 {c.s2label}
                             </motion.p>
@@ -204,8 +126,8 @@ export default function Home() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.9 }}
                             >
-                                <h2 className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block">{c.s2head1}</h2>
-                                <h2 className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block mb-8">{c.s2head2}</h2>
+                                <h2 className="font-title-en text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block">{c.s2head1}</h2>
+                                <h2 className="font-title-en text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block mb-8">{c.s2head2}</h2>
                             </motion.div>
                             <div className="w-8 h-[1px] bg-[#3C7795]/30 mb-8" />
                             <motion.p
@@ -213,7 +135,7 @@ export default function Home() {
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2 }}
-                                className="font-sans text-[#8AAEC0] text-sm md:text-base leading-body whitespace-pre-line"
+                                className="font-body text-[#8AAEC0] text-sm md:text-base leading-body whitespace-pre-line"
                             >
                                 {c.s2body}
                             </motion.p>
@@ -227,10 +149,10 @@ export default function Home() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.06 }}
-                                    className="bg-black/40 border border-[#1a1a1a] hover:border-[#2a2a2a] rounded-xl p-6 transition-colors group"
+                                    className="bg-black/40 border border-[#1a1a1a] hover:border-[#2a2a2a] rounded-2xl p-6 transition-colors group"
                                 >
-                                    <div className="font-mono text-[9px] tracking-[0.25em] text-[#333] uppercase mb-4">{item.label}</div>
-                                    <div className="font-mono text-2xl md:text-3xl font-bold leading-none text-[#3C7795] group-hover:text-[#8AAEC0] transition-colors">
+                                    <div className="font-body text-[9px] tracking-[0.25em] text-[#333] uppercase mb-4">{item.label}</div>
+                                    <div className="font-body text-2xl md:text-3xl font-bold leading-none text-[#3C7795] group-hover:text-[#8AAEC0] transition-colors">
                                         {item.val}<span className="text-base opacity-60">{item.unit}</span>
                                     </div>
                                 </motion.div>
@@ -253,7 +175,7 @@ export default function Home() {
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        className="font-mono text-[#3C7795] text-[10px] tracking-[0.3em] uppercase mb-8"
+                        className="font-body text-[#3C7795] text-[10px] tracking-[0.3em] uppercase mb-8"
                     >
                         {c.s3label}
                     </motion.p>
@@ -265,8 +187,8 @@ export default function Home() {
                         transition={{ duration: 0.8 }}
                         className="mb-16"
                     >
-                        <h2 className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block">{c.s3head1}</h2>
-                        <h2 className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block">{c.s3head2}</h2>
+                        <h2 className="font-title-en text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block">{c.s3head1}</h2>
+                        <h2 className="font-title-en text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block">{c.s3head2}</h2>
                     </motion.div>
 
                     <div className="border-t border-[#1a1a1a]">
@@ -280,13 +202,13 @@ export default function Home() {
                                 className="grid grid-cols-12 gap-6 py-10 border-b border-[#1a1a1a] group"
                             >
                                 <div className="col-span-1">
-                                    <span className="font-mono text-[#3C7795] text-[10px] tracking-[0.2em]">{step.num}</span>
+                                    <span className="font-body text-[#3C7795] text-[10px] tracking-[0.2em]">{step.num}</span>
                                 </div>
                                 <div className="col-span-11 md:col-span-3">
-                                    <h3 className="font-serif text-xl md:text-2xl text-white leading-title group-hover:text-[#8AAEC0] transition-colors duration-300">{step.title}</h3>
+                                    <h3 className="font-title-en text-xl md:text-2xl text-white leading-title group-hover:text-[#8AAEC0] transition-colors duration-300">{step.title}</h3>
                                 </div>
                                 <div className="col-span-11 col-start-2 md:col-span-8 md:col-start-auto">
-                                    <p className="font-sans text-[#8AAEC0]/70 text-sm leading-body">{step.desc}</p>
+                                    <p className="font-body text-[#8AAEC0]/70 text-sm leading-body">{step.desc}</p>
                                 </div>
                             </motion.div>
                         ))}
@@ -298,12 +220,19 @@ export default function Home() {
                 SECTION 4 — CTA FINALE
             ══════════════════════════════════════════ */}
             <section
+                ref={s4Ref}
                 className="relative h-screen w-full bg-[#03070a] border-t border-[#0d0d0d] overflow-hidden flex flex-col items-center justify-center text-center"
                 style={{ scrollSnapAlign: 'start' }}
             >
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-[700px] h-[700px] rounded-full bg-[#1E5672]/8 blur-[150px]" />
+                {/* ParticleNebula background — gathered toggles on section visibility */}
+                <div className="absolute inset-0 z-0 pointer-events-none">
+                    <Suspense fallback={null}>
+                        <ParticleNebula gathered={s4Gathered} />
+                    </Suspense>
                 </div>
+
+                {/* Dark overlay — improves text readability over nebula */}
+                <div className="absolute inset-0 z-[1] pointer-events-none bg-[#03070a]/60" />
 
                 <div className="relative z-10 max-w-7xl mx-auto px-6">
 
@@ -314,7 +243,7 @@ export default function Home() {
                         className="flex items-center justify-center gap-6 mb-14"
                     >
                         <div className="w-16 h-[1px] bg-[#3C7795]/25" />
-                        <span className="font-mono text-[#3C7795] text-[10px] tracking-[0.4em] uppercase">AXIOM</span>
+                        <span className="font-body text-[#3C7795] text-[10px] tracking-[0.4em] uppercase">AXIOM</span>
                         <div className="w-16 h-[1px] bg-[#3C7795]/25" />
                     </motion.div>
 
@@ -323,7 +252,7 @@ export default function Home() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-                        className="font-serif text-[clamp(3rem,9vw,8rem)] text-white leading-none tracking-tight mb-3"
+                        className="font-title-en text-[clamp(3rem,9vw,8rem)] text-white leading-none tracking-tight mb-3"
                     >
                         {c.s4head1}
                     </motion.h2>
@@ -332,7 +261,7 @@ export default function Home() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.1, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-                        className="font-serif text-[clamp(3rem,9vw,8rem)] text-white leading-none tracking-tight mb-14"
+                        className="font-title-en text-[clamp(3rem,9vw,8rem)] text-white leading-none tracking-tight mb-14"
                     >
                         {c.s4head2}
                     </motion.h2>
@@ -342,7 +271,7 @@ export default function Home() {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.3 }}
-                        className="font-sans text-[#8AAEC0] text-base md:text-lg leading-body mb-14"
+                        className="font-body text-[#8AAEC0] text-base md:text-lg leading-body mb-14"
                     >
                         {c.s4body}
                     </motion.p>
@@ -355,7 +284,7 @@ export default function Home() {
                     >
                         <Link
                             to="/diagnosis"
-                            className="inline-flex items-center gap-4 px-16 py-5 border border-[#3C7795] text-[#8AAEC0] hover:bg-[#3C7795] hover:text-white font-sans font-semibold text-sm tracking-[0.22em] uppercase rounded-full transition-all duration-300"
+                            className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-full btn-glow"
                         >
                             {c.s4cta}
                         </Link>
@@ -377,45 +306,45 @@ export default function Home() {
                         <Link to="/">
                             <img src="/images/Axiom_logo.svg" alt="AXIOM" className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity mb-5" />
                         </Link>
-                        <p className="font-sans text-sm text-[#8AAEC0]/50 leading-relaxed max-w-[200px]" style={{ wordBreak: 'keep-all' }}>
+                        <p className="font-body text-sm text-[#8AAEC0]/50 leading-relaxed max-w-[200px]" style={{ wordBreak: 'keep-all' }}>
                             데이터가 보여주는 가장 아름다운 진실
                         </p>
                     </div>
 
                     {/* Shop */}
                     <div>
-                        <p className="font-mono text-[10px] text-[#8AAEC0]/30 tracking-[0.25em] uppercase mb-6">Shop</p>
+                        <p className="font-body text-[10px] text-[#8AAEC0]/30 tracking-[0.25em] uppercase mb-6">Shop</p>
                         <ul className="space-y-4">
-                            <li><Link to="/curations" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">전체 상품</Link></li>
-                            <li><Link to="/analysis" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">AI 피부 진단</Link></li>
-                            <li><Link to="/shop" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">맞춤 처방</Link></li>
+                            <li><Link to="/curations" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">전체 상품</Link></li>
+                            <li><Link to="/analysis" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">AI 피부 진단</Link></li>
+                            <li><Link to="/shop" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">맞춤 처방</Link></li>
                         </ul>
                     </div>
 
                     {/* Company */}
                     <div>
-                        <p className="font-mono text-[10px] text-[#8AAEC0]/30 tracking-[0.25em] uppercase mb-6">Company</p>
+                        <p className="font-body text-[10px] text-[#8AAEC0]/30 tracking-[0.25em] uppercase mb-6">Company</p>
                         <ul className="space-y-4">
-                            <li><Link to="/brand" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">브랜드 스토리</Link></li>
-                            <li><Link to="/datalab" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">데이터 랩</Link></li>
-                            <li><Link to="/editorial" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">리서처 에디토리얼</Link></li>
-                            <li><Link to="/data-map" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">글로벌 데이터 맵</Link></li>
-                            <li><Link to="/team-dyt" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">팀 소개</Link></li>
+                            <li><Link to="/brand" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">브랜드 스토리</Link></li>
+                            <li><Link to="/datalab" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">데이터 랩</Link></li>
+                            <li><Link to="/editorial" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">리서처 에디토리얼</Link></li>
+                            <li><Link to="/data-map" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">글로벌 데이터 맵</Link></li>
+                            <li><Link to="/team-dyt" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">팀 소개</Link></li>
                         </ul>
                     </div>
 
                     {/* Follow */}
                     <div>
-                        <p className="font-mono text-[10px] text-[#8AAEC0]/30 tracking-[0.25em] uppercase mb-6">Follow</p>
+                        <p className="font-body text-[10px] text-[#8AAEC0]/30 tracking-[0.25em] uppercase mb-6">Follow</p>
                         <ul className="space-y-4">
                             <li>
-                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#8AAEC0] transition-colors inline-flex items-center gap-2.5">
+                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#8AAEC0] transition-colors inline-flex items-center gap-2.5">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="20" height="20" rx="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
                                     Instagram
                                 </a>
                             </li>
                             <li>
-                                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-[#8AAEC0]/50 hover:text-[#8AAEC0] transition-colors inline-flex items-center gap-2.5">
+                                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#8AAEC0] transition-colors inline-flex items-center gap-2.5">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" /><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" /></svg>
                                     YouTube
                                 </a>
@@ -427,13 +356,13 @@ export default function Home() {
                 {/* Bottom bar */}
                 <div className="max-w-7xl mx-auto px-6 w-full py-10 border-t border-[#0d0d0d]">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="font-sans text-xs text-[#8AAEC0]/25">
+                        <p className="font-body text-xs text-[#8AAEC0]/25">
                             © 2026 AXIOM Inc. All rights reserved. Designed by{' '}
                             <Link to="/team-dyt" className="hover:text-[#8AAEC0]/60 transition-colors">Team DYT</Link>
                         </p>
                         <div className="flex items-center gap-6">
-                            <Link to="/privacy" target="_blank" className="font-sans text-xs text-[#8AAEC0]/25 hover:text-[#8AAEC0]/60 transition-colors">개인정보처리방침</Link>
-                            <span className="font-sans text-xs text-[#8AAEC0]/25">이용약관</span>
+                            <Link to="/privacy" target="_blank" className="font-body text-xs text-[#8AAEC0]/25 hover:text-[#8AAEC0]/60 transition-colors">개인정보처리방침</Link>
+                            <span className="font-body text-xs text-[#8AAEC0]/25">이용약관</span>
                         </div>
                     </div>
                 </div>

@@ -1,16 +1,10 @@
 import 'dotenv/config'; // env 비밀번호 불러오기
 import express from 'express';
 import cors from 'cors';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import { PrismaClient } from '@prisma/client';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-
-// Initialize Gemini AI (requires GEMINI_API_KEY environment variable)
-const genAI = process.env.GEMINI_API_KEY
-    ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
-    : null;
 
 // Middleware - CORS must be first
 app.use(cors({
@@ -24,117 +18,6 @@ app.use(express.json());
 // Initialize Prisma Client for Supabase PostgreSQL
 const prisma = new PrismaClient();
 
-// ============================================
-// 🔥 AI Skin Analysis Endpoint (High-end Researcher)
-// 현호 님의 완벽한 브랜딩 프롬프트로 교체된 영역
-// ============================================
-
-app.post('/api/analyze', async (req, res) => {
-    // 프론트엔드에서 보내주는 공식 description(상세 설명) 추가 접수
-    const { oilScore, sensScore, skinType, description } = req.body;
-
-    if (oilScore === undefined || sensScore === undefined || !skinType) {
-        return res.status(400).json({
-            success: false,
-            message: 'Missing required fields: oilScore, sensScore, skinType'
-        });
-    }
-
-    // 통신 실패 시 보여줄 기본 (하이엔드) 멘트
-    const getDefaultAdvice = (type, desc) => {
-        return {
-            headline: `${type} 피부를 위한 AXIOM 솔루션`,
-            advice: desc || "피부 본연의 중심축을 바로잡는 것이 시급합니다. AXIOM의 고정밀 알고리즘이 제안하는 솔루션으로 피부 방어력을 재건하시길 바랍니다.",
-            glossary: [
-                { term: type, definition: "AXIOM 데이터 스캐닝으로 도출된 당신의 고유한 피부 축입니다." }
-            ]
-        };
-    };
-
-    if (!genAI) {
-        console.log('⚠️  GEMINI_API_KEY not set, using default advice');
-        return res.json({
-            success: true,
-            advice: getDefaultAdvice(skinType, description)
-        });
-    }
-
-    try {
-        // gemini-1.5-pro 모델이 페르소나(말투)를 훨씬 더 잘 지킵니다.
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
-
-        const prompt = `당신은 하이엔드 뷰티 테크 브랜드 'AXIOM'의 수석 데이터 분석가이자 스킨케어 연구원입니다.
-유저의 피부 타입 진단 결과가 나왔습니다. 아래 데이터를 바탕으로 유저에게 정밀한 처방을 내려주세요.
-
-[유저 데이터]
-- 피부 타입: ${skinType}
-- 상태 설명: ${description || '데이터 분석 완료'}
-- 유분도: ${oilScore}/100
-- 민감도: ${sensScore}/100
-
-[작성 규칙 - 매우 중요]
-1. 말투: 반드시 최고급 경어체(~합니다, ~를 제안합니다, ~로 분석됩니다)를 사용하세요. 
-2. 절대 금지: '~했어요', '~군요', '~네요' 등 가볍고 싼 티 나는 표현은 절대 금지.
-3. 형식: 
-   - 첫 번째 줄: 분석을 요약하는 핵심 문장 1줄 (Headline)
-   - 두 번째 문단: 피부 상태에 대한 심도 있는 분석 및 AXIOM만의 데이터 기반 솔루션 제안 (Advice)
-   - 세 번째: 반드시 본문 작성 후 '---GLOSSARY---' 구분선을 긋고, 본문에 쓰인 뷰티 성분이나 전문 용어 2개를 골라 '용어: 뜻' 형태로 설명해 주세요.
-
-[출력 예시]
-고객님의 피부는 현재 장벽이 약화된 상태로 분석됩니다.
-유수분 밸런스가 무너져 미세한 외부 자극에도 즉각적인 반응이 나타날 수 있으므로, 피부 본연의 중심축을 바로잡는 것이 시급합니다. AXIOM의 고정밀 알고리즘은 고객님께 즉각적인 진정과 세라마이드 보충을 제안합니다. 필수적인 유효 성분만을 밀도 있게 전달하여 피부의 방어력을 재건하시길 바랍니다.
----GLOSSARY---
-* 세라마이드: 피부 장벽을 구성하는 핵심 지질 성분으로, 수분 증발을 막고 외부 자극을 방어합니다.
-* 피부 장벽: 피부의 가장 바깥층에서 수분을 유지하고 보호하는 보호막입니다.`;
-
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
-
-        // 파싱 (---GLOSSARY--- 기준)
-        const parts = text.split('---GLOSSARY---');
-        const mainText = parts[0].trim();
-        const glossaryText = parts[1] ? parts[1].trim() : '';
-
-        // 첫 번째 줄을 헤드라인으로, 나머지를 어드바이스로 분리
-        const lines = mainText.split('\n').filter(line => line.trim());
-        const headline = lines[0] || 'AXIOM 맞춤 스킨케어 진단';
-        const advice = lines.slice(1).join('\n').trim() || '고객님의 피부 타입에 맞는 최적의 솔루션을 제안합니다.';
-
-        // 용어 사전 파싱 (예쁘게 오브젝트로 변환)
-        const glossary = [];
-        if (glossaryText) {
-            const glossaryLines = glossaryText.split('\n').filter(line => line.includes(':') || line.includes('-') || line.includes('*'));
-            glossaryLines.forEach(line => {
-                let separator = ':';
-                if (!line.includes(':') && line.includes('-')) separator = '-';
-                const colonIndex = line.indexOf(separator);
-                if (colonIndex > 0) {
-                    const term = line.substring(0, colonIndex).trim().replace(/^[-*•]\s*/, '');
-                    const definition = line.substring(colonIndex + 1).trim();
-                    if (term && definition) glossary.push({ term, definition });
-                }
-            });
-        }
-
-        // 프론트엔드로 예쁘게 정돈된 JSON 발사
-        res.json({
-            success: true,
-            advice: { headline, advice, glossary }
-        });
-
-    } catch (error) {
-        console.error('Gemini API error:', error);
-        res.json({
-            success: true,
-            advice: getDefaultAdvice(skinType, description)
-        });
-    }
-});
-
-
-// ============================================
-// 🔒 여기서부터는 현호 님의 기존 코드를 단 1픽셀도 건드리지 않았습니다!
 // ============================================
 
 // Mock Auth Controller

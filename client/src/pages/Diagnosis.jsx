@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import EvolvingBlob, { EvolvingParticles } from '../components/EvolvingBlob';
+import EvolvingBlob, { EvolvingParticles } from '../components/three/EvolvingBlob';
 import { QUESTIONS, generateResult } from '../data/questions';
 
 // 🔥 HARDCODED PRODUCTION URL - NO FALLBACK
@@ -80,10 +80,10 @@ function ProgressBar({ current, total }) {
     return (
         <div className="w-full mb-8">
             <div className="flex justify-between items-center mb-3">
-                <span className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-sans">
+                <span className="text-[11px] uppercase tracking-[0.3em] text-[#3C7795] font-body">
                     Progress
                 </span>
-                <span className="text-sm text-[#8AAEC0]/60 font-sans">
+                <span className="text-sm text-[#8AAEC0]/60 font-body">
                     {current + 1} / {total}
                 </span>
             </div>
@@ -226,14 +226,14 @@ export default function Diagnosis() {
                             transition={{ duration: 0.8 }}
                             className="max-w-md"
                         >
-                            <p className="text-[11px] uppercase tracking-[0.4em] text-[#3C7795] font-sans mb-6">
+                            <p className="text-[11px] uppercase tracking-[0.4em] text-[#3C7795] font-body mb-6">
                                 AI Skin Analysis
                             </p>
-                            <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                            <h1 className="font-body text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                                 Discover<br />
                                 Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3C7795] to-[#8AAEC0]">Axis</span>
                             </h1>
-                            <p className="font-sans text-lg text-[#8AAEC0]/70 leading-relaxed mb-10" style={{ wordBreak: 'keep-all' }}>
+                            <p className="font-body text-lg text-[#8AAEC0]/70 leading-relaxed mb-10" style={{ wordBreak: 'keep-all' }}>
                                 10가지 질문을 통해 당신만의 피부 타입과 맞춤형 케어 솔루션을 찾아보세요.
                                 AI가 분석한 결과를 3D로 시각화합니다.
                             </p>
@@ -242,12 +242,12 @@ export default function Diagnosis() {
                                 onClick={() => setIsStarted(true)}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
-                                className="inline-flex items-center justify-center px-10 py-4 font-sans text-base font-semibold text-black bg-gradient-to-r from-[#3C7795] to-[#8AAEC0] rounded-full transition-all duration-300 hover:shadow-[0_0_40px_rgba(60,119,149,0.5)]"
+                                className="inline-flex items-center justify-center px-10 py-4 font-body text-base font-semibold text-black bg-gradient-to-r from-[#3C7795] to-[#8AAEC0] rounded-full transition-all duration-300 hover:shadow-[0_0_40px_rgba(60,119,149,0.5)]"
                             >
                                 Start Analysis
                             </motion.button>
 
-                            <p className="font-sans text-sm text-[#8AAEC0]/40 mt-6">
+                            <p className="font-body text-sm text-[#8AAEC0]/40 mt-6">
                                 약 2-3분 소요
                             </p>
                         </motion.div>
@@ -278,7 +278,7 @@ export default function Diagnosis() {
                             transition={{ duration: 0.8, delay: 0.3 }}
                             className="max-w-md w-full"
                         >
-                            <p className="text-[11px] uppercase tracking-[0.4em] text-[#3C7795] font-sans mb-4">
+                            <p className="text-[11px] uppercase tracking-[0.4em] text-[#3C7795] font-body mb-4">
                                 Your Skin Axis
                             </p>
 
@@ -304,7 +304,7 @@ export default function Diagnosis() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.7 }}
-                                className="font-sans text-3xl md:text-4xl font-bold text-white mb-2"
+                                className="font-body text-3xl md:text-4xl font-bold text-white mb-2"
                             >
                                 {resultType.title}
                             </motion.h1>
@@ -313,7 +313,7 @@ export default function Diagnosis() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.9 }}
-                                className="font-sans text-lg text-[#3C7795] mb-6"
+                                className="font-body text-lg text-[#3C7795] mb-6"
                             >
                                 {resultType.titleKo}
                             </motion.p>
@@ -322,7 +322,7 @@ export default function Diagnosis() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 1.1 }}
-                                className="font-sans text-base text-[#8AAEC0]/70 leading-relaxed mb-8"
+                                className="font-body text-base text-[#8AAEC0]/70 leading-relaxed mb-8"
                                 style={{ wordBreak: 'keep-all' }}
                             >
                                 {resultType.description}
@@ -335,7 +335,7 @@ export default function Diagnosis() {
                                 transition={{ delay: 1.3 }}
                                 className="bg-gradient-to-b from-white/[0.08] to-transparent backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 mb-8 shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.15)]"
                             >
-                                <p className="text-[10px] uppercase tracking-[0.25em] text-[#3C7795] font-sans mb-4">
+                                <p className="text-[10px] uppercase tracking-[0.25em] text-[#3C7795] font-body mb-4">
                                     Analysis Breakdown
                                 </p>
                                 <div className="grid grid-cols-2 gap-6">
@@ -374,7 +374,7 @@ export default function Diagnosis() {
                                     transition={{ delay: 1.4 }}
                                     className="mb-10"
                                 >
-                                    <p className="text-[10px] uppercase tracking-[0.25em] text-[#3C7795] font-sans mb-4">
+                                    <p className="text-[10px] uppercase tracking-[0.25em] text-[#3C7795] font-body mb-4">
                                         Curated For You
                                     </p>
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -385,9 +385,9 @@ export default function Diagnosis() {
                                                 animate={{ opacity: 1, y: 0 }}
                                                 transition={{ delay: 1.5 + index * 0.1 }}
                                                 onClick={() => navigate(`/shop/${product.id}`)}
-                                                className="bg-[#8AAEC0]/5 backdrop-blur-md border border-[#8AAEC0]/15 rounded-xl p-4 text-left hover:bg-[#1E5672]/20 hover:border-[#3C7795]/50 transition-all"
+                                                className="bg-[#8AAEC0]/5 backdrop-blur-md border border-[#8AAEC0]/15 rounded-2xl p-4 text-left hover:bg-[#1E5672]/20 hover:border-[#3C7795]/50 transition-all"
                                             >
-                                                <div className="w-full h-16 bg-[#8AAEC0]/10 rounded-lg mb-3 flex items-center justify-center">
+                                                <div className="w-full h-16 bg-[#8AAEC0]/10 rounded-2xl mb-3 flex items-center justify-center">
                                                     <span className="text-xl">✨</span>
                                                 </div>
                                                 <p className="text-sm font-medium text-[#8AAEC0] truncate">
@@ -403,7 +403,7 @@ export default function Diagnosis() {
                             )}
 
                             {isSaving && (
-                                <p className="font-sans text-sm text-[#8AAEC0]/50 mb-4">
+                                <p className="font-body text-sm text-[#8AAEC0]/50 mb-4">
                                     분석 결과 저장 중...
                                 </p>
                             )}
@@ -418,30 +418,18 @@ export default function Diagnosis() {
                                 <div className="flex flex-col sm:flex-row gap-4">
                                     <button
                                         onClick={() => navigate('/shop')}
-                                        className="flex-1 px-8 py-4 font-sans text-base font-semibold text-black bg-gradient-to-r from-[#3C7795] to-[#8AAEC0] rounded-full transition-all duration-300 hover:shadow-[0_0_30px_rgba(60,119,149,0.4)]"
+                                        className="flex-1 px-8 py-4 font-body text-base font-semibold text-black bg-gradient-to-r from-[#3C7795] to-[#8AAEC0] rounded-full transition-all duration-300 hover:shadow-[0_0_30px_rgba(60,119,149,0.4)]"
                                     >
                                         맞춤 상품 보러가기
                                     </button>
                                     <button
                                         onClick={handleRestart}
-                                        className="flex-1 px-8 py-4 font-sans text-base font-medium text-[#8AAEC0] bg-[#8AAEC0]/10 border border-[#8AAEC0]/30 rounded-full transition-all duration-300 hover:bg-[#8AAEC0]/20"
+                                        className="flex-1 px-8 py-4 font-body text-base font-medium text-[#8AAEC0] bg-[#8AAEC0]/10 border border-[#8AAEC0]/30 rounded-full transition-all duration-300 hover:bg-[#8AAEC0]/20"
                                     >
                                         다시하기
                                     </button>
                                 </div>
 
-                                {/* My Space CTA - Premium Full Width */}
-                                <button
-                                    onClick={() => navigate('/my-space', { state: { skinType: resultType } })}
-                                    className="w-full px-8 py-4 font-sans text-base font-semibold text-white bg-gradient-to-r from-[#1E5672] via-[#3C7795] to-[#1E5672] border border-[#8AAEC0]/40 rounded-full transition-all duration-300 hover:shadow-[0_0_40px_rgba(60,119,149,0.5)] hover:border-[#8AAEC0] group"
-                                >
-                                    <span className="flex items-center justify-center gap-2">
-                                        나만의 공간 보러가기
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform">
-                                            <path d="M5 12h14M12 5l7 7-7 7" />
-                                        </svg>
-                                    </span>
-                                </button>
                             </motion.div>
                         </motion.div>
                     </div>
@@ -466,7 +454,7 @@ export default function Diagnosis() {
 
                     {/* Stage indicator (desktop only) */}
                     <div className="hidden lg:block absolute bottom-8 left-8">
-                        <p className="text-[10px] uppercase tracking-[0.3em] text-[#8AAEC0]/40 font-sans mb-2">
+                        <p className="text-[10px] uppercase tracking-[0.3em] text-[#8AAEC0]/40 font-body mb-2">
                             Evolution Stage
                         </p>
                         <p className="text-2xl font-bold text-[#3C7795]">
@@ -491,7 +479,7 @@ export default function Diagnosis() {
                                 transition={{ duration: 0.4 }}
                                 className="mb-10"
                             >
-                                <h2 className="font-sans text-2xl md:text-3xl font-bold text-white leading-relaxed" style={{ wordBreak: 'keep-all' }}>
+                                <h2 className="font-body text-2xl md:text-3xl font-bold text-white leading-relaxed" style={{ wordBreak: 'keep-all' }}>
                                     {currentQ.question}
                                 </h2>
                             </motion.div>
@@ -525,7 +513,7 @@ export default function Diagnosis() {
                                             }
                                         `}
                                     >
-                                        <span className="font-sans text-base text-[#8AAEC0]" style={{ wordBreak: 'keep-all' }}>
+                                        <span className="font-body text-base text-[#8AAEC0]" style={{ wordBreak: 'keep-all' }}>
                                             {option.text}
                                         </span>
                                     </motion.button>
@@ -537,7 +525,7 @@ export default function Diagnosis() {
                         <div className="mt-10 text-center">
                             <button
                                 onClick={handleRestart}
-                                className="font-sans text-sm text-[#8AAEC0]/30 hover:text-[#8AAEC0]/60 transition-colors"
+                                className="font-body text-sm text-[#8AAEC0]/30 hover:text-[#8AAEC0]/60 transition-colors"
                             >
                                 처음부터 다시 시작
                             </button>

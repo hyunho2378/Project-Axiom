@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>AXIOM Particle Nebula</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#000;overflow:hidden;font-family:'Helvetica Neue',sans-serif}
+  canvas{display:block;width:100vw;height:100vh}
+  #label{
+    position:fixed;top:36px;left:50%;transform:translateX(-50%);
+    font-size:11px;letter-spacing:.4em;color:rgba(0,180,220,.6);
+    text-transform:uppercase;pointer-events:none;
+  }
+  #state{
+    position:fixed;bottom:36px;left:50%;transform:translateX(-50%);
+    font-size:11px;letter-spacing:.3em;color:rgba(90,154,181,.6);
+    text-transform:uppercase;pointer-events:none;
+    transition:opacity .6s;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="label">Particle Nebula · Landing Transition</div>
+<div id="state">click to toggle</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const canvas = document.getElementById('c');
+const stateEl = document.getElementById('state');
+const W = () => window.innerWidth;
+const H = () => window.innerHeight;
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(W(), H());
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.3;
+renderer.outputEncoding = THREE.sRGBEncoding;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000);
+
+const camera = new THREE.PerspectiveCamera(42, W()/H(), 0.1, 100);
+camera.position.set(0, 0, 8);
+camera.lookAt(0, 0, 0);
+
+// ── GLOW TEXTURE ─────────────────────────────────
+function makeGlowTex(inner, outer, size=128) {
+  const c2 = document.createElement('canvas');
+  c2.width = c2.height = size;
+  const ctx = c2.getContext('2d');
+  const g = ctx.createRadialGradient(size/2,size/2,0, size/2,size/2,size/2);
+  g.addColorStop(0,    inner);
+  g.addColorStop(0.25, inner.replace('1)','0.5)'));
+  g.addColorStop(0.6,  outer.replace('1)','0.15)'));
+  g.addColorStop(1,    'rgba(0,0,0,0)');
+  ctx.fillStyle = g; ctx.fillRect(0,0,size,size);
+  return new THREE.CanvasTexture(c2);
+}
+const glowTex = makeGlowTex('rgba(0,212,255,1)', 'rgba(30,86,114,1)', 256);
+const coreTex = makeGlowTex('rgba(192,240,255,1)', 'rgba(0,180,220,1)', 512);
+
+// ── 파티클 데이터 ────────────────────────────────
+const COUNT = 3000;
+
+// 두 상태: 구형(gathered)과 흩어진 상태(scattered)
+const gathered  = new Float32Array(COUNT * 3);   // 구형 배치
+const scattered = new Float32Array(COUNT * 3);   // 넓게 흩어짐
+const current   = new Float32Array(COUNT * 3);   // 현재 위치
+const velocity  = new Float32Array(COUNT * 3);   // 개별 속도
+
+// 구형 배치
+const SPHERE_R = 1.8;
+for (let i = 0; i < COUNT; i++) {
+  // 구 표면 + 내부 분포 (코어에 밀집)
+  const r = SPHERE_R * Math.pow(Math.random(), 0.4);
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos(2 * Math.random() - 1);
+  gathered[i*3]   = r * Math.sin(phi) * Math.cos(theta);
+  gathered[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+  gathered[i*3+2] = r * Math.cos(phi);
+}
+
+// 흩어진 배치
+for (let i = 0; i < COUNT; i++) {
+  const r = 4 + Math.random() * 8;
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos(2 * Math.random() - 1);
+  scattered[i*3]   = r * Math.sin(phi) * Math.cos(theta);
+  scattered[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+  scattered[i*3+2] = r * Math.cos(phi);
+
+  // 개별 속도 (흩어질 때 방향성)
+  velocity[i*3]   = (Math.random() - 0.5) * 0.3;
+  velocity[i*3+1] = (Math.random() - 0.5) * 0.3;
+  velocity[i*3+2] = (Math.random() - 0.5) * 0.3;
+}
+
+// 시작: 구형
+for (let i = 0; i < current.length; i++) current[i] = gathered[i];
+
+// ── 파티클 색상 (3종 랜덤) ───────────────────────
+const colors = new Float32Array(COUNT * 3);
+const palette = [
+  new THREE.Color('#00D4FF'),    // 밝은 사이안 (40%)
+  new THREE.Color('#5A9AB5'),    // 미스트 블루 (35%)
+  new THREE.Color('#C0F0FF'),    // 하이라이트 (25%)
+];
+for (let i = 0; i < COUNT; i++) {
+  const r = Math.random();
+  const c = r < 0.40 ? palette[0] : r < 0.75 ? palette[1] : palette[2];
+  colors[i*3]   = c.r;
+  colors[i*3+1] = c.g;
+  colors[i*3+2] = c.b;
+}
+
+// ── 파티클 사이즈 (랜덤) ─────────────────────────
+const sizes = new Float32Array(COUNT);
+for (let i = 0; i < COUNT; i++) {
+  sizes[i] = 0.02 + Math.random() * 0.04;
+}
+
+// ── 파티클 메시 ──────────────────────────────────
+const pGeo = new THREE.BufferGeometry();
+pGeo.setAttribute('position', new THREE.BufferAttribute(current, 3));
+pGeo.setAttribute('color',    new THREE.BufferAttribute(colors, 3));
+
+const pMat = new THREE.PointsMaterial({
+  size: 0.04,
+  vertexColors: true,
+  transparent: true,
+  opacity: 0.85,
+  sizeAttenuation: true,
+  blending: THREE.AdditiveBlending,
+  depthWrite: false,
+});
+const particles = new THREE.Points(pGeo, pMat);
+scene.add(particles);
+
+// ── 코어 글로우 (구형 상태일 때 중심 빛) ──────────
+const coreSprite = new THREE.Sprite(new THREE.SpriteMaterial({
+  map: coreTex, color: new THREE.Color(0xC0F0FF),
+  transparent: true, opacity: 0.7,
+  blending: THREE.AdditiveBlending, depthWrite: false,
+}));
+coreSprite.scale.set(4, 4, 1);
+scene.add(coreSprite);
+
+const outerGlow = new THREE.Sprite(new THREE.SpriteMaterial({
+  map: glowTex, color: new THREE.Color(0x2A6885),
+  transparent: true, opacity: 0.35,
+  blending: THREE.AdditiveBlending, depthWrite: false,
+}));
+outerGlow.scale.set(9, 9, 1);
+scene.add(outerGlow);
+
+// ── 배경 별 ──────────────────────────────────────
+const BG = 800;
+const bgGeo = new THREE.BufferGeometry();
+const bgPos = new Float32Array(BG * 3);
+for (let i = 0; i < BG; i++) {
+  const r = 12 + Math.random() * 18;
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos(2 * Math.random() - 1);
+  bgPos[i*3]   = r * Math.sin(phi) * Math.cos(theta);
+  bgPos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+  bgPos[i*3+2] = r * Math.cos(phi);
+}
+bgGeo.setAttribute('position', new THREE.BufferAttribute(bgPos, 3));
+scene.add(new THREE.Points(bgGeo, new THREE.PointsMaterial({
+  color: 0x5A9AB5, size: 0.02,
+  transparent: true, opacity: 0.4,
+  sizeAttenuation: true,
+  blending: THREE.AdditiveBlending, depthWrite: false,
+})));
+
+// ── 조명 ─────────────────────────────────────────
+scene.add(new THREE.AmbientLight(0x06141A, 0.8));
+const keyLight = new THREE.PointLight(0x5A9AB5, 8, 20, 2);
+keyLight.position.set(-4, 5, 4);
+scene.add(keyLight);
+
+// ── 상태 토글 ────────────────────────────────────
+let isGathered = true;
+let morphT = 1.0;  // 1 = gathered, 0 = scattered
+let targetMorphT = 1.0;
+
+canvas.addEventListener('click', () => {
+  isGathered = !isGathered;
+  targetMorphT = isGathered ? 1.0 : 0.0;
+  stateEl.textContent = isGathered ? 'gathered' : 'scattered';
+});
+
+// ── ANIMATE ──────────────────────────────────────
+const clock = new THREE.Clock();
+
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+
+  // morph lerp — 느리고 부드럽게
+  morphT += (targetMorphT - morphT) * 0.018;
+
+  // 파티클 위치 보간 + 미세한 개별 움직임
+  const pos = pGeo.attributes.position.array;
+  for (let i = 0; i < COUNT; i++) {
+    const i3 = i * 3;
+
+    // gathered ↔ scattered 보간
+    const gx = gathered[i3],   gy = gathered[i3+1],   gz = gathered[i3+2];
+    const sx = scattered[i3],  sy = scattered[i3+1],  sz = scattered[i3+2];
+
+    let tx = gx * morphT + sx * (1 - morphT);
+    let ty = gy * morphT + sy * (1 - morphT);
+    let tz = gz * morphT + sz * (1 - morphT);
+
+    // 구형 상태: 표면 미세 흐름 (은하 느낌)
+    if (morphT > 0.5) {
+      const flowSpeed = 0.15;
+      const angle = t * flowSpeed + i * 0.01;
+      tx += Math.sin(angle + gy * 2) * 0.04 * morphT;
+      ty += Math.cos(angle + gx * 2) * 0.03 * morphT;
+      tz += Math.sin(angle + gz * 2) * 0.04 * morphT;
+    }
+
+    // 흩어진 상태: 개별 드리프트
+    if (morphT < 0.5) {
+      const drift = (1 - morphT) * 0.008;
+      tx += velocity[i3]   * Math.sin(t * 0.3 + i) * drift * 10;
+      ty += velocity[i3+1] * Math.cos(t * 0.25 + i) * drift * 10;
+      tz += velocity[i3+2] * Math.sin(t * 0.2 + i) * drift * 10;
+    }
+
+    pos[i3]   = tx;
+    pos[i3+1] = ty;
+    pos[i3+2] = tz;
+  }
+  pGeo.attributes.position.needsUpdate = true;
+
+  // 전체 느린 회전
+  particles.rotation.y = t * 0.04;
+  particles.rotation.x = Math.sin(t * 0.08) * 0.03;
+
+  // 코어 글로우 — 구형일 때 밝고, 흩어지면 사라짐
+  const coreOp = morphT * 0.7 * (0.9 + Math.sin(t * 0.6) * 0.1);
+  coreSprite.material.opacity = coreOp;
+  coreSprite.scale.setScalar(3.5 + Math.sin(t * 0.5) * 0.3);
+
+  outerGlow.material.opacity = morphT * 0.30;
+  outerGlow.scale.setScalar(8 + Math.sin(t * 0.35) * 0.5);
+
+  // 파티클 opacity — 흩어지면 살짝 투명해짐
+  pMat.opacity = 0.65 + morphT * 0.25;
+
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = W()/H();
+  camera.updateProjectionMatrix();
+  renderer.setSize(W(), H());
+});
+</script>
+</body>
+</html>
