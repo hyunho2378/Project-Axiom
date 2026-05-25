@@ -1,0 +1,630 @@
+{
+  "meta": {
+    "title": "AXIOM: AI 피부 진단 기반 하이엔드 뷰티 큐레이션 플랫폼 UX 서비스 디자인",
+    "team": "더 인스튜디오",
+    "school": "한림대학교 디지털인문예술",
+    "purpose": "전공 전시회 동아리 부문 출품",
+    "liveUrl": "https://project-axiom-puce.vercel.app/",
+    "date": "2026.05"
+  },
+
+  "hero": {
+    "wordmark": "AXIOM",
+    "tagline": "The Self-Evident Axis of Beauty.",
+    "definition": "AI 피부 진단 기반 하이엔드 뷰티 큐레이션 플랫폼",
+    "cta": "BEGIN ANALYSIS",
+    "brandStory": {
+      "p1": "모든 생명은 탄생의 순간, 자신만의 고유한 중심축(Axis)을 부여받습니다. 그러나 복잡한 환경과 무수한 시간의 소음 속에서 그 축은 점차 방향을 잃고 희미해집니다.",
+      "p2": "Axiom은 당신의 피부 깊은 곳에 숨겨진 미세한 신호, 일상의 정교한 패턴, 그리고 누구도 읽어내지 못한 내밀한 취향의 데이터를 추적합니다. 우리는 흩어진 정보들을 모아 당신을 정의하는 단 하나의 자명한 진실(Axiom)을 다시 세웁니다.",
+      "p3": "딥블루의 고요한 가상 공간 속에서 실시간으로 피어나는 당신의 데이터 오브제를 마주해 보세요. 그것은 당신의 피부를 위한 가장 완벽한 해답이자, 당신이라는 존재를 증명하는 유일무이한 디지털 예술입니다."
+    }
+  },
+
+  "stats": [
+    {
+      "value": 52,
+      "unit": "명",
+      "label": "유저 리서치 설문 참여자",
+      "source": "AXIOM 리서치, 2026.04"
+    },
+    {
+      "value": 20,
+      "unit": "가지",
+      "label": "AI 피부 코드 생성 (2축 진단)",
+      "source": "유수분 5타입 × 민감도 4등급"
+    },
+    {
+      "value": 25,
+      "unit": "개",
+      "label": "큐레이션 제품 데이터",
+      "source": "5카테고리 × 5피부타입"
+    }
+  ],
+
+  "overview": {
+    "headline": "브랜딩 + UX + AI + 3D\n4축 통합 증명",
+    "description": "전공 전시회 동아리 부문 출품을 위해 시각, 논리, AI 프로세스, 실제 구현물 4축을 통합한 하이엔드 뷰티 큐레이션 플랫폼 UX 서비스 디자인 프로젝트.",
+    "roles": [
+      { "label": "BX / 브랜딩", "desc": "네이밍·슬로건·컬러 시스템·타이포그래피·브랜드 서사 설계" },
+      { "label": "UX 리서치", "desc": "데스크 리서치, n=52 설문, n=12 심층 인터뷰, 인사이트 도출" },
+      { "label": "AI 진단 로직", "desc": "2축 채점 시스템, 20가지 피부 코드, Q1~Q10 질문 설계" },
+      { "label": "3D 시각화", "desc": "Three.js 제품 오브제 5종, 조명 프리셋, Claude Code 협업" }
+    ],
+    "techStack": {
+      "frontend": "React 18 + Vite + Tailwind CSS",
+      "threeD": "Three.js + @react-three/fiber + @react-three/drei",
+      "animation": "Framer Motion + GSAP",
+      "backend": "Express + NeonDB (PostgreSQL)",
+      "deploy": "Vercel (FE) + Render (BE)"
+    },
+    "techTags": ["React 18", "Vite", "Three.js", "Framer Motion", "GSAP", "Express", "NeonDB", "Vercel"],
+    "previousFailure": "작년 실패 원인: '예쁜 쓰레기' — 시각적 완성도만 높고 디자인 의사결정 논리 부재",
+    "goal": "시각 + 논리 + AI 프로세스 + 실제 구현물 4축 통합",
+    "coreValueProp": "검색할 필요 없는 뷰티 경험. AI가 피부를 진단하고, 브랜드가 큐레이션하고, 고객은 신뢰하고 경험한다.",
+    "sections": [
+      { "num": "01", "id": "intro",     "title": "INTRO",         "desc": "히어로 + 프로젝트 한 줄 정의" },
+      { "num": "02", "id": "overview",  "title": "OVERVIEW",      "desc": "프로젝트 개요 + 팀 소개" },
+      { "num": "03", "id": "problem",   "title": "PROBLEM",       "desc": "문제 정의 (데스크 리서치 근거)" },
+      { "num": "04", "id": "research",  "title": "RESEARCH",      "desc": "유저 리서치 데이터 시각화 (차트 인터랙션)" },
+      { "num": "05", "id": "persona",   "title": "PERSONA + CJM", "desc": "페르소나 카드 + 고객 여정 지도" },
+      { "num": "06", "id": "urq",       "title": "URQ + UX 전략", "desc": "HMW + Design Principles + 포지셔닝 맵" },
+      { "num": "07", "id": "bx",        "title": "BX",            "desc": "시장/경쟁/브랜드/로고/디자인시스템" },
+      { "num": "08", "id": "dataLogic", "title": "DATA LOGIC",    "desc": "진단 로직 + 질문 설계 + 매핑 플로우차트" },
+      { "num": "09", "id": "aiProcess", "title": "3D + AI PROCESS","desc": "3D 오브제 + Claude Code 협업 프로세스" },
+      { "num": "10", "id": "uxFlow",    "title": "UX FLOW",       "desc": "서비스 플로우 + 인터랙션 원칙" },
+      { "num": "11", "id": "demo",      "title": "DEMO",          "desc": "라이브 서비스 링크 + 3D GIF + 화면 갤러리" },
+      { "num": "12", "id": "credits",   "title": "CREDITS",       "desc": "팀 정보 + 사용 도구" }
+    ]
+  },
+
+  "problem": {
+    "narrative": [
+      { "step": 1, "text": "사람들은 자기 피부를 모른다", "stat": "42.6%", "source": "K-Cosmetics, 맞춤형화장품 소비자 조사" },
+      { "step": 2, "text": "온라인으로 샀다가 피부가 망가진다", "stat": "39.9%", "source": "한국소비자원, 화장품 부작용 모니터링 보고서, 2020" },
+      { "step": 3, "text": "진단 서비스를 써봤지만 달라진 건 없다", "stat": "81.8%", "source": "AXIOM 유저 리서치, n=44, 2026.04" },
+      { "step": 4, "text": "문제는 정보 부족이 아니라 판단 불가능", "stat": null, "source": null }
+    ],
+    "problems": [
+      {
+        "id": "P01",
+        "title": "진단은 받지만, 아무것도 달라지지 않는다",
+        "desc": "81.8%가 진단 서비스를 사용했지만 실제 구매로 이어지지 않았다. 진단과 구매 사이의 공백을 메우는 구조가 없다.",
+        "stat": "81.8%",
+        "statLabel": "진단 후 미전환율",
+        "quote": "진단은 받았는데 그다음에 뭘 해야 하는지 모르겠어.",
+        "quoteSource": "P12"
+      },
+      {
+        "id": "P02",
+        "title": "사용자는 '왜'를 원한다",
+        "desc": "41.7%가 '결과가 부정확하게 느껴져서' 구매를 포기했다. 수치는 신뢰를 만들지 못한다 — 설명 가능성이 없기 때문이다.",
+        "stat": "41.7%",
+        "statLabel": "구매 미전환 이유 1위",
+        "quote": "추천 이유를 모르겠어. 이 제품이 왜 나한테 맞아요? 이게 없으니까 안 사게 되더라고.",
+        "quoteSource": "P05"
+      },
+      {
+        "id": "P03",
+        "title": "보이는 것이 믿음을 만든다",
+        "desc": "67.3%가 시각 고급스러움이 신뢰도에 영향을 미친다고 응답했다. 시각적 경험은 심미적 부가 요소가 아니라, 신뢰도의 직접 구성 요소다.",
+        "stat": "67.3%",
+        "statLabel": "시각 고급스러움 → 신뢰도 영향",
+        "quote": "앱이 예쁘면 제품도 좋을 것 같다는 느낌이 드는 게 사실이야.",
+        "quoteSource": "P04"
+      }
+    ],
+    "cards": [
+      {
+        "id": "card1",
+        "stat": "67.3%",
+        "label": "온라인에서 내 피부에 맞는 제품 찾기 어렵다고 답했다",
+        "source": "AXIOM 유저 리서치, n=52, 2026.04"
+      },
+      {
+        "id": "card2",
+        "stat": "92.3%",
+        "label": "피부 부적합 구매 경험 있음",
+        "source": "AXIOM 유저 리서치, n=52, 2026.04"
+      },
+      {
+        "id": "card3",
+        "stat": "39.9%",
+        "label": "인터넷 구매 화장품 사용 후 피부트러블 발생",
+        "source": "한국소비자원, 화장품 부작용 모니터링 보고서, 2020"
+      },
+      {
+        "id": "card4",
+        "stat": "81.8%",
+        "label": "진단 후 구매 미전환",
+        "source": "AXIOM 유저 리서치, n=44, 2026.04"
+      }
+    ]
+  },
+
+  "uxStrategy": {
+    "concept": {
+      "name": "Zero Search Curation",
+      "desc": "사용자는 단 한 번도 검색하지 않는다. 질문에 답하면 → AI가 분석하고 → 브랜드가 큐레이션한다."
+    },
+    "positioningMap": {
+      "axisX": { "label": "럭셔리 톤", "basis": "67.3% 시각→신뢰 데이터 → 럭셔리 포지션이 신뢰 경쟁력" },
+      "axisY": { "label": "개인화 수준", "basis": "92.3% 부적합 경험 + P02/P11 복합 고민 수용 불가" },
+      "vacantZone": "고럭셔리 × 고개인화 — 국내 시장 점유 서비스 없음",
+      "competitors": [
+        { "name": "화해",             "luxury": "낮음", "personalization": "중간",  "note": "리뷰 기반 필터링. 직접 판매 없음" },
+        { "name": "올리브영 스킨스캔", "luxury": "낮음", "personalization": "낮음",  "note": "6개 항목 고정 분류. 클리니컬 UI" },
+        { "name": "Proven Skincare",  "luxury": "중간", "personalization": "높음",  "note": "환경변수 포함. 한국 시장 부재" },
+        { "name": "AXIOM",            "luxury": "높음", "personalization": "높음",  "note": "브랜드 서사 + 복합 고민 수용" }
+      ]
+    },
+    "hmw": [
+      {
+        "insight": "INSIGHT 01 — 진단→구매 미전환 81.8%",
+        "items": [
+          { "question": "진단 완료 순간을 구매 진입점으로 만들 수 있을까?", "decision": "결과 페이지 → 5종 즉시 자동 노출" },
+          { "question": "진단과 구매 사이 공백을 없앨 수 있을까?", "decision": "외부 링크 제거. 플로우 내부 완결" },
+          { "question": "\"다음에 뭘 해야 하는지\" 모르는 상태를 없앨 수 있을까?", "decision": "결과 → 스크롤 하나로 CURATIONS 진입" }
+        ]
+      },
+      {
+        "insight": "INSIGHT 02 — 수치는 신뢰를 못 만든다 (41.7%)",
+        "items": [
+          { "question": "데이터를 신뢰 가능한 언어로 바꿀 수 있을까?", "decision": "수치 제거. 브랜드 서사 카피로 전환" },
+          { "question": "\"왜 이 제품이 나에게 맞는가\"를 보여줄 수 있을까?", "decision": "큐레이션 카드마다 추천 이유 1~2줄" }
+        ]
+      },
+      {
+        "insight": "INSIGHT 03 — 보이는 것이 믿음을 만든다 (67.3%)",
+        "items": [
+          { "question": "시각 퀄리티를 신뢰 신호로 기능하게 만들 수 있을까?", "decision": "하이엔드 다크 톤 + 3D 오브제" },
+          { "question": "제품이 광고가 아닌 오브제처럼 보이게 할 수 있을까?", "decision": "3D 뷰어. 공간에 제품만 존재" }
+        ]
+      },
+      {
+        "insight": "INSIGHT 04 — 복합 고민을 수용하는 시스템 없다",
+        "items": [
+          { "question": "5개 피부타입 분류를 넘어설 수 있을까?", "decision": "2축 독립 채점. 20가지 피부 코드 생성" },
+          { "question": "\"나만의 결과\"라는 느낌을 만들 수 있을까?", "decision": "조합에 따라 달라지는 브랜드 카피" }
+        ]
+      },
+      {
+        "insight": "INSIGHT 05 — 탐색 자체를 원하지 않는다",
+        "items": [
+          { "question": "탐색 행위 자체를 제거할 수 있을까?", "decision": "Zero Search. 설문→결과→구매 단방향" },
+          { "question": "화장품 관심 없는 사용자도 완주하게 만들 수 있을까?", "decision": "설문 10단계 제한. 진행률 바 시각화" }
+        ]
+      }
+    ],
+    "designPrinciples": [
+      {
+        "id": "P01",
+        "name": "Zero Search",
+        "headline": "사용자는 탐색하지 않는다. 플로우가 안내한다.",
+        "basis": "구매 포기 \"제품 너무 많아서\" 46.2% / P03 \"복잡해서 그냥 닫거든\"",
+        "apply": "검색창 없음. 카테고리 브라우징 없음. 선택지 항상 5개 이하."
+      },
+      {
+        "id": "P02",
+        "name": "Explain, Don't Display",
+        "headline": "데이터를 보여주지 말고 설명하라.",
+        "basis": "미전환 이유 \"결과 부정확하게 느껴져서\" 41.7% / 신뢰도 2.95점",
+        "apply": "수치 단독 노출 금지. 추천 이유 없는 제품 카드 없음.",
+        "langDo": "\"당신의 피부는 스스로를 보호하려는 신호를 보내고 있습니다.\"",
+        "langDont": "\"피지 과다 분비 경향\""
+      },
+      {
+        "id": "P03",
+        "name": "Visual = Trust",
+        "headline": "시각 퀄리티는 심미적 선택이 아니라 신뢰 설계다.",
+        "basis": "67.3% 시각→신뢰 / P04 \"디자인 허술하면 성분도 허술할 것 같고\"",
+        "apply": "다크 톤 유지. 3D 오브제 = 신뢰 신호. 배너/팝업 없음."
+      },
+      {
+        "id": "P04",
+        "name": "One Flow, One Truth",
+        "headline": "진단부터 구매까지 단 하나의 흐름. 이탈점을 만들지 않는다.",
+        "basis": "미전환 81.8% / P12 \"진단 받고 앱 닫고 인스타그램 봤어\"",
+        "apply": "외부 링크 없음. 결과→큐레이션 자동 전환."
+      }
+    ],
+    "userRequirements": {
+      "functional": [
+        { "id": "F1", "req": "검색 없이 결과에 도달해야 한다", "basis": "구매 포기 46.2% \"제품이 너무 많아서\"" },
+        { "id": "F2", "req": "진단 후 즉시 구매 가능한 제품이 나와야 한다", "basis": "진단→구매 미전환 81.8%" },
+        { "id": "F3", "req": "추천 이유가 명시되어야 한다", "basis": "미전환 이유 41.7% \"결과 부정확하게 느껴져서\"" },
+        { "id": "F4", "req": "복합 피부 고민을 수용해야 한다", "basis": "P02, P11 발화" },
+        { "id": "F5", "req": "5종 이하로 선택지를 제한해야 한다", "basis": "P10 \"백 개 중 고르는 건 너무 힘들어\"" }
+      ],
+      "emotional": [
+        { "id": "E1", "req": "병원 차트가 아닌 브랜드 경험으로 느껴져야 한다", "basis": "P05, P09 발화" },
+        { "id": "E2", "req": "\"나만을 위한 분석\"이라는 느낌을 줘야 한다", "basis": "P11 발화" },
+        { "id": "E3", "req": "시각적 고급스러움이 전달되어야 한다", "basis": "67.3%" },
+        { "id": "E4", "req": "전문가처럼 딱 골라주는 경험이어야 한다", "basis": "P04 발화" }
+      ],
+      "trust": [
+        { "id": "T1", "req": "AI 추천이지만 전문가적 권위가 느껴져야 한다", "basis": "전문의 신뢰 36.5% vs AI 19.2%" },
+        { "id": "T2", "req": "추천 근거가 투명하게 보여야 한다", "basis": "진단 신뢰도 2.95/5.00" },
+        { "id": "T3", "req": "데이터 기반임이 명확히 전달되어야 한다", "basis": "비사용 이유 \"믿음 안 가서\" 37.5%" }
+      ]
+    },
+    "serviceFlow": {
+      "existing": "진단 → 수치 결과 → 제품 목록 → [사용자가 다시 검색] → 구매 (or 이탈)",
+      "axiom": "ABOUT → BEGIN ANALYSIS → AI ANALYSIS(Q1~Q10) → RESULT(브랜드 서사+3D오브제) → CURATIONS(5종 자동) → 구매",
+      "pages": [
+        {
+          "name": "ABOUT",
+          "purpose": "브랜드 세계관 진입. 신뢰 선인장.",
+          "desc": "CrystalOrb가 \"분석 중인 나의 데이터\" 암시. CTA: BEGIN ANALYSIS 단 하나."
+        },
+        {
+          "name": "AI ANALYSIS",
+          "purpose": "진단 설문",
+          "desc": "Q1~Q6 (유수분 축) + Q7~Q10 (민감도 축) = 총 10단계. 진행률 바 시각화. 복합 고민 멀티셀렉 허용. 진행 중 배경: ParticleNebula 활성화."
+        },
+        {
+          "name": "RESULT",
+          "purpose": "진단 결과",
+          "desc": "수치 제거. 브랜드 서사로 전달. 피부타입별 3D 오브제 생성 연출. \"왜 이 결과인가\" 2~3줄 Explainability."
+        },
+        {
+          "name": "CURATIONS",
+          "purpose": "큐레이션",
+          "desc": "5종만. 더보기 없음. 각 제품 \"왜 당신에게 맞는가\" 1~2줄. 3D 제품 뷰어. 구매 경로 단일화."
+        }
+      ]
+    },
+    "interactionPrinciples": [
+      { "rule": "스크롤이 곧 진행이다", "apply": "페이지 이동 최소화" },
+      { "rule": "대기 시간을 분석 시간으로 전환", "apply": "로딩 = SilkRibbon + \"데이터 분석 중\"" },
+      { "rule": "선택지는 항상 5개 이하", "apply": "F5 요구사항 직접 반영" },
+      { "rule": "결과는 즉시, 설명은 충분히", "apply": "결과 노출 즉시, 이유는 접히지 않게" }
+    ]
+  },
+
+  "bx": {
+    "naming": {
+      "word": "AXIOM",
+      "axis": "Axis (축): 흔들리지 않는 나만의 중심",
+      "axiom": "Axiom (자명한 진리): 증명할 필요 없이 그 자체로 확실한 정답",
+      "synthesis": "데이터로 증명된, 당신만의 흔들리지 않는 아름다움의 기준"
+    },
+    "slogan": "The Self-Evident Axis of Beauty.",
+    "philosophy": "The Self-Evident Truth (자명한 진실)",
+    "pillars": [
+      { "name": "Utility", "label": "효용", "desc": "피부 고민을 해결하는 맞춤형 화장품과 웰니스 솔루션" },
+      { "name": "Artistry", "label": "예술성", "desc": "나의 데이터가 만들어낸 유일무이한 3D 오브제를 감상하고 소유하는 경험" }
+    ],
+    "vision": "누구나 자신만의 정답을 가진 세상",
+    "mission": "복잡한 데이터를 아름다운 예술로 바꾼다",
+    "coreValues": [
+      {
+        "id": "01",
+        "name": "Fact",
+        "label": "사실과 진실",
+        "promise": "느낌이나 추측이 아닌 데이터만으로 진단",
+        "basis": "비사용 이유 \"믿음이 안 가서\" 37.5%"
+      },
+      {
+        "id": "02",
+        "name": "One & Only",
+        "label": "단 한 사람",
+        "promise": "모두가 아닌 당신 한 사람에게만 맞춤",
+        "basis": "92.3% 부적합 경험 + P02/P11 복합 고민 수용 불가"
+      },
+      {
+        "id": "03",
+        "name": "Art",
+        "label": "미학적 경험",
+        "promise": "기술은 똑똑해야 하고, 결과물은 아름다워야 함",
+        "basis": "67.3% 시각→신뢰도 영향"
+      }
+    ],
+    "colorPalette": [
+      { "role": "배경 Void",      "hex": "#000000" },
+      { "role": "배경 Dark 1",    "hex": "#03070a" },
+      { "role": "배경 Dark 2",    "hex": "#05080a" },
+      { "role": "배경 Dark 3",    "hex": "#0A0A0A" },
+      { "role": "Brand Deep",     "hex": "#082B35" },
+      { "role": "Brand Mid",      "hex": "#2A6885" },
+      { "role": "Brand Light",    "hex": "#5A9AB5" },
+      { "role": "Brand Pale",     "hex": "#C0F0FF" },
+      { "role": "Neon Primary",   "hex": "#00D4FF" },
+      { "role": "Neon Secondary", "hex": "#00E0FF" },
+      { "role": "Label BG 1",     "hex": "#2E6A82" },
+      { "role": "Label BG 2",     "hex": "#357292" },
+      { "role": "Label BG 3",     "hex": "#28637E" },
+      { "role": "로고 색상",       "hex": "#8AAEC0" }
+    ],
+    "typography": [
+      { "use": "영문 타이틀/제품명", "font": "BentonModDisp (Semibold)" },
+      { "use": "나머지 전체",        "font": "Pretendard Variable" }
+    ],
+    "brandLanguage": [
+      { "dont": "수분 지수: 38점 (또래 평균 이하)",    "do": "당신의 피부는 지금 고요한 갈증 상태입니다." },
+      { "dont": "피지 과다 분비 경향",                 "do": "당신의 피부는 스스로를 보호하려는 신호를 보내고 있습니다." },
+      { "dont": "복합성 피부입니다.",                   "do": "당신의 피부는 두 개의 리듬으로 살아 숨쉽니다." },
+      { "dont": "민감성 과민 상태",                    "do": "당신의 피부는 지금 모든 외부 신호에 예민하게 반응하고 있습니다." },
+      { "dont": "건성 비민감",                         "do": "유수분이 전반적으로 부족하지만 피부 장벽은 비교적 안정적입니다." }
+    ],
+    "competitorComparison": [
+      { "brand": "화해",             "diagnosis": "설문",        "expression": "키워드",      "purchase": "외부 링크 (단절)",  "personalization": "필터 기반 재배치",  "luxury": false, "reasonExplained": false, "koService": true  },
+      { "brand": "올리브영 스킨스캔", "diagnosis": "오프라인 기기", "expression": "수치+그래프",  "purchase": "3채널 분리",        "personalization": "6개 고정 항목",     "luxury": false, "reasonExplained": false, "koService": true  },
+      { "brand": "Proven Skincare",  "diagnosis": "설문",        "expression": "제품 패키지",  "purchase": "구독 배송",         "personalization": "환경변수 포함",     "luxury": true,  "reasonExplained": true,  "koService": false },
+      { "brand": "AXIOM",            "diagnosis": "설문",        "expression": "브랜드 서사",  "purchase": "플로우 내 완결",     "personalization": "복합 고민 수용",    "luxury": true,  "reasonExplained": true,  "koService": true  }
+    ],
+    "marketTimeline": [
+      { "year": 2023, "value": "$59.14B", "valueKo": "약 81조원",  "source": "글로벌ICT" },
+      { "year": 2024, "value": "$66.16B", "valueKo": null,          "source": "Grand View Research" },
+      { "year": 2025, "value": "$79.38B", "valueKo": null,          "source": "GII Korea" },
+      { "year": 2026, "value": "$89.94B", "valueKo": "CAGR 13.3%", "source": "GII Korea" },
+      { "year": 2028, "value": "$116.17B","valueKo": "약 160조원", "source": "글로벌ICT" },
+      { "year": 2030, "value": "$172.99B","valueKo": "CAGR 17.9%","source": "Grand View Research" }
+    ]
+  },
+
+  "dataLogic": {
+    "overview": {
+      "system": "2축 독립 채점 방식",
+      "axis1": "Q1~Q6 (유수분 균형) → 유수분 타입 5종",
+      "axis2": "Q7~Q10 (민감도) → 민감도 등급 4종",
+      "total": "5 × 4 = 20가지 피부 코드"
+    },
+    "questions": [
+      {
+        "q": "Q1", "axis": 1, "measure": "건조 (Dry)",
+        "question": "세안 후 아무것도 바르지 않았을 때, 피부가 당기는 느낌이 얼마나 강한가요?",
+        "answers": [
+          { "score": 0,  "code": "Extreme",  "text": "얼굴 전체가 찢어질 듯이 당긴다" },
+          { "score": 5,  "code": "Mild",     "text": "입가나 눈가 위주로 살짝 당긴다" },
+          { "score": 10, "code": "Comfort",  "text": "당김이 거의 느껴지지 않는다" }
+        ]
+      },
+      {
+        "q": "Q2", "axis": 1, "measure": "유수분 (Balance)",
+        "question": "세안 후 15분 뒤, 거울 속 당신의 피부는 어떤 상태인가요?",
+        "answers": [
+          { "score": 0,  "code": "Tight",  "text": "푸석하고 하얗게 각질이 보인다" },
+          { "score": 5,  "code": "Soft",   "text": "당김 없이 매끄럽고 편안하다" },
+          { "score": 10, "code": "Shiny",  "text": "벌써 유분이 올라와 번들거린다" }
+        ]
+      },
+      {
+        "q": "Q3", "axis": 1, "measure": "유분 (Oil)",
+        "question": "오후가 되었을 때 T존(이마, 코)의 번들거림은 어느 정도인가요?",
+        "answers": [
+          { "score": 0,  "code": "Matte",  "text": "번들거림 없이 보송하거나 튼다" },
+          { "score": 5,  "code": "Normal", "text": "자연스러운 윤기가 약간 흐른다" },
+          { "score": 10, "code": "Greasy", "text": "기름종이가 필요할 만큼 번들거린다" }
+        ]
+      },
+      {
+        "q": "Q4", "axis": 1, "measure": "속건조 (Inner Dry)",
+        "question": "번들거림이 느껴질 때, 피부 속은 반대로 당기거나 건조하다고 느끼시나요?",
+        "answers": [
+          { "score": 0,  "code": "Deep Dry",   "text": "유분은 없고 속만 바짝 당긴다" },
+          { "score": 5,  "code": "Hydrated",   "text": "속당김 없이 촉촉함이 유지된다" },
+          { "score": 10, "code": "Inner Void", "text": "겉은 번들거림에도 속은 당긴다" }
+        ]
+      },
+      {
+        "q": "Q5", "axis": 1, "measure": "피지 (Sebum)",
+        "question": "코 주변에 블랙헤드나 화이트헤드가 눈에 띄게 분포되어 있나요?",
+        "answers": [
+          { "score": 0,  "code": "Clear",    "text": "모공이 맑고 거의 보이지 않는다" },
+          { "score": 5,  "code": "Moderate", "text": "코 주변에만 약간 분포되어 있다" },
+          { "score": 10, "code": "Severe",   "text": "피지 분비가 많고 모공이 넓다" }
+        ]
+      },
+      {
+        "q": "Q6", "axis": 1, "measure": "과제 (Focus)",
+        "question": "당신이 생각하는 당신 피부의 가장 시급한 해결 과제는 무엇인가요?",
+        "answers": [
+          { "score": 0,  "code": "Hydrating", "text": "메마른 피부를 위한 수분" },
+          { "score": 5,  "code": "Soothing",  "text": "예민한 피부를 위한 진정" },
+          { "score": 10, "code": "Control",   "text": "넘치는 유분을 위한 피지 조절" }
+        ]
+      },
+      {
+        "q": "Q7", "axis": 2, "measure": "민감 (Sensitive)",
+        "question": "환경 변화(온도, 습도)에 따라 피부 상태가 급격히 변하나요?",
+        "answers": [
+          { "score": 0,  "code": "Stable",  "text": "거의 변화가 없고 건강하다" },
+          { "score": 5,  "code": "Mild",    "text": "가끔 당기거나 간지럽다" },
+          { "score": 10, "code": "Extreme", "text": "즉각적으로 좁쌀이나 홍조가 생긴다" }
+        ]
+      },
+      {
+        "q": "Q8", "axis": 2, "measure": "자극 (Irritation)",
+        "question": "자극(머리카락·마스크)이나 신규 화장품 사용 시 피부가 예민하게 반응하나요?",
+        "answers": [
+          { "score": 0,  "code": "Strong",    "text": "어떤 자극에도 피부가 튼튼하다" },
+          { "score": 5,  "code": "Sensitive", "text": "특정 성분에만 가끔 반응한다" },
+          { "score": 10, "code": "Hyper",     "text": "아주 작은 자극에도 금방 뒤집어진다" }
+        ]
+      },
+      {
+        "q": "Q9", "axis": 2, "measure": "홍조 (Redness)",
+        "question": "세안 시 물 온도 변화에 피부가 화끈거리거나 붉어지는 편인가요?",
+        "answers": [
+          { "score": 0,  "code": "Normal", "text": "온도 변화에 큰 영향이 없다" },
+          { "score": 5,  "code": "Warm",   "text": "잠시 붉어졌다가 금방 가라앉는다" },
+          { "score": 10, "code": "Flash",  "text": "열감이 오래 지속되고 쉽게 붉어진다" }
+        ]
+      },
+      {
+        "q": "Q10", "axis": 2, "measure": "모공 (Pore)",
+        "question": "모공의 크기가 도드라져 보인다고 느끼는 부위가 있나요?",
+        "answers": [
+          { "score": 0,  "code": "Tight",    "text": "모공이 거의 보이지 않을 만큼 촘촘하다" },
+          { "score": 5,  "code": "Visible",  "text": "나비존이나 코 주변만 조금 도드라진다" },
+          { "score": 10, "code": "Enlarged", "text": "전체적으로 모공이 넓고 탄력이 없다" }
+        ]
+      }
+    ],
+    "scoring": {
+      "axis1": {
+        "range": "0~60점",
+        "types": [
+          { "min": 0,  "max": 12, "type": "건성",   "code": "TYPE_MATTE",  "eng": "Dry" },
+          { "min": 13, "max": 25, "type": "중성",   "code": "TYPE_AXIS",   "eng": "Normal" },
+          { "min": 26, "max": 38, "type": "복합성", "code": "TYPE_DUAL",   "eng": "Combo" },
+          { "min": 39, "max": 50, "type": "수부지", "code": "TYPE_VOID",   "eng": "Dehydrated" },
+          { "min": 51, "max": 60, "type": "지성",   "code": "TYPE_GLASS",  "eng": "Oily" }
+        ]
+      },
+      "axis2": {
+        "range": "0~40점",
+        "grades": [
+          { "min": 0,  "max": 10, "grade": "비민감",    "code": "ST-RESISTANT", "eng": "Stable" },
+          { "min": 11, "max": 20, "grade": "민감 주의", "code": "ST-BALANCED",  "eng": "Mild" },
+          { "min": 21, "max": 30, "grade": "민감",      "code": "ST-SENSITIVE", "eng": "Sensitive" },
+          { "min": 31, "max": 40, "grade": "과민/경보", "code": "ST-ALERT",     "eng": "Hyper" }
+        ]
+      }
+    },
+    "skinTypes": {
+      "TYPE_MATTE": {
+        "label": "건성",
+        "texture": "Roughness: 1.0 — 광택 없는 거친 돌 질감",
+        "interpretation": "수분이 증발하고 표면이 굳어버린 상태",
+        "lighting": { "key": "#D8EEFF", "rim": "#00D4FF", "meaning": "차가운 블루 — 갈증과 청량함" },
+        "keyIngredients": ["히알루론산", "세라마이드", "판테놀"],
+        "avoidIngredients": ["알코올", "향료"],
+        "formulaDirection": "리치/밀도있는 제형"
+      },
+      "TYPE_AXIS": {
+        "label": "중성",
+        "texture": "Roughness: 0.5 — 은은한 반광(Satin) 질감",
+        "interpretation": "유수분의 완벽한 균형. 가장 자명한 상태",
+        "lighting": { "key": "#E8E0D8", "rim": "#88CCAA", "meaning": "따뜻한 내추럴 — 균형과 안정" },
+        "keyIngredients": ["히알루론산", "알란토인", "세라마이드"],
+        "avoidIngredients": ["과도한 기능성"],
+        "formulaDirection": "가볍고 균형잡힌 제형"
+      },
+      "TYPE_DUAL": {
+        "label": "복합성",
+        "texture": "Roughness: 0.0 — 투명하게 비치는 유리 질감",
+        "interpretation": "부위별로 두 개의 리듬이 공존하는 상태",
+        "lighting": { "key": "#E0F0E8", "rim": "#44CCBB", "meaning": "소프트 민트 — 두 리듬의 조화" },
+        "keyIngredients": ["병풀", "마데카소사이드", "세라마이드"],
+        "avoidIngredients": ["자극 성분"],
+        "formulaDirection": "산뜻하되 보습력 있는 제형"
+      },
+      "TYPE_VOID": {
+        "label": "수부지",
+        "texture": "Distortion: 0.8 — 구체가 심하게 찌그러짐",
+        "interpretation": "겉과 속이 반대인 이중적인 상태",
+        "lighting": { "key": "#FFE8D8", "rim": "#FF8866", "meaning": "웜 피치 — 따뜻한 갈증" },
+        "keyIngredients": ["어성초", "글리세린", "징크"],
+        "avoidIngredients": ["과도한 오일"],
+        "formulaDirection": "수분 중심 가벼운 제형"
+      },
+      "TYPE_GLASS": {
+        "label": "지성",
+        "texture": "Color: Red Pulse — 붉은빛이 깜빡거림(Warning)",
+        "interpretation": "피지 분비 데이터가 임계치를 넘은 상태",
+        "lighting": { "key": "#E0E8FF", "rim": "#6688FF", "meaning": "쿨 라벤더 — 과잉 신호의 냉각" },
+        "keyIngredients": ["티트리", "칼라민", "나이아신아마이드"],
+        "avoidIngredients": ["무거운 오일"],
+        "formulaDirection": "젤/워터 산뜻 제형"
+      }
+    },
+    "products": {
+      "toner": [
+        { "skinType": "건성", "typeCode": "TYPE_MATTE", "nameKo": "히알루론산 수분 진정 토너", "nameEn": "Hyaluronic Acid Hydrating & Calming Toner", "ingredients": ["히알루론산", "세라마이드", "판테놀"], "texture": "콧물 워터 제형 / 촉촉 흡수", "price": 25000 },
+        { "skinType": "중성", "typeCode": "TYPE_AXIS",  "nameKo": "히알루론산 밸런스 토너",    "nameEn": "Hyaluronic Acid Balance Toner",            "ingredients": ["히알루론산", "알란토인"],            "texture": "가벼운 워터 제형 / 빠르게 흡수", "price": 23000 },
+        { "skinType": "지성", "typeCode": "TYPE_GLASS", "nameKo": "티트리 진정 토너",          "nameEn": "Tea Tree Calming Toner",                  "ingredients": ["티트리", "칼라민", "병풀 추출물"],    "texture": "워터 제형 / 산뜻 마무리", "price": 22000 },
+        { "skinType": "수부지","typeCode": "TYPE_VOID",  "nameKo": "어성초 수분 진정 토너",     "nameEn": "Heartleaf Hydrating & Calming Toner",      "ingredients": ["어성초", "글리세린", "판테놀"],       "texture": "워터 / 산뜻 마무리", "price": 23000 },
+        { "skinType": "복합성","typeCode": "TYPE_DUAL",  "nameKo": "시카 카밍 토너",            "nameEn": "Cica Calming Toner",                       "ingredients": ["병풀", "마데카소사이드"],             "texture": "워터 제형 / 빠르게 흡수", "price": 24000 }
+      ],
+      "ampoule": [
+        { "skinType": "건성", "typeCode": "TYPE_MATTE", "nameKo": "히알루론산 물광 보습 앰플",  "nameEn": "Hyaluronic Acid Glow Hydrating Ampoule", "ingredients": ["히알루론산", "판테놀", "베타글루칸"],     "texture": "콧물 젤 에센스 제형 / 천천히 흡수", "functional": "미백 기능성", "price": 27000 },
+        { "skinType": "중성", "typeCode": "TYPE_AXIS",  "nameKo": "세라마이드 배리어 에센스",   "nameEn": "Ceramide Barrier Essence",               "ingredients": ["세라마이드", "콜레스테롤"],             "texture": "밀도감 있는 에센스 제형 / 피부 밀착", "functional": "미백 기능성", "price": 29000 },
+        { "skinType": "지성", "typeCode": "TYPE_GLASS", "nameKo": "시카 리페어 앰플",           "nameEn": "Cica Repair Ampoule",                    "ingredients": ["병풀", "마데카소사이드", "판테놀"],      "texture": "가벼운 젤 제형 / 빠르게 흡수", "functional": "미백·주름 개선 2중 기능성", "price": 28000 },
+        { "skinType": "수부지","typeCode": "TYPE_VOID",  "nameKo": "징크 티트리 앰플",           "nameEn": "Zinc Tea Tree Ampoule",                  "ingredients": ["징크 PCA", "티트리", "나이아신아마이드"], "texture": "수분 젤 제형 / 빠르게 흡수, 산뜻 마무리", "functional": "미백·주름 개선 2중 기능성", "price": 26000 },
+        { "skinType": "복합성","typeCode": "TYPE_DUAL",  "nameKo": "병풀 진정 앰플",             "nameEn": "Centella Calming Ampoule",               "ingredients": ["병풀", "알란토인"],                    "texture": "묽은 에센스 / 고르게 촉촉 흡수", "functional": "미백·주름 개선 2중 기능성", "price": 27000 }
+      ],
+      "tubeCream": [
+        { "skinType": "건성", "typeCode": "TYPE_MATTE", "nameKo": "판테놀 리페어 크림",    "nameEn": "Panthenol Repair Cream",          "ingredients": ["판테놀", "세라마이드"],                 "texture": "리치한 크림 제형 / 끈적임 없이 촉촉 흡수", "functional": "주름 개선 기능성", "price": 25000 },
+        { "skinType": "중성", "typeCode": "TYPE_AXIS",  "nameKo": "히알루론산 저자극 크림", "nameEn": "Hyaluronic Acid Gentle Cream",    "ingredients": ["히알루론산", "알란토인"],               "texture": "부드러운 크림 제형 / 끈적임 없이 촉촉 흡수", "functional": "미백 기능성", "price": 24000 },
+        { "skinType": "지성", "typeCode": "TYPE_GLASS", "nameKo": "어성초 오일프리 크림",  "nameEn": "Heartleaf Oil-Free Cream",        "ingredients": ["어성초", "나이아신아마이드", "판테놀"],  "texture": "젤 크림 타입 / 산뜻 마무리", "functional": "미백·주름 개선 2중 기능성", "price": 24000 },
+        { "skinType": "수부지","typeCode": "TYPE_VOID",  "nameKo": "티트리 장벽 케어 크림", "nameEn": "Tea Tree Barrier Care Cream",     "ingredients": ["티트리", "세라마이드", "판테놀"],       "texture": "젤/크림 중간 / 유분 잡는 산뜻 마무리", "functional": "미백·주름 개선 2중 기능성", "price": 26000 },
+        { "skinType": "복합성","typeCode": "TYPE_DUAL",  "nameKo": "병풀 수딩 크림",        "nameEn": "Centella Soothing Cream",         "ingredients": ["병풀", "알란토인", "마데카소사이드"],   "texture": "산뜻 크림 제형 / 빠르게 흡수", "functional": "미백·주름 개선 2중 기능성", "price": 25000 }
+      ],
+      "jarCream": [
+        { "skinType": "건성", "typeCode": "TYPE_MATTE", "nameKo": "시어버터 인텐스 리페어 크림", "nameEn": "Shea Butter Intense Repair Cream", "ingredients": ["시어버터", "세라마이드", "스쿠알란"], "texture": "보습 좋은 밤 제형 / 천천히 흡수", "price": 31000 },
+        { "skinType": "중성", "typeCode": "TYPE_AXIS",  "nameKo": "세라마이드 보습 크림",       "nameEn": "Ceramide Moisturizing Cream",      "ingredients": ["세라마이드"],                       "texture": "밀도 있는 크림 제형 / 촉촉 오래 유지", "price": 29000 },
+        { "skinType": "지성", "typeCode": "TYPE_GLASS", "nameKo": "병풀 진정 크림",             "nameEn": "Centella Calming Cream",           "ingredients": ["병풀", "판테놀", "알란토인"],       "texture": "가벼운 젤 크림 타입 / 산뜻 마무리", "price": 28000 },
+        { "skinType": "수부지","typeCode": "TYPE_VOID",  "nameKo": "판테놀 장벽 크림",           "nameEn": "Panthenol Barrier Cream",          "ingredients": ["판테놀", "세라마이드", "스쿠알란"], "texture": "크림 제형 / 겉보속촉", "price": 30000 },
+        { "skinType": "복합성","typeCode": "TYPE_DUAL",  "nameKo": "시카 리페어 크림",           "nameEn": "Cica Repair Cream",                "ingredients": ["병풀", "마데카소사이드", "판테놀"], "texture": "크림 제형 / 고르게 흡수", "price": 29000 }
+      ],
+      "sunscreen": [
+        { "skinType": "건성", "typeCode": "TYPE_MATTE", "nameKo": "히알루론산 무기자차 선크림",      "nameEn": "Hyaluronic Acid Mineral Sunscreen",  "ingredients": ["징크옥사이드", "히알루론산", "판테놀"],    "texture": "촉촉하게 흐르는 제형", "functional": "자외선 차단·미백·주름 개선 3중 기능성", "price": 26000 },
+        { "skinType": "중성", "typeCode": "TYPE_AXIS",  "nameKo": "라이트 데일리 무기자차 선크림",   "nameEn": "Light Daily Mineral Sunscreen",      "ingredients": ["징크옥사이드", "알란토인"],                "texture": "촉촉 흐르는", "functional": "자외선 차단·미백·주름 개선 3중 기능성", "price": 25000 },
+        { "skinType": "지성", "typeCode": "TYPE_GLASS", "nameKo": "징크 밸런싱 선크림",             "nameEn": "Zinc Balancing Sunscreen",           "ingredients": ["징크옥사이드", "나이아신아마이드", "티트리"],"texture": "산뜻한 로션 제형", "functional": "자외선 차단·미백·주름 개선 3중 기능성", "price": 27000 },
+        { "skinType": "수부지","typeCode": "TYPE_VOID",  "nameKo": "시카 진정 선크림",               "nameEn": "Cica Calming Sunscreen",             "ingredients": ["징크옥사이드", "병풀", "판테놀"],          "texture": "산뜻한 로션 제형", "functional": "자외선 차단·미백·주름 개선 3중 기능성", "price": 27000 },
+        { "skinType": "복합성","typeCode": "TYPE_DUAL",  "nameKo": "무기자차 밸런싱 선크림",         "nameEn": "Mineral Balancing Sunscreen",         "ingredients": ["징크옥사이드", "알란토인", "세라마이드"],   "texture": "크림 로션 중간 제형", "functional": "자외선 차단·미백·주름 개선 3중 기능성", "price": 26000 }
+      ]
+    },
+    "threeComponents": [
+      { "file": "CrystalOrb.jsx",        "use": "히어로 수정화 꽃",        "meaning": "분석 전 잠재된 자아. 아직 형태가 없는 데이터" },
+      { "file": "DNAHelix.jsx",           "use": "AXIOM 페이지 DNA 나선",   "meaning": "당신을 구성하는 고유한 패턴" },
+      { "file": "ParticleNebula.jsx",     "use": "Landing 전환",            "meaning": "데이터가 수집되고 있는 상태" },
+      { "file": "AuroraRing.jsx",         "use": "Dashboard 배경",          "meaning": "누적 데이터가 만드는 고유한 오로라" },
+      { "file": "SilkRibbon.jsx",         "use": "로딩 인디케이터",          "meaning": "분석 진행 중" },
+      { "file": "TonerBottle.jsx",        "use": "토너",                    "meaning": "분석 완료 후 \"당신을 위해 결정된 것들\"" },
+      { "file": "AmpouleBottle.jsx",      "use": "앰플",                    "meaning": "동일" },
+      { "file": "TubeCream.jsx",          "use": "튜브 크림",               "meaning": "동일" },
+      { "file": "SunscreenTube.jsx",      "use": "선크림",                  "meaning": "동일" },
+      { "file": "JarCream.jsx",           "use": "원형 크림",               "meaning": "동일" },
+      { "file": "ProductStage.jsx",       "use": "공통 배경+조명",           "meaning": "—" },
+      { "file": "ProductPreview.jsx",     "use": "통합 진입점",              "meaning": "—" }
+    ]
+  },
+
+  "aiProcess": {
+    "collaboration": {
+      "ai": [
+        "Three.js 오브제 코드 초안 생성",
+        "조명 파라미터 실험 및 제안",
+        "텍스처·재질 알고리즘 설계",
+        "컴포넌트 구조 스캐폴딩",
+        "반복 수정 및 버그 픽스"
+      ],
+      "human": [
+        "오브제 세계관 방향성 결정",
+        "각 오브제의 의미 설정 및 승인",
+        "브랜드 서사 언어 검수",
+        "최종 시각 퀄리티 판단",
+        "배포 환경 설정 및 최적화"
+      ]
+    },
+    "why3D": [
+      { "stat": "+94%", "desc": "3D 제품 뷰어 도입 시 구매 전환율 증가", "source": "KIBME, Gaussian Splatting 기술 동향, 2025", "reliability": "중간 — KIBME 원문 검증 미완, 2차 출처 혼재" },
+      { "stat": "82%",  "desc": "3D 모델과 상호작용한 방문자 비율", "source": "KIBME, 2025", "reliability": "중간" },
+      { "stat": "67.3%","desc": "시각 고급스러움이 신뢰도에 영향", "source": "AXIOM 유저 리서치, Q17, n=52, 2026.04", "reliability": "강함" }
+    ],
+    "pending": [
+      { "priority": 1, "task": "Claude Code 스크린샷 확보 (SEC 09용)", "status": "시급 — 이력 묻히기 전에" },
+      { "priority": 2, "task": "서비스 웹 3D GIF/영상 녹화", "status": "시급 — SEC 11용" }
+    ]
+  },
+
+  "demo": {
+    "liveUrl": "https://project-axiom-puce.vercel.app/",
+    "note": "주요 화면 갤러리 5~6장, 3D 오브제 GIF (피부타입별 색상 변형 5개) — 미확보"
+  },
+
+  "credits": {
+    "team": "더 인스튜디오",
+    "school": "한림대학교 디지털인문예술",
+    "category": "전공 전시회 동아리 부문",
+    "references": [
+      "La Mer — 신뢰 기반 럭셔리",
+      "Chanel Beauty — 세계관 우선",
+      "Fey.so / Obys.agency — 웹 인터랙션",
+      "Aesop — 정보 밀도 높은 텍스트 레이아웃",
+      "강강수월래 (jiyunn.neocities.org) — 포트폴리오 웹 형식 레퍼런스"
+    ]
+  }
+}

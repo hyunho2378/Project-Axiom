@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><title>AXIOM Sunscreen</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#040A12;overflow:hidden}canvas{display:block;width:100vw;height:100vh}#picker{position:fixed;top:24px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10}.btn{padding:9px 20px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(192,216,224,.65);background:rgba(8,30,50,.4);border:1px solid rgba(42,104,133,.4);cursor:pointer;transition:all .3s;backdrop-filter:blur(10px);font-family:"Noto Sans KR",sans-serif;font-weight:300}.btn:hover{color:#fff;border-color:#6CA0BC}.btn.active{background:rgba(42,104,133,.55);color:#fff;border-color:#8AAEC0}#info{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);color:rgba(138,174,192,.4);font-size:10px;letter-spacing:.3em;text-transform:uppercase}</style>
+</head><body><canvas id="c"></canvas><div id="picker"></div><div id="info">drag to rotate</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const DATA=[
+{skinKo:'건성',nameKo:'히알루론산 무기자차 선크림',nameEn:'Hyaluronic Acid\nMineral Sunscreen',desc:['히알루론산을 함유하여','수분을 유지하면서','자외선을 효과적으로 차단해 줍니다.'],texture:'촉촉하게 흐르는 제형',ingredientsKo:'징크옥사이드, 히알루론산, 판테놀 함유',ingredientsEn:['Zinc Oxide','Hyaluronic Acid','Panthenol'],functional:'',volume:'100ml',col:'#2E5A8A'},
+{skinKo:'중성',nameKo:'라이트 데일리 무기자차 선크림',nameEn:'Light Daily\nMineral Sunscreen',desc:['가벼운 제형으로','피부 부담 없이 데일리','자외선 차단을 도와줍니다.'],texture:'촉촉 흐르는 제형',ingredientsKo:'징크옥사이드, 알란토인 함유',ingredientsEn:['Zinc Oxide','Allantoin'],functional:'',volume:'100ml',col:'#346295'},
+{skinKo:'지성',nameKo:'징크 밸런싱 선크림',nameEn:'Zinc Balancing\nSunscreen',desc:['징크 성분을 함유하여','유분 밸런스를 고려한','자외선 차단 케어를 제공합니다.'],texture:'산뜻한 로션 제형',ingredientsKo:'징크옥사이드, 나이아신아마이드, 티트리 함유',ingredientsEn:['Zinc Oxide','Niacinamide','Tea Tree'],functional:'',volume:'100ml',col:'#286090'},
+{skinKo:'수부지',nameKo:'시카 진정 선크림',nameEn:'Cica Calming\nSunscreen',desc:['시카 성분을 함유하여','민감한 피부를 진정시키며','자외선을 차단해 줍니다.'],texture:'산뜻한 로션 제형',ingredientsKo:'징크옥사이드, 병풀, 판테놀 함유',ingredientsEn:['Zinc Oxide','Centella','Panthenol'],functional:'',volume:'100ml',col:'#2E6095'},
+{skinKo:'복합성',nameKo:'무기자차 밸런싱 선크림',nameEn:'Mineral Balancing\nSunscreen',desc:['무기 자외선 차단 성분을 사용해','피부 타입에 맞춘','균형 잡힌 보호를 제공합니다.'],texture:'크림 로션 중간 제형',ingredientsKo:'징크옥사이드, 알란토인, 세라마이드 함유',ingredientsEn:['Zinc Oxide','Allantoin','Ceramide'],functional:'',volume:'100ml',col:'#2A5A88'},
+];
+
+const TOP_R=0.60,BOT_R=0.38,BODY_H=2.50,CAP_H=0.58;
+const C45=Math.cos(Math.PI/4);
+const TW_=TOP_R*C45,TZ_=TOP_R*C45;
+const BW_=BOT_R*C45,BZ_=BOT_R*C45;
+
+const canvas=document.getElementById('c');const W=()=>window.innerWidth,H=()=>window.innerHeight;
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(W(),H());
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.5;
+renderer.outputEncoding=THREE.sRGBEncoding;renderer.physicallyCorrectLights=true;
+const scene=new THREE.Scene();
+scene.add(new THREE.Mesh(new THREE.SphereGeometry(40,32,32),new THREE.ShaderMaterial({side:THREE.BackSide,
+uniforms:{topColor:{value:new THREE.Color('#0B2838')},midColor:{value:new THREE.Color('#040A12')},bottomColor:{value:new THREE.Color('#06121A')}},
+vertexShader:`varying vec3 vW;void main(){vec4 wp=modelMatrix*vec4(position,1.0);vW=wp.xyz;gl_Position=projectionMatrix*viewMatrix*wp;}`,
+fragmentShader:`uniform vec3 topColor,midColor,bottomColor;varying vec3 vW;void main(){float h=normalize(vW).y;vec3 c;if(h>0.0)c=mix(midColor,topColor,smoothstep(0.0,0.7,h));else c=mix(midColor,bottomColor,smoothstep(0.0,0.7,-h));gl_FragColor=vec4(c,1.0);}`})));
+const camera=new THREE.PerspectiveCamera(34,W()/H(),0.1,100);
+camera.position.set(0,0.2,7.5);camera.lookAt(0,0,0);
+const floor=new THREE.Mesh(new THREE.CircleGeometry(10,64),new THREE.MeshPhysicalMaterial({color:0x040A12,metalness:0.88,roughness:0.22}));
+floor.rotation.x=-Math.PI/2;floor.position.y=-(BODY_H/2+CAP_H+0.3);scene.add(floor);
+
+let logoImg=null,fontsReady=false,fontBuildDone=false,activeIdx=0,cur=null;
+const logoEl=new Image();logoEl.onload=()=>{logoImg=logoEl;};logoEl.onerror=()=>{logoImg=null;};
+logoEl.crossOrigin='anonymous';logoEl.src='/images/Axiom_logo.svg';
+Promise.all([new FontFace('PretendardVar','url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.woff2)format("woff2")').load().catch(()=>null),document.fonts.ready]).then(([pf])=>{if(pf)document.fonts.add(pf);fontsReady=true;});
+
+// ═══ 앞면: 로고 + 영문명 + SPF + 세로선 + 영문 성분 ═══
+function makeFrontLabel(p){
+  const TW=1024,TH=1800,c=document.createElement('canvas');c.width=TW;c.height=TH;
+  const ctx=c.getContext('2d');
+  const g=ctx.createLinearGradient(0,0,0,TH);
+  g.addColorStop(0,'#2E6A82');g.addColorStop(.5,'#357292');g.addColorStop(1,'#28637E');
+  ctx.fillStyle=g;ctx.fillRect(0,0,TW,TH);
+  for(let i=0;i<2000;i++){ctx.fillStyle=`rgba(255,255,255,${Math.random()*.015})`;ctx.fillRect(Math.random()*TW,Math.random()*TH,1,1);}
+  const EN='Cormorant Garamond,Georgia,serif';
+  const CX=TW/2;ctx.textAlign='center';
+
+  const enLines=p.nameEn.split('\n');
+  const logoH=100,gap1=70,nameH=enLines.length*54,gap2=50,spfH=40,gap3=70,lineH=240,gap4=70,ingH=p.ingredientsEn.length*42;
+  const totalH=logoH+gap1+nameH+gap2+spfH+gap3+lineH+gap4+ingH;
+  let y=Math.round((TH-totalH)/2);
+
+  if(logoImg){ctx.save();ctx.filter='brightness(0) invert(1)';ctx.drawImage(logoImg,CX-125,y,250,logoH);ctx.restore();}
+  else{ctx.fillStyle='#FFF';ctx.font=`italic 300 74px ${EN}`;ctx.fillText('Axiom',CX,y+72);ctx.fillStyle='#C0F0FF';ctx.beginPath();ctx.arc(CX+10,y+28,5,0,Math.PI*2);ctx.fill();}
+  y+=logoH+gap1;
+
+  ctx.fillStyle='rgba(255,255,255,.88)';ctx.font=`italic 300 46px ${EN}`;
+  enLines.forEach((l,i)=>ctx.fillText(l,CX,y+i*54+38));
+  y+=nameH+gap2;
+
+  // SPF
+  ctx.fillStyle='#FFF';ctx.font='700 30px sans-serif';ctx.fillText('SPF50+  PA++++',CX,y+28);
+  y+=spfH+gap3;
+
+  ctx.strokeStyle='rgba(255,255,255,.42)';ctx.lineWidth=1.2;
+  ctx.beginPath();ctx.moveTo(CX,y);ctx.lineTo(CX,y+lineH);ctx.stroke();
+  y+=lineH+gap4;
+
+  ctx.fillStyle='rgba(255,255,255,.78)';ctx.font=`italic 300 30px ${EN}`;
+  p.ingredientsEn.forEach((ing,i)=>ctx.fillText(ing,CX,y+i*42));
+
+  const tex=new THREE.CanvasTexture(c);tex.anisotropy=16;return tex;
+}
+
+// ═══ 뒷면: 한글명 + 설명 + 제형 + SPF + 성분 + 용량 + 제조사 + 로고 ═══
+function makeBackLabel(p){
+  const TW=1024,TH=1800,c=document.createElement('canvas');c.width=TW;c.height=TH;
+  const ctx=c.getContext('2d');
+  const g=ctx.createLinearGradient(0,0,0,TH);
+  g.addColorStop(0,'#2E6A82');g.addColorStop(.5,'#357292');g.addColorStop(1,'#28637E');
+  ctx.fillStyle=g;ctx.fillRect(0,0,TW,TH);
+  for(let i=0;i<2000;i++){ctx.fillStyle=`rgba(255,255,255,${Math.random()*.015})`;ctx.fillRect(Math.random()*TW,Math.random()*TH,1,1);}
+  const KR=fontsReady?'PretendardVar,Noto Sans KR,sans-serif':'Noto Sans KR,sans-serif';
+  const EN='Cormorant Garamond,Georgia,serif';
+  const CX=TW/2;ctx.textAlign='center';
+
+  const descH=p.desc.length*35;
+  const totalH=52+46+42+descH+34+44+44+46+44+42+32+30+30+100+90;
+  let y=Math.round((TH-totalH)/2);
+
+  ctx.fillStyle='#FFF';ctx.font=`300 38px ${KR}`;ctx.fillText(p.nameKo,CX,y);y+=52;
+  ctx.fillStyle='rgba(255,255,255,.62)';ctx.font=`300 italic 22px ${EN}`;ctx.fillText(p.nameEn.replace(/\n/g,' '),CX,y);y+=46;
+  ctx.strokeStyle='rgba(255,255,255,.35)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(CX-110,y);ctx.lineTo(CX+110,y);ctx.stroke();y+=42;
+  ctx.fillStyle='#FFF';ctx.font=`300 26px ${KR}`;
+  p.desc.forEach(l=>{ctx.fillText(l,CX,y);y+=35;});y+=34;
+  ctx.fillStyle='rgba(255,255,255,.70)';ctx.font=`300 23px ${KR}`;ctx.fillText(p.texture,CX,y);y+=44;
+  // SPF
+  ctx.fillStyle='#FFF';ctx.font='600 22px sans-serif';ctx.fillText('SPF50+ PA++++',CX,y);y+=44;
+  ctx.fillStyle='#FFF';ctx.font=`300 24px ${KR}`;ctx.fillText(p.ingredientsKo,CX,y);y+=46;
+  ctx.fillStyle='rgba(255,255,255,.70)';ctx.font=`300 22px ${KR}`;ctx.fillText(p.volume,CX,y);y+=44;
+  ctx.fillStyle='rgba(255,255,255,.52)';ctx.font=`300 20px ${KR}`;
+  ctx.fillText('제조판매업자 Axiom  www.axiom.co.kr',CX,y);y+=32;
+  ctx.fillText('제조업자 (주) Axiom',CX,y);y+=30;
+  ctx.fillText('MADE IN KOREA',CX,y);y+=100;
+  if(logoImg){ctx.save();ctx.filter='brightness(0) invert(0.9)';ctx.drawImage(logoImg,CX-115,y,230,86);ctx.restore();}
+  else{ctx.fillStyle='rgba(255,255,255,.80)';ctx.font=`italic 300 64px ${EN}`;ctx.fillText('Axiom',CX,y+54);}
+
+  const tex=new THREE.CanvasTexture(c);tex.anisotropy=16;return tex;
+}
+
+function makeFrontGeo(tw,bw,h,tz,bz,off,segs){
+  segs=segs||32;const pos=[],uv=[],idx=[];
+  for(let i=0;i<=segs;i++){const t=i/segs,y=h/2-t*h,hw=tw+(bw-tw)*t,z=tz+(bz-tz)*t+off;
+  pos.push(-hw,y,z);uv.push(0,1-t);pos.push(hw,y,z);uv.push(1,1-t);}
+  for(let i=0;i<segs;i++){const r=i*2,n=(i+1)*2;idx.push(r,n,r+1);idx.push(r+1,n,n+1);}
+  const geo=new THREE.BufferGeometry();
+  geo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(pos),3));
+  geo.setAttribute('uv',new THREE.BufferAttribute(new Float32Array(uv),2));
+  geo.setIndex(idx);geo.computeVertexNormals();return geo;
+}
+
+function makeBackGeo(tw,bw,h,tz,bz,off,segs){
+  segs=segs||32;const pos=[],uv=[],idx=[];
+  for(let i=0;i<=segs;i++){const t=i/segs,y=h/2-t*h,hw=tw+(bw-tw)*t,z=-(tz+(bz-tz)*t)-off;
+  pos.push(hw,y,z);uv.push(0,1-t);pos.push(-hw,y,z);uv.push(1,1-t);}
+  for(let i=0;i<segs;i++){const r=i*2,n=(i+1)*2;idx.push(r,n,r+1);idx.push(r+1,n,n+1);}
+  const geo=new THREE.BufferGeometry();
+  geo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(pos),3));
+  geo.setAttribute('uv',new THREE.BufferAttribute(new Float32Array(uv),2));
+  geo.setIndex(idx);geo.computeVertexNormals();return geo;
+}
+
+function makeBottle(p){
+  const g=new THREE.Group();const col=new THREE.Color(p.col);
+  const body=new THREE.Mesh(new THREE.CylinderGeometry(TOP_R,BOT_R,BODY_H,4,1,false),
+    new THREE.MeshPhysicalMaterial({color:col,metalness:0.06,roughness:0.35,clearcoat:0.65,clearcoatRoughness:0.15,envMapIntensity:1.2}));
+  body.rotation.y=Math.PI/4;g.add(body);
+
+  // 앞면 라벨
+  g.add(new THREE.Mesh(makeFrontGeo(TW_,BW_,BODY_H,TZ_,BZ_,0.008),
+    new THREE.MeshPhysicalMaterial({map:makeFrontLabel(p),metalness:0,roughness:0.65,side:THREE.FrontSide,transparent:true})));
+  // 뒷면 라벨
+  g.add(new THREE.Mesh(makeBackGeo(TW_,BW_,BODY_H,TZ_,BZ_,0.008),
+    new THREE.MeshPhysicalMaterial({map:makeBackLabel(p),metalness:0,roughness:0.65,side:THREE.FrontSide,transparent:true})));
+
+  const capMat=new THREE.MeshPhysicalMaterial({color:0xFFFFFF,metalness:0.05,roughness:0.12,clearcoat:1.0,clearcoatRoughness:0.04});
+  const cap=new THREE.Mesh(new THREE.CylinderGeometry(BOT_R,BOT_R,CAP_H,4,1,false),capMat);
+  cap.rotation.y=Math.PI/4;cap.position.y=-(BODY_H/2+CAP_H/2);g.add(cap);
+  const cbs=BOT_R*Math.sqrt(2);
+  const cb=new THREE.Mesh(new THREE.PlaneGeometry(cbs,cbs),capMat);
+  cb.rotation.x=Math.PI/2;cb.rotation.z=Math.PI/4;cb.position.y=-(BODY_H/2+CAP_H);g.add(cb);
+  return g;
+}
+
+const stage=new THREE.Group();scene.add(stage);
+function build(i){if(cur){stage.remove(cur);cur.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){if(o.material.map)o.material.map.dispose();o.material.dispose();}});}cur=makeBottle(DATA[i]);stage.add(cur);}
+build(0);
+
+scene.add(new THREE.AmbientLight(0x0A1E2A,1.0));
+const kl=new THREE.SpotLight(0xD8EEFF,45,26,Math.PI/4,0.35,1.4);kl.position.set(-3,8,6);kl.target.position.set(0,0,0);scene.add(kl);scene.add(kl.target);
+const rl=new THREE.PointLight(0x00AADD,18,18,1.8);rl.position.set(4,-1,-5);scene.add(rl);
+const fl=new THREE.PointLight(0x2A6885,12,16,2);fl.position.set(-5,1,4);scene.add(fl);
+const tl=new THREE.PointLight(0x8AAEC0,10,14,2);tl.position.set(0,6,0);scene.add(tl);
+
+let dragging=false,lx=0,ly=0,vx=0,vy=0,autoY=0,manY=0,manX=0;
+canvas.addEventListener('mousedown',e=>{dragging=true;lx=e.clientX;ly=e.clientY;vx=0;vy=0;});
+canvas.addEventListener('mousemove',e=>{if(!dragging)return;vx=(e.clientX-lx)*.008;vy=(e.clientY-ly)*.005;manY+=vx*1.5;manX=Math.max(-.5,Math.min(.5,manX+vy*1.2));lx=e.clientX;ly=e.clientY;});
+canvas.addEventListener('mouseup',()=>dragging=false);canvas.addEventListener('mouseleave',()=>dragging=false);
+canvas.addEventListener('touchstart',e=>{dragging=true;lx=e.touches[0].clientX;ly=e.touches[0].clientY;},{passive:true});
+canvas.addEventListener('touchmove',e=>{if(!dragging)return;vx=(e.touches[0].clientX-lx)*.008;vy=(e.touches[0].clientY-ly)*.005;manY+=vx*1.5;manX=Math.max(-.5,Math.min(.5,manX+vy*1.2));lx=e.touches[0].clientX;ly=e.touches[0].clientY;},{passive:true});
+canvas.addEventListener('touchend',()=>dragging=false);
+
+const picker=document.getElementById('picker');
+DATA.forEach((p,i)=>{const b=document.createElement('button');b.className='btn'+(i===0?' active':'');b.textContent=p.skinKo;
+b.onclick=()=>{activeIdx=i;build(i);document.querySelectorAll('.btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');};picker.appendChild(b);});
+
+const clock=new THREE.Clock();
+function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime();
+if(fontsReady&&!fontBuildDone){fontBuildDone=true;build(activeIdx);}
+if(!dragging){autoY+=.0035;vx*=.92;vy*=.92;manY+=vx;manX+=vy;}
+stage.rotation.y=autoY+manY;stage.rotation.x=manX+Math.sin(t*.18)*.010;stage.position.y=Math.sin(t*.38)*.055;
+kl.position.x=-3+Math.sin(t*.07)*.4;renderer.render(scene,camera);}
+animate();
+window.addEventListener('resize',()=>{camera.aspect=W()/H();camera.updateProjectionMatrix();renderer.setSize(W(),H());});
+</script></body></html>

@@ -1,0 +1,14 @@
+<svg width="988" height="500" viewBox="0 0 988 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="335.533" height="335.533" transform="matrix(0.67978 0.733416 -0.67978 0.733416 300.09 3.66797)" stroke="#111111" stroke-width="5"/>
+<rect width="335.533" height="335.533" transform="matrix(0.67978 0.733416 -0.67978 0.733416 756.426 3.66797)" stroke="#111111" stroke-width="5"/>
+<path d="M300 3.66797V495.668" stroke="#111111" stroke-width="3" stroke-dasharray="10 10"/>
+<path d="M756 3.66797V495.668" stroke="#111111" stroke-width="3" stroke-dasharray="10 10"/>
+<text fill="#111111" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="50" font-weight="bold" letter-spacing="0em"><tspan x="167.08" y="252.35">D1&#10;</tspan></text>
+<text fill="#111111" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="30" letter-spacing="0em"><tspan x="125.049" y="288.35">(Discover)</tspan></text>
+<text fill="#111111" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="50" font-weight="bold" letter-spacing="0em"><tspan x="353.064" y="252.35">D2&#10;</tspan></text>
+<text fill="#111111" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="30" letter-spacing="0em"><tspan x="330.149" y="288.35">(Define)</tspan></text>
+<text fill="#111111" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="50" font-weight="bold" letter-spacing="0em"><tspan x="629.832" y="252.35">D3&#10;</tspan></text>
+<text fill="#111111" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="30" letter-spacing="0em"><tspan x="596.106" y="288.35">(Develop)</tspan></text>
+<text fill="#111111" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="50" font-weight="bold" letter-spacing="0em"><tspan x="819.868" y="252.35">D4&#10;</tspan></text>
+<text fill="#111111" style="white-space: pre" xml:space="preserve" font-family="Inter" font-size="30" letter-spacing="0em"><tspan x="795.132" y="288.35">(Deliver)</tspan></text>
+</svg>

@@ -1,0 +1,486 @@
+{
+  "deskResearch": {
+    "globalMarket": [
+      { "indicator": "글로벌 뷰티 테크 (2023)", "value": "$59.14B", "valueKo": "약 81조원",  "source": "글로벌ICT, 초개인맞춤형 라이프스타일에맞춘뷰티테크", "year": 2024 },
+      { "indicator": "글로벌 뷰티 테크 (2024)", "value": "$66.16B", "valueKo": null,          "source": "Grand View Research, Beauty Tech Market Report", "year": 2024 },
+      { "indicator": "글로벌 뷰티 테크 (2025)", "value": "$79.38B", "valueKo": null,          "source": "GII Korea, Beauty Tech Global Market Report", "year": 2026 },
+      { "indicator": "글로벌 뷰티 테크 (2026)", "value": "$89.94B, CAGR 13.3%", "valueKo": null, "source": "GII Korea", "year": 2026 },
+      { "indicator": "글로벌 뷰티 테크 (2028)", "value": "$116.17B", "valueKo": "약 160조원", "source": "글로벌ICT", "year": 2024 },
+      { "indicator": "글로벌 뷰티 테크 (2030)", "value": "$172.99B, CAGR 17.9%", "valueKo": null, "source": "Grand View Research", "year": 2024 },
+      { "indicator": "AI+뷰티 분야 (2021)",     "value": "$2.7B",  "valueKo": null, "source": "글로벌ICT", "year": 2024 },
+      { "indicator": "AI+뷰티 분야 (2030)",     "value": "$13.34B, CAGR 19.7%", "valueKo": null, "source": "글로벌ICT", "year": 2024 },
+      { "indicator": "개인화/맞춤형 스킨케어 (2024)", "value": "$25.1B, CAGR 8.3%", "valueKo": null, "source": "GM Insights", "year": 2024 }
+    ],
+    "koreaMarket": [
+      { "indicator": "한국 뷰티 테크 (2024)", "value": "$2,147.2M", "source": "Spherical Insights", "year": null },
+      { "indicator": "한국 뷰티 테크 CAGR (2025-2035)", "value": "22.47%", "source": "Spherical Insights", "year": null },
+      { "indicator": "한국 뷰티 테크 (2024)", "value": "$1.32B", "valueKo": "약 1조 7천억원", "source": "Research and Markets (KT News 인용)", "year": 2024 },
+      { "indicator": "한국 뷰티 테크 CAGR (2025-2034)", "value": "13.8%", "source": "Expert Market Research (KT News 인용)", "year": 2023 },
+      { "indicator": "맞춤형 화장품 시장 성장", "value": "2020년 7억→2025년 40억 달러, 51.9% 성장", "source": "식약처", "year": null }
+    ],
+    "onlineRisk": [
+      { "indicator": "인터넷 구매 화장품 사용 후 피부트러블 발생", "value": "39.9%", "n": "71건/178건", "source": "한국소비자원, 화장품 부작용 모니터링 보고서", "year": 2020, "reliability": "강함 — 1차 정부기관 데이터" },
+      { "indicator": "화장품 관련 피해구제 신청 중 통신판매 비중", "value": "61.2%", "n": "524건/856건", "source": "한국소비자원, 화장품 관련 피해구제 신청 분석", "year": 2020, "reliability": "강함" },
+      { "indicator": "피해구제 신청 총 건수 (2016.1~2020.5)", "value": "890건", "source": "한국소비자원", "year": 2020, "reliability": "강함" }
+    ],
+    "consumerBehavior": [
+      { "indicator": "화장품 위험하다고 인식",          "value": "79.4%", "source": "CNC News (화장품소비자조사)" },
+      { "indicator": "피부 트러블 우려",                "value": "33.8%", "source": "CNC News" },
+      { "indicator": "장기 건강 위험 우려",             "value": "45.6%", "source": "CNC News" },
+      { "indicator": "화장품 구매 시 피부적합성 최우선 고려", "value": "37.1%", "source": "CNC News" },
+      { "indicator": "후기 없으면 구매 망설임",         "value": "77.2%", "source": "TrendMonitor" },
+      { "indicator": "고가 제품도 평점 좋으면 산다",    "value": "54.4%", "source": "TrendMonitor" },
+      { "indicator": "민감성 피부 보유",                "value": "87%+", "source": "한국경제, 2025 (50만건 뷰티 데이터 기반)", "year": 2025 },
+      { "indicator": "자신의 피부 상태 이해 못함",      "value": "42.6%", "source": "K-Cosmetics, 맞춤형화장품 소비자 조사" },
+      { "indicator": "맞춤형 화장품 구매 의향",         "value": "83%", "source": "K-Cosmetics (표본 규모 미상, 참고용)" }
+    ],
+    "appBehavior": {
+      "note": "호서대 논문, n=220, 2024",
+      "source": "뷰티 애플리케이션 이용경험이 소비자 만족도와 구매 후 행동의도에 미치는 영향, 한성대학교, 2024",
+      "data": [
+        { "indicator": "앱 구매동기 1위: \"구매경로가 간편해서\"", "value": "52.73%" },
+        { "indicator": "구매결정 요소 1위: \"앱 후기\"",           "value": "43.64%" },
+        { "indicator": "올리브영 선호도",                          "value": "74.09%" },
+        { "indicator": "구매만족도 평균",                          "value": "3.93/5.00" },
+        { "indicator": "메이크업 정보습득·트렌드이해 → 만족도 영향", "value": "p<.001 (통계적 유의)" }
+      ]
+    },
+    "arTechEffect": [
+      { "indicator": "3D 제품 뷰어 도입 시 구매 전환율 증가", "value": "최대 +94%", "source": "KIBME, Gaussian Splatting 기술 동향", "year": 2025, "reliability": "중간 — KIBME 원문 검증 미완, 2차 출처 혼재" },
+      { "indicator": "3D 모델과 상호작용한 방문자 비율",       "value": "82%",      "source": "KIBME", "year": 2025, "reliability": "중간" },
+      { "indicator": "30초 이상 상호작용 비율",                "value": "34%",      "source": "KIBME", "year": 2025, "reliability": "중간" },
+      { "indicator": "ELF Cosmetics 가상 시착 도입 후 전환율", "value": "+200%",    "source": "i-BOSS (2차 출처, 참고용)", "year": 2025, "reliability": "약함 — 2차 블로그 출처" }
+    ]
+  },
+
+  "survey": {
+    "overview": {
+      "period": "2026.04.28 ~ 2026.05.09",
+      "n": 52,
+      "male": 16,
+      "female": 36
+    },
+    "participants": {
+      "gender": [
+        { "label": "남성", "n": 16, "pct": 30.8 },
+        { "label": "여성", "n": 36, "pct": 69.2 }
+      ],
+      "age": [
+        { "label": "19~24세", "n": 31, "pct": 59.6 },
+        { "label": "25~29세", "n": 17, "pct": 32.7 },
+        { "label": "30~35세", "n": 4,  "pct": 7.7 }
+      ],
+      "skinType": [
+        { "label": "복합성", "n": 19, "pct": 36.5 },
+        { "label": "건성",   "n": 13, "pct": 25.0 },
+        { "label": "지성",   "n": 9,  "pct": 17.3 },
+        { "label": "민감성", "n": 7,  "pct": 13.5 },
+        { "label": "잘 모름","n": 4,  "pct": 7.7 }
+      ],
+      "monthlySpend": [
+        { "label": "3만원 미만",  "n": 11, "pct": 21.2 },
+        { "label": "3~10만원",   "n": 27, "pct": 51.9 },
+        { "label": "10~30만원",  "n": 11, "pct": 21.2 },
+        { "label": "30만원 이상", "n": 3,  "pct": 5.8 }
+      ]
+    },
+    "questions": {
+      "Q3": {
+        "question": "온라인에서 내 피부에 맞는 화장품을 찾는 게 어렵다 (5점 척도)",
+        "summary": "4~5점 응답 67.3% / 평균 3.76점",
+        "data": [
+          { "score": 1, "label": "전혀 아님", "n": 2,  "pct": 3.8 },
+          { "score": 2, "label": null,         "n": 5,  "pct": 9.6 },
+          { "score": 3, "label": "보통",       "n": 10, "pct": 19.2 },
+          { "score": 4, "label": null,         "n": 21, "pct": 40.4 },
+          { "score": 5, "label": "매우 그렇다","n": 14, "pct": 26.9 }
+        ]
+      },
+      "Q4": {
+        "question": "화장품 구매 후 내 피부와 맞지 않았던 경험",
+        "summary": "92.3% (48명)가 피부 부적합 구매 경험 있음",
+        "data": [
+          { "label": "예 (자주)", "n": 14, "pct": 26.9 },
+          { "label": "예 (가끔)", "n": 28, "pct": 53.8 },
+          { "label": "예 (한 번)","n": 6,  "pct": 11.5 },
+          { "label": "아니오",    "n": 4,  "pct": 7.7 }
+        ]
+      },
+      "Q6": {
+        "question": "마음에 드는 제품 고르는 데 걸리는 시간",
+        "summary": "15분 이상 소요 응답자 53.8%",
+        "data": [
+          { "label": "5분 미만",  "n": 6,  "pct": 11.5 },
+          { "label": "5~15분",   "n": 18, "pct": 34.6 },
+          { "label": "15~30분",  "n": 19, "pct": 36.5 },
+          { "label": "30분 이상", "n": 9,  "pct": 17.3 }
+        ]
+      },
+      "Q7": {
+        "question": "화장품 고르다 구매 포기 경험",
+        "summary": "75.0% (39명)가 구매 포기 경험 있음",
+        "data": [
+          { "label": "자주 있다",  "n": 11, "pct": 21.2 },
+          { "label": "가끔 있다",  "n": 28, "pct": 53.8 },
+          { "label": "거의 없다",  "n": 10, "pct": 19.2 },
+          { "label": "없다",       "n": 3,  "pct": 5.8 }
+        ]
+      },
+      "Q8": {
+        "question": "구매 포기 이유 (n=39, 복수응답)",
+        "summary": "구매 포기 1위: \"내 피부에 맞는지 몰라서\" 69.2%",
+        "baseN": 39,
+        "data": [
+          { "label": "내 피부에 맞는지 몰라서", "n": 27, "pct": 69.2 },
+          { "label": "제품이 너무 많아서",       "n": 18, "pct": 46.2 },
+          { "label": "정보가 부족해서",          "n": 14, "pct": 35.9 },
+          { "label": "가격 비교가 번거로워서",   "n": 9,  "pct": 23.1 },
+          { "label": "기타",                     "n": 3,  "pct": 7.7 }
+        ]
+      },
+      "Q9": {
+        "question": "피부 진단/추천 서비스 사용 경험",
+        "summary": "84.6% (44명)가 피부 진단 서비스 사용 경험 있음",
+        "data": [
+          { "label": "예 (올리브영 스킨스캔)", "n": 18, "pct": 34.6 },
+          { "label": "예 (화해 피부 진단)",    "n": 22, "pct": 42.3 },
+          { "label": "예 (기타)",              "n": 4,  "pct": 7.7 },
+          { "label": "아니오",                 "n": 8,  "pct": 15.4 }
+        ]
+      },
+      "Q10": {
+        "question": "진단 결과 신뢰도 (사용 경험자 n=44, 5점 척도)",
+        "summary": "평균 신뢰도 2.95점 (3점 미만) / 1~2점 응답 31.8%",
+        "baseN": 44,
+        "avg": 2.95,
+        "data": [
+          { "score": 1, "n": 3,  "pct": 6.8 },
+          { "score": 2, "n": 11, "pct": 25.0 },
+          { "score": 3, "n": 17, "pct": 38.6 },
+          { "score": 4, "n": 11, "pct": 25.0 },
+          { "score": 5, "n": 2,  "pct": 4.5 }
+        ]
+      },
+      "Q11": {
+        "question": "진단 후 실제 구매 전환 (n=44)",
+        "summary": "진단→구매 전환율 18.2% / 미전환 81.8%",
+        "baseN": 44,
+        "data": [
+          { "label": "바로 구매했다", "n": 8,  "pct": 18.2 },
+          { "label": "참고만 했다",   "n": 21, "pct": 47.7 },
+          { "label": "구매 안 했다",  "n": 15, "pct": 34.1 }
+        ]
+      },
+      "Q12": {
+        "question": "구매 안 한 이유 (n=36, 복수응답)",
+        "baseN": 36,
+        "data": [
+          { "label": "추천 제품이 마음에 안 들어서",     "n": 16, "pct": 44.4 },
+          { "label": "결과가 부정확하게 느껴져서",        "n": 15, "pct": 41.7 },
+          { "label": "구매 페이지로 넘어가는 게 불편해서","n": 13, "pct": 36.1 },
+          { "label": "가격이 맞지 않아서",               "n": 8,  "pct": 22.2 },
+          { "label": "기타",                             "n": 4,  "pct": 11.1 }
+        ]
+      },
+      "Q13": {
+        "question": "앱 미사용 이유 (n=8)",
+        "baseN": 8,
+        "data": [
+          { "label": "필요성을 못 느껴서", "n": 3, "pct": 37.5 },
+          { "label": "믿음이 안 가서",    "n": 3, "pct": 37.5 },
+          { "label": "귀찮아서",          "n": 2, "pct": 25.0 }
+        ]
+      },
+      "Q14": {
+        "question": "화장품 추천 시 가장 신뢰하는 방식 (1순위)",
+        "summary": "전문가(36.5%) + AI(19.2%) = 55.7%가 \"객관적 판단\" 기반 선호",
+        "data": [
+          { "label": "피부과 전문의 추천", "n": 19, "pct": 36.5 },
+          { "label": "소비자 후기",        "n": 15, "pct": 28.8 },
+          { "label": "AI 분석 추천",       "n": 10, "pct": 19.2 },
+          { "label": "지인 추천",          "n": 6,  "pct": 11.5 },
+          { "label": "인플루언서 추천",    "n": 2,  "pct": 3.8 }
+        ]
+      },
+      "Q15": {
+        "question": "\"피부 분석 후 자동 큐레이션 서비스\" 사용 의향",
+        "summary": "사용 의향 80.8% (42명)",
+        "data": [
+          { "label": "적극 사용할 것",  "n": 18, "pct": 34.6 },
+          { "label": "아마 사용할 것",  "n": 24, "pct": 46.2 },
+          { "label": "잘 모르겠다",     "n": 8,  "pct": 15.4 },
+          { "label": "사용 안 할 것",   "n": 2,  "pct": 3.8 }
+        ]
+      },
+      "Q16": {
+        "question": "큐레이션형 vs 셀프탐색형 선호",
+        "summary": "큐레이션 선호 46.2% vs 셀프탐색 17.3%",
+        "data": [
+          { "label": "큐레이션형 (추천받기)", "n": 24, "pct": 46.2 },
+          { "label": "셀프탐색형 (직접 찾기)","n": 9,  "pct": 17.3 },
+          { "label": "상황에 따라 다름",      "n": 19, "pct": 36.5 }
+        ]
+      },
+      "Q17": {
+        "question": "브랜드 시각적 고급스러움 → 신뢰도 영향 (5점 척도)",
+        "summary": "4~5점 응답 67.3% / 평균 3.77점",
+        "avg": 3.77,
+        "data": [
+          { "score": 1, "n": 1,  "pct": 1.9 },
+          { "score": 2, "n": 4,  "pct": 7.7 },
+          { "score": 3, "n": 12, "pct": 23.1 },
+          { "score": 4, "n": 24, "pct": 46.2 },
+          { "score": 5, "n": 11, "pct": 21.2 }
+        ]
+      }
+    },
+    "keyStats": [
+      { "stat": "67.3%", "label": "\"내 피부에 맞는 제품 찾기 어렵다\"", "source": "Q3" },
+      { "stat": "92.3%", "label": "피부 부적합 구매 경험 있음", "source": "Q4" },
+      { "stat": "75.0%", "label": "구매 포기 경험 있음", "source": "Q7" },
+      { "stat": "69.2%", "label": "구매 포기 1위: \"피부에 맞는지 몰라서\"", "source": "Q8" },
+      { "stat": "84.6%", "label": "진단 서비스 사용 경험 있음", "source": "Q9" },
+      { "stat": "2.95/5.00", "label": "진단 결과 신뢰도 평균", "source": "Q10" },
+      { "stat": "81.8%", "label": "진단→구매 미전환율", "source": "Q11" },
+      { "stat": "80.8%", "label": "AI 큐레이션 사용 의향", "source": "Q15" },
+      { "stat": "46.2%", "label": "큐레이션형 선호", "source": "Q16" },
+      { "stat": "67.3%", "label": "시각 고급스러움→신뢰도 영향 4~5점", "source": "Q17" }
+    ]
+  },
+
+  "interview": {
+    "overview": {
+      "period": "2026.04.28 ~ 2026.05.09",
+      "n": 12
+    },
+    "participants": [
+      { "code": "P01", "gender": "여", "age": 22, "skinType": "복합성", "profile": "화해 헤비유저" },
+      { "code": "P02", "gender": "여", "age": 24, "skinType": "건성",   "profile": "화장품 앱 비사용자" },
+      { "code": "P03", "gender": "남", "age": 23, "skinType": "지성",   "profile": "화장품 관심 낮음" },
+      { "code": "P04", "gender": "여", "age": 27, "skinType": "민감성", "profile": "하이엔드 구매 경험 있음" },
+      { "code": "P05", "gender": "여", "age": 25, "skinType": "복합성", "profile": "올리브영 스킨스캔 사용 경험" },
+      { "code": "P06", "gender": "남", "age": 26, "skinType": "건성",   "profile": "뷰티 앱 비사용자" },
+      { "code": "P07", "gender": "여", "age": 23, "skinType": "민감성", "profile": "화장품 정보 SNS로 습득" },
+      { "code": "P08", "gender": "여", "age": 29, "skinType": "복합성", "profile": "하이엔드 구매 경험 있음" },
+      { "code": "P09", "gender": "남", "age": 24, "skinType": "지성",   "profile": "앱 써봤지만 이탈" },
+      { "code": "P10", "gender": "여", "age": 22, "skinType": "건성",   "profile": "구매 포기 경험 잦음" },
+      { "code": "P11", "gender": "여", "age": 28, "skinType": "복합성", "profile": "큐레이션 서비스 경험 있음" },
+      { "code": "P12", "gender": "남", "age": 25, "skinType": "민감성", "profile": "피부 트러블 경험 있음" }
+    ],
+    "patterns": [
+      {
+        "id": "pattern1",
+        "block": "A",
+        "title": "\"정보가 많은데 결정을 못 한다\" (Choice Overload)",
+        "finding": "정보 과잉 속 의사결정 마비 공통 발생",
+        "quotes": [
+          { "text": "올리브영에서 토너 검색하면 수백 개가 나와. 근데 후기도 많고, 성분도 많고... 결국 베스트 1위 사서 나중에 건조해지더라고.", "speaker": "P10" },
+          { "text": "솔직히 내 피부가 건성인 건 알겠는데, 건성용 중에서도 어떤 걸 사야 하는지는 모르겠어. 자극적이지 않고, 향 없고, 이런 거 다 따지다 보면 30분이 지나있어.", "speaker": "P02" }
+        ]
+      },
+      {
+        "id": "pattern2",
+        "block": "A",
+        "title": "탐색 여정의 채널 분산",
+        "finding": "평균 3~4개 채널을 경유해야 구매 결정 가능",
+        "quotes": [
+          { "text": "보통 유튜브에서 먼저 보고, 화해에서 성분 확인하고, 올리브영 가서 사. 근데 이 과정이 너무 오래 걸려. 그냥 누가 내 피부 보고 이거 사라고 해줬으면 좋겠어.", "speaker": "P07" },
+          { "text": "유튜브 → 화해 → 올리브영 → 네이버 블로그... 최소 네 군데는 봐야 하나 결정이 되더라고.", "speaker": "P01" }
+        ]
+      },
+      {
+        "id": "pattern3",
+        "block": "B",
+        "title": "올리브영 스킨스캔 — \"병원 같다\"",
+        "finding": "수치 기반 결과 → \"건강검진 느낌\", 감정적 거리감 발생",
+        "quotes": [
+          { "text": "스킨스캔 해봤는데... 그래프 나오고 '피지: 62점, 모공: 45점' 이런 식으로 나와. 근데 그게 좋은 건지 나쁜 건지도 모르겠고, 또래 평균보다 낮다고 나와서 기분이 좀 안 좋았어.", "speaker": "P05" },
+          { "text": "수치 딱 보는데 피부과 차트 같았어. 이게 뷰티 서비스인지 진단 서비스인지 모르겠더라고. 거기서 제품 추천도 해주는데 왠지 그냥 광고 같은 느낌?", "speaker": "P09" }
+        ]
+      },
+      {
+        "id": "pattern4",
+        "block": "B",
+        "title": "진단 이후 \"그래서 뭘 사야 해?\"",
+        "finding": "진단 완료 후 다음 행동 유도 실패 → 이탈 / \"추천 이유 부재\"가 신뢰도 하락의 핵심 원인",
+        "quotes": [
+          { "text": "화해에서 피부 고민 입력하면 제품 추천해줘. 근데 추천해준 제품이 50개야. 그게 큐레이션이야? 그냥 필터 건 거잖아.", "speaker": "P01" },
+          { "text": "스킨스캔 결과 받고 나서 앱에서 제품 추천해주는데, 추천 이유를 모르겠는 거야. '이 제품이 왜 나한테 맞아요?' 이게 없으니까 그냥 안 사게 되더라고.", "speaker": "P05" },
+          { "text": "진단은 받았는데 그다음에 뭘 해야 하는지 모르겠어. 앱 닫고 그냥 인스타그램 봤어.", "speaker": "P12" }
+        ]
+      },
+      {
+        "id": "pattern5",
+        "block": "B",
+        "title": "\"내 피부 고민은 복잡한데 앱은 단순하다\"",
+        "finding": "5가지 피부타입 분류는 실제 소비자 경험과 불일치",
+        "quotes": [
+          { "text": "나는 건성인데 여드름도 나. 건성+여드름이면 어떤 제품 써야 해? 앱에 그런 케이스가 없어.", "speaker": "P02" },
+          { "text": "복합성이라고 하면 T존은 지성, U존은 건성이잖아. 근데 앱은 그냥 '복합성'으로 퉁쳐버려. 내 피부를 제대로 이해하는 느낌이 전혀 없어.", "speaker": "P11" }
+        ]
+      },
+      {
+        "id": "pattern6",
+        "block": "C",
+        "title": "\"전문가처럼 딱 골라줬으면\"",
+        "finding": "선택지 최소화 + 전문적 근거 제시 = 이상적 큐레이션 경험",
+        "quotes": [
+          { "text": "피부과 가면 의사가 '이거 쓰세요' 해주잖아. 그 느낌이 제일 좋아. 선택지가 없으니까. AI가 그렇게 해줄 수 있으면 진짜 쓸 것 같아.", "speaker": "P04" },
+          { "text": "누군가 내 피부 딱 보고 '너는 이 3개 중에 하나 골라' 해줬으면 좋겠어. 백 개 중에 고르는 건 너무 힘들어.", "speaker": "P10" }
+        ]
+      },
+      {
+        "id": "pattern7",
+        "block": "C",
+        "title": "시각적 경험이 신뢰를 만든다",
+        "finding": "시각 퀄리티 = 서비스 신뢰도 프록시",
+        "quotes": [
+          { "text": "화해는 솔직히 UI가 너무 정신없어. 광고도 많고. 근데 라메르 같은 브랜드 사이트 들어가면 왠지 이 회사 믿을 수 있겠다는 느낌이 들어.", "speaker": "P08" },
+          { "text": "앱이 예쁘면 제품도 좋을 것 같다는 느낌이 드는 게 사실이야. 디자인이 허술하면 왠지 성분도 허술할 것 같고.", "speaker": "P04" },
+          { "text": "뭔가 고급스럽게 나를 분석해주는 느낌이면 결과도 더 신뢰될 것 같아.", "speaker": "P07" }
+        ]
+      },
+      {
+        "id": "pattern8",
+        "block": "C",
+        "title": "남성 사용자 — 더 단순하게",
+        "finding": "남성 사용자: 탐색 자체를 원하지 않음 → Zero Search UX의 핵심 타겟",
+        "quotes": [
+          { "text": "나는 그냥 뭐 사면 돼요, 딱 하나 알려줬으면 좋겠어. 화해 들어가면 너무 복잡해서 그냥 닫거든.", "speaker": "P03" },
+          { "text": "화장품 뭐 사야 할지 모르겠어서 앱 깔았는데... 리뷰 읽는 것도 일이고, 성분 공부해야 하고. 그냥 AI가 알아서 해줬으면 좋겠어.", "speaker": "P06" }
+        ]
+      }
+    ],
+    "segments": [
+      { "segment": "복합성/민감성", "finding": "기존 분류로 수용 불가. 복합 고민 처리 요구", "implication": "멀티셀렉 + 복합 로직 필요" },
+      { "segment": "남성 사용자",   "finding": "탐색 자체 거부. 결과만 원함", "implication": "Zero Search UX 핵심 타겟" },
+      { "segment": "하이엔드 경험자","finding": "브랜드 비주얼이 신뢰 형성 트리거", "implication": "럭셔리 톤 포지셔닝 정당화" },
+      { "segment": "앱 이탈자",      "finding": "\"귀찮아서\" + \"믿음이 안 가서\" 동률", "implication": "간결한 온보딩 + 신뢰 신호 필요" }
+    ],
+    "personas": [
+      {
+        "code": "P-PRIMARY",
+        "name": "이지수",
+        "age": 25,
+        "gender": "여성",
+        "job": "콘텐츠 마케터 2년차",
+        "location": "서울 마포구",
+        "skinType": "복합성 (T존 지성, 볼 건성)",
+        "monthlySpend": "8~15만원",
+        "searchRoute": "유튜브 스킨케어 영상 → 화해 성분 확인 → 올리브영 상세페이지 → 네이버 블로그 후기 → 구매 (or 포기)",
+        "avgSearchTime": "20~40분",
+        "diagnosisExp": "올리브영 스킨스캔 1회, 화해 수회",
+        "goals": ["T존 피지 + 볼 건조 동시 해결", "\"내 피부에 맞다\"는 확신", "탐색 시간 최소화"],
+        "pains": ["복합성 필터 걸면 500개 나와. 그게 무슨 추천이야", "피지 62점인데 그게 뭘 의미하는지 모르겠어", "추천 이유가 없으면 광고 같아서 믿음이 안 가"],
+        "motivation": "효율 + 확신",
+        "barrier": "복합 피부 고민을 수용하는 서비스 부재",
+        "trigger": "\"이게 왜 나한테 맞는지\" 설명해주는 서비스",
+        "axiomTouchpoint": "복합 멀티셀렉 + Explainability → Principle 02",
+        "representativeQuote": { "text": "복합성이라고 하면 T존은 지성, U존은 건성이잖아. 근데 앱은 그냥 '복합성'으로 퉁쳐버려. 내 피부를 제대로 이해하는 느낌이 전혀 없어.", "speakers": ["P11", "P05"] }
+      },
+      {
+        "code": "P-SECONDARY",
+        "name": "박민준",
+        "age": 24,
+        "gender": "남성",
+        "job": "대학원생 (공학)",
+        "location": "서울 관악구",
+        "skinType": "지성",
+        "monthlySpend": "3~5만원",
+        "searchRoute": "(거의 없음) → 친구 추천 or 베스트셀러 → 구매",
+        "avgSearchTime": "5분 미만 (탐색 포기형)",
+        "diagnosisExp": "화해 1회 사용 후 이탈",
+        "goals": ["고민 없이 \"이거 사면 됩니다\" 하나만", "피부 트러블 없이 관리"],
+        "pains": ["들어가면 너무 복잡해서 그냥 닫게 됨", "화장품 공부까지 해야 하는 느낌"],
+        "motivation": "최소 노력으로 적당한 결과",
+        "barrier": "탐색 행위 자체에 대한 거부감",
+        "trigger": "딱 하나, 명확한 추천",
+        "axiomTouchpoint": "Zero Search 플로우 → Principle 01",
+        "representativeQuote": { "text": "나는 그냥 뭐 사면 돼요, 딱 하나 알려줬으면 좋겠어. 리뷰 읽는 것도 일이고, 성분 공부해야 하고. 그냥 AI가 알아서 해줬으면 좋겠어.", "speakers": ["P03", "P06"] }
+      }
+    ]
+  },
+
+  "insights": [
+    {
+      "id": "INSIGHT_01",
+      "title": "진단은 받지만, 아무것도 달라지지 않는다",
+      "quantitative": [
+        { "stat": "18.2%", "desc": "진단→구매 전환율 (81.8% 미전환)", "source": "Q11" },
+        { "stat": "2.95/5.00", "desc": "진단 서비스 신뢰도 평균", "source": "Q10" }
+      ],
+      "qualitative": { "quote": "진단은 받았는데 그다음에 뭘 해야 하는지 모르겠어.", "speaker": "P12" },
+      "finding": "기존 뷰티 진단 서비스는 진단 결과를 제공하지만, 그것이 구매 행동으로 연결되지 않는다. 진단과 구매 사이의 공백을 메우는 구조가 없다.",
+      "axiomResponse": "진단 완료 즉시 5종 큐레이션으로 자동 전환. 사용자는 결과 확인과 동시에 \"내 제품\"을 만난다."
+    },
+    {
+      "id": "INSIGHT_02",
+      "title": "사용자는 \"왜\"를 원한다",
+      "quantitative": [
+        { "stat": "41.7%", "desc": "구매 미전환 이유 1위: \"결과가 부정확하게 느껴져서\"", "source": "Q12" }
+      ],
+      "qualitative": { "quote": "추천 이유를 모르겠어. 이 제품이 왜 나한테 맞아요? 이게 없으니까 안 사게 되더라고.", "speaker": "P05" },
+      "finding": "수치와 그래프는 데이터를 보여주지만 맥락을 만들지 못한다. 신뢰는 \"정확도\"가 아니라 \"설명 가능성(Explainability)\"에서 나온다.",
+      "axiomResponse": "피부타입 결과 페이지에서 \"왜 이 제품인가\"를 브랜드 언어로 설명. 수치가 아닌 서사로 진단 결과 전달."
+    },
+    {
+      "id": "INSIGHT_03",
+      "title": "보이는 것이 믿음을 만든다",
+      "quantitative": [
+        { "stat": "67.3%", "desc": "\"시각 고급스러움이 신뢰도에 영향\" 4~5점 응답", "source": "Q17" }
+      ],
+      "qualitative": [
+        { "quote": "앱이 예쁘면 제품도 좋을 것 같다는 느낌이 드는 게 사실이야.", "speaker": "P04" },
+        { "quote": "뭔가 고급스럽게 나를 분석해주는 느낌이면 결과도 더 신뢰될 것 같아.", "speaker": "P07" }
+      ],
+      "finding": "시각적 경험은 심미적 부가 요소가 아니라, 신뢰도의 직접 구성 요소다.",
+      "axiomResponse": "하이엔드 다크 배경 + 3D 오브제 + BentonModDisp 타이포그래피가 단순히 \"예쁜 것\"이 아니라 신뢰도를 만드는 UX 설계다."
+    }
+  ],
+
+  "chartData": {
+    "countUpCards": [
+      { "id": "card1", "stat": "67.3%", "label": "내 피부에 맞는 제품 찾기 어렵다고 답했다", "source": "Q3, n=52" },
+      { "id": "card2", "stat": "81.8%", "label": "피부 진단 후 실제 구매로 이어지지 않았다", "source": "Q11, n=44" },
+      { "id": "card3", "stat": "80.8%", "label": "AI 기반 큐레이션 서비스를 사용할 의향이 있다", "source": "Q15, n=52" }
+    ],
+    "donutCharts": [
+      {
+        "id": "abandonReason",
+        "title": "구매 포기 이유",
+        "subtitle": "n=39, 복수응답",
+        "source": "Q8",
+        "segments": [
+          { "label": "피부에 맞는지 몰라서", "pct": 69.2, "color": "#00D4FF" },
+          { "label": "제품이 너무 많아서",   "pct": 46.2, "color": "#2A6885" },
+          { "label": "정보가 부족해서",       "pct": 35.9, "color": "#5A9AB5" },
+          { "label": "가격 번거로워서",       "pct": 23.1, "color": "#082B35" }
+        ]
+      },
+      {
+        "id": "postDiagnosis",
+        "title": "진단 후 행동",
+        "subtitle": "n=44",
+        "source": "Q11",
+        "segments": [
+          { "label": "참고만 했다",   "pct": 47.7, "color": "#5A9AB5" },
+          { "label": "구매 안 했다",  "pct": 34.1, "color": "#082B35" },
+          { "label": "바로 구매했다", "pct": 18.2, "color": "#00D4FF" }
+        ]
+      }
+    ],
+    "barChart": {
+      "id": "trustSource",
+      "title": "신뢰하는 추천 방식",
+      "subtitle": "n=52, 1순위",
+      "source": "Q14",
+      "bars": [
+        { "label": "피부과 전문의", "pct": 36.5 },
+        { "label": "소비자 후기",   "pct": 28.8 },
+        { "label": "AI 분석",       "pct": 19.2 },
+        { "label": "지인 추천",     "pct": 11.5 },
+        { "label": "인플루언서",    "pct": 3.8 }
+      ]
+    }
+  }
+}
