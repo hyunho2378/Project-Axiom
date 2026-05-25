@@ -1,4 +1,4 @@
-// AXIOM Portfolio - build fix
+// AXIOM Portfolio - bui2ld fix
 import { colors, font } from './tokens/web.js';
 import Nav from './components/Nav.jsx';
 import Hero from './sections/Hero.jsx';
