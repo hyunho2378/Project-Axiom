@@ -3,17 +3,17 @@ import { useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useBottleDrag }    from './utils/useBottleDrag';
 import { useLabelAssets }   from './utils/useLabelAssets';
-import { makeLabelCanvas, getProductTint, toTexture } from './utils/makeLabelTexture';
+import { makeFrontLabelCanvas, makeBackLabelCanvas, getProductTint, toTexture } from './utils/makeLabelTexture';
 
 // 치수 (HTML 원본과 동일)
 const TOP_R  = 0.68;
 const BOT_R  = 0.44;
 const BODY_H = 3.0;
 const CAP_H  = 0.52;
-const C45    = Math.cos(Math.PI / 4); // 0.7071
-const TW = TOP_R * C45; // 0.481
+const C45    = Math.cos(Math.PI / 4);
+const TW = TOP_R * C45;
 const TZ = TOP_R * C45;
-const BW = BOT_R * C45; // 0.311
+const BW = BOT_R * C45;
 const BZ = BOT_R * C45;
 
 function makeTrapezoidGeo(tw, bw, h, tz, bz, off, segs = 32) {
@@ -38,20 +38,50 @@ function makeTrapezoidGeo(tw, bw, h, tz, bz, off, segs = 32) {
   return geo;
 }
 
+function makeBackTrapezoidGeo(tw, bw, h, tz, bz, off, segs = 32) {
+  const pos = [], uvArr = [], idx = [];
+  for (let i = 0; i <= segs; i++) {
+    const t  = i / segs;
+    const y  = h / 2 - t * h;
+    const hw = tw + (bw - tw) * t;
+    const z  = -(tz + (bz - tz) * t) - off;
+    pos.push( hw, y, z); uvArr.push(0, 1 - t);
+    pos.push(-hw, y, z); uvArr.push(1, 1 - t);
+  }
+  for (let i = 0; i < segs; i++) {
+    const r = i * 2, n = (i + 1) * 2;
+    idx.push(r, n, r + 1); idx.push(r + 1, n, n + 1);
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos),   3));
+  geo.setAttribute('uv',       new THREE.BufferAttribute(new Float32Array(uvArr), 2));
+  geo.setIndex(idx);
+  geo.computeVertexNormals();
+  return geo;
+}
+
 export default function TubeCream({ product, isDraggable = false }) {
   const groupRef = useBottleDrag(isDraggable);
   const { logoImg, fontsReady } = useLabelAssets();
   const { gl } = useThree();
 
-  const labelTex = useMemo(() => {
-    const canvas = makeLabelCanvas(product, 1024, 1800, logoImg, fontsReady);
+  const frontLabelTex = useMemo(() => {
+    const canvas = makeFrontLabelCanvas(product, 1024, 1800, logoImg, fontsReady);
     return toTexture(canvas, gl);
   }, [product, logoImg, fontsReady, gl]);
 
-  useEffect(() => () => labelTex?.dispose(), [labelTex]);
+  const backLabelTex = useMemo(() => {
+    const canvas = makeBackLabelCanvas(product, 1024, 1800, logoImg, fontsReady);
+    return toTexture(canvas, gl);
+  }, [product, logoImg, fontsReady, gl]);
 
-  const lblGeo = useMemo(() => makeTrapezoidGeo(TW, BW, BODY_H, TZ, BZ, 0.008), []);
-  useEffect(() => () => lblGeo.dispose(), [lblGeo]);
+  useEffect(() => () => frontLabelTex?.dispose(), [frontLabelTex]);
+  useEffect(() => () => backLabelTex?.dispose(),  [backLabelTex]);
+
+  const frontGeo = useMemo(() => makeTrapezoidGeo(TW, BW, BODY_H, TZ, BZ, 0.008), []);
+  const backGeo  = useMemo(() => makeBackTrapezoidGeo(TW, BW, BODY_H, TZ, BZ, 0.008), []);
+  useEffect(() => () => frontGeo.dispose(), [frontGeo]);
+  useEffect(() => () => backGeo.dispose(),  [backGeo]);
 
   const tint = getProductTint(product);
 
@@ -82,11 +112,23 @@ export default function TubeCream({ product, isDraggable = false }) {
         <primitive object={bodyMat} attach="material" />
       </mesh>
 
-      {/* 사다리꼴 라벨 */}
+      {/* 앞면 라벨 */}
       <mesh>
-        <primitive object={lblGeo} attach="geometry" />
+        <primitive object={frontGeo} attach="geometry" />
         <meshPhysicalMaterial
-          map={labelTex}
+          map={frontLabelTex}
+          metalness={0}
+          roughness={0.65}
+          side={THREE.FrontSide}
+          transparent
+        />
+      </mesh>
+
+      {/* 뒷면 라벨 */}
+      <mesh>
+        <primitive object={backGeo} attach="geometry" />
+        <meshPhysicalMaterial
+          map={backLabelTex}
           metalness={0}
           roughness={0.65}
           side={THREE.FrontSide}

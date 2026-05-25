@@ -107,8 +107,8 @@ export default function Analysis() {
                 <AnalysisLoader onComplete={() => navigate('/result', { state: resultData })} />
             )}
             <div className="max-w-7xl mx-auto px-6 h-[calc(100vh-140px)] min-h-[600px] flex items-center">
-                <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 h-full max-h-[800px]">
-                    <div className="hidden lg:block relative rounded-3xl bg-[#05080a] border border-[#222] overflow-hidden">
+                <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 h-auto lg:h-full max-h-[800px]">
+                    <div className="block relative rounded-3xl bg-[#05080a] border border-[#222] overflow-hidden h-[320px] md:h-[400px] lg:h-auto">
                         <div className="absolute inset-0 z-0">
                             <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
                                 <ambientLight intensity={0.5} />

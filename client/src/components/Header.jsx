@@ -103,7 +103,7 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
 
                         <div className="w-[1px] h-4 bg-white/15" />
 
-                        <div className="flex items-center gap-5">
+                        <div className="flex items-center gap-3">
                             {/* Language — Coming Soon toast */}
                             <div className="relative">
                                 <button
@@ -111,7 +111,7 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                                     className="text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
                                     aria-label="Language"
                                 >
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <svg className="w-5 h-5 block" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                                         <circle cx="12" cy="12" r="10" />
                                         <line x1="2" y1="12" x2="22" y2="12" />
                                         <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
@@ -135,7 +135,7 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                                         <span className="font-body text-[10px] tracking-widest uppercase opacity-70 group-hover:opacity-100 transition-opacity">
                                             {user?.name || user?.email?.split('@')[0] || 'MY PAGE'}
                                         </span>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                        <svg className="w-5 h-5 block" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                             <circle cx="12" cy="7" r="4" />
                                         </svg>
@@ -172,7 +172,7 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                                     className="text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
                                     aria-label="Log In"
                                 >
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <svg className="w-5 h-5 block" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                         <circle cx="12" cy="7" r="4" />
                                     </svg>

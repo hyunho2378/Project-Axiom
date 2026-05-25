@@ -186,6 +186,183 @@ export function makeLabelCanvas(product, w, h, logoImg, fontsReady) {
   return c;
 }
 
+// 앞면 전용 — TubeCream / SunscreenTube
+export function makeFrontLabelCanvas(product, w, h, logoImg, fontsReady) {
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const ctx = c.getContext('2d');
+
+  const g = ctx.createLinearGradient(0, 0, 0, h);
+  g.addColorStop(0,   '#2E6A82');
+  g.addColorStop(0.5, '#357292');
+  g.addColorStop(1,   '#28637E');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, w, h);
+
+  for (let i = 0; i < 3000; i++) {
+    ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.015})`;
+    ctx.fillRect(Math.random() * w, Math.random() * h, 1, 1);
+  }
+
+  const EN = 'Cormorant Garamond,Georgia,serif';
+  const CX = w / 2;
+  ctx.textAlign = 'center';
+  const isSunscreen = product.productType === 'sunscreen';
+  const enLines = product.nameEn.split('\n');
+  const ingCount = Array.isArray(product.ingredientsEn) ? product.ingredientsEn.length : 0;
+
+  const LOGO_H = 110, G1 = 80;
+  const NAME_H = enLines.length * 54, G2 = 80;
+  const SPF_BLOCK = isSunscreen ? 90 : 0;
+  const LINE_H = 260, G3 = 80;
+  const ING_H = ingCount * 44;
+  const totalH = LOGO_H + G1 + NAME_H + G2 + SPF_BLOCK + LINE_H + G3 + ING_H;
+  let y = Math.round((h - totalH) / 2);
+
+  if (logoImg) {
+    ctx.save();
+    ctx.filter = 'brightness(0) invert(1)';
+    ctx.drawImage(logoImg, CX - 135, y, 270, LOGO_H);
+    ctx.restore();
+  } else {
+    ctx.fillStyle = '#FFF';
+    ctx.font = `italic 300 80px ${EN}`;
+    ctx.fillText('Axiom', CX, y + 80);
+    ctx.fillStyle = '#8AAEC0';
+    ctx.beginPath();
+    ctx.arc(CX + 10, y + 35, 5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  y += LOGO_H + G1;
+
+  ctx.fillStyle = 'rgba(255,255,255,.88)';
+  ctx.font = `italic 300 46px ${EN}`;
+  enLines.forEach((l, i) => ctx.fillText(l, CX, y + i * 54 + 38));
+  y += NAME_H + G2;
+
+  if (isSunscreen) {
+    ctx.fillStyle = '#FFF';
+    ctx.font = '700 30px sans-serif';
+    ctx.fillText('SPF50+  PA++++', CX, y + 28);
+    y += 90;
+  }
+
+  ctx.strokeStyle = 'rgba(255,255,255,.42)';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(CX, y);
+  ctx.lineTo(CX, y + LINE_H);
+  ctx.stroke();
+  y += LINE_H + G3;
+
+  if (ingCount > 0) {
+    ctx.fillStyle = 'rgba(255,255,255,.78)';
+    ctx.font = `italic 300 32px ${EN}`;
+    product.ingredientsEn.forEach((ing, i) => ctx.fillText(ing, CX, y + i * 44));
+  }
+
+  return c;
+}
+
+// 뒷면 전용 — TubeCream / SunscreenTube
+export function makeBackLabelCanvas(product, w, h, logoImg, fontsReady) {
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const ctx = c.getContext('2d');
+
+  const g = ctx.createLinearGradient(0, 0, 0, h);
+  g.addColorStop(0,   '#2E6A82');
+  g.addColorStop(0.5, '#357292');
+  g.addColorStop(1,   '#28637E');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, w, h);
+
+  for (let i = 0; i < 3000; i++) {
+    ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.015})`;
+    ctx.fillRect(Math.random() * w, Math.random() * h, 1, 1);
+  }
+
+  const KR = fontsReady ? 'PretendardVar,Noto Sans KR,sans-serif' : 'Noto Sans KR,sans-serif';
+  const EN = 'Cormorant Garamond,Georgia,serif';
+  const CX = w / 2;
+  ctx.textAlign = 'center';
+  const isSunscreen = product.productType === 'sunscreen';
+
+  ctx.font = `300 26px ${KR}`;
+  const descLines = Array.isArray(product.desc)
+    ? product.desc
+    : wrapText(ctx, product.desc, w * 0.85);
+  const descH   = descLines.length * 36;
+  const funcH   = product.functional ? 44 : 0;
+  const spfH    = isSunscreen ? 44 : 0;
+  const totalH  = 52 + 46 + 42 + descH + 34 + 44 + funcH + spfH + 46 + 44 + 42 + 32 + 30 + 30 + 100 + 90;
+  let y = Math.round((h - totalH) / 2);
+
+  ctx.fillStyle = '#FFF';
+  ctx.font = `300 38px ${KR}`;
+  ctx.fillText(product.nameKo, CX, y); y += 52;
+
+  ctx.fillStyle = 'rgba(255,255,255,.62)';
+  ctx.font = `300 italic 24px ${EN}`;
+  ctx.fillText(product.nameEn.replace(/\n/g, ' '), CX, y); y += 46;
+
+  ctx.strokeStyle = 'rgba(255,255,255,.35)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(CX - 110, y);
+  ctx.lineTo(CX + 110, y);
+  ctx.stroke();
+  y += 42;
+
+  ctx.fillStyle = '#FFF';
+  ctx.font = `300 26px ${KR}`;
+  descLines.forEach(l => { ctx.fillText(l, CX, y); y += 36; });
+  y += 34;
+
+  ctx.fillStyle = 'rgba(255,255,255,.70)';
+  ctx.font = `300 23px ${KR}`;
+  ctx.fillText(product.texture, CX, y); y += 44;
+
+  if (product.functional) {
+    ctx.fillStyle = 'rgba(255,255,255,.86)';
+    ctx.font = `400 22px ${KR}`;
+    ctx.fillText(product.functional, CX, y); y += 44;
+  }
+
+  if (isSunscreen) {
+    ctx.fillStyle = '#FFF';
+    ctx.font = '600 22px sans-serif';
+    ctx.fillText('SPF50+ PA++++', CX, y); y += 44;
+  }
+
+  ctx.fillStyle = '#FFF';
+  ctx.font = `300 24px ${KR}`;
+  ctx.fillText(product.ingredients, CX, y); y += 46;
+
+  ctx.fillStyle = 'rgba(255,255,255,.70)';
+  ctx.font = `300 22px ${KR}`;
+  ctx.fillText(product.volume, CX, y); y += 44;
+
+  ctx.fillStyle = 'rgba(255,255,255,.52)';
+  ctx.font = `300 20px ${KR}`;
+  ctx.fillText('제조판매업자 Axiom  www.axiom.co.kr', CX, y); y += 32;
+  ctx.fillText('제조업자 (주) Axiom', CX, y); y += 30;
+  ctx.fillText('MADE IN KOREA', CX, y); y += 100;
+
+  if (logoImg) {
+    ctx.save();
+    ctx.filter = 'brightness(0) invert(0.9)';
+    ctx.drawImage(logoImg, CX - 115, y, 230, 86);
+    ctx.restore();
+  } else {
+    ctx.fillStyle = 'rgba(255,255,255,.80)';
+    ctx.font = `italic 300 66px ${EN}`;
+    ctx.fillText('Axiom', CX, y + 56);
+  }
+
+  return c;
+}
+
 // Jar 뚜껑용 원형 라벨
 export function makeTopLabelCanvas(logoImg) {
   const S = 512;

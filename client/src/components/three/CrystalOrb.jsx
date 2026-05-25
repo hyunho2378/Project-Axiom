@@ -328,9 +328,12 @@ function CrystalScene() {
 
 // ── PUBLIC COMPONENT ──────────────────────────────────────────────────────
 export default function CrystalOrb() {
+    const isMobile = window.innerWidth < 768;
+    const camPos = isMobile ? [1.8, 0.5, 9] : [0, 0.5, 7];
+
     return (
         <Canvas
-            camera={{ fov: 38, position: [0, 0.5, 7], near: 0.1, far: 100 }}
+            camera={{ fov: 38, position: camPos, near: 0.1, far: 100 }}
             gl={{ antialias: true, alpha: true }}
             shadows="soft"
             dpr={[1, 2]}

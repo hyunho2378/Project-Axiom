@@ -33,23 +33,13 @@ const THEMES = {
         accent: 'rgba(60,119,149,0.15)',
         border: 'rgba(60,119,149,0.15)',
     },
-    night: {
-        period: 'NIGHT PROTOCOL',
-        label: '17:00 — 06:00',
-        headline: 'Repair & Regeneration',
-        body: '세포 재생이 가장 활성화되는 시간. 심층 회복 포뮬러로 피부 중심축을 복원합니다.',
-        tag: 'CELL RENEWAL · RECOVERY',
-        dot: '#3C7795',
-        accent: 'rgba(30,86,114,0.2)',
-        border: 'rgba(30,86,114,0.2)',
-    },
 };
 
 function getThemeKey() {
     const hour = new Date().getHours();
     if (hour >= 6 && hour < 11) return 'morning';
     if (hour >= 11 && hour < 17) return 'daytime';
-    return 'night';
+    return null;
 }
 
 export default function ChronoBanner({ className = '' }) {
@@ -58,6 +48,8 @@ export default function ChronoBanner({ className = '' }) {
         const d = new Date();
         return d.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', hour12: false });
     }, []);
+
+    if (!theme) return null;
 
     return (
         <motion.div

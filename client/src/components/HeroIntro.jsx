@@ -40,7 +40,7 @@ export default function HeroIntro() {
                             initial={prefersReduced ? {} : { opacity: 0, y: 80 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1.0, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            className="font-title-en text-[clamp(4rem,12vw,11rem)] leading-none tracking-tight text-ui-textPrimary block"
+                            className="font-title-en text-4xl md:text-6xl lg:text-[clamp(4rem,12vw,11rem)] leading-none tracking-tight text-ui-textPrimary block"
                         >
                             AXIOM
                         </motion.h1>
@@ -83,7 +83,7 @@ export default function HeroIntro() {
                     >
                         <Link
                             to="/analysis"
-                            className="inline-block px-8 py-4 font-body text-sm uppercase tracking-widest btn-glow"
+                            className="inline-block px-5 py-3 md:px-8 md:py-4 font-body text-xs md:text-sm uppercase tracking-widest btn-glow"
                         >
                             BEGIN ANALYSIS →
                         </Link>
@@ -102,16 +102,6 @@ export default function HeroIntro() {
                 style={{ background: 'linear-gradient(to right, #03070a 0%, #03070a 30%, transparent 65%)' }}
             />
 
-            {/* Scroll indicator */}
-            <motion.div
-                initial={prefersReduced ? {} : { opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.6 }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 pointer-events-none"
-            >
-                <div className="w-[1px] h-14 bg-gradient-to-b from-transparent to-brand-500/35" />
-                <span className="font-body text-brand-500/40 text-[9px] tracking-[0.35em] uppercase">Scroll</span>
-            </motion.div>
         </section>
     );
 }
