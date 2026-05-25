@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>AXIOM DNA Helix</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#000;overflow:hidden;font-family:'Helvetica Neue',sans-serif}
+  canvas{display:block;width:100vw;height:100vh}
+  #label{
+    position:fixed;top:36px;left:50%;transform:translateX(-50%);
+    font-size:11px;letter-spacing:.4em;color:rgba(0,180,220,.6);
+    text-transform:uppercase;pointer-events:none;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="label">DNA Helix · Philosophy</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const canvas = document.getElementById('c');
+const W = () => window.innerWidth;
+const H = () => window.innerHeight;
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(W(), H());
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.4;
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.physicallyCorrectLights = true;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000);
+scene.fog = new THREE.FogExp2(0x000000, 0.04);
+
+const camera = new THREE.PerspectiveCamera(40, W()/H(), 0.1, 100);
+camera.position.set(0, 0, 7);
+camera.lookAt(0, 0, 0);
+
+// ── HELIX 파라미터 ────────────────────────────────
+const HELIX_LENGTH = 12;       // 총 높이
+const TURNS        = 4;        // 회전 횟수
+const RADIUS       = 0.7;      // 나선 반지름
+const SPHERES_PER  = 80;       // 한 가닥 당 구슬 수
+const RUNG_COUNT   = 40;       // 가로 연결 막대 수
+
+// ── GLOW TEXTURE ─────────────────────────────────
+function makeGlowTex(inner, outer, size=128) {
+  const c = document.createElement('canvas');
+  c.width = c.height = size;
+  const ctx = c.getContext('2d');
+  const g = ctx.createRadialGradient(size/2,size/2,0, size/2,size/2,size/2);
+  g.addColorStop(0, inner);
+  g.addColorStop(0.3, inner.replace('1)','0.6)'));
+  g.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = g; ctx.fillRect(0,0,size,size);
+  return new THREE.CanvasTexture(c);
+}
+const glowTex = makeGlowTex('rgba(0,212,255,1)', 'rgba(8,43,53,1)', 256);
+
+function helixPos(strand, t) {
+  // strand: 0 or 1 (두 가닥)
+  // t: 0~1 (위→아래)
+  const angle = t * TURNS * Math.PI * 2 + (strand === 0 ? 0 : Math.PI);
+  const y = (0.5 - t) * HELIX_LENGTH;
+  return new THREE.Vector3(
+    Math.cos(angle) * RADIUS,
+    y,
+    Math.sin(angle) * RADIUS
+  );
+}
+
+// ── HELIX GROUP ──────────────────────────────────
+const helix = new THREE.Group();
+scene.add(helix);
+
+// 가닥 두 개 (구슬)
+const strandSpheres = [[], []];
+const sphereGeo = new THREE.SphereGeometry(0.08, 24, 24);
+
+[0, 1].forEach(strand => {
+  for (let i = 0; i < SPHERES_PER; i++) {
+    const t = i / (SPHERES_PER - 1);
+    const pos = helixPos(strand, t);
+
+    // 색상: 위에서 아래로 그라디언트
+    const color = new THREE.Color('#1E5672').lerp(new THREE.Color('#00D4FF'), t);
+    const emis  = new THREE.Color('#082B35').lerp(new THREE.Color('#00D4FF'), t);
+
+    const mat = new THREE.MeshPhysicalMaterial({
+      color: color,
+      emissive: emis,
+      emissiveIntensity: 0.6,
+      metalness: 0.85,
+      roughness: 0.15,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.05,
+    });
+    const sphere = new THREE.Mesh(sphereGeo, mat);
+    sphere.position.copy(pos);
+
+    // 각 구슬 글로우 스프라이트
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: glowTex, color: color,
+      transparent: true, opacity: 0.6,
+      blending: THREE.AdditiveBlending, depthWrite: false,
+    }));
+    sprite.scale.set(0.35, 0.35, 1);
+    sphere.add(sprite);
+
+    helix.add(sphere);
+    strandSpheres[strand].push({ sphere, baseT: t, strand, mat });
+  }
+});
+
+// 가로 연결 막대 (rung)
+const rungs = [];
+const rungMat = new THREE.MeshPhysicalMaterial({
+  color: new THREE.Color('#2A6885'),
+  emissive: new THREE.Color('#1E5672'),
+  emissiveIntensity: 0.3,
+  metalness: 0.8,
+  roughness: 0.25,
+  transparent: true,
+  opacity: 0.7,
+});
+
+for (let i = 0; i < RUNG_COUNT; i++) {
+  const t = i / (RUNG_COUNT - 1);
+  const p0 = helixPos(0, t);
+  const p1 = helixPos(1, t);
+
+  const len = p0.distanceTo(p1);
+  const geo = new THREE.CylinderGeometry(0.015, 0.015, len, 8);
+  const rung = new THREE.Mesh(geo, rungMat.clone());
+
+  // 두 점 중간에 배치
+  rung.position.lerpVectors(p0, p1, 0.5);
+  // 두 점을 잇도록 회전
+  rung.lookAt(p1);
+  rung.rotateX(Math.PI / 2);
+
+  helix.add(rung);
+  rungs.push({ rung, baseT: t });
+}
+
+// ── 주변 별 ──────────────────────────────────────
+const STARS = 600;
+const starGeo = new THREE.BufferGeometry();
+const starPos = new Float32Array(STARS * 3);
+for (let i = 0; i < STARS; i++) {
+  const r = 6 + Math.random() * 12;
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos(2 * Math.random() - 1);
+  starPos[i*3]   = r * Math.sin(phi) * Math.cos(theta);
+  starPos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+  starPos[i*3+2] = r * Math.cos(phi);
+}
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({
+  color: 0x5A9AB5, size: 0.025,
+  transparent: true, opacity: 0.5,
+  sizeAttenuation: true,
+  blending: THREE.AdditiveBlending, depthWrite: false,
+}));
+scene.add(stars);
+
+// ── 조명 ─────────────────────────────────────────
+scene.add(new THREE.AmbientLight(0x06141A, 1.0));
+
+const keyLight = new THREE.PointLight(0x8AAEC0, 12, 20, 1.8);
+keyLight.position.set(-4, 5, 4);
+scene.add(keyLight);
+
+const rimLight = new THREE.PointLight(0x00D4FF, 18, 18, 1.5);
+rimLight.position.set(3, -3, -4);
+scene.add(rimLight);
+
+const topLight = new THREE.PointLight(0x5A9AB5, 6, 14, 2);
+topLight.position.set(0, 6, 2);
+scene.add(topLight);
+
+// ── ANIMATE ──────────────────────────────────────
+const clock = new THREE.Clock();
+const baseQ = new THREE.Quaternion();
+
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+
+  // 헬릭스 전체 회전 — 느리게, 우아하게
+  helix.rotation.y = t * 0.06;
+  // 미세하게 X축 흔들림
+  helix.rotation.x = Math.sin(t * 0.12) * 0.04;
+
+  // 위아래 부드러운 부동
+  helix.position.y = Math.sin(t * 0.2) * 0.25;
+
+  // 각 구슬 펄스 — 위에서 아래로 빛이 천천히 흘러내림
+  strandSpheres.forEach((strand, si) => {
+    strand.forEach(({ sphere, baseT, mat }, i) => {
+      const wave = Math.sin((baseT * 4 - t * 0.35) * Math.PI);
+      const pulse = 0.5 + Math.max(0, wave) * 1.2;
+      mat.emissiveIntensity = 0.4 + pulse * 0.6;
+
+      const sprite = sphere.children[0];
+      if (sprite) {
+        sprite.material.opacity = 0.35 + Math.max(0, wave) * 0.4;
+        const sz = 0.28 + Math.max(0, wave) * 0.20;
+        sprite.scale.set(sz, sz, 1);
+      }
+    });
+  });
+
+  // rung 펄스
+  rungs.forEach(({ rung, baseT }) => {
+    const wave = Math.sin((baseT * 4 - t * 0.35) * Math.PI);
+    rung.material.emissiveIntensity = 0.2 + Math.max(0, wave) * 0.4;
+    rung.material.opacity = 0.5 + Math.max(0, wave) * 0.3;
+  });
+
+  // 별 미세 회전
+  stars.rotation.y = t * 0.01;
+  stars.rotation.x = Math.sin(t * 0.005) * 0.1;
+
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = W() / H();
+  camera.updateProjectionMatrix();
+  renderer.setSize(W(), H());
+});
+</script>
+</body>
+</html>
