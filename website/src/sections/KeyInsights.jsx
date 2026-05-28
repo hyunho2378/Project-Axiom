@@ -39,7 +39,7 @@ export default function KeyInsights() {
                   position: 'absolute',
                   top: '-0.1em',
                   left: '-0.05em',
-                  fontSize: 'clamp(100px,14vw,200px)',
+                  fontSize: 'clamp(70px,9.8vw,140px)',
                   fontWeight: 800,
                   lineHeight: 1,
                   letterSpacing: '-0.05em',

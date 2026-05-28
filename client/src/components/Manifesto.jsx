@@ -69,7 +69,7 @@ export default function Manifesto({ language }) {
                     style={{ opacity: glowOpacity }}
                 >
                     <motion.div
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-2xl"
                         style={{
                             scale: glowScale,
                             background: 'radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(139, 92, 246, 0.08) 40%, transparent 70%)'
@@ -106,10 +106,10 @@ export default function Manifesto({ language }) {
                     {[0, 1, 2].map((i) => (
                         <motion.div
                             key={i}
-                            className="w-[2px] h-8 bg-white/20 rounded-full overflow-hidden"
+                            className="w-[2px] h-8 bg-white/20 rounded-2xl overflow-hidden"
                         >
                             <motion.div
-                                className="w-full bg-white/60 rounded-full origin-top"
+                                className="w-full bg-white/60 rounded-2xl origin-top"
                                 style={{
                                     height: useTransform(
                                         scrollYProgress,

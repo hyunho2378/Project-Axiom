@@ -56,7 +56,7 @@ export default function VideoSection() {
                         <motion.button
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
-                            className="w-20 h-20 md:w-24 md:h-24 rounded-full 
+                            className="w-20 h-20 md:w-24 md:h-24 rounded-2xl 
                                        bg-[#8AAEC0]/10 border border-[#3C7795]/50 
                                        flex items-center justify-center 
                                        hover:bg-[#8AAEC0]/20 hover:border-[#3C7795] 

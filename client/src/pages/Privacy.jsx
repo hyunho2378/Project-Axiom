@@ -110,7 +110,7 @@ export default function Privacy() {
                         <p className="font-body text-[10px] text-[#3C7795] tracking-[0.3em] uppercase mb-6">
                             Legal Document · v2.1 · 2026.01
                         </p>
-                        <h1 className="font-title-en text-4xl md:text-6xl text-white leading-title mb-6">
+                        <h1 className="font-title-en text-3xl md:text-5xl text-white leading-title mb-6">
                             Privacy Policy
                         </h1>
                         <p className="font-body text-[#8AAEC0] text-base leading-body max-w-2xl">

@@ -67,7 +67,7 @@ function StatCard({ item, index, visible }) {
         style={{
           margin: 0,
           fontSize: 12,
-          color: colors.inkFaint,
+          color: colors.inkMuted,
           lineHeight: 1.4,
         }}
       >

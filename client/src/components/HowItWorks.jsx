@@ -123,9 +123,9 @@ export default function HowItWorks() {
                 >
                     <a
                         href="/analysis"
-                        className="btn-primary inline-flex items-center gap-3"
+                        className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-2xl btn-glow"
                     >
-                        <span className="font-body text-sm tracking-wide">Start Your Analysis</span>
+                        Start Your Analysis
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>

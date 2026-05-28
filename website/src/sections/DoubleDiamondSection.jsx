@@ -231,7 +231,7 @@ export default function DoubleDiamondSection() {
             발산과 수렴을 두 번 반복했습니다
           </h2>
           <p style={{
-            fontSize: t.lead.size, fontWeight: 400,
+            fontSize: t.lead.size, fontWeight: 500,
             lineHeight: t.lead.lh, color: color.inkMuted, margin: 0,
           }}>
             더블 다이아몬드는 문제를 넓게 탐색해 정의하고, 해결안을 넓게 펼쳐 구현하는 디자인 프로세스입니다.

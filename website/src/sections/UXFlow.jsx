@@ -15,7 +15,7 @@ function FlowStep({ label, isAxiom, index, visible, isLast }) {
         style={{
           padding: 'clamp(10px,1.2vw,14px) clamp(12px,1.5vw,18px)',
           background: colors.bgDeep,
-          border: `1px solid ${isAxiom ? colors.brand : colors.warn}`,
+          border: `1px solid ${isAxiom ? colors.brand : colors.inkMuted}`,
           borderRadius: 10,
           minWidth: 'clamp(80px,10vw,120px)',
           textAlign: 'center',
@@ -24,13 +24,13 @@ function FlowStep({ label, isAxiom, index, visible, isLast }) {
           transition: `opacity 0.4s ease ${index * 60}ms, transform 0.4s ease ${index * 60}ms`,
         }}
       >
-        <p style={{ margin: 0, fontSize: 12, fontWeight: 600, color: isAxiom ? colors.ink : colors.inkFaint, lineHeight: 1.4 }}>
+        <p style={{ margin: 0, fontSize: 16, fontWeight: 600, color: isAxiom ? colors.ink : colors.inkMuted, lineHeight: 1.4 }}>
           {label}
         </p>
       </div>
       {!isLast && (
         <svg width="28" height="12" viewBox="0 0 28 12" fill="none" style={{ flexShrink: 0 }}>
-          <path d="M0 6h22M18 1l6 5-6 5" stroke={isAxiom ? colors.brand : colors.warn} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M0 6h22M18 1l6 5-6 5" stroke={isAxiom ? colors.brand : colors.inkMuted} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       )}
     </div>
@@ -58,7 +58,7 @@ export default function UXFlow() {
         <div ref={flowRef} style={{ marginBottom: 'clamp(56px,7vw,96px)' }}>
           {/* 기존 플로우 */}
           <div style={{ marginBottom: 'clamp(20px,3vw,32px)' }}>
-            <p style={{ margin: '0 0 clamp(10px,1.5vw,16px)', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.warn }}>
+            <p style={{ margin: '0 0 clamp(10px,1.5vw,16px)', fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.inkMuted }}>
               기존 — 이탈 유발 구조
             </p>
             <div style={{ display: 'flex', alignItems: 'center', overflowX: 'auto', paddingBottom: 8, gap: 0 }} className="flow-scroll">
@@ -77,7 +77,7 @@ export default function UXFlow() {
 
           {/* AXIOM 플로우 */}
           <div>
-            <p style={{ margin: '0 0 clamp(10px,1.5vw,16px)', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.brand }}>
+            <p style={{ margin: '0 0 clamp(10px,1.5vw,16px)', fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.brand }}>
               AXIOM — Zero Search, One Flow
             </p>
             <div style={{ display: 'flex', alignItems: 'center', overflowX: 'auto', paddingBottom: 8, gap: 0 }} className="flow-scroll">
@@ -118,9 +118,9 @@ export default function UXFlow() {
                   transition: `opacity 0.5s ease ${i * 80}ms, transform 0.5s ease ${i * 80}ms`,
                 }}
               >
-                <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 700, color: colors.ink }}>{page.name}</p>
-                <p style={{ margin: '0 0 6px', fontSize: 12, fontWeight: 600, color: colors.brandMid }}>{page.purpose}</p>
-                <p style={{ margin: 0, fontSize: 12, color: colors.inkMuted, lineHeight: 1.5 }}>{page.desc}</p>
+                <p style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 700, color: colors.ink }}>{page.name}</p>
+                <p style={{ margin: '0 0 6px', fontSize: 16, fontWeight: 600, color: colors.brandMid }}>{page.purpose}</p>
+                <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: colors.inkMuted, lineHeight: 1.5 }}>{page.desc}</p>
               </div>
             ))}
           </div>
@@ -128,7 +128,7 @@ export default function UXFlow() {
 
         {/* ── 인터랙션 원칙 ── */}
         <div ref={princRef}>
-          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkFaint }}>
+          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
             인터랙션 원칙
           </p>
           <div
@@ -152,8 +152,8 @@ export default function UXFlow() {
                 }}
               >
                 <div style={{ width: 8, height: 8, borderRadius: '50%', background: colors.brand, marginBottom: 12 }} />
-                <p style={{ margin: '0 0 8px', fontSize: 14, fontWeight: 600, color: colors.ink, lineHeight: 1.4 }}>{p.rule}</p>
-                <p style={{ margin: 0, fontSize: 13, color: colors.inkMuted, lineHeight: 1.5 }}>{p.apply}</p>
+                <p style={{ margin: '0 0 8px', fontSize: 18, fontWeight: 600, color: colors.ink, lineHeight: 1.4 }}>{p.rule}</p>
+                <p style={{ margin: 0, fontSize: 17, fontWeight: 500, color: colors.inkMuted, lineHeight: 1.5 }}>{p.apply}</p>
               </div>
             ))}
           </div>

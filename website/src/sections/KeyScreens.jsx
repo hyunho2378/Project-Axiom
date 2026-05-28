@@ -52,7 +52,7 @@ function AsIsPlaceholder({ scale = 0.62, screenHeight = 600 }) {
           height: `${frameH}px`,
           borderRadius: '28px',
           overflow: 'hidden',
-          backgroundColor: '#D1D5DB',
+          backgroundColor: color.bgCard,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -60,15 +60,15 @@ function AsIsPlaceholder({ scale = 0.62, screenHeight = 600 }) {
           gap: 8,
         }}>
           <span style={{
-            fontSize: 10, fontWeight: 800,
+            fontSize: 14, fontWeight: 800,
             letterSpacing: '0em', textTransform: 'uppercase',
-            color: 'rgba(0,0,0,0.3)', fontFamily: font.family,
+            color: 'rgba(255,255,255,0.3)', fontFamily: font.family,
             textAlign: 'center',
           }}>
             AS-IS
           </span>
           <span style={{
-            fontSize: 10, color: 'rgba(0,0,0,0.25)',
+            fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.25)',
             fontFamily: font.family, textAlign: 'center',
             padding: '0 16px',
           }}>
@@ -132,7 +132,7 @@ function ScreenPair({ screen, visible, delay }) {
             marginBottom: 16,
           }}>
             <span style={{
-              fontSize: 11, fontWeight: 800,
+              fontSize: 15, fontWeight: 800,
               letterSpacing: '0em', textTransform: 'uppercase',
               color: color.inkFaint, fontFamily: font.family,
             }}>AS-IS</span>
@@ -160,7 +160,7 @@ function ScreenPair({ screen, visible, delay }) {
             marginBottom: 16,
           }}>
             <span style={{
-              fontSize: 11, fontWeight: 800,
+              fontSize: 15, fontWeight: 800,
               letterSpacing: '0em', textTransform: 'uppercase',
               color: color.brand, fontFamily: font.family,
             }}>TO-BE</span>

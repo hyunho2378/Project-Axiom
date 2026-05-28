@@ -148,16 +148,16 @@ export const SKIN_TYPES = {
         code: "OILY_SENSITIVE",
         title: "Oily-Sensitive",
         titleKo: "지성-민감성",
-        emoji: "💧🔥",
+        emoji: "",
         description: "Your skin produces excess oil while also being prone to irritation. Balance is key.",
         descriptionKo: "피지 분비가 과다하면서도 자극에 민감한 피부입니다. 균형이 핵심입니다.",
-        color: "#FF7043"
+        color: "#2A6885"
     },
     OILY_RESILIENT: {
         code: "OILY_RESILIENT",
         title: "Oily-Resilient",
         titleKo: "지성-저항성",
-        emoji: "💧✨",
+        emoji: "",
         description: "Your skin is well-protected but produces excess sebum. Focus on oil control.",
         descriptionKo: "피부 장벽은 튼튼하지만 피지 분비가 많습니다. 유분 조절에 집중하세요.",
         color: "#3C7795"
@@ -166,16 +166,16 @@ export const SKIN_TYPES = {
         code: "DRY_SENSITIVE",
         title: "Dry-Sensitive",
         titleKo: "건성-민감성",
-        emoji: "🌙🔥",
+        emoji: "",
         description: "Your skin lacks moisture and is easily irritated. Gentle hydration is essential.",
         descriptionKo: "수분이 부족하고 쉽게 자극받는 피부입니다. 부드러운 보습이 필수입니다.",
-        color: "#FFAB91"
+        color: "#5A9AB5"
     },
     DRY_RESILIENT: {
         code: "DRY_RESILIENT",
         title: "Dry-Resilient",
         titleKo: "건성-저항성",
-        emoji: "🌙✨",
+        emoji: "",
         description: "Your skin is stable but needs more hydration. Rich moisturizers will help.",
         descriptionKo: "피부가 안정적이지만 수분이 더 필요합니다. 진한 보습제가 도움이 됩니다.",
         color: "#8AAEC0"

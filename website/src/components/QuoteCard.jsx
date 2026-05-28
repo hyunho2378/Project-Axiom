@@ -24,6 +24,8 @@ export default function QuoteCard({ quote, speaker, delay = 0 }) {
         lineHeight: t.lead.lh,
         color: colors.ink,
         fontStyle: 'normal',
+        fontWeight: 500,
+        wordBreak: 'keep-all',
       }}>
         &ldquo;{quote}&rdquo;
       </p>
@@ -36,7 +38,7 @@ export default function QuoteCard({ quote, speaker, delay = 0 }) {
           textTransform: 'uppercase',
           color: colors.brand,
         }}>
-          — {speaker}
+          {speaker}
         </p>
       )}
     </div>

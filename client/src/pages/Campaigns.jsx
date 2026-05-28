@@ -38,8 +38,8 @@ export default function Campaigns() {
             {/* Hero */}
             <section className="h-screen flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-[#3C7795]/10 blur-[150px]" />
-                    <div className="absolute bottom-1/4 left-1/3 w-[400px] h-[400px] rounded-full bg-[#1E5672]/10 blur-[120px]" />
+                    <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-2xl bg-[#3C7795]/10 blur-[150px]" />
+                    <div className="absolute bottom-1/4 left-1/3 w-[400px] h-[400px] rounded-2xl bg-[#1E5672]/10 blur-[120px]" />
                 </div>
 
                 <motion.div
@@ -51,7 +51,7 @@ export default function Campaigns() {
                     <p className="text-xs uppercase tracking-[0.4em] text-white/40 mb-6">
                         Editorial
                     </p>
-                    <h1 className="font-title-en text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium text-white">
+                    <h1 className="font-title-en text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white">
                         Campaigns
                     </h1>
                     <p className="mt-6 text-lg text-white/50 max-w-md mx-auto">
@@ -85,11 +85,11 @@ export default function Campaigns() {
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
                 >
-                    <h2 className="font-title-en text-3xl md:text-4xl font-medium text-white mb-6">
+                    <h2 className="font-title-en text-3xl md:text-3xl font-medium text-white mb-6">
                         Experience the Collection
                     </h2>
-                    <a href="/shop" className="btn-primary inline-block">
-                        <span>Shop Now</span>
+                    <a href="/shop" className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-2xl btn-glow">
+                        Shop Now
                     </a>
                 </motion.div>
             </section>
@@ -125,7 +125,7 @@ function CampaignSection({ campaign, index }) {
                         className={`relative h-[500px] lg:h-[700px] ${isEven ? '' : 'lg:col-start-2'}`}
                         style={{ y: imageY }}
                     >
-                        <div className={`absolute inset-0 rounded-3xl overflow-hidden bg-gradient-to-br ${campaign.color}`}>
+                        <div className={`absolute inset-0 rounded-2xl overflow-hidden bg-gradient-to-br ${campaign.color}`}>
                             {/* Abstract Visual */}
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <motion.div
@@ -141,8 +141,8 @@ function CampaignSection({ campaign, index }) {
                             </div>
 
                             {/* Decorative Elements */}
-                            <div className="absolute top-1/4 right-1/4 w-20 h-20 border border-white/10 rounded-full" />
-                            <div className="absolute bottom-1/3 left-1/4 w-32 h-32 border border-white/5 rounded-full" />
+                            <div className="absolute top-1/4 right-1/4 w-20 h-20 border border-white/10 rounded-2xl" />
+                            <div className="absolute bottom-1/3 left-1/4 w-32 h-32 border border-white/5 rounded-2xl" />
                         </div>
 
                         {/* Campaign Number */}
@@ -159,7 +159,7 @@ function CampaignSection({ campaign, index }) {
                         <p className="text-xs uppercase tracking-[0.3em] text-[#8AAEC0]/80 mb-4">
                             {campaign.subtitle}
                         </p>
-                        <h2 className="font-title-en text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-6 leading-[1.1]">
+                        <h2 className="font-title-en text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-6 leading-[1.1]">
                             {campaign.title}
                         </h2>
                         <p className="text-lg md:text-xl text-white/50 leading-relaxed mb-8 max-w-lg">

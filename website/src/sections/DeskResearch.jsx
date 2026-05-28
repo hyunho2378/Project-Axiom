@@ -99,7 +99,7 @@ export default function DeskResearch() {
                     padding: '14px 20px',
                     background: i === 1 ? color.brand : color.bg,
                     color: i === 1 ? color.white : color.inkFaint,
-                    fontSize: 11,
+                    fontSize: 15, fontWeight: 600,
                     fontWeight: 700,
                     letterSpacing: '0em',
                     textTransform: 'uppercase',
@@ -187,7 +187,7 @@ export default function DeskResearch() {
                   />
                   <span
                     style={{
-                      fontSize: 13,
+                      fontSize: 17, fontWeight: 500,
                       fontWeight: item.accent ? 700 : 500,
                       color: item.accent ? color.brand : color.ink,
                       letterSpacing: '-0.01em',
@@ -200,7 +200,7 @@ export default function DeskResearch() {
                   </span>
                   <span
                     style={{
-                      fontSize: 11,
+                      fontSize: 15, fontWeight: 600,
                       fontWeight: 500,
                       color: item.accent ? color.brandAlt : color.inkFaint,
                       letterSpacing: '0.02em',

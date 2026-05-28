@@ -39,7 +39,7 @@ export default function Outro() {
           }}
         >
           <h2 style={{
-            fontSize: 'clamp(48px,8vw,128px)',
+            fontSize: 'clamp(40px,6vw,80px)',
             fontWeight: 800,
             lineHeight: 1.1,
             letterSpacing: '-0.04em',
@@ -124,13 +124,6 @@ export default function Outro() {
             flexWrap: 'wrap',
             gap: 12,
           }}>
-            <p style={{
-              fontSize: t.caption.size, lineHeight: t.caption.lh,
-              color: 'rgba(255,255,255,0.5)',
-              margin: 0, fontFamily: font.family,
-            }}>
-              한림대학교 디지털인문예술전공 UX 디자인
-            </p>
             <p style={{
               fontSize: t.caption.size, lineHeight: t.caption.lh,
               color: 'rgba(255,255,255,0.35)',

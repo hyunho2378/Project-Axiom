@@ -13,8 +13,7 @@ export default function HeroIntro() {
 
     return (
         <section
-            className="relative min-h-screen overflow-hidden bg-void-deep"
-            style={{ scrollSnapAlign: 'start' }}
+            className="relative h-screen overflow-hidden bg-void-deep"
         >
             {/* Grain overlay */}
             <div
@@ -25,7 +24,7 @@ export default function HeroIntro() {
             {/* Text — left column
                 outer wrapper: pointer-events-none so crystal on the right receives mouse events
                 inner text block: pointer-events-auto to keep button/link clickable */}
-            <div className="relative z-20 flex items-center min-h-screen max-w-7xl mx-auto px-6 pointer-events-none">
+            <div className="relative z-20 flex items-center h-full max-w-7xl mx-auto px-6 pointer-events-none">
                 <div className="max-w-lg pointer-events-auto">
                     <motion.p
                         {...fadeIn}
@@ -40,7 +39,7 @@ export default function HeroIntro() {
                             initial={prefersReduced ? {} : { opacity: 0, y: 80 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1.0, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            className="font-title-en text-4xl md:text-6xl lg:text-[clamp(4rem,12vw,11rem)] leading-none tracking-tight text-ui-textPrimary block"
+                            className="font-title-en text-3xl md:text-5xl lg:text-[clamp(3rem,10vw,9rem)] leading-none tracking-tight text-ui-textPrimary block"
                         >
                             AXIOM
                         </motion.h1>

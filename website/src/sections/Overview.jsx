@@ -8,7 +8,6 @@ const { overview, meta } = axiomData;
 export default function Overview() {
   const [leftRef, leftVisible] = useReveal({ threshold: 0.1 });
   const [rightRef, rightVisible] = useReveal({ threshold: 0.1 });
-  const [stackRef, stackVisible] = useReveal({ threshold: 0.2 });
 
   return (
     <section
@@ -50,6 +49,8 @@ export default function Overview() {
                 letterSpacing: t.h2.ls,
                 color: colors.ink,
                 whiteSpace: 'pre-line',
+                wordBreak: 'keep-all',
+                overflowWrap: 'break-word',
               }}
             >
               {overview.headline}
@@ -69,7 +70,7 @@ export default function Overview() {
                 margin: 0,
                 fontSize: t.body.size,
                 lineHeight: t.body.lh,
-                color: colors.inkFaint,
+                color: colors.inkMuted,
                 fontStyle: 'italic',
               }}
             >
@@ -128,46 +129,6 @@ export default function Overview() {
           </div>
         </div>
 
-        {/* 하단: 기술 스택 태그 */}
-        <div
-          ref={stackRef}
-          style={{
-            opacity: stackVisible ? 1 : 0,
-            transform: stackVisible ? 'none' : 'translateY(16px)',
-            transition: 'opacity 0.6s ease, transform 0.6s ease',
-          }}
-        >
-          <p
-            style={{
-              margin: '0 0 12px',
-              fontSize: t.caption.size,
-              fontWeight: 700,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: colors.inkFaint,
-            }}
-          >
-            Tech Stack
-          </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-            {overview.techTags.map((tag, i) => (
-              <span
-                key={i}
-                style={{
-                  padding: '5px 14px',
-                  border: `1px solid ${colors.line}`,
-                  borderRadius: 9999,
-                  fontSize: t.caption.size,
-                  fontWeight: 500,
-                  color: colors.inkMuted,
-                  letterSpacing: '0.02em',
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
 
       <style>{`

@@ -2,7 +2,6 @@
 import { colors, font } from './tokens/web.js';
 import Nav from './components/Nav.jsx';
 import Hero from './sections/Hero.jsx';
-import StatsBar from './sections/StatsBar.jsx';
 import Overview from './sections/Overview.jsx';
 import Problem from './sections/Problem.jsx';
 import Research from './sections/Research.jsx';
@@ -31,7 +30,6 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
-        <StatsBar />
         <Overview />
         <Problem />
         <Research />

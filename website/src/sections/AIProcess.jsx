@@ -23,11 +23,11 @@ function reliabilityBadge(rel) {
   if (!rel) return null;
   const isStrong = rel.startsWith('강함');
   const isWeak   = rel.startsWith('약함');
-  const icon  = isStrong ? '✅' : '⚠️';
+  const icon  = '';
   const color = isStrong ? colors.ok : colors.warn;
   const short = rel.split(' — ')[0];
   return (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, color, fontWeight: 600 }}>
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 15, color, fontWeight: 600 }}>
       {icon} {short}
     </span>
   );
@@ -84,7 +84,7 @@ export default function AIProcess() {
               <p style={{ margin: 0, fontSize: t.body.size, fontWeight: 500, color: colors.ink, lineHeight: 1.4, flex: 1 }}>
                 {item.desc}
               </p>
-              <p style={{ margin: 0, fontSize: 12, color: colors.inkFaint, lineHeight: 1.4 }}>
+              <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: colors.inkMuted, lineHeight: 1.4 }}>
                 {item.source}
               </p>
               {reliabilityBadge(item.reliability)}
@@ -97,7 +97,7 @@ export default function AIProcess() {
           ref={gallRef}
           style={{ marginBottom: 'clamp(56px,7vw,96px)' }}
         >
-          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkFaint }}>
+          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
             3D 오브제 갤러리
           </p>
           <div
@@ -129,12 +129,12 @@ export default function AIProcess() {
                       width: '100%',
                       height: '100%',
                       border: 'none',
-                      pointerEvents: 'none',
+                      pointerEvents: 'auto',
                       display: 'block',
                     }}
                   />
                 </div>
-                <p style={{ margin: 0, fontSize: 12, color: colors.inkMuted, textAlign: 'center', lineHeight: 1.4 }}>
+                <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: colors.inkMuted, textAlign: 'center', lineHeight: 1.4 }}>
                   {orb.label}
                 </p>
               </div>
@@ -147,7 +147,7 @@ export default function AIProcess() {
           ref={collabRef}
           style={{ marginBottom: aiProcess.pending?.length ? 'clamp(32px,4vw,48px)' : 0 }}
         >
-          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkFaint }}>
+          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
             역할 분담 — AI vs Human
           </p>
           <div
@@ -208,27 +208,6 @@ export default function AIProcess() {
           </div>
         </div>
 
-        {/* ── Pending 박스 ── */}
-        {aiProcess.pending?.length > 0 && (
-          <div
-            style={{
-              marginTop: 'clamp(24px,3vw,40px)',
-              padding: 'clamp(16px,2vw,24px)',
-              background: `rgba(255,136,102,0.08)`,
-              border: `1px solid ${colors.warn}`,
-              borderRadius: 'clamp(8px,1vw,12px)',
-            }}
-          >
-            <p style={{ margin: '0 0 10px', fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', color: colors.warn }}>
-              ⚠️ 확보 예정
-            </p>
-            {aiProcess.pending.map((p, i) => (
-              <p key={i} style={{ margin: i < aiProcess.pending.length - 1 ? '0 0 6px' : 0, fontSize: 13, color: colors.inkMuted, lineHeight: 1.5 }}>
-                {p.priority}. {p.task} — <span style={{ color: colors.warn }}>{p.status}</span>
-              </p>
-            ))}
-          </div>
-        )}
       </div>
 
       <style>{`

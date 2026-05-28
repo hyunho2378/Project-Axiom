@@ -1,12 +1,12 @@
 import { colors, font, layout } from '../tokens/web.js';
 
 const LINKS = [
-  { label: 'Overview',   href: '#overview' },
-  { label: 'Research',   href: '#research' },
-  { label: 'Strategy',   href: '#ux-strategy' },
-  { label: 'BX',         href: '#bx' },
+  { label: 'Overview', href: '#overview' },
+  { label: 'Research', href: '#research' },
+  { label: 'Strategy', href: '#ux-strategy' },
+  { label: 'BX', href: '#bx' },
   { label: 'Data Logic', href: '#data-logic' },
-  { label: 'Demo',       href: '#demo' },
+  { label: 'Demo', href: '#demo' },
 ];
 
 export default function Nav() {
@@ -85,7 +85,7 @@ export default function Nav() {
 
         {/* GitHub 링크 */}
         <a
-          href="https://github.com/hyunho2378/Gangneung-Pay"
+          href="https://github.com/hyunho2378/Project-Axiom.git"
           target="_blank"
           rel="noopener noreferrer"
           title="GitHub"

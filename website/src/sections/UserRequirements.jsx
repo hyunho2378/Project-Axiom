@@ -49,7 +49,7 @@ function UrRow({ code, desc, priority, visible, delay }) {
       {/* UR code — fixed width, brand, monospace feel */}
       <span
         style={{
-          fontSize: 13,
+          fontSize: 17, fontWeight: 500,
           fontWeight: 800,
           letterSpacing: '0.04em',
           color: color.brand,
@@ -78,7 +78,7 @@ function UrRow({ code, desc, priority, visible, delay }) {
       {/* Priority badge */}
       <span
         style={{
-          fontSize: 11,
+          fontSize: 15, fontWeight: 600,
           fontWeight: 800,
           letterSpacing: '0.08em',
           textTransform: 'uppercase',
@@ -187,7 +187,7 @@ export default function UserRequirements() {
                 </span>
                 <span style={{
                   marginLeft: 'auto',
-                  fontSize: 12, fontWeight: 600,
+                  fontSize: 16, fontWeight: 600,
                   color: color.inkFaint,
                   fontFamily: font.family,
                 }}>

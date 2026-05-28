@@ -8,21 +8,11 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #000; overflow: hidden; }
   canvas { display: block; width: 100vw; height: 100vh; }
-  #hint {
-    position: fixed; bottom: 32px; left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 11px; letter-spacing: 0.3em;
-    color: rgba(90,154,181,0.4);
-    text-transform: uppercase;
-    pointer-events: none;
-    transition: opacity 1.2s;
-  }
+
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
-<div id="hint">drag to reveal</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 const canvas = document.getElementById('c');
@@ -302,12 +292,8 @@ scene.add(rimLight.target);
 let dragging = false, lx = 0, ly = 0;
 let vx = 0.0005, vy = 0;
 let rotX = 0.18, rotY = 0;
-const hint = document.getElementById('hint');
-let hintHidden = false;
-
 const onDown = (x, y) => {
   dragging = true; lx = x; ly = y; vx = 0; vy = 0;
-  if (!hintHidden) { hint.style.opacity = '0'; hintHidden = true; }
 };
 const onMove = (x, y) => {
   if (!dragging) return;

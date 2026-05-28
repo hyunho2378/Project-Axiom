@@ -17,3 +17,39 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ── BEGIN ANALYSIS 버튼 glow effect ── */
+.btn-glow {
+  position: relative;
+  border: 1px solid #2A6885;
+  background: transparent;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.35s ease;
+  overflow: visible;
+}
+
+.btn-glow::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  background: linear-gradient(135deg,
+    rgba(0, 212, 255, 0.25),
+    rgba(42, 104, 133, 0.15),
+    rgba(30, 86, 114, 0.20));
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: -1;
+  filter: blur(12px);
+}
+
+.btn-glow:hover {
+  border-color: #00D4FF;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2),
+              0 0 40px rgba(0, 212, 255, 0.08);
+}
+
+.btn-glow:hover::before {
+  opacity: 1;
+}

@@ -95,7 +95,7 @@ export default function ResearcherEditorial() {
                             <p className="font-body text-[9px] tracking-[0.4em] text-[#3C7795] uppercase mb-3">
                                 {FEATURED.issue}
                             </p>
-                            <h1 className="font-title-en text-3xl md:text-4xl text-white leading-title">
+                            <h1 className="font-title-en text-3xl md:text-3xl text-white leading-title">
                                 AXIOM Editorial
                             </h1>
                         </motion.div>
@@ -125,7 +125,7 @@ export default function ResearcherEditorial() {
                         >
                             {/* Atmospheric depth — researcher lab aesthetic */}
                             <div className="absolute inset-0 bg-gradient-to-br from-[#1E5672]/20 via-transparent to-black" />
-                            <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[300px] h-[300px] rounded-full bg-[#3C7795]/10 blur-[80px]" />
+                            <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[300px] h-[300px] rounded-2xl bg-[#3C7795]/10 blur-[80px]" />
 
                             <div className="relative z-10 text-center px-12">
                                 <div className="w-px h-20 bg-gradient-to-b from-transparent to-[#3C7795]/40 mx-auto mb-8" />
@@ -157,7 +157,7 @@ export default function ResearcherEditorial() {
                                 {FEATURED.category} · COVER STORY
                             </p>
 
-                            <h2 className="font-title-en text-3xl md:text-4xl lg:text-5xl text-white leading-title mb-8 whitespace-pre-line">
+                            <h2 className="font-title-en text-3xl md:text-3xl lg:text-4xl text-white leading-title mb-8 whitespace-pre-line">
                                 {FEATURED.title}
                             </h2>
 
@@ -301,7 +301,7 @@ export default function ResearcherEditorial() {
                             <p className="font-body text-[9px] text-[#3C7795] tracking-[0.3em] uppercase mb-6">
                                 AXIOM Research Intelligence
                             </p>
-                            <h2 className="font-title-en text-3xl md:text-4xl text-white leading-title mb-6">
+                            <h2 className="font-title-en text-3xl md:text-3xl text-white leading-title mb-6">
                                 피부 과학의 최전선,<br />AXIOM이 먼저 읽습니다.
                             </h2>
                             <p className="font-body text-[#8AAEC0] text-base leading-body max-w-lg">
@@ -311,13 +311,13 @@ export default function ResearcherEditorial() {
                         <div className="lg:col-span-5 flex flex-col gap-4">
                             <Link
                                 to="/analysis"
-                                className="inline-flex items-center justify-center gap-4 px-10 py-5 bg-[#3C7795] hover:bg-[#8AAEC0] text-white font-body font-semibold text-xs tracking-[0.2em] uppercase rounded-full transition-all duration-300"
+                                className="inline-flex items-center justify-center gap-4 px-10 py-5 bg-[#3C7795] hover:bg-[#8AAEC0] text-white font-body font-semibold text-xs tracking-[0.2em] uppercase rounded-2xl transition-all duration-300"
                             >
                                 Begin Your Analysis →
                             </Link>
                             <Link
                                 to="/axiom"
-                                className="inline-flex items-center justify-center gap-4 px-10 py-5 border border-[#222] text-[#8AAEC0]/60 hover:border-[#3C7795] hover:text-[#8AAEC0] font-body text-xs tracking-[0.2em] uppercase rounded-full transition-all duration-300"
+                                className="inline-flex items-center justify-center gap-4 px-10 py-5 border border-[#222] text-[#8AAEC0]/60 hover:border-[#3C7795] hover:text-[#8AAEC0] font-body text-xs tracking-[0.2em] uppercase rounded-2xl transition-all duration-300"
                             >
                                 Brand Philosophy
                             </Link>

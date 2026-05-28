@@ -22,6 +22,7 @@ export default function SectionHeader({ eyebrow, headline, sub, align = 'left' }
           margin: '0 0 12px',
           fontSize: t.eyebrow.size,
           fontWeight: t.eyebrow.weight,
+          lineHeight: t.eyebrow.lh,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
           color: colors.brand,
@@ -36,6 +37,8 @@ export default function SectionHeader({ eyebrow, headline, sub, align = 'left' }
         lineHeight: t.h1.lh,
         letterSpacing: t.h1.ls,
         color: colors.ink,
+        wordBreak: 'keep-all',
+        overflowWrap: 'break-word',
       }}>
         {headline}
       </h2>

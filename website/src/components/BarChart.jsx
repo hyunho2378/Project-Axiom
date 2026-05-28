@@ -22,7 +22,7 @@ export default function BarChart({ title, subtitle, bars = [], source }) {
         <p style={{
           margin: '0 0 20px',
           fontSize: t.caption.size,
-          color: colors.inkFaint,
+          color: colors.inkMuted,
         }}>
           {subtitle}
         </p>
@@ -71,7 +71,7 @@ export default function BarChart({ title, subtitle, bars = [], source }) {
         <p style={{
           margin: '16px 0 0',
           fontSize: t.caption.size,
-          color: colors.inkFaint,
+          color: colors.inkMuted,
         }}>
           출처: {source}
         </p>

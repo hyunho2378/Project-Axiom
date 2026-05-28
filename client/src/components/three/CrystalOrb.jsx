@@ -44,20 +44,6 @@ function makeGlowSprite(tex, size, opacity, color) {
     return sprite;
 }
 
-function makeLensSprite(tex, w, h, opacity, color) {
-    const mat = new THREE.SpriteMaterial({
-        map: tex,
-        color: new THREE.Color(color),
-        transparent: true,
-        opacity,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-    });
-    const sprite = new THREE.Sprite(mat);
-    sprite.scale.set(w, h, 1);
-    return sprite;
-}
-
 // ── PETAL GEOMETRY (bezier shape + Z-curve deformation) ──────────────────
 function makePetalGeo(len, wid, curve, segs = 20) {
     const shape = new THREE.Shape();
@@ -95,7 +81,6 @@ function CrystalScene() {
         const glowTex1 = makeGlowTexture('rgba(255,255,255,1)', 'rgba(0,212,255,1)',   512);
         const glowTex2 = makeGlowTexture('rgba(0,212,255,1)',   'rgba(42,104,133,1)', 512);
         const glowTex3 = makeGlowTexture('rgba(192,240,255,1)', 'rgba(0,180,220,1)',  256);
-        const flareTex = makeGlowTexture('rgba(255,255,255,1)', 'rgba(200,240,255,1)',128);
 
         // ── FLOWER GROUP ─────────────────────────────────────────────────
         const flower = new THREE.Group();
@@ -145,9 +130,7 @@ function CrystalScene() {
         const g2 = makeGlowSprite(glowTex1, 1.8,  0.9,  0x88EEFF);
         const g3 = makeGlowSprite(glowTex2, 3.6,  0.7,  0x00D4FF);
         const g4 = makeGlowSprite(glowTex2, 6.5,  0.35, 0x1E5672);
-        const flare1 = makeLensSprite(flareTex, 8.0,  0.08, 0.25, 0xAADDFF);
-        const flare2 = makeLensSprite(flareTex, 0.12, 5.0,  0.18, 0xAADDFF);
-        glowGroup.add(g1, g2, g3, g4, flare1, flare2);
+        glowGroup.add(g1, g2, g3, g4);
         flower.add(glowGroup);
 
         // ── RINGS ─────────────────────────────────────────────────────
@@ -181,27 +164,12 @@ function CrystalScene() {
         coreLight2.position.set(0, 0.18, 0);
         flower.add(coreLight2);
 
-        // ── FLOOR ─────────────────────────────────────────────────────
-        const plane = new THREE.Mesh(
-            new THREE.CircleGeometry(4.5, 80),
-            new THREE.MeshPhysicalMaterial({
-                color: 0x000000, metalness: 1.0, roughness: 0.06,
-                transparent: true, opacity: 0.6,
-            })
-        );
-        plane.rotation.x = -Math.PI / 2;
-        plane.position.y = -1.1;
-        plane.receiveShadow = true;
-
-        const floorGlow = makeGlowSprite(glowTex2, 3.5, 0.2, 0x00AACC);
-        floorGlow.position.y = -1.05;
-
         // ── PARTICLES ─────────────────────────────────────────────────
-        const pPos = new Float32Array(380 * 3);
-        for (let i = 0; i < 380; i++) {
+        const pPos = new Float32Array(280 * 3);
+        for (let i = 0; i < 280; i++) {
             const r     = 3.0 + Math.random() * 3.5;
             const theta = Math.random() * Math.PI * 2;
-            const phi   = (Math.random() - 0.5) * Math.PI;
+            const phi   = Math.random() * Math.PI * 0.4;
             pPos[i*3]   = r * Math.cos(phi) * Math.cos(theta);
             pPos[i*3+1] = r * Math.sin(phi);
             pPos[i*3+2] = r * Math.cos(phi) * Math.sin(theta);
@@ -240,11 +208,11 @@ function CrystalScene() {
 
         return {
             flower, allPetalMats,
-            g1, g2, g3, g4, flare1, flare2,
+            g1, g2, g3, g4,
             ring, ring2, coreLight, coreLight2,
-            particles, plane, floorGlow,
+            particles,
             ambientLight, keyLight, fillLight, rimLight,
-            textures: [glowTex1, glowTex2, glowTex3, flareTex],
+            textures: [glowTex1, glowTex2, glowTex3],
         };
     }, []);
 
@@ -255,7 +223,7 @@ function CrystalScene() {
 
     useFrame((state) => {
         const t = state.clock.elapsedTime;
-        const { flower, allPetalMats, g1, g2, g3, g4, flare1, flare2,
+        const { flower, allPetalMats, g1, g2, g3, g4,
                 ring, ring2, coreLight, coreLight2, particles, keyLight } = objs;
 
         // Breathing scale + subtle wobble
@@ -270,12 +238,6 @@ function CrystalScene() {
         g2.material.opacity = 0.9 * pulse;
         g3.material.opacity = 0.7 * (0.85 + Math.sin(t * 0.7) * 0.15);
         g4.material.opacity = 0.35 * (0.8 + Math.sin(t * 0.5) * 0.2);
-
-        // Lens flare rotation + pulse
-        flare1.rotation.z = t * 0.08;
-        flare2.rotation.z = t * 0.08;
-        flare1.material.opacity = 0.20 + Math.sin(t * 0.9) * 0.08;
-        flare2.material.opacity = 0.15 + Math.sin(t * 0.7) * 0.06;
 
         // Glow scale pulse
         const gs = 1 + Math.sin(t * 1.0) * 0.08;
@@ -307,7 +269,7 @@ function CrystalScene() {
         particles.rotation.x = t * 0.011;
     });
 
-    const { ambientLight, keyLight, fillLight, rimLight, flower, particles, plane, floorGlow } = objs;
+    const { ambientLight, keyLight, fillLight, rimLight, flower, particles } = objs;
 
     return (
         <>
@@ -320,8 +282,6 @@ function CrystalScene() {
             <primitive object={rimLight.target} />
             <primitive object={flower} />
             <primitive object={particles} />
-            <primitive object={plane} />
-            <primitive object={floorGlow} />
         </>
     );
 }

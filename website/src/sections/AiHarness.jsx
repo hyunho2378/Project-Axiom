@@ -230,7 +230,7 @@ export default function AiHarness() {
                     >
                       <span style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
                         <span style={{
-                          fontSize: 11, fontWeight: 700, letterSpacing: '0.04em',
+                          fontSize: 15, fontWeight: 700, letterSpacing: '0.04em',
                           color: color.brand, fontFamily: "'SFMono-Regular','Consolas','Monaco',monospace",
                           flexShrink: 0,
                         }}>
@@ -244,7 +244,7 @@ export default function AiHarness() {
                         </span>
                       </span>
                       <span style={{
-                        fontSize: 16, fontWeight: 300, color: color.brand, flexShrink: 0,
+                        fontSize: 20, fontWeight: 500, color: color.brand, flexShrink: 0,
                         transition: 'transform 0.25s ease-out',
                         transform: isOpen ? 'rotate(45deg)' : 'none',
                         display: 'inline-block',
@@ -257,7 +257,7 @@ export default function AiHarness() {
                         margin: 0, padding: '12px 14px',
                         background: '#1E1E1E',
                         borderRadius: `0 0 ${layout.rSm} ${layout.rSm}`,
-                        fontSize: 11, lineHeight: 1.75,
+                        fontSize: 15, fontWeight: 600, lineHeight: 1.75,
                         color: '#D4D4D4',
                         fontFamily: "'SFMono-Regular','Consolas','Monaco',monospace",
                         overflowX: 'auto', whiteSpace: 'pre',
@@ -310,19 +310,19 @@ export default function AiHarness() {
                     }}
                   >
                     <div style={{
-                      fontSize: 16, fontWeight: 800,
+                      fontSize: 20, fontWeight: 800,
                       color: ag.color, fontFamily: font.family, marginBottom: 4,
                     }}>
                       {ag.id}
                     </div>
                     <div style={{
-                      fontSize: 13, fontWeight: 700,
+                      fontSize: 17, fontWeight: 700,
                       color: color.ink, fontFamily: font.family, marginBottom: 4,
                     }}>
                       {ag.label}
                     </div>
                     <div style={{
-                      fontSize: 13, lineHeight: 1.5,
+                      fontSize: 17, fontWeight: 500, lineHeight: 1.5,
                       color: color.inkMuted, fontFamily: font.family,
                     }}>
                       {ag.desc}
@@ -350,20 +350,20 @@ export default function AiHarness() {
                 }}
               >
                 <span style={{
-                  fontSize: 16, fontWeight: 800,
+                  fontSize: 20, fontWeight: 800,
                   color: AGENTS[3].color, fontFamily: font.family,
                 }}>
                   VR
                 </span>
                 <div>
                   <div style={{
-                    fontSize: 13, fontWeight: 700,
+                    fontSize: 17, fontWeight: 700,
                     color: color.ink, fontFamily: font.family, marginBottom: 2,
                   }}>
                     {AGENTS[3].label}
                   </div>
                   <div style={{
-                    fontSize: 13, color: color.inkMuted, fontFamily: font.family,
+                    fontSize: 17, fontWeight: 500, color: color.inkMuted, fontFamily: font.family,
                   }}>
                     {AGENTS[3].desc}
                   </div>
@@ -416,7 +416,7 @@ export default function AiHarness() {
                   }}
                 >
                   <div style={{
-                    fontSize: 15, fontWeight: 800,
+                    fontSize: 19, fontWeight: 800,
                     color: color.brand, fontFamily: font.family, marginBottom: 12,
                   }}>
                     {m.name}
@@ -434,7 +434,7 @@ export default function AiHarness() {
                           background: color.brand, flexShrink: 0,
                         }} />
                         <span style={{
-                          fontSize: 12, color: color.ink,
+                          fontSize: 16, fontWeight: 500, color: color.ink,
                           fontFamily: font.family, lineHeight: 1.5,
                         }}>
                           {u}
@@ -443,7 +443,7 @@ export default function AiHarness() {
                     ))}
                   </div>
                   <p style={{
-                    fontSize: 13, color: color.inkMuted,
+                    fontSize: 17, fontWeight: 500, color: color.inkMuted,
                     fontFamily: font.family, margin: 0,
                     paddingTop: 8,
                   }}>
@@ -515,7 +515,7 @@ export default function AiHarness() {
                     </span>
                   </div>
                   <span style={{
-                    fontSize: 13, fontWeight: 800,
+                    fontSize: 17, fontWeight: 800,
                     color: color.ok, fontFamily: font.family,
                     letterSpacing: '0.04em',
                   }}>
@@ -566,7 +566,7 @@ export default function AiHarness() {
                   background: color.brand, marginBottom: 10,
                 }}>
                   <span style={{
-                    fontSize: 10, fontWeight: 800, color: color.white,
+                    fontSize: 14, fontWeight: 800, color: color.white,
                     fontFamily: "'SFMono-Regular','Consolas','Monaco',monospace",
                     letterSpacing: '-0.02em',
                   }}>
@@ -574,13 +574,13 @@ export default function AiHarness() {
                   </span>
                 </div>
                 <p style={{
-                  margin: '0 0 2px', fontSize: 13, fontWeight: 700,
+                  margin: '0 0 2px', fontSize: 17, fontWeight: 700,
                   color: color.ink, fontFamily: font.family,
                 }}>
                   {tool.name}
                 </p>
                 <p style={{
-                  margin: 0, fontSize: 11, lineHeight: 1.5,
+                  margin: 0, fontSize: 15, fontWeight: 600, lineHeight: 1.5,
                   color: color.inkMuted, fontFamily: font.family,
                 }}>
                   {tool.desc}

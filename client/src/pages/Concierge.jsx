@@ -59,7 +59,7 @@ export default function Concierge({ user }) {
         <div className="min-h-screen pt-24 flex flex-col">
             {/* Ambient Background */}
             <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-[#3C7795]/5 blur-[200px]" />
+                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-2xl bg-[#3C7795]/5 blur-[200px]" />
             </div>
 
             {/* Main Content */}
@@ -76,7 +76,7 @@ export default function Concierge({ user }) {
                             <p className="text-xs uppercase tracking-[0.4em] text-[#3C7795]/60 mb-6">
                                 Concierge
                             </p>
-                            <h1 className="font-title-en text-3xl sm:text-4xl md:text-5xl font-medium text-white mb-4 leading-tight">
+                            <h1 className="font-title-en text-3xl sm:text-3xl md:text-4xl font-medium text-white mb-4 leading-tight">
                                 How can we assist
                                 <br />
                                 <span className="italic text-white/70">your journey, {userName}?</span>
@@ -164,7 +164,7 @@ export default function Concierge({ user }) {
                                         setInputValue(suggestion);
                                         inputRef.current?.focus();
                                     }}
-                                    className="px-5 py-2.5 text-sm text-white/60 bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:text-white hover:border-white/20 transition-all"
+                                    className="px-5 py-2.5 text-sm text-white/60 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 hover:text-white hover:border-white/20 transition-all"
                                 >
                                     {suggestion}
                                 </button>

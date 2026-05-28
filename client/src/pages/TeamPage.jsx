@@ -93,7 +93,7 @@ function MemberCard({ member, index }) {
         >
             <div className="h-full overflow-hidden bg-gradient-to-b from-white/[0.08] to-transparent backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-8 shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.15),0_8px_24px_-4px_rgba(0,0,0,0.5)] transition-all duration-300 hover:from-white/[0.12] hover:to-white/[0.02] hover:border-white/[0.15] group">
                 {/* Number Badge */}
-                <span className="inline-block px-3 py-1 mb-6 text-[10px] font-bold tracking-[0.2em] text-[#3C7795] bg-[#3C7795]/10 rounded-full uppercase">
+                <span className="inline-block px-3 py-1 mb-6 text-[10px] font-bold tracking-[0.2em] text-[#3C7795] bg-[#3C7795]/10 rounded-2xl uppercase">
                     {String(index + 1).padStart(2, '0')}
                 </span>
 
@@ -130,7 +130,7 @@ export default function TeamPage() {
     return (
         <main className="min-h-screen bg-black pt-24 md:pt-32 pb-20">
             {/* Background Glow */}
-            <div className="fixed top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#3C7795]/5 rounded-full blur-[200px] pointer-events-none" />
+            <div className="fixed top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#3C7795]/5 rounded-2xl blur-[200px] pointer-events-none" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-6">
                 {/* Hero Section */}
@@ -146,7 +146,7 @@ export default function TeamPage() {
                     </p>
 
                     {/* Team Name */}
-                    <h1 className="font-title-en text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
+                    <h1 className="font-title-en text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
                         Team DYT
                     </h1>
 

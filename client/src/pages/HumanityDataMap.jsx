@@ -51,7 +51,7 @@ function NodeDot({ region, onClick, isActive }) {
         >
             {/* Pulse ring */}
             <span
-                className="absolute inset-0 rounded-full animate-ping opacity-40"
+                className="absolute inset-0 rounded-2xl animate-ping opacity-40"
                 style={{
                     backgroundColor: CONCERN_COLORS[region.concern] || '#3C7795',
                     animationDuration: `${1.5 + Math.random() * 1}s`,
@@ -105,13 +105,13 @@ export default function HumanityDataMap() {
                             <p className="font-body text-[9px] tracking-[0.35em] text-[#3C7795] uppercase mb-3">
                                 AXIOM Global Intelligence Network
                             </p>
-                            <h1 className="font-title-en text-3xl md:text-4xl text-white leading-title">
+                            <h1 className="font-title-en text-3xl md:text-3xl text-white leading-title">
                                 Humanity Data Map
                             </h1>
                         </div>
                         <div className="hidden md:flex items-center gap-3">
                             <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3C7795] opacity-75" />
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-2xl bg-[#3C7795] opacity-75" />
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3C7795]" />
                             </span>
                             <span className="font-body text-[9px] text-[#3C7795] tracking-widest uppercase">Live Feed</span>
@@ -177,7 +177,7 @@ export default function HumanityDataMap() {
 
                         {/* Glow center */}
                         <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                            <div className="w-[60%] h-[60%] rounded-full bg-[#1E5672]/5 blur-[80px]" />
+                            <div className="w-[60%] h-[60%] rounded-2xl bg-[#1E5672]/5 blur-[80px]" />
                         </div>
 
                         {/* Nodes */}

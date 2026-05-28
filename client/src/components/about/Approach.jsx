@@ -2,12 +2,12 @@ import { useRef } from 'react';
 import { motion, useMotionValue, useTransform, useReducedMotion } from 'framer-motion';
 
 const APPROACH = [
-    { title: 'Craft', desc: '모든 진단 단계는 피부과학 연구 기반으로 설계되었습니다.' },
-    { title: 'Detail', desc: '20가지 피부 타입을 세분화하여 정교한 매칭을 실현합니다.' },
-    { title: 'Personalization', desc: '당신의 피부는 세상에 하나뿐입니다. 솔루션도 마찬가지입니다.' },
-    { title: 'Luxury', desc: '럭셔리는 가격이 아닌, 정밀함과 경험에서 나옵니다.' },
-    { title: 'Science', desc: '성분과 피부 반응의 관계를 데이터로 추적합니다.' },
-    { title: 'Trust', desc: '과장 없는 진단, 근거 있는 추천만 제공합니다.' },
+    { title: 'Craft',           sub: '정교한 설계', desc: '모든 진단 단계는 피부과학 연구 기반으로 설계되었습니다.' },
+    { title: 'Detail',          sub: '세밀한 분류', desc: '20가지 피부 타입을 세분화하여 정교한 매칭을 실현합니다.' },
+    { title: 'Personalization', sub: '오직 당신만', desc: '당신의 피부는 세상에 하나뿐입니다. 솔루션도 마찬가지입니다.' },
+    { title: 'Fact',            sub: '사실과 진실', desc: '느낌이나 추측이 아닌 데이터만으로 진단합니다.' },
+    { title: 'One & Only',      sub: '단 한 사람',  desc: '모두가 아닌 당신 한 사람에게만 맞춤화됩니다.' },
+    { title: 'Art',             sub: '미학적 경험', desc: '기술은 똑똑해야 하고, 결과물은 아름다워야 합니다.' },
 ];
 
 function TiltCard({ item, index, prefersReduced }) {
@@ -38,8 +38,9 @@ function TiltCard({ item, index, prefersReduced }) {
             className="flex-shrink-0 w-64 md:w-auto p-8 rounded-2xl border border-ui-border snap-start cursor-default"
             whileHover={prefersReduced ? {} : { borderColor: '#2A6885' }}
         >
-            <p className="font-title-en text-neon-cyan text-xs tracking-widest uppercase mb-4">{item.title}</p>
-            <p className="font-body text-ui-textSecondary text-sm leading-body-lg">{item.desc}</p>
+            <h3 className="font-title-en text-2xl text-white">{item.title}</h3>
+            <p className="font-body text-brand-400 text-xs tracking-wider mt-1">{item.sub}</p>
+            <p className="font-body text-ui-textSecondary text-sm mt-3">{item.desc}</p>
         </motion.div>
     );
 }

@@ -23,8 +23,8 @@ export default function AuraStory() {
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
                 {/* Ambient Background */}
                 <div className="absolute inset-0">
-                    <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] rounded-full bg-purple-500/10 blur-[180px]" />
-                    <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/8 blur-[150px]" />
+                    <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] rounded-2xl bg-purple-500/10 blur-[180px]" />
+                    <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-2xl bg-blue-500/8 blur-[150px]" />
                 </div>
 
                 <motion.div
@@ -44,7 +44,7 @@ export default function AuraStory() {
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.9, delay: 0.1 }}
-                        className="font-title-en text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[9rem] font-medium text-white leading-[0.9] tracking-tight"
+                        className="font-title-en text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[8rem] font-medium text-white leading-[0.9] tracking-tight"
                     >
                         Light &
                         <br />
@@ -79,7 +79,7 @@ export default function AuraStory() {
                             <p className="text-xs uppercase tracking-[0.3em] text-purple-400/80 mb-6">
                                 Chapter 01
                             </p>
-                            <h2 className="font-title-en text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-8 leading-[1.1]">
+                            <h2 className="font-title-en text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-8 leading-[1.1]">
                                 Every Face
                                 <br />
                                 <span className="italic text-white/70">Tells a Story</span>
@@ -98,7 +98,7 @@ export default function AuraStory() {
 
                         {/* Visual Block */}
                         <div className="relative h-[500px] lg:h-[600px]">
-                            <div className="absolute inset-0 rounded-3xl overflow-hidden">
+                            <div className="absolute inset-0 rounded-2xl overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/15 via-blue-500/10 to-transparent" />
                                 <div className="absolute inset-0 backdrop-blur-3xl" />
                             </div>
@@ -119,7 +119,7 @@ export default function AuraStory() {
                     viewport={{ once: true }}
                     className="max-w-4xl mx-auto text-center"
                 >
-                    <blockquote className="font-title-en text-3xl md:text-4xl lg:text-5xl text-white leading-relaxed italic">
+                    <blockquote className="font-title-en text-3xl md:text-3xl lg:text-4xl text-white leading-relaxed italic">
                         "We don't chase trends.
                         <br />
                         <span className="text-white/60">We decode you."</span>
@@ -139,7 +139,7 @@ export default function AuraStory() {
                         <p className="text-xs uppercase tracking-[0.3em] text-blue-400/80 mb-6">
                             Chapter 02
                         </p>
-                        <h2 className="font-title-en text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-16 leading-[1.1]">
+                        <h2 className="font-title-en text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-16 leading-[1.1]">
                             Where Science
                             <br />
                             <span className="italic text-white/70">Meets Individuality</span>
@@ -159,9 +159,9 @@ export default function AuraStory() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                                 viewport={{ once: true }}
-                                className="p-10 rounded-3xl bg-white/[0.02] border border-white/[0.06]"
+                                className="p-10 rounded-2xl bg-white/[0.02] border border-white/[0.06]"
                             >
-                                <span className="font-title-en text-6xl md:text-7xl text-white/90 block mb-4">
+                                <span className="font-title-en text-5xl md:text-6xl text-white/90 block mb-4">
                                     {stat.number}
                                 </span>
                                 <h3 className="font-body text-lg font-medium text-white mb-2">
@@ -188,9 +188,8 @@ export default function AuraStory() {
                     >
                         {/* Visual Block */}
                         <div className="relative h-[400px] lg:h-[500px] order-2 lg:order-1">
-                            <div className="absolute inset-0 rounded-3xl overflow-hidden bg-gradient-to-br from-pink-500/10 via-purple-500/5 to-blue-500/10" />
+                            <div className="absolute inset-0 rounded-2xl overflow-hidden bg-gradient-to-br from-pink-500/10 via-purple-500/5 to-blue-500/10" />
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="text-8xl">✨</div>
                             </div>
                         </div>
 
@@ -198,7 +197,7 @@ export default function AuraStory() {
                             <p className="text-xs uppercase tracking-[0.3em] text-pink-400/80 mb-6">
                                 Chapter 03
                             </p>
-                            <h2 className="font-title-en text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-8 leading-[1.1]">
+                            <h2 className="font-title-en text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-8 leading-[1.1]">
                                 A Promise
                                 <br />
                                 <span className="italic text-white/70">to You</span>
@@ -218,8 +217,8 @@ export default function AuraStory() {
                             </div>
 
                             <div className="mt-10">
-                                <a href="/diagnosis" className="btn-primary inline-block">
-                                    <span>Begin Your Journey</span>
+                                <a href="/diagnosis" className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-2xl btn-glow">
+                                    Begin Your Journey
                                 </a>
                             </div>
                         </div>
@@ -235,14 +234,14 @@ export default function AuraStory() {
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
                 >
-                    <h2 className="font-title-en text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-6">
+                    <h2 className="font-title-en text-3xl md:text-3xl lg:text-4xl font-medium text-white mb-6">
                         Ready to discover your Aura?
                     </h2>
                     <p className="text-white/50 mb-10 max-w-md mx-auto">
                         Take our AI-powered diagnosis and unlock personalized beauty insights.
                     </p>
-                    <a href="/diagnosis" className="btn-primary inline-block">
-                        <span>Start Diagnosis</span>
+                    <a href="/diagnosis" className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-2xl btn-glow">
+                        Start Diagnosis
                     </a>
                 </motion.div>
             </section>

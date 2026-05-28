@@ -52,7 +52,7 @@ function MetaBar({ visible }) {
           >
             {item.value}
           </p>
-          <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkFaint }}>
+          <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkMuted }}>
             {item.sub}
           </p>
         </div>
@@ -108,7 +108,7 @@ function StatCards({ cards, visible }) {
           >
             {card.label}
           </p>
-          <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkFaint }}>
+          <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkMuted }}>
             {card.source}
           </p>
         </div>
@@ -307,7 +307,7 @@ export default function Research() {
               fontWeight: 700,
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
-              color: colors.inkFaint,
+              color: colors.inkMuted,
             }}
           >
             핵심 인사이트

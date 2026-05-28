@@ -18,6 +18,9 @@ app.use(express.json());
 // Initialize Prisma Client for Supabase PostgreSQL
 const prisma = new PrismaClient();
 
+// Health check — Render cold start 방지용 ping 엔드포인트
+app.get('/health', (req, res) => res.json({ status: 'ok', ts: Date.now() }));
+
 // ============================================
 
 // Mock Auth Controller

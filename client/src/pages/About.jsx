@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import HeroIntro from '../components/HeroIntro';
 import ParticleNebula from '../components/three/ParticleNebula';
+import Footer from '../components/Footer';
 
 /**
  * AXIOM About — YSL Beauty Standard
@@ -91,13 +92,15 @@ export default function About() {
     return (
         <div
             className="h-screen overflow-y-scroll"
-            style={{ scrollSnapType: 'y mandatory', scrollBehavior: 'smooth' }}
+            style={{ scrollSnapType: 'y proximity', scrollBehavior: 'smooth' }}
         >
 
             {/* ══════════════════════════════════════════
                 SECTION 1 — HERO INTRO
             ══════════════════════════════════════════ */}
-            <HeroIntro />
+            <section style={{ scrollSnapAlign: 'start' }}>
+                <HeroIntro />
+            </section>
 
             {/* ══════════════════════════════════════════
                 SECTION 2 — DATA INTELLIGENCE
@@ -126,8 +129,8 @@ export default function About() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.9 }}
                             >
-                                <h2 className="font-title-en text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block">{c.s2head1}</h2>
-                                <h2 className="font-title-en text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block mb-8">{c.s2head2}</h2>
+                                <h2 className="font-title-en text-3xl md:text-4xl lg:text-[3rem] text-white leading-title block">{c.s2head1}</h2>
+                                <h2 className="font-title-en text-3xl md:text-4xl lg:text-[3rem] text-white leading-title block mb-8">{c.s2head2}</h2>
                             </motion.div>
                             <div className="w-8 h-[1px] bg-[#3C7795]/30 mb-8" />
                             <motion.p
@@ -187,8 +190,8 @@ export default function About() {
                         transition={{ duration: 0.8 }}
                         className="mb-16"
                     >
-                        <h2 className="font-title-en text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block">{c.s3head1}</h2>
-                        <h2 className="font-title-en text-4xl md:text-5xl lg:text-[3.5rem] text-white leading-title block">{c.s3head2}</h2>
+                        <h2 className="font-title-en text-3xl md:text-4xl lg:text-[3rem] text-white leading-title block">{c.s3head1}</h2>
+                        <h2 className="font-title-en text-3xl md:text-4xl lg:text-[3rem] text-white leading-title block">{c.s3head2}</h2>
                     </motion.div>
 
                     <div className="border-t border-[#1a1a1a]">
@@ -252,7 +255,7 @@ export default function About() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-                        className="font-title-en text-[clamp(3rem,9vw,8rem)] text-white leading-none tracking-tight mb-3"
+                        className="font-title-en text-[clamp(2.5rem,7vw,6.5rem)] text-white leading-none tracking-tight mb-3"
                     >
                         {c.s4head1}
                     </motion.h2>
@@ -261,7 +264,7 @@ export default function About() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.1, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-                        className="font-title-en text-[clamp(3rem,9vw,8rem)] text-white leading-none tracking-tight mb-14"
+                        className="font-title-en text-[clamp(2.5rem,7vw,6.5rem)] text-white leading-none tracking-tight mb-14"
                     >
                         {c.s4head2}
                     </motion.h2>
@@ -284,7 +287,7 @@ export default function About() {
                     >
                         <Link
                             to="/diagnosis"
-                            className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-full btn-glow"
+                            className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-2xl btn-glow"
                         >
                             {c.s4cta}
                         </Link>
@@ -293,79 +296,13 @@ export default function About() {
             </section>
 
             {/* ══════════════════════════════════════════
-                SECTION 5 — INTEGRATED FOOTER
+                SECTION 5 — FOOTER
             ══════════════════════════════════════════ */}
             <section
-                className="relative h-screen w-full bg-black border-t border-[#0d0d0d] overflow-hidden flex flex-col"
+                className="relative w-full bg-black border-t border-[#0d0d0d]"
                 style={{ scrollSnapAlign: 'start' }}
             >
-                <div className="flex-1 max-w-7xl mx-auto px-6 w-full grid grid-cols-2 md:grid-cols-4 gap-10 items-start pt-20 md:pt-32">
-
-                    {/* Brand */}
-                    <div className="col-span-2 md:col-span-1">
-                        <Link to="/">
-                            <img src="/images/Axiom_logo.svg" alt="AXIOM" className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity mb-5" />
-                        </Link>
-                        <p className="font-body text-sm text-[#8AAEC0]/50 leading-relaxed max-w-[200px]" style={{ wordBreak: 'keep-all' }}>
-                            데이터가 보여주는 가장 아름다운 진실
-                        </p>
-                    </div>
-
-                    {/* Shop */}
-                    <div>
-                        <p className="font-body text-[10px] text-[#8AAEC0]/30 tracking-[0.25em] uppercase mb-6">Shop</p>
-                        <ul className="space-y-4">
-                            <li><Link to="/curations" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">전체 상품</Link></li>
-                            <li><Link to="/analysis" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">AI 피부 진단</Link></li>
-                            <li><Link to="/shop" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">맞춤 처방</Link></li>
-                        </ul>
-                    </div>
-
-                    {/* Company */}
-                    <div>
-                        <p className="font-body text-[10px] text-[#8AAEC0]/30 tracking-[0.25em] uppercase mb-6">Company</p>
-                        <ul className="space-y-4">
-                            <li><Link to="/axiom" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">브랜드 스토리</Link></li>
-                            <li><Link to="/datalab" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">데이터 랩</Link></li>
-                            <li><Link to="/editorial" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">리서처 에디토리얼</Link></li>
-                            <li><Link to="/data-map" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">글로벌 데이터 맵</Link></li>
-                            <li><Link to="/team-dyt" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#3C7795] transition-colors">팀 소개</Link></li>
-                        </ul>
-                    </div>
-
-                    {/* Follow */}
-                    <div>
-                        <p className="font-body text-[10px] text-[#8AAEC0]/30 tracking-[0.25em] uppercase mb-6">Follow</p>
-                        <ul className="space-y-4">
-                            <li>
-                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#8AAEC0] transition-colors inline-flex items-center gap-2.5">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="20" height="20" rx="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
-                                    Instagram
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-[#8AAEC0]/50 hover:text-[#8AAEC0] transition-colors inline-flex items-center gap-2.5">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" /><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" /></svg>
-                                    YouTube
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                {/* Bottom bar */}
-                <div className="max-w-7xl mx-auto px-6 w-full py-10 border-t border-[#0d0d0d]">
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="font-body text-xs text-[#8AAEC0]/25">
-                            © 2026 AXIOM Inc. All rights reserved. Designed by{' '}
-                            <Link to="/team-dyt" className="hover:text-[#8AAEC0]/60 transition-colors">Team DYT</Link>
-                        </p>
-                        <div className="flex items-center gap-6">
-                            <Link to="/privacy" target="_blank" className="font-body text-xs text-[#8AAEC0]/25 hover:text-[#8AAEC0]/60 transition-colors">개인정보처리방침</Link>
-                            <span className="font-body text-xs text-[#8AAEC0]/25">이용약관</span>
-                        </div>
-                    </div>
-                </div>
+                <Footer />
             </section>
 
         </div>

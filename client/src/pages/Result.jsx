@@ -1,12 +1,9 @@
-import { useRef, useState, Suspense } from 'react';
+import { useRef, useState } from 'react';
 import { useLocation, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import ProductFeedCard from '../components/ProductFeedCard';
-import { Canvas } from '@react-three/fiber';
-import { Environment } from '@react-three/drei';
-import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import html2canvas from 'html2canvas';
-import EvolvingBlob, { EvolvingParticles, Starfield } from '../components/three/EvolvingBlob';
+import ResultCrystal from '../components/three/ResultCrystal';
 
 export default function Result() {
     const { state } = useLocation();
@@ -50,26 +47,13 @@ export default function Result() {
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1 }}
-                    className="h-[50vh] md:h-[60vh] bg-[#05080a] rounded-[2rem] border border-[#222] overflow-hidden relative shadow-2xl"
+                    className="h-[50vh] md:h-[60vh] bg-[#05080a] rounded-2xl border border-[#222] overflow-hidden relative shadow-2xl"
                 >
                     <div className="absolute top-6 left-8 z-10">
                         <span className="text-[#00E0FF] font-body text-[10px] tracking-widest uppercase">Data Object · Final Stage</span>
                     </div>
                     <div className="absolute inset-0 z-0">
-                        <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
-                            <ambientLight intensity={0.5} />
-                            <spotLight position={[10, 10, 10]} intensity={1.2} color="#00E0FF" />
-                            <pointLight position={[-10, -5, -5]} intensity={0.4} color="#3C7795" />
-                            <Suspense fallback={null}>
-                                <Starfield />
-                                <EvolvingBlob step={10} />
-                                <EvolvingParticles step={10} />
-                                <Environment preset="city" />
-                            </Suspense>
-                            <EffectComposer>
-                                <Bloom luminanceThreshold={0.1} luminanceSmoothing={0.9} height={300} intensity={1.5} />
-                            </EffectComposer>
-                        </Canvas>
+                        <ResultCrystal skinType={skinTypeStr} />
                     </div>
                     <div className="absolute bottom-8 left-8 z-10 pointer-events-none">
                         <div className="text-[#00E0FF] text-[10px] tracking-widest font-body font-bold mb-1">ANALYSIS COMPLETE</div>
@@ -81,22 +65,22 @@ export default function Result() {
                 <div className="flex flex-col justify-center">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-10">
                         <p className="font-body text-[#8AAEC0] text-[10px] tracking-widest uppercase mb-4 font-bold">Diagnosis Complete</p>
-                        <h2 className="font-title-ko text-4xl md:text-5xl font-bold text-white leading-title">{skinTypeStr}</h2>
+                        <h2 className="font-title-ko text-3xl md:text-4xl font-bold text-white leading-title">{skinTypeStr}</h2>
                     </motion.div>
 
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mb-8">
-                        <div className="bg-[#05080a] p-8 md:p-10 rounded-3xl border border-[#222]">
+                        <div className="bg-[#05080a] p-8 md:p-10 rounded-2xl border border-[#222]">
                             <h3 className="font-title-en font-bold text-[#00E0FF] text-lg md:text-xl mb-4 leading-title">AXIOM Diagnosis</h3>
                             <p className="font-body text-[#E0E0E0] text-sm md:text-base leading-body tracking-normal whitespace-pre-line">{description}</p>
                         </div>
                     </motion.div>
 
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-[#222]">
-                        <a href="#products" className="flex-1 text-center py-4 bg-[#00E0FF] text-black font-body font-bold text-xs tracking-widest uppercase rounded-full hover:bg-white transition-colors">맞춤 상품 보기</a>
+                        <a href="#products" className="flex-1 text-center py-4 bg-[#00E0FF] text-black font-body font-bold text-xs tracking-widest uppercase rounded-2xl hover:bg-white transition-colors">맞춤 상품 보기</a>
                         <button
                             onClick={saveReceipt}
                             disabled={isSavingReceipt}
-                            className="flex-1 py-4 border border-[#1E5672] text-[#8AAEC0] font-body font-bold text-xs tracking-widest uppercase rounded-full hover:bg-[#1E5672]/20 transition-colors disabled:opacity-40"
+                            className="flex-1 py-4 border border-[#1E5672] text-[#8AAEC0] font-body font-bold text-xs tracking-widest uppercase rounded-2xl hover:bg-[#1E5672]/20 transition-colors disabled:opacity-40"
                         >
                             {isSavingReceipt ? 'Saving…' : 'Save Card'}
                         </button>

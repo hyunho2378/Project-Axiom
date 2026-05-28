@@ -6,7 +6,6 @@ import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import EvolvingBlob, { EvolvingParticles, Starfield } from '../components/three/EvolvingBlob';
-import ChronoBanner from '../components/ChronoBanner';
 import { questions } from '../data/questions';
 import { getRecommendedProducts, getSkinDescription } from '../data/axiomData';
 
@@ -108,7 +107,7 @@ export default function Analysis() {
             )}
             <div className="max-w-7xl mx-auto px-6 h-[calc(100vh-140px)] min-h-[600px] flex items-center">
                 <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 h-auto lg:h-full max-h-[800px]">
-                    <div className="block relative rounded-3xl bg-[#05080a] border border-[#222] overflow-hidden h-[320px] md:h-[400px] lg:h-auto">
+                    <div className="block relative rounded-2xl bg-[#05080a] border border-[#222] overflow-hidden h-[320px] md:h-[400px] lg:h-auto">
                         <div className="absolute inset-0 z-0">
                             <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
                                 <ambientLight intensity={0.5} />
@@ -142,12 +141,20 @@ export default function Analysis() {
                     <div className="flex flex-col justify-center h-full">
                         {quizPhase === 'intro' && (
                             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="w-full">
-                                <h1 className="text-5xl md:text-7xl font-title-en font-bold mb-6 leading-title">Discover Your Axis.</h1>
-                                <p className="text-[#8AAEC0] text-lg font-body mb-10 leading-body tracking-normal">
+                                <h1 className="text-4xl md:text-6xl font-title-en font-bold mb-6 leading-title">Discover Your Axis.</h1>
+                                <p className="text-[#8AAEC0] text-lg font-body mb-12 leading-body tracking-normal">
                                     수백만 개의 데이터 포인트를 분석하여<br />당신 피부만의 고유한 중심축을 찾아냅니다.
                                 </p>
-                                <ChronoBanner className="mb-10" />
-                                <button onClick={() => setQuizPhase('gender')} className="px-10 py-5 bg-[#00E0FF] text-black font-body font-bold text-sm tracking-widest uppercase rounded-full hover:bg-white transition-colors">Begin Analysis</button>
+                                <button
+                                    onClick={() => setQuizPhase('gender')}
+                                    className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-2xl btn-glow"
+                                >
+                                    BEGIN ANALYSIS
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                        <polyline points="12 5 19 12 12 19" />
+                                    </svg>
+                                </button>
                             </motion.div>
                         )}
 

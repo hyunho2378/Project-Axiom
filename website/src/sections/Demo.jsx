@@ -66,38 +66,25 @@ export default function Demo() {
             href={demo.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
+            className="btn-glow"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: 10,
-              padding: 'clamp(16px,2vw,22px) clamp(32px,5vw,56px)',
-              borderRadius: 9999,
-              background: colors.brand,
-              color: colors.bgDeep,
-              fontSize: 'clamp(16px,2vw,20px)',
-              fontWeight: 700,
-              letterSpacing: '-0.01em',
-              textDecoration: 'none',
+              gap: 16,
+              padding: '20px 64px',
+              borderRadius: 16,
+              fontSize: 14,
+              fontWeight: 600,
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
               fontFamily: font.family,
-              transition: 'background 0.18s, transform 0.18s',
               marginBottom: 16,
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = colors.brandStrong;
-              e.currentTarget.style.transform = 'translateY(-3px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = colors.brand;
-              e.currentTarget.style.transform = 'none';
-            }}
           >
-            BEGIN ANALYSIS
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            BEGIN ANALYSIS →
           </a>
 
-          <p style={{ margin: 0, fontSize: 13, color: colors.inkFaint, letterSpacing: '0.02em' }}>
+          <p style={{ margin: 0, fontSize: 17, fontWeight: 500, color: colors.inkMuted, letterSpacing: '0.02em' }}>
             {demo.liveUrl}
           </p>
         </div>

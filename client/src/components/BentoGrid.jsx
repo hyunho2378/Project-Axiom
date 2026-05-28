@@ -157,8 +157,8 @@ export default function BentoGrid({ language }) {
             id="diagnosis"
         >
             {/* Ambient Glow */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-purple-500/5 blur-[150px] pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-blue-500/5 blur-[120px] pointer-events-none" />
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-2xl bg-purple-500/5 blur-[150px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-2xl bg-blue-500/5 blur-[120px] pointer-events-none" />
 
             {/* Section Header */}
             <motion.div
@@ -185,7 +185,7 @@ export default function BentoGrid({ language }) {
                         initial="hidden"
                         animate={isInView ? "visible" : "hidden"}
                         className={`
-              group relative p-8 md:p-10 rounded-3xl cursor-pointer
+              group relative p-8 md:p-10 rounded-2xl cursor-pointer
               bg-white/[0.03] backdrop-blur-xl
               border border-white/[0.08]
               transition-all duration-500
@@ -197,9 +197,9 @@ export default function BentoGrid({ language }) {
             `}
                     >
                         {/* Gradient Border on Hover */}
-                        <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                            <div className="absolute inset-[-1px] rounded-3xl bg-gradient-to-br from-purple-500/30 via-transparent to-blue-500/30" style={{ padding: '1px' }}>
-                                <div className="w-full h-full rounded-3xl bg-void" />
+                        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                            <div className="absolute inset-[-1px] rounded-2xl bg-gradient-to-br from-purple-500/30 via-transparent to-blue-500/30" style={{ padding: '1px' }}>
+                                <div className="w-full h-full rounded-2xl bg-void" />
                             </div>
                         </div>
 
@@ -222,7 +222,7 @@ export default function BentoGrid({ language }) {
 
                             {/* Large Card Gradient Background */}
                             {card.size === 'large' && (
-                                <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+                                <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
                                     <div
                                         className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-500"
                                         style={{

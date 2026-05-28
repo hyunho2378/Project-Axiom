@@ -26,7 +26,7 @@ const SectionLabel = ({ children }) => (
 );
 
 const SectionTitle = ({ children, className = '' }) => (
-    <h2 className={`text-5xl md:text-6xl font-bold text-white leading-tight mb-6 ${className}`}>
+    <h2 className={`text-4xl md:text-5xl font-bold text-white leading-tight mb-6 ${className}`}>
         {children}
     </h2>
 );

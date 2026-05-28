@@ -103,15 +103,15 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
 
                         <div className="w-[1px] h-4 bg-white/15" />
 
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-4">
                             {/* Language — Coming Soon toast */}
-                            <div className="relative">
+                            <div className="relative flex items-center justify-center">
                                 <button
                                     onClick={handleLangToast}
-                                    className="text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
+                                    className="flex items-center justify-center w-5 h-5 p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
                                     aria-label="Language"
                                 >
-                                    <svg className="w-5 h-5 block" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <svg className="w-5 h-5 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                                         <circle cx="12" cy="12" r="10" />
                                         <line x1="2" y1="12" x2="22" y2="12" />
                                         <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
@@ -126,16 +126,16 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
 
                             {/* User Icon — dropdown when logged in */}
                             {isLoggedIn ? (
-                                <div ref={userMenuRef} className="relative">
+                                <div ref={userMenuRef} className="relative flex items-center justify-center">
                                     <button
                                         onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                                        className="flex items-center gap-2 text-[#8AAEC0] hover:text-white transition-colors duration-300 group"
+                                        className="flex items-center justify-center gap-2 p-0 m-0 text-[#8AAEC0] hover:text-white transition-colors duration-300 group"
                                         aria-label="My Page"
                                     >
-                                        <span className="font-body text-[10px] tracking-widest uppercase opacity-70 group-hover:opacity-100 transition-opacity">
+                                        <span className="font-body text-[10px] tracking-widest uppercase opacity-70 group-hover:opacity-100 transition-opacity leading-none">
                                             {user?.name || user?.email?.split('@')[0] || 'MY PAGE'}
                                         </span>
-                                        <svg className="w-5 h-5 block" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                        <svg className="w-5 h-5 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                             <circle cx="12" cy="7" r="4" />
                                         </svg>
@@ -169,10 +169,10 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                             ) : (
                                 <button
                                     onClick={onLoginClick}
-                                    className="text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
+                                    className="flex items-center justify-center w-5 h-5 p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
                                     aria-label="Log In"
                                 >
-                                    <svg className="w-5 h-5 block" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <svg className="w-5 h-5 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                         <circle cx="12" cy="7" r="4" />
                                     </svg>
@@ -254,13 +254,13 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.4 }}
-                                className="mt-8 flex items-center gap-6"
+                                className="mt-8 flex items-center justify-center gap-6"
                             >
                                 <button
                                     onClick={handleLangToast}
-                                    className="text-white/50 hover:text-[#8AAEC0] transition-colors"
+                                    className="flex items-center justify-center w-6 h-6 p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors"
                                 >
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                    <svg className="w-6 h-6 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                         <circle cx="12" cy="12" r="10" />
                                         <line x1="2" y1="12" x2="22" y2="12" />
                                         <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
@@ -268,20 +268,20 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                                 </button>
 
                                 {isLoggedIn ? (
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center justify-center gap-6">
                                         <Link
                                             to="/dashboard"
-                                            className="text-white/50 hover:text-[#8AAEC0] transition-colors"
+                                            className="flex items-center justify-center w-6 h-6 p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors"
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                            <svg className="w-6 h-6 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                                 <circle cx="12" cy="7" r="4" />
                                             </svg>
                                         </Link>
                                         <button
                                             onClick={handleLogout}
-                                            className="text-white/50 hover:text-[#8AAEC0] transition-colors font-body text-[10px] tracking-widest uppercase"
+                                            className="flex items-center justify-center p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors font-body text-[10px] tracking-widest uppercase leading-none mt-1"
                                         >
                                             로그아웃
                                         </button>
@@ -292,9 +292,9 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                                             setIsMobileMenuOpen(false);
                                             onLoginClick();
                                         }}
-                                        className="text-white/50 hover:text-[#8AAEC0] transition-colors"
+                                        className="flex items-center justify-center w-6 h-6 p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors"
                                     >
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                        <svg className="w-6 h-6 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                             <circle cx="12" cy="7" r="4" />
                                         </svg>

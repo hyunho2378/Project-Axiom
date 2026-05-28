@@ -55,7 +55,7 @@ function AppLayout({ children, onLoginClick, isLoggedIn, onLogout, user }) {
  */
 function HomeLayout({ children, onLoginClick, isLoggedIn, user }) {
     return (
-        <div className="bg-black overflow-hidden">
+        <div className="min-h-screen flex flex-col bg-black">
             <Header
                 onLoginClick={onLoginClick}
                 isLoggedIn={isLoggedIn}
@@ -74,6 +74,12 @@ function AppContent() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        if (!apiUrl) return;
+        fetch(`${apiUrl}/health`, { method: 'GET' }).catch(() => {});
+    }, []);
 
     useEffect(() => {
         const token = localStorage.getItem('aura_token');

@@ -31,7 +31,7 @@ export default function DonutChart({ title, subtitle, segments = [], source }) {
       {title && (
         <div>
           <p style={{ margin: '0 0 4px', fontSize: t.h3.size, fontWeight: t.h3.weight, color: colors.ink }}>{title}</p>
-          {subtitle && <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkFaint }}>{subtitle}</p>}
+          {subtitle && <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkMuted }}>{subtitle}</p>}
         </div>
       )}
 
@@ -92,7 +92,7 @@ export default function DonutChart({ title, subtitle, segments = [], source }) {
       </div>
 
       {source && (
-        <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkFaint }}>출처: {source}</p>
+        <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkMuted }}>출처: {source}</p>
       )}
     </div>
   );

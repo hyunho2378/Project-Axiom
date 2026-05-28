@@ -160,7 +160,7 @@ export default function DualDesignSystem() {
               {/* Feature label */}
               <div style={{
                 padding: 'clamp(14px,1.8vw,20px) 0',
-                fontSize: 12, fontWeight: 700,
+                fontSize: 16, fontWeight: 700,
                 letterSpacing: '0.04em', textTransform: 'uppercase',
                 color: color.inkFaint, fontFamily: font.family,
                 display: 'flex', alignItems: 'center',
@@ -214,7 +214,7 @@ export default function DualDesignSystem() {
             <pre style={{
               margin: 0,
               fontFamily: "'SFMono-Regular', 'Consolas', 'Monaco', monospace",
-              fontSize: 13,
+              fontSize: 17, fontWeight: 500,
               lineHeight: 1.75,
               color: color.white,
               whiteSpace: 'pre',

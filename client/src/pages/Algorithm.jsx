@@ -29,7 +29,7 @@ export default function Algorithm() {
                     <p className="text-xs uppercase tracking-[0.4em] text-[#3C7795]/80 mb-6">
                         The Algorithm
                     </p>
-                    <h1 className="font-title-en text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium text-white leading-[0.95]">
+                    <h1 className="font-title-en text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white leading-[0.95]">
                         From Data
                         <br />
                         <span className="italic text-white/70">to Matter</span>
@@ -208,7 +208,7 @@ function ProcessSteps() {
                     className="text-center mb-20"
                 >
                     <p className="text-xs uppercase tracking-[0.3em] text-white/50 mb-4">The Process</p>
-                    <h2 className="font-title-en text-4xl md:text-5xl font-medium text-white">
+                    <h2 className="font-title-en text-3xl md:text-4xl font-medium text-white">
                         How It Works
                     </h2>
                 </motion.div>
@@ -235,10 +235,10 @@ function StepCard({ step, index }) {
             transition={{ duration: 0.6, delay: index * 0.2 }}
             className="group"
         >
-            <div className="relative p-8 rounded-3xl glass-card h-full">
+            <div className="relative p-8 rounded-2xl glass-card h-full">
                 {/* Animated gradient border on hover */}
-                <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${step.color} p-[1px]`}>
-                    <div className="w-full h-full rounded-3xl bg-[#0a0f1a]" />
+                <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${step.color} p-[1px]`}>
+                    <div className="w-full h-full rounded-2xl bg-[#0a0f1a]" />
                 </div>
 
                 <div className="relative z-10">
@@ -288,7 +288,7 @@ function TechStats() {
                             viewport={{ once: true }}
                             className="text-center"
                         >
-                            <div className="font-title-en text-4xl md:text-5xl lg:text-6xl text-white mb-3">
+                            <div className="font-title-en text-3xl md:text-4xl lg:text-5xl text-white mb-3">
                                 {stat.value}
                             </div>
                             <p className="text-sm text-white/40">{stat.label}</p>

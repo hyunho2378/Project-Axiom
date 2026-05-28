@@ -37,7 +37,7 @@ export default function UxConcept() {
           position: 'absolute',
           bottom: 'clamp(16px,2vw,24px)',
           right: 'clamp(16px,2vw,24px)',
-          fontSize: 11, fontWeight: 700,
+          fontSize: 15, fontWeight: 700,
           letterSpacing: '0.08em', textTransform: 'uppercase',
           color: color.whiteA50,
           fontFamily: font.family,
@@ -72,7 +72,7 @@ export default function UxConcept() {
 
         {/* Main headline */}
         <h2 style={{
-          fontSize: 'clamp(48px,8vw,120px)',
+          fontSize: 'clamp(34px,5.6vw,84px)',
           fontWeight: 800,
           lineHeight: 1.22,
           letterSpacing: '-0.04em',

@@ -84,7 +84,7 @@ export default function DesignDirection() {
               {/* Large number */}
               <span style={{
                 display: 'block',
-                fontSize: 'clamp(72px,10vw,140px)',
+                fontSize: 'clamp(50px,7vw,98px)',
                 fontWeight: 800,
                 lineHeight: 1,
                 letterSpacing: '-0.05em',
@@ -133,7 +133,7 @@ export default function DesignDirection() {
                   >
                     <span style={{
                       color: color.brand, fontWeight: 800,
-                      fontSize: 14, flexShrink: 0,
+                      fontSize: 18, fontWeight: 500, flexShrink: 0,
                       lineHeight: 1.65, fontFamily: font.family,
                     }}>
                       —

@@ -26,7 +26,7 @@ const SEC_PAD = `clamp(72px,9vw,120px) clamp(20px,5vw,80px)`;
 function StratNum({ num }) {
   return (
     <span style={{
-      fontSize: 'clamp(64px,8vw,112px)',
+      fontSize: 'clamp(45px,5.6vw,78px)',
       fontWeight: 800,
       lineHeight: 1,
       letterSpacing: '-0.05em',
@@ -44,7 +44,7 @@ function StratNum({ num }) {
 function ImplBadge({ label }) {
   return (
     <span style={{
-      fontSize: 11, fontWeight: 700,
+      fontSize: 15, fontWeight: 700,
       letterSpacing: '0.08em', textTransform: 'uppercase',
       color: color.inkFaint,
       background: color.line,
@@ -59,7 +59,7 @@ function ImplBadge({ label }) {
 function UrBadge({ ur }) {
   return (
     <span style={{
-      fontSize: 11, fontWeight: 700,
+      fontSize: 15, fontWeight: 700,
       letterSpacing: '0.08em', textTransform: 'uppercase',
       color: color.brand, background: color.brandPale,
       padding: '4px 10px', borderRadius: 100,
@@ -80,16 +80,16 @@ function FlowRow({ problem, solution }) {
       margin: 'clamp(16px,2vw,24px) 0',
     }}>
       <span style={{
-        fontSize: 13, fontWeight: 600,
-        color: color.warn, background: 'rgba(229,72,77,0.08)',
+        fontSize: 17, fontWeight: 600,
+        color: color.warn, background: 'rgba(0,212,255,0.08)',
         padding: '5px 12px', borderRadius: 100,
         fontFamily: font.family, lineHeight: 1.5,
       }}>
         AS-IS: {problem}
       </span>
-      <span style={{ color: color.inkFaint, fontSize: 14, marginTop: 4 }}>→</span>
+      <span style={{ color: color.inkFaint, fontSize: 18, fontWeight: 500, marginTop: 4 }}>→</span>
       <span style={{
-        fontSize: 13, fontWeight: 600,
+        fontSize: 17, fontWeight: 600,
         color: color.brand, background: color.brandPale,
         padding: '5px 12px', borderRadius: 100,
         fontFamily: font.family, lineHeight: 1.5,
@@ -129,7 +129,7 @@ function S1Block({ visible }) {
             <p style={{ margin: '0 0 4px', fontSize: t.body.size, fontStyle: 'italic', lineHeight: t.body.lh, color: color.ink, fontFamily: font.family }}>
               &ldquo;식당 자리에서 먼저 확인하고 본 다음에 안심하고 갑니다&rdquo;
             </p>
-            <span style={{ fontSize: 12, fontWeight: 600, color: color.inkFaint, fontFamily: font.family }}>— 인터뷰 A2</span>
+            <span style={{ fontSize: 16, fontWeight: 600, color: color.inkFaint, fontFamily: font.family }}>— 인터뷰 A2</span>
           </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             <ImplBadge label="HomeCoachMini · BalanceCardExpanded" />
@@ -233,7 +233,7 @@ function S3Block({ visible }) {
               {confirmed && (
                 <span style={{
                   position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%)',
-                  fontSize: 10, fontWeight: 800, letterSpacing: '0em', textTransform: 'uppercase',
+                  fontSize: 14, fontWeight: 800, letterSpacing: '0em', textTransform: 'uppercase',
                   color: color.white, background: color.brand,
                   padding: '3px 10px', borderRadius: 100,
                   fontFamily: font.family, whiteSpace: 'nowrap',
@@ -243,7 +243,7 @@ function S3Block({ visible }) {
               )}
               <Icon size={28} color={confirmed ? color.brand : color.inkMuted} strokeWidth={1.6} />
               <span style={{
-                fontSize: 13, fontWeight: 600,
+                fontSize: 17, fontWeight: 600,
                 color: confirmed ? color.brand : color.inkMuted,
                 textAlign: 'center', fontFamily: font.family,
               }}>
@@ -251,7 +251,7 @@ function S3Block({ visible }) {
               </span>
               {confirmed && (
                 <span style={{
-                  fontSize: 11, fontWeight: 500,
+                  fontSize: 15, fontWeight: 500,
                   color: color.brand, textAlign: 'center',
                   fontFamily: font.family, lineHeight: 1.5,
                 }}>
@@ -303,7 +303,7 @@ function S4Block({ visible }) {
             <p style={{ margin: '0 0 4px', fontSize: t.body.size, fontStyle: 'italic', lineHeight: t.body.lh, color: color.ink, fontFamily: font.family }}>
               &ldquo;충전해야 하는 방식이 가장 귀찮습니다&rdquo;
             </p>
-            <span style={{ fontSize: 12, fontWeight: 600, color: color.inkFaint, fontFamily: font.family }}>— 인터뷰 B1</span>
+            <span style={{ fontSize: 16, fontWeight: 600, color: color.inkFaint, fontFamily: font.family }}>— 인터뷰 B1</span>
           </div>
           <p style={{ margin: '0 0 20px', fontSize: t.body.size, lineHeight: t.body.lh, color: color.inkMuted, maxWidth: '38ch', fontFamily: font.family }}>
             빠른금액 칩 (+1만 / +5만 / +10만) 으로 반복 충전 시 1탭 완료.
@@ -347,20 +347,20 @@ function S5Block({ visible }) {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(12px,2vw,24px)', margin: 'clamp(24px,3vw,40px) 0' }}>
           {/* Before */}
           <div style={{ background: color.white, borderRadius: layout.rMd, padding: 'clamp(20px,2.5vw,32px)', border: `1px solid ${color.line}` }}>
-            <p style={{ margin: '0 0 16px', fontSize: 11, fontWeight: 800, letterSpacing: '0em', textTransform: 'uppercase', color: color.inkFaint, fontFamily: font.family }}>
+            <p style={{ margin: '0 0 16px', fontSize: 15, fontWeight: 800, letterSpacing: '0em', textTransform: 'uppercase', color: color.inkFaint, fontFamily: font.family }}>
               AS-IS
             </p>
             <div style={{ background: color.bg, borderRadius: layout.rSm, padding: '12px 16px', marginBottom: 12, fontFamily: font.family }}>
-              <p style={{ margin: '0 0 4px', fontSize: 12, color: color.inkFaint }}>충전 금액</p>
+              <p style={{ margin: '0 0 4px', fontSize: 16, fontWeight: 500, color: color.inkFaint }}>충전 금액</p>
               <p style={{ margin: 0, fontSize: 24, fontWeight: 700, color: color.ink, letterSpacing: '-0.02em' }}>200,000원</p>
             </div>
             <div style={{ background: color.bg, borderRadius: layout.rSm, padding: '8px 16px', marginBottom: 12, fontFamily: font.family }}>
-              <p style={{ margin: 0, fontSize: 12, color: color.inkFaint }}>현재 잔액: <span style={{ color: color.ink, fontWeight: 600 }}>50,000원</span></p>
+              <p style={{ margin: 0, fontSize: 16, color: color.inkFaint }}>현재 잔액: <span style={{ color: color.ink, fontWeight: 600 }}>50,000원</span></p>
             </div>
             <div style={{
               width: '100%', height: 48, borderRadius: layout.rSm,
               background: color.brand, display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontFamily: font.family, fontSize: 15, fontWeight: 600, color: color.white,
+              fontFamily: font.family, fontSize: 19, fontWeight: 600, color: color.white,
             }}>
               다음
             </div>
@@ -368,20 +368,20 @@ function S5Block({ visible }) {
 
           {/* After */}
           <div style={{ background: color.white, borderRadius: layout.rMd, padding: 'clamp(20px,2.5vw,32px)', border: `1px solid ${color.brand}` }}>
-            <p style={{ margin: '0 0 16px', fontSize: 11, fontWeight: 800, letterSpacing: '0em', textTransform: 'uppercase', color: color.brand, fontFamily: font.family }}>
+            <p style={{ margin: '0 0 16px', fontSize: 15, fontWeight: 800, letterSpacing: '0em', textTransform: 'uppercase', color: color.brand, fontFamily: font.family }}>
               TO-BE
             </p>
             <div style={{ background: color.bg, borderRadius: layout.rSm, padding: '12px 16px', marginBottom: 12, border: `1px solid ${color.warn}`, fontFamily: font.family }}>
-              <p style={{ margin: '0 0 4px', fontSize: 12, color: color.inkFaint }}>충전 금액</p>
+              <p style={{ margin: '0 0 4px', fontSize: 16, fontWeight: 500, color: color.inkFaint }}>충전 금액</p>
               <p style={{ margin: 0, fontSize: 24, fontWeight: 700, color: color.ink, letterSpacing: '-0.02em' }}>200,000원</p>
             </div>
-            <p style={{ margin: '0 0 10px', fontSize: 12, color: color.warn, fontFamily: font.family, fontWeight: 600 }}>
+            <p style={{ margin: '0 0 10px', fontSize: 16, color: color.warn, fontFamily: font.family, fontWeight: 600 }}>
               잔액이 부족합니다. 현재 잔액: 50,000원
             </p>
             <div style={{
               width: '100%', height: 48, borderRadius: layout.rSm,
               background: color.line, display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontFamily: font.family, fontSize: 15, fontWeight: 600, color: color.inkFaint,
+              fontFamily: font.family, fontSize: 19, fontWeight: 600, color: color.inkFaint,
             }}>
               다음
             </div>
@@ -444,7 +444,7 @@ function S6Block({ visible }) {
             ref={countRef}
             style={{
               display: 'block',
-              fontSize: 'clamp(80px,12vw,160px)',
+              fontSize: 'clamp(56px,8.4vw,112px)',
               fontWeight: 800,
               lineHeight: 1,
               letterSpacing: '-0.05em',
@@ -471,7 +471,7 @@ function S6Block({ visible }) {
           <p style={{ margin: '0 0 4px', fontSize: t.body.size, fontStyle: 'italic', lineHeight: t.body.lh, color: color.ink, fontFamily: font.family }}>
             &ldquo;가게 들어가서 여기 강릉페이 돼요? 라고 물어봐야 하는데&rdquo;
           </p>
-          <span style={{ fontSize: 12, fontWeight: 600, color: color.inkFaint, fontFamily: font.family }}>— 인터뷰 A1</span>
+          <span style={{ fontSize: 16, fontWeight: 600, color: color.inkFaint, fontFamily: font.family }}>— 인터뷰 A1</span>
         </div>
 
         {/* Google Maps 클러스터 이미지 자리 */}
@@ -491,7 +491,7 @@ function S6Block({ visible }) {
           <span style={{ fontSize: 'clamp(15px,1.8vw,20px)', fontWeight: 700, color: color.inkMuted, fontFamily: font.family }}>
             13,021개 가맹점 지도
           </span>
-          <span style={{ fontSize: 13, color: color.inkFaint, fontFamily: font.family }}>
+          <span style={{ fontSize: 17, fontWeight: 500, color: color.inkFaint, fontFamily: font.family }}>
             배포 시 활성화
           </span>
         </div>
@@ -511,7 +511,7 @@ function S6Block({ visible }) {
               <span
                 key={cat}
                 style={{
-                  fontSize: 13, fontWeight: 600,
+                  fontSize: 17, fontWeight: 600,
                   color: color.brand, background: color.brandPale,
                   padding: '6px 14px', borderRadius: 100,
                   fontFamily: font.family,
@@ -680,7 +680,7 @@ function FeaturesBlock({ visible }) {
                 }}
               >
                 <span style={{
-                  fontSize: 10, fontWeight: 800, letterSpacing: '0.04em',
+                  fontSize: 14, fontWeight: 800, letterSpacing: '0.04em',
                   color: tc.text, background: tc.bg,
                   padding: '1px 6px', borderRadius: 100,
                   fontFamily: font.family, whiteSpace: 'nowrap',
@@ -688,7 +688,7 @@ function FeaturesBlock({ visible }) {
                   {tag}
                 </span>
                 <span style={{
-                  fontSize: 13, fontWeight: 600,
+                  fontSize: 17, fontWeight: 600,
                   color: color.ink, fontFamily: font.family,
                 }}>
                   {name}
@@ -723,7 +723,7 @@ function FeaturesBlock({ visible }) {
             >
               <p style={{
                 margin: '0 0 6px',
-                fontSize: 13, fontWeight: 800,
+                fontSize: 17, fontWeight: 800,
                 color: color.brand,
                 fontFamily: "'SFMono-Regular','Consolas','Monaco',monospace",
                 letterSpacing: '-0.01em',
@@ -731,7 +731,7 @@ function FeaturesBlock({ visible }) {
                 {label}
               </p>
               <p style={{
-                margin: 0, fontSize: 13, lineHeight: 1.6,
+                margin: 0, fontSize: 17, fontWeight: 500, lineHeight: 1.6,
                 color: color.inkMuted, fontFamily: font.family,
               }}>
                 {desc}

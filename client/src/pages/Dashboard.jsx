@@ -63,7 +63,7 @@ export default function Dashboard({ user, isLoggedIn }) {
                         <p className="text-sm uppercase tracking-[0.3em] text-white/50 mb-2">
                             Dashboard
                         </p>
-                        <h1 className="font-title-en text-3xl md:text-4xl font-medium text-white">
+                        <h1 className="font-title-en text-3xl md:text-3xl font-medium text-white">
                             Welcome back, {user?.name || 'User'}
                         </h1>
                     </motion.div>
@@ -78,12 +78,12 @@ export default function Dashboard({ user, isLoggedIn }) {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="lg:col-span-2 p-8 rounded-3xl bg-gradient-to-br from-[#1E5672]/10 via-[#3C7795]/5 to-transparent border border-white/[0.08]"
+                        className="lg:col-span-2 p-8 rounded-2xl bg-gradient-to-br from-[#1E5672]/10 via-[#3C7795]/5 to-transparent border border-white/[0.08]"
                     >
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                             <div>
                                 <p className="text-sm text-white/50 mb-2">Your Aura Type</p>
-                                <h2 className="font-title-en text-5xl md:text-6xl font-medium text-white mb-2">
+                                <h2 className="font-title-en text-4xl md:text-5xl font-medium text-white mb-2">
                                     {mockData.skinType}
                                 </h2>
                                 <p className="text-white/50">
@@ -127,7 +127,7 @@ export default function Dashboard({ user, isLoggedIn }) {
 
                         <button
                             onClick={() => navigate('/diagnosis')}
-                            className="mt-6 btn-glass"
+                            className="mt-6 inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-2xl btn-glow"
                         >
                             Take New Analysis
                         </button>
@@ -138,7 +138,7 @@ export default function Dashboard({ user, isLoggedIn }) {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.08]"
+                        className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08]"
                     >
                         <h3 className="text-sm uppercase tracking-wider text-white/50 mb-6">
                             Skin Metrics
@@ -155,7 +155,7 @@ export default function Dashboard({ user, isLoggedIn }) {
                                             initial={{ width: 0 }}
                                             animate={{ width: `${metric.value}%` }}
                                             transition={{ duration: 1, delay: 0.5 }}
-                                            className={`h-full ${metric.color} rounded-full`}
+                                            className={`h-full ${metric.color} rounded-2xl`}
                                         />
                                     </div>
                                 </div>
@@ -168,7 +168,7 @@ export default function Dashboard({ user, isLoggedIn }) {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.3 }}
-                        className="lg:col-span-2 p-6 rounded-3xl bg-white/[0.02] border border-white/[0.08]"
+                        className="lg:col-span-2 p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08]"
                     >
                         <div className="flex justify-between items-center mb-6">
                             <h3 className="text-sm uppercase tracking-wider text-white/50">
@@ -199,7 +199,7 @@ export default function Dashboard({ user, isLoggedIn }) {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.4 }}
-                        className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.08]"
+                        className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08]"
                     >
                         <h3 className="text-sm uppercase tracking-wider text-white/50 mb-6">
                             Saved Products

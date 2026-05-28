@@ -16,8 +16,8 @@ const COMP_COLS = [
 ];
 
 function cell(val) {
-  if (val === true)  return <span style={{ color: colors.ok,   fontSize: 14 }}>✅</span>;
-  if (val === false) return <span style={{ color: colors.warn, fontSize: 14 }}>✗</span>;
+  if (val === true)  return <span style={{ color: colors.brandMid,  fontSize: 18, fontWeight: 500 }}>O</span>;
+  if (val === false) return <span style={{ color: colors.inkMuted, fontSize: 18, fontWeight: 500 }}>X</span>;
   return val;
 }
 
@@ -55,7 +55,7 @@ export default function BX() {
           <h2
             style={{
               margin: '0 0 clamp(8px,1vw,16px)',
-              fontSize: 'clamp(56px,10vw,120px)',
+              fontSize: 'clamp(39px,7vw,84px)',
               fontWeight: 800,
               letterSpacing: '-0.05em',
               lineHeight: 0.95,
@@ -69,7 +69,7 @@ export default function BX() {
             style={{
               margin: '0 0 clamp(12px,1.5vw,20px)',
               fontSize: 'clamp(16px,2vw,24px)',
-              fontWeight: 400,
+              fontWeight: 500,
               color: colors.inkMuted,
               fontStyle: 'italic',
               letterSpacing: '0.02em',
@@ -88,7 +88,7 @@ export default function BX() {
             }}
           >
             {[bx.naming.axis, bx.naming.axiom].map((s, i) => (
-              <p key={i} style={{ margin: 0, fontSize: 15, color: colors.inkFaint, lineHeight: 1.6 }}>{s}</p>
+              <p key={i} style={{ margin: 0, fontSize: 19, fontWeight: 500, color: colors.inkMuted, lineHeight: 1.6 }}>{s}</p>
             ))}
           </div>
           <p
@@ -110,7 +110,7 @@ export default function BX() {
           ref={valuesRef}
           style={{ marginBottom: 'clamp(56px,7vw,96px)' }}
         >
-          <p style={{ margin: '0 0 clamp(20px,3vw,32px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkFaint }}>
+          <p style={{ margin: '0 0 clamp(20px,3vw,32px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
             Core Values
           </p>
           <div
@@ -136,15 +136,17 @@ export default function BX() {
                 <p style={{ margin: 0, fontSize: 24, fontWeight: 700, color: colors.brand, letterSpacing: '-0.02em' }}>
                   {v.name}
                 </p>
-                <p style={{ margin: 0, fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.brandMid }}>
+                <p style={{ margin: 0, fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.brandMid }}>
                   {v.label}
                 </p>
-                <p style={{ margin: 0, fontSize: 15, color: colors.ink, lineHeight: 1.5, flex: 1 }}>
+                <p style={{ margin: 0, fontSize: 19, fontWeight: 500, color: colors.ink, lineHeight: 1.5, flex: 1 }}>
                   {v.promise}
                 </p>
-                <div style={{ display: 'inline-block', padding: '4px 10px', background: colors.bgDeep, borderRadius: 6 }}>
-                  <span style={{ fontSize: 12, color: colors.inkFaint, lineHeight: 1.4 }}>{v.basis}</span>
-                </div>
+                {v.basis && (
+                  <div style={{ display: 'inline-block', padding: '4px 10px', background: colors.bgDeep, borderRadius: 6 }}>
+                    <span style={{ fontSize: 16, fontWeight: 500, color: colors.inkMuted, lineHeight: 1.4 }}>{v.basis}</span>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -160,7 +162,7 @@ export default function BX() {
             transition: 'opacity 0.6s ease, transform 0.6s ease',
           }}
         >
-          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkFaint }}>
+          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
             Color Palette
           </p>
           <div
@@ -179,10 +181,10 @@ export default function BX() {
                     flexShrink: 0,
                   }}
                 />
-                <p style={{ margin: 0, fontSize: 11, color: colors.inkFaint, fontFamily: 'monospace', letterSpacing: '0.04em', textAlign: 'center', lineHeight: 1.3 }}>
+                <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: colors.inkMuted, fontFamily: 'monospace', letterSpacing: '0.04em', textAlign: 'center', lineHeight: 1.3 }}>
                   {c.hex}
                 </p>
-                <p style={{ margin: 0, fontSize: 10, color: colors.inkFaint, textAlign: 'center', lineHeight: 1.3, maxWidth: 64 }}>
+                <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: colors.inkMuted, textAlign: 'center', lineHeight: 1.3, maxWidth: 64 }}>
                   {c.role}
                 </p>
               </div>
@@ -195,7 +197,7 @@ export default function BX() {
           ref={langRef}
           style={{ marginBottom: 'clamp(56px,7vw,96px)' }}
         >
-          <p style={{ margin: '0 0 8px', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkFaint }}>
+          <p style={{ margin: '0 0 8px', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
             브랜드 언어
           </p>
           <p style={{ margin: '0 0 clamp(20px,3vw,32px)', fontSize: t.body.size, color: colors.inkMuted }}>
@@ -224,7 +226,7 @@ export default function BX() {
                     borderRadius: `0 8px 8px 0`,
                   }}
                 >
-                  <p style={{ margin: 0, fontSize: t.body.size, color: colors.inkFaint, lineHeight: 1.5 }}>
+                  <p style={{ margin: 0, fontSize: t.body.size, color: colors.inkMuted, lineHeight: 1.5 }}>
                     {row.dont}
                   </p>
                 </div>
@@ -255,7 +257,7 @@ export default function BX() {
             transition: 'opacity 0.6s ease, transform 0.6s ease',
           }}
         >
-          <p style={{ margin: '0 0 clamp(20px,3vw,32px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkFaint }}>
+          <p style={{ margin: '0 0 clamp(20px,3vw,32px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
             경쟁사 비교
           </p>
           <div style={{ overflowX: 'auto', borderRadius: 'clamp(8px,1vw,14px)', border: `1px solid ${colors.line}` }}>
@@ -293,7 +295,7 @@ export default function BX() {
                           style={{
                             ...tdStyle,
                             color: isAxiom && typeof brand[col.key] === 'string' ? colors.ink : colors.inkMuted,
-                            fontWeight: isAxiom ? 500 : 400,
+                            fontWeight: isAxiom ? 500 : 500,
                             textAlign: typeof brand[col.key] === 'boolean' ? 'center' : 'left',
                           }}
                         >
@@ -325,11 +327,11 @@ export default function BX() {
 
 const thStyle = {
   padding: '12px 16px',
-  fontSize: 11,
+  fontSize: 15,
   fontWeight: 700,
   letterSpacing: '0.08em',
   textTransform: 'uppercase',
-  color: colors.inkFaint,
+  color: colors.inkMuted,
   textAlign: 'left',
   borderBottom: `1px solid ${colors.line}`,
   whiteSpace: 'nowrap',
@@ -337,7 +339,7 @@ const thStyle = {
 
 const tdStyle = {
   padding: '12px 16px',
-  fontSize: 13,
+  fontSize: 17, fontWeight: 500,
   lineHeight: 1.5,
   borderBottom: `1px solid ${colors.line}`,
   verticalAlign: 'top',

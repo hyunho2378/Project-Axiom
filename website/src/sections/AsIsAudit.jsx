@@ -103,14 +103,14 @@ export default function AsIsAudit() {
               }}
             >
               <span style={{
-                fontSize: 11, fontWeight: 700, letterSpacing: '0.08em',
+                fontSize: 15, fontWeight: 700, letterSpacing: '0.08em',
                 textTransform: 'uppercase', color: color.inkFaint,
                 fontFamily: font.family,
               }}>
                 AS-IS 스크린샷
               </span>
               <span style={{
-                fontSize: 11, color: color.inkFaint, fontFamily: font.family,
+                fontSize: 15, fontWeight: 600, color: color.inkFaint, fontFamily: font.family,
               }}>
                 이미지 교체 예정
               </span>
@@ -132,7 +132,7 @@ export default function AsIsAudit() {
                 }}
               >
                 <p style={{
-                  fontSize: 14, fontWeight: 800,
+                  fontSize: 18, fontWeight: 800,
                   letterSpacing: '0em', textTransform: 'uppercase',
                   color: color.brand, margin: '0 0 10px',
                   fontFamily: font.family,
@@ -154,7 +154,7 @@ export default function AsIsAudit() {
                   {body}
                 </p>
                 <span style={{
-                  fontSize: 11, fontWeight: 700, letterSpacing: '0.06em',
+                  fontSize: 15, fontWeight: 700, letterSpacing: '0.06em',
                   color: color.warn, textTransform: 'uppercase',
                   fontFamily: font.family,
                 }}>
@@ -193,14 +193,14 @@ export default function AsIsAudit() {
                 }}
               >
                 <span style={{
-                  fontSize: 11, fontWeight: 800,
+                  fontSize: 15, fontWeight: 800,
                   color: color.warn, fontFamily: font.family,
                   letterSpacing: '0.04em',
                 }}>
                   {code}
                 </span>
                 <span style={{
-                  fontSize: 12, fontWeight: 500,
+                  fontSize: 16, fontWeight: 500,
                   color: color.inkMuted, fontFamily: font.family,
                 }}>
                   {label}

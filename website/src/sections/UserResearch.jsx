@@ -25,14 +25,14 @@ function HBar({ items, note }) {
   return (
     <div>
       {note && (
-        <p style={{ fontSize: 11, color: color.inkFaint, margin: '0 0 12px', fontFamily: font.family }}>{note}</p>
+        <p style={{ fontSize: 15, fontWeight: 600, color: color.inkFaint, margin: '0 0 12px', fontFamily: font.family }}>{note}</p>
       )}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {items.map(([k, v]) => (
           <div key={k}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
-              <span style={{ fontSize: 12, lineHeight: 1.4, color: color.inkMuted, fontFamily: font.family }}>{k}</span>
-              <span style={{ fontSize: 13, fontWeight: 700, color: color.brand, flexShrink: 0, fontFamily: font.family }}>{v}</span>
+              <span style={{ fontSize: 16, fontWeight: 500, lineHeight: 1.4, color: color.inkMuted, fontFamily: font.family }}>{k}</span>
+              <span style={{ fontSize: 17, fontWeight: 700, color: color.brand, flexShrink: 0, fontFamily: font.family }}>{v}</span>
             </div>
             <div style={{ height: 6, background: color.line, borderRadius: 3, overflow: 'hidden' }}>
               <div style={{ height: '100%', background: color.brand, borderRadius: 3, width: `${(v / max) * 100}%` }} />
@@ -119,12 +119,12 @@ export default function UserResearch() {
                   background: color.white, borderRadius: layout.rMd,
                 }}>
                   <span style={{
-                    fontSize: 12, fontWeight: 800, color: color.brand,
+                    fontSize: 16, fontWeight: 800, color: color.brand,
                     flexShrink: 0, lineHeight: 1.5, fontFamily: font.family,
                   }}>
                     0{i + 1}
                   </span>
-                  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.65, color: color.ink, fontFamily: font.family }}>{p}</p>
+                  <p style={{ margin: 0, fontSize: 18, fontWeight: 500, lineHeight: 1.65, color: color.ink, fontFamily: font.family }}>{p}</p>
                 </div>
               ))}
             </div>
@@ -141,7 +141,7 @@ export default function UserResearch() {
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
                 <thead>
                   <tr style={{ background: color.ink }}>
-                    <th style={{ padding: '12px 20px', textAlign: 'left', color: '#fff', fontWeight: 700, fontSize: 13, width: 48 }}>No</th>
+                    <th style={{ padding: '12px 20px', textAlign: 'left', color: '#fff', fontWeight: 700, fontSize: 17, width: 48 }}>No</th>
                     <th style={{ padding: '12px 20px', textAlign: 'left', color: '#fff', fontWeight: 700, fontSize: 13 }}>연구 목표</th>
                     <th style={{ padding: '12px 20px', textAlign: 'left', color: '#fff', fontWeight: 700, fontSize: 13 }}>기대 성과</th>
                   </tr>
@@ -150,8 +150,8 @@ export default function UserResearch() {
                   {why.goals.map((g, i) => (
                     <tr key={g.no} style={{ background: i % 2 === 0 ? color.white : color.bg }}>
                       <td style={{ padding: '14px 20px', color: color.brand, fontWeight: 800, fontSize: 13 }}>{g.no}</td>
-                      <td style={{ padding: '14px 20px', color: color.ink, fontSize: 14, lineHeight: 1.5 }}>{g.goal}</td>
-                      <td style={{ padding: '14px 20px', color: color.inkMuted, fontSize: 13, lineHeight: 1.6 }}>{g.outcome}</td>
+                      <td style={{ padding: '14px 20px', color: color.ink, fontSize: 18, fontWeight: 500, lineHeight: 1.5 }}>{g.goal}</td>
+                      <td style={{ padding: '14px 20px', color: color.inkMuted, fontSize: 17, fontWeight: 500, lineHeight: 1.6 }}>{g.outcome}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -184,18 +184,18 @@ export default function UserResearch() {
                   padding: 'clamp(20px,2.5vw,32px)', boxShadow: cardShadow,
                 }}>
                   <p style={{
-                    fontSize: 11, fontWeight: 800, color: color.brand,
+                    fontSize: 15, fontWeight: 800, color: color.brand,
                     margin: '0 0 8px', letterSpacing: '0em', textTransform: 'uppercase',
                     fontFamily: font.family,
                   }}>
                     {s.group}
                   </p>
-                  <p style={{ fontSize: 14, lineHeight: 1.65, color: color.ink, margin: '0 0 12px', fontFamily: font.family }}>{s.trait}</p>
-                  <p style={{ fontSize: 13, color: color.inkMuted, margin: '0 0 8px', fontFamily: font.family }}>
+                  <p style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.65, color: color.ink, margin: '0 0 12px', fontFamily: font.family }}>{s.trait}</p>
+                  <p style={{ fontSize: 17, fontWeight: 500, color: color.inkMuted, margin: '0 0 8px', fontFamily: font.family }}>
                     <span style={{ fontWeight: 600, color: color.inkFaint }}>사용 목적: </span>{s.goal}
                   </p>
                   <span style={{
-                    fontSize: 11, fontWeight: 700, color: color.inkFaint,
+                    fontSize: 15, fontWeight: 700, color: color.inkFaint,
                     background: color.bg, padding: '3px 10px', borderRadius: 100,
                     fontFamily: font.family,
                   }}>
@@ -231,9 +231,9 @@ export default function UserResearch() {
                   <div key={i} style={{ background: color.bg, borderRadius: layout.rMd, padding: 'clamp(20px,2.5vw,32px)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
                       <div>
-                        <p style={{ fontSize: 15, fontWeight: 700, color: color.ink, margin: '0 0 6px', fontFamily: font.family }}>{m.name}</p>
+                        <p style={{ fontSize: 19, fontWeight: 700, color: color.ink, margin: '0 0 6px', fontFamily: font.family }}>{m.name}</p>
                         <span style={{
-                          fontSize: 11, fontWeight: 700, color: color.brand,
+                          fontSize: 15, fontWeight: 700, color: color.brand,
                           background: color.brandPale, padding: '3px 10px',
                           borderRadius: 100, fontFamily: font.family,
                         }}>
@@ -250,28 +250,28 @@ export default function UserResearch() {
                           }}>
                             {nVal}
                           </span>
-                          <span style={{ fontSize: 11, color: color.inkFaint, fontFamily: font.family }}>n</span>
+                          <span style={{ fontSize: 15, fontWeight: 600, color: color.inkFaint, fontFamily: font.family }}>n</span>
                         </div>
                       ) : (
-                        <span style={{ fontSize: 11, color: color.inkFaint, fontFamily: font.family }}>보조</span>
+                        <span style={{ fontSize: 15, fontWeight: 600, color: color.inkFaint, fontFamily: font.family }}>보조</span>
                       )}
                     </div>
                     <p style={{
-                      fontSize: 11, fontWeight: 800, color: color.brand,
+                      fontSize: 15, fontWeight: 800, color: color.brand,
                       margin: '0 0 4px', letterSpacing: '0em', textTransform: 'uppercase',
                       fontFamily: font.family,
                     }}>
                       WHY
                     </p>
-                    <p style={{ fontSize: 13, lineHeight: 1.6, color: color.inkMuted, margin: '0 0 14px', fontFamily: font.family }}>{m.purpose}</p>
+                    <p style={{ fontSize: 17, fontWeight: 500, lineHeight: 1.6, color: color.inkMuted, margin: '0 0 14px', fontFamily: font.family }}>{m.purpose}</p>
                     <p style={{
-                      fontSize: 11, fontWeight: 800, color: color.inkFaint,
+                      fontSize: 15, fontWeight: 800, color: color.inkFaint,
                       margin: '0 0 4px', letterSpacing: '0em', textTransform: 'uppercase',
                       fontFamily: font.family,
                     }}>
                       HOW
                     </p>
-                    <p style={{ fontSize: 13, lineHeight: 1.6, color: color.inkMuted, margin: 0, fontFamily: font.family }}>{m.detail}</p>
+                    <p style={{ fontSize: 17, fontWeight: 500, lineHeight: 1.6, color: color.inkMuted, margin: 0, fontFamily: font.family }}>{m.detail}</p>
                   </div>
                 );
               })}
@@ -308,37 +308,37 @@ export default function UserResearch() {
                       0{m.no}
                     </span>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <p style={{ fontSize: 16, fontWeight: 700, color: color.ink, margin: '0 0 16px', fontFamily: font.family }}>{m.title}</p>
+                      <p style={{ fontSize: 20, fontWeight: 700, color: color.ink, margin: '0 0 16px', fontFamily: font.family }}>{m.title}</p>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px,1fr))', gap: 'clamp(12px,1.5vw,20px)' }}>
                         <div>
                           <p style={{
-                            fontSize: 11, fontWeight: 800, color: color.brand,
+                            fontSize: 15, fontWeight: 800, color: color.brand,
                             margin: '0 0 6px', letterSpacing: '0em', textTransform: 'uppercase',
                             fontFamily: font.family,
                           }}>
                             시나리오
                           </p>
-                          <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: color.inkMuted, fontFamily: font.family }}>{m.scenario}</p>
+                          <p style={{ margin: 0, fontSize: 17, fontWeight: 500, lineHeight: 1.6, color: color.inkMuted, fontFamily: font.family }}>{m.scenario}</p>
                         </div>
                         <div>
                           <p style={{
-                            fontSize: 11, fontWeight: 800, color: color.inkFaint,
+                            fontSize: 15, fontWeight: 800, color: color.inkFaint,
                             margin: '0 0 6px', letterSpacing: '0em', textTransform: 'uppercase',
                             fontFamily: font.family,
                           }}>
                             관찰 포인트
                           </p>
-                          <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: color.inkMuted, fontFamily: font.family }}>{m.observe}</p>
+                          <p style={{ margin: 0, fontSize: 17, fontWeight: 500, lineHeight: 1.6, color: color.inkMuted, fontFamily: font.family }}>{m.observe}</p>
                         </div>
                         <div>
                           <p style={{
-                            fontSize: 11, fontWeight: 800, color: color.inkFaint,
+                            fontSize: 15, fontWeight: 800, color: color.inkFaint,
                             margin: '0 0 6px', letterSpacing: '0em', textTransform: 'uppercase',
                             fontFamily: font.family,
                           }}>
                             측정 지표
                           </p>
-                          <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: color.inkMuted, fontFamily: font.family }}>{m.metric}</p>
+                          <p style={{ margin: 0, fontSize: 17, fontWeight: 500, lineHeight: 1.6, color: color.inkMuted, fontFamily: font.family }}>{m.metric}</p>
                         </div>
                       </div>
                     </div>
@@ -378,7 +378,7 @@ export default function UserResearch() {
                 }}>
                   {c70}명
                 </span>
-                <span style={{ fontSize: 13, color: color.inkMuted, fontFamily: font.family }}>총 응답자</span>
+                <span style={{ fontSize: 17, fontWeight: 500, color: color.inkMuted, fontFamily: font.family }}>총 응답자</span>
               </div>
               <div style={{ textAlign: 'center' }}>
                 <span ref={cRef34} style={{
@@ -387,7 +387,7 @@ export default function UserResearch() {
                 }}>
                   {c34}명
                 </span>
-                <span style={{ fontSize: 13, color: color.inkMuted, fontFamily: font.family }}>전혀 몰랐다 (48.6%)</span>
+                <span style={{ fontSize: 17, fontWeight: 500, color: color.inkMuted, fontFamily: font.family }}>전혀 몰랐다 (48.6%)</span>
               </div>
               <div style={{ textAlign: 'center' }}>
                 <span ref={cRef9} style={{
@@ -396,7 +396,7 @@ export default function UserResearch() {
                 }}>
                   {c9}명
                 </span>
-                <span style={{ fontSize: 13, color: color.inkMuted, fontFamily: font.family }}>강릉페이 실사용</span>
+                <span style={{ fontSize: 17, fontWeight: 500, color: color.inkMuted, fontFamily: font.family }}>강릉페이 실사용</span>
               </div>
               <div style={{ textAlign: 'center' }}>
                 <span ref={cRef0} style={{
@@ -405,7 +405,7 @@ export default function UserResearch() {
                 }}>
                   {c0}명
                 </span>
-                <span style={{ fontSize: 13, color: color.inkMuted, fontFamily: font.family }}>강릉머니 용어 인지</span>
+                <span style={{ fontSize: 17, fontWeight: 500, color: color.inkMuted, fontFamily: font.family }}>강릉머니 용어 인지</span>
               </div>
             </div>
 
@@ -417,7 +417,7 @@ export default function UserResearch() {
             }}>
               <div style={{ background: color.bg, borderRadius: layout.rMd, padding: 'clamp(20px,2.5vw,32px)' }}>
                 <p style={{
-                  fontSize: 11, fontWeight: 800, color: color.inkFaint,
+                  fontSize: 15, fontWeight: 800, color: color.inkFaint,
                   margin: '0 0 16px', letterSpacing: '0em', textTransform: 'uppercase', fontFamily: font.family,
                 }}>
                   연령대 분포
@@ -426,7 +426,7 @@ export default function UserResearch() {
               </div>
               <div style={{ background: color.bg, borderRadius: layout.rMd, padding: 'clamp(20px,2.5vw,32px)' }}>
                 <p style={{
-                  fontSize: 11, fontWeight: 800, color: color.inkFaint,
+                  fontSize: 15, fontWeight: 800, color: color.inkFaint,
                   margin: '0 0 16px', letterSpacing: '0em', textTransform: 'uppercase', fontFamily: font.family,
                 }}>
                   사용 기기
@@ -435,7 +435,7 @@ export default function UserResearch() {
               </div>
               <div style={{ background: color.bg, borderRadius: layout.rMd, padding: 'clamp(20px,2.5vw,32px)' }}>
                 <p style={{
-                  fontSize: 11, fontWeight: 800, color: color.inkFaint,
+                  fontSize: 15, fontWeight: 800, color: color.inkFaint,
                   margin: '0 0 16px', letterSpacing: '0em', textTransform: 'uppercase', fontFamily: font.family,
                 }}>
                   결제 수단
@@ -444,7 +444,7 @@ export default function UserResearch() {
               </div>
               <div style={{ background: color.bg, borderRadius: layout.rMd, padding: 'clamp(20px,2.5vw,32px)' }}>
                 <p style={{
-                  fontSize: 11, fontWeight: 800, color: color.inkFaint,
+                  fontSize: 15, fontWeight: 800, color: color.inkFaint,
                   margin: '0 0 16px', letterSpacing: '0em', textTransform: 'uppercase', fontFamily: font.family,
                 }}>
                   강릉페이 인지도
@@ -456,7 +456,7 @@ export default function UserResearch() {
             {/* Observation results */}
             <div style={{ background: color.bg, borderRadius: layout.rMd, padding: 'clamp(20px,2.5vw,32px)' }}>
               <p style={{
-                fontSize: 11, fontWeight: 800, color: color.inkFaint,
+                fontSize: 15, fontWeight: 800, color: color.inkFaint,
                 margin: '0 0 16px', letterSpacing: '0em', textTransform: 'uppercase', fontFamily: font.family,
               }}>
                 맥락적 관찰 핵심 결과 (n=4)
@@ -465,8 +465,8 @@ export default function UserResearch() {
                 .filter(([k]) => k !== '_note')
                 .map(([k, v]) => (
                   <div key={k} style={{ display: 'flex', gap: 12, marginBottom: 10, alignItems: 'flex-start' }}>
-                    <span style={{ fontSize: 11, fontWeight: 700, color: color.brand, flexShrink: 0, lineHeight: 1.5, fontFamily: font.family }}>→</span>
-                    <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: color.inkMuted, fontFamily: font.family }}>{v}</p>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: color.brand, flexShrink: 0, lineHeight: 1.5, fontFamily: font.family }}>→</span>
+                    <p style={{ margin: 0, fontSize: 18, fontWeight: 500, lineHeight: 1.6, color: color.inkMuted, fontFamily: font.family }}>{v}</p>
                   </div>
                 ))}
             </div>
@@ -495,8 +495,8 @@ export default function UserResearch() {
                   {segment_priority.map((s, i) => (
                     <tr key={i} style={{ background: i % 2 === 0 ? color.white : color.bg }}>
                       <td style={{ padding: '12px 20px', color: color.brand, fontWeight: 700, fontSize: 13 }}>{s.segment}</td>
-                      <td style={{ padding: '12px 20px', color: color.ink, fontSize: 13, lineHeight: 1.5 }}>{s.p1}</td>
-                      <td style={{ padding: '12px 20px', color: color.inkMuted, fontSize: 13, lineHeight: 1.5 }}>{s.p2}</td>
+                      <td style={{ padding: '12px 20px', color: color.ink, fontSize: 17, fontWeight: 500, lineHeight: 1.5 }}>{s.p1}</td>
+                      <td style={{ padding: '12px 20px', color: color.inkMuted, fontSize: 17, fontWeight: 500, lineHeight: 1.5 }}>{s.p2}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -517,24 +517,24 @@ export default function UserResearch() {
                 }}>
                   <div>
                     <p style={{
-                      fontSize: 11, fontWeight: 800, color: color.brand,
+                      fontSize: 15, fontWeight: 800, color: color.brand,
                       margin: '0 0 4px', letterSpacing: '0em', textTransform: 'uppercase', fontFamily: font.family,
                     }}>니즈</p>
-                    <p style={{ margin: 0, fontSize: 14, fontWeight: 700, color: color.ink, fontFamily: font.family }}>{n.need}</p>
+                    <p style={{ margin: 0, fontSize: 18, fontWeight: 700, color: color.ink, fontFamily: font.family }}>{n.need}</p>
                   </div>
                   <div>
                     <p style={{
-                      fontSize: 11, fontWeight: 800, color: color.warn,
+                      fontSize: 15, fontWeight: 800, color: color.warn,
                       margin: '0 0 4px', letterSpacing: '0em', textTransform: 'uppercase', fontFamily: font.family,
                     }}>문제</p>
-                    <p style={{ margin: 0, fontSize: 13, lineHeight: 1.55, color: color.inkMuted, fontFamily: font.family }}>{n.problem}</p>
+                    <p style={{ margin: 0, fontSize: 17, fontWeight: 500, lineHeight: 1.55, color: color.inkMuted, fontFamily: font.family }}>{n.problem}</p>
                   </div>
                   <div>
                     <p style={{
-                      fontSize: 11, fontWeight: 800, color: color.inkFaint,
+                      fontSize: 15, fontWeight: 800, color: color.inkFaint,
                       margin: '0 0 4px', letterSpacing: '0em', textTransform: 'uppercase', fontFamily: font.family,
                     }}>방향</p>
-                    <p style={{ margin: 0, fontSize: 13, lineHeight: 1.55, color: color.inkMuted, fontFamily: font.family }}>{n.direction}</p>
+                    <p style={{ margin: 0, fontSize: 17, fontWeight: 500, lineHeight: 1.55, color: color.inkMuted, fontFamily: font.family }}>{n.direction}</p>
                   </div>
                 </div>
               ))}

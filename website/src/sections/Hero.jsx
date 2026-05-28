@@ -62,12 +62,14 @@ export default function Hero() {
           <h1
             style={{
               margin: '0 0 clamp(12px,1.5vw,20px)',
-              fontSize: 'clamp(64px,12vw,160px)',
+              fontSize: 'clamp(45px,8.4vw,112px)',
               fontWeight: 800,
               lineHeight: 0.9,
               letterSpacing: '-0.04em',
               color: colors.ink,
               fontFamily: "'BentonModDisp', 'Didot', 'Georgia', serif",
+              wordBreak: 'keep-all',
+              overflowWrap: 'break-word',
             }}
           >
             {hero.wordmark}
@@ -92,8 +94,10 @@ export default function Hero() {
               margin: '0 0 clamp(28px,4vw,48px)',
               fontSize: t.lead.size,
               lineHeight: t.lead.lh,
-              color: colors.inkFaint,
-              maxWidth: '44ch',
+              color: colors.inkMuted,
+              maxWidth: '62ch',
+              wordBreak: 'keep-all',
+              overflowWrap: 'break-word',
             }}
           >
             {hero.definition}
@@ -158,32 +162,6 @@ export default function Hero() {
             }}
           />
         </div>
-      </div>
-
-      {/* 하단 스크롤 힌트 */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 32,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 6,
-          opacity: 0.4,
-        }}
-      >
-        <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: colors.inkMuted }}>
-          scroll
-        </span>
-        <div
-          style={{
-            width: 1,
-            height: 40,
-            background: `linear-gradient(to bottom, ${colors.inkFaint}, transparent)`,
-          }}
-        />
       </div>
 
       {/* 모바일 반응형 스타일 */}

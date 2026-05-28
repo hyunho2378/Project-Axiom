@@ -33,7 +33,7 @@ function PersonaCard({ persona, delay, visible }) {
               background: colors.brand,
               color: colors.bgDeep,
               borderRadius: 9999,
-              fontSize: 11,
+              fontSize: 15,
               fontWeight: 800,
               letterSpacing: '0.08em',
             }}
@@ -70,10 +70,10 @@ function PersonaCard({ persona, delay, visible }) {
 
       {/* 탐색 루트 */}
       <div>
-        <p style={{ margin: '0 0 4px', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.inkFaint }}>
+        <p style={{ margin: '0 0 4px', fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.inkMuted }}>
           탐색 루트
         </p>
-        <p style={{ margin: 0, fontSize: 13, color: colors.inkFaint, lineHeight: 1.6 }}>
+        <p style={{ margin: 0, fontSize: 17, fontWeight: 500, color: colors.inkMuted, lineHeight: 1.6 }}>
           {persona.searchRoute}
         </p>
       </div>
@@ -88,20 +88,20 @@ function PersonaCard({ persona, delay, visible }) {
         className="persona-inner-grid"
       >
         <div>
-          <p style={{ margin: '0 0 8px', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.inkFaint }}>
+          <p style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.inkMuted }}>
             목표
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {persona.goals.map((g, i) => (
               <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                <span style={{ color: colors.ok, fontWeight: 700, flexShrink: 0, lineHeight: 1.5 }}>✓</span>
+                <span style={{ color: colors.ok, fontWeight: 700, flexShrink: 0, lineHeight: 1.5 }}>—</span>
                 <span style={{ fontSize: t.body.size, color: colors.ink, lineHeight: 1.5 }}>{g}</span>
               </div>
             ))}
           </div>
         </div>
         <div>
-          <p style={{ margin: '0 0 8px', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.inkFaint }}>
+          <p style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.inkMuted }}>
             불만
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-// 🔥 FORCE REAL SERVER URL (Solves local proxy issues)
+// FORCE REAL SERVER URL (Solves local proxy issues)
 const API_URL = "https://project-axiom.onrender.com";
 
 export default function DataLab() {
@@ -43,7 +43,7 @@ export default function DataLab() {
     // Loading State (Cyan Pulse)
     if (loading) return (
         <div className="min-h-screen bg-black flex flex-col justify-center items-center gap-4">
-            <div className="w-8 h-8 border-2 border-[#3C7795] border-t-[#3C7795] rounded-full animate-spin"></div>
+            <div className="w-8 h-8 border-2 border-[#3C7795] border-t-[#3C7795] rounded-2xl animate-spin"></div>
             <p className="text-[#3C7795] text-xs tracking-widest animate-pulse">CONNECTING TO SATELLITE...</p>
         </div>
     );
@@ -51,9 +51,9 @@ export default function DataLab() {
     // Error State
     if (error) return (
         <div className="min-h-screen bg-black flex justify-center items-center">
-            <div className="text-center p-8 border border-red-900/30 bg-red-900/10 rounded-2xl">
-                <p className="text-red-400 mb-2">CONNECTION INTERRUPTED</p>
-                <p className="text-red-500/60 text-xs font-body">{error}</p>
+            <div className="text-center p-8 border border-[#1E5672]/30 bg-[#082B35]/10 rounded-2xl">
+                <p className="text-brand-400 mb-2">CONNECTION INTERRUPTED</p>
+                <p className="text-[#8AAEC0]/60 text-xs font-body">{error}</p>
             </div>
         </div>
     );
@@ -76,7 +76,7 @@ export default function DataLab() {
                     <div className="text-right hidden md:block">
                         <div className="flex items-center justify-end gap-2">
                             <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3C7795] opacity-75"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-2xl bg-[#3C7795] opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3C7795]"></span>
                             </span>
                             <span className="text-[#3C7795] text-[10px] font-body">LIVE FEED</span>

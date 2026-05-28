@@ -49,9 +49,9 @@ function NarrativeFlow({ items, visible }) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 12,
+                fontSize: 16,
                 fontWeight: 700,
-                color: i === items.length - 1 ? colors.bgDeep : colors.inkFaint,
+                color: i === items.length - 1 ? colors.bgDeep : colors.inkMuted,
                 marginBottom: 12,
                 flexShrink: 0,
               }}
@@ -75,7 +75,7 @@ function NarrativeFlow({ items, visible }) {
                 style={{
                   margin: 0,
                   fontSize: t.caption.size,
-                  color: colors.inkFaint,
+                  color: colors.inkMuted,
                   textAlign: 'center',
                   lineHeight: 1.4,
                 }}
@@ -157,7 +157,7 @@ function StatCards({ cards, visible }) {
             style={{
               margin: 0,
               fontSize: t.caption.size,
-              color: colors.inkFaint,
+              color: colors.inkMuted,
               lineHeight: 1.4,
             }}
           >
@@ -210,7 +210,7 @@ export default function Problem() {
               fontWeight: 700,
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
-              color: colors.inkFaint,
+              color: colors.inkMuted,
             }}
           >
             문제 정의
@@ -258,6 +258,8 @@ export default function Problem() {
                       lineHeight: 1.3,
                       letterSpacing: t.h2.ls,
                       color: colors.ink,
+                      wordBreak: 'keep-all',
+                      overflowWrap: 'break-word',
                     }}
                   >
                     {p.title}

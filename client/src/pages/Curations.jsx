@@ -87,7 +87,7 @@ export default function Curations() {
             <section className="pt-24 pb-16 border-b border-ui-border bg-void-base">
                 <div className="max-w-7xl mx-auto px-6">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-                        <h1 className="font-title-en text-4xl md:text-6xl font-bold mb-4 text-white leading-title">
+                        <h1 className="font-title-en text-3xl md:text-5xl font-bold mb-4 text-white leading-title">
                             Axiom Collections
                         </h1>
                         <p className="font-body text-ui-textSecondary text-sm md:text-lg max-w-2xl leading-body">

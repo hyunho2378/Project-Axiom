@@ -1,10 +1,8 @@
 import { Suspense } from 'react';
 import AboutHero from '../components/about/AboutHero';
 import Philosophy from '../components/about/Philosophy';
-import Voices from '../components/about/Voices';
 import Approach from '../components/about/Approach';
 import Features from '../components/about/Features';
-import AboutCTA from '../components/about/AboutCTA';
 import DNAHelix from '../components/three/DNAHelix';
 
 export default function Axiom() {
@@ -24,10 +22,8 @@ export default function Axiom() {
                 </div>
             </div>
 
-            <Voices />
             <Approach />
             <Features />
-            <AboutCTA />
         </main>
     );
 }

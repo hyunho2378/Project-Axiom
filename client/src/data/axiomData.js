@@ -6,7 +6,7 @@ import { ALL_PRODUCTS } from './productsData';
  * 새로 정립된 ALL_PRODUCTS(productsData.js)와 진단 결과를 연결합니다.
  */
 
-// 📍 현호 님이 구글 시트에 작성하신 20가지 상세 피부 타입 공식 설명
+// 현호 님이 구글 시트에 작성하신 20가지 상세 피부 타입 공식 설명
 export const SKIN_TYPES = {
     "건성 · 비민감": "유수분이 전반적으로 부족하지만 피부 장벽은 비교적 안정적으로 유지되는 상태입니다.\n당김과 건조함은 느껴지지만 외부 자극이나 성분 변화에 대한 반응은 크지 않은 편입니다.\n보습과 장벽 유지를 중심으로 한 꾸준한 관리가 적합합니다.",
     "복합성 · 비민감": "부위별로 유수분 차이는 있으나 피부 반응은 비교적 안정적인 상태입니다.\nT존과 U존의 특성이 다르게 나타나지만 자극 반응은 크지 않습니다.\n부위별 특성을 고려한 균형 잡힌 관리가 적합합니다.",
@@ -35,7 +35,7 @@ export const getSkinDescription = (userTypeStr) => {
     return SKIN_TYPES[userTypeStr] || "데이터 분석 중입니다.";
 };
 
-// 📍 핵심 로직: 상세 피부 타입(예: '지성 · 과민')에서 핵심(지성)을 뽑아 화장품을 매칭
+// 핵심 로직: 상세 피부 타입(예: '지성 · 과민')에서 핵심(지성)을 뽑아 화장품을 매칭
 export const getRecommendedProducts = (userTypeStr) => {
     if (!userTypeStr) return [];
 

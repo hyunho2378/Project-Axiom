@@ -72,7 +72,7 @@ export default function ProductDetail() {
 
                         {/* 제품명 */}
                         <div>
-                            <h1 className="font-body text-3xl lg:text-4xl text-ui-textPrimary leading-title">
+                            <h1 className="font-body text-3xl lg:text-3xl text-ui-textPrimary leading-title">
                                 {product.nameKo}
                             </h1>
                             <p className="font-title-en text-brand-400 text-lg italic mt-2">
@@ -121,7 +121,7 @@ export default function ProductDetail() {
                         </div>
 
                         {/* 장바구니 버튼 */}
-                        <button className="w-full py-4 rounded-full text-sm font-bold tracking-[0.1em] uppercase font-body
+                        <button className="w-full py-4 rounded-2xl text-sm font-bold tracking-[0.1em] uppercase font-body
                                          bg-gradient-to-r from-[#1E5672] to-[#3C7795] text-white
                                          border border-white/15
                                          hover:brightness-110 transition-all duration-300

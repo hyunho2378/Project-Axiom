@@ -73,7 +73,7 @@ export default function ProjectOverview() {
               <div key={label} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 <span
                   style={{
-                    fontSize: 10,
+                    fontSize: 14, fontWeight: 600,
                     fontWeight: 700,
                     letterSpacing: '0em',
                     textTransform: 'uppercase',
@@ -84,7 +84,7 @@ export default function ProjectOverview() {
                 </span>
                 <span
                   style={{
-                    fontSize: 13,
+                    fontSize: 17, fontWeight: 500,
                     fontWeight: 600,
                     color: color.inkMuted,
                     letterSpacing: '-0.01em',

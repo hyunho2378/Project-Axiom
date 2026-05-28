@@ -26,7 +26,7 @@ export default function ProductFeedCard({ product }) {
                     onError={(e) => { e.target.style.display = 'none'; }}
                 />
                 {tag && (
-                    <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-xs font-body font-semibold bg-neon-cyan text-void-deepest">
+                    <span className="absolute top-2 left-2 px-2 py-0.5 rounded-2xl text-xs font-body font-semibold bg-neon-cyan text-void-deepest">
                         {tag}
                     </span>
                 )}

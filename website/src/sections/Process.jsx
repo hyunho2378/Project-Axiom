@@ -187,7 +187,7 @@ export default function Process() {
                     flexShrink: 0,
                   }}>
                     <span style={{
-                      fontSize: 14, fontWeight: 800,
+                      fontSize: 18, fontWeight: 800,
                       color: color.white, fontFamily: font.family,
                       letterSpacing: '0.04em',
                     }}>
@@ -311,7 +311,7 @@ export default function Process() {
               >
                 <div style={{
                   padding: 'clamp(12px,1.5vw,16px) 12px',
-                  fontSize: 12, fontWeight: 800,
+                  fontSize: 16, fontWeight: 800,
                   letterSpacing: '0.06em',
                   color: color.warn, fontFamily: font.family,
                   display: 'flex', alignItems: 'center',
@@ -343,7 +343,7 @@ export default function Process() {
                 </div>
                 <div style={{
                   padding: 'clamp(12px,1.5vw,16px) 12px',
-                  fontSize: 13, fontWeight: 700,
+                  fontSize: 17, fontWeight: 700,
                   color: color.brand, fontFamily: font.family,
                   display: 'flex', alignItems: 'center',
                   letterSpacing: '0.04em',

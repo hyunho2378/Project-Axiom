@@ -7,7 +7,7 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import EvolvingBlob, { EvolvingParticles } from '../components/three/EvolvingBlob';
 import { QUESTIONS, generateResult } from '../data/questions';
 
-// 🔥 HARDCODED PRODUCTION URL - NO FALLBACK
+// HARDCODED PRODUCTION URL - NO FALLBACK
 const API_URL = "https://project-axiom.onrender.com";
 
 /**
@@ -118,11 +118,11 @@ export default function Diagnosis() {
         return generateResult(answers);
     };
 
-    // 🔥 SAVE TO DATABASE - Guest Survey (No Login Required)
+    // SAVE TO DATABASE - Guest Survey (No Login Required)
     const saveResultToAPI = async (result, surveyAnswers) => {
         const SUBMIT_URL = "https://project-axiom.onrender.com/api/surveys/submit";
-        console.log("🔥🔥🔥 FORCING REQUEST TO:", SUBMIT_URL);
-        console.log("📦 Payload:", JSON.stringify({ answers: surveyAnswers, skinType: result.title, scores: result.scores }));
+        console.log("FORCING REQUEST TO:", SUBMIT_URL);
+        console.log("Payload:", JSON.stringify({ answers: surveyAnswers, skinType: result.title, scores: result.scores }));
 
         setIsSaving(true);
         try {
@@ -137,7 +137,7 @@ export default function Diagnosis() {
                 })
             });
             const surveyData = await surveyResponse.json();
-            console.log("✅ DB RESPONSE:", surveyData);
+            console.log("DB RESPONSE:", surveyData);
 
             // 2. GET PRODUCT RECOMMENDATIONS
             const response = await fetch(`${API_URL}/api/diagnosis`, {
@@ -156,7 +156,7 @@ export default function Diagnosis() {
                 setRecommendedProducts(data.data.recommendedProducts);
             }
         } catch (error) {
-            console.error("❌ SAVE FAILED:", error);
+            console.error("SAVE FAILED:", error);
         } finally {
             setIsSaving(false);
         }
@@ -184,7 +184,7 @@ export default function Diagnosis() {
                 const updatedAnswers = { ...answers, [currentQ.id]: option.score };
                 const result = generateResult(updatedAnswers);
 
-                // 🔥 CALL SAVE FUNCTION BEFORE UI CHANGE
+                // CALL SAVE FUNCTION BEFORE UI CHANGE
                 saveResultToAPI(result, updatedAnswers);
 
                 setResultType(result);
@@ -229,7 +229,7 @@ export default function Diagnosis() {
                             <p className="text-[11px] uppercase tracking-[0.4em] text-[#3C7795] font-body mb-6">
                                 AI Skin Analysis
                             </p>
-                            <h1 className="font-body text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                            <h1 className="font-body text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
                                 Discover<br />
                                 Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3C7795] to-[#8AAEC0]">Axis</span>
                             </h1>
@@ -242,7 +242,7 @@ export default function Diagnosis() {
                                 onClick={() => setIsStarted(true)}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
-                                className="inline-flex items-center justify-center px-10 py-4 font-body text-base font-semibold text-black bg-gradient-to-r from-[#3C7795] to-[#8AAEC0] rounded-full transition-all duration-300 hover:shadow-[0_0_40px_rgba(60,119,149,0.5)]"
+                                className="inline-flex items-center justify-center px-10 py-4 font-body text-base font-semibold text-black bg-gradient-to-r from-[#3C7795] to-[#8AAEC0] rounded-2xl transition-all duration-300 hover:shadow-[0_0_40px_rgba(60,119,149,0.5)]"
                             >
                                 Start Analysis
                             </motion.button>
@@ -304,7 +304,7 @@ export default function Diagnosis() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.7 }}
-                                className="font-body text-3xl md:text-4xl font-bold text-white mb-2"
+                                className="font-body text-3xl md:text-3xl font-bold text-white mb-2"
                             >
                                 {resultType.title}
                             </motion.h1>
@@ -345,7 +345,7 @@ export default function Diagnosis() {
                                         <p className="text-xl font-bold text-white mb-1">{resultType.axis.label}</p>
                                         <div className="w-full h-1 bg-[#8AAEC0]/20 rounded-full overflow-hidden">
                                             <div
-                                                className="h-full bg-[#3C7795] rounded-full"
+                                                className="h-full bg-[#3C7795] rounded-2xl"
                                                 style={{ width: `${(resultType.scores.axisScore / resultType.scores.axisMax) * 100}%` }}
                                             />
                                         </div>
@@ -353,12 +353,12 @@ export default function Diagnosis() {
                                     {/* Sensitivity Score */}
                                     <div>
                                         <p className="text-[10px] text-[#8AAEC0]/50 uppercase mb-2">Sensitivity</p>
-                                        <p className={`text-xl font-bold mb-1 ${resultType.sensitivity.pulse ? 'text-[#FF7043]' : 'text-white'}`}>
+                                        <p className={`text-xl font-bold mb-1 ${resultType.sensitivity.pulse ? 'text-[#5A9AB5]' : 'text-white'}`}>
                                             {resultType.sensitivity.prefix}
                                         </p>
                                         <div className="w-full h-1 bg-[#8AAEC0]/20 rounded-full overflow-hidden">
                                             <div
-                                                className={`h-full rounded-full ${resultType.sensitivity.pulse ? 'bg-[#FF7043]' : 'bg-[#8AAEC0]'}`}
+                                                className={`h-full rounded-full ${resultType.sensitivity.pulse ? 'bg-[#2A6885]' : 'bg-[#8AAEC0]'}`}
                                                 style={{ width: `${(resultType.scores.sensScore / resultType.scores.sensMax) * 100}%` }}
                                             />
                                         </div>
@@ -388,7 +388,6 @@ export default function Diagnosis() {
                                                 className="bg-[#8AAEC0]/5 backdrop-blur-md border border-[#8AAEC0]/15 rounded-2xl p-4 text-left hover:bg-[#1E5672]/20 hover:border-[#3C7795]/50 transition-all"
                                             >
                                                 <div className="w-full h-16 bg-[#8AAEC0]/10 rounded-2xl mb-3 flex items-center justify-center">
-                                                    <span className="text-xl">✨</span>
                                                 </div>
                                                 <p className="text-sm font-medium text-[#8AAEC0] truncate">
                                                     {product.nameKo || product.name}
@@ -418,13 +417,13 @@ export default function Diagnosis() {
                                 <div className="flex flex-col sm:flex-row gap-4">
                                     <button
                                         onClick={() => navigate('/shop')}
-                                        className="flex-1 px-8 py-4 font-body text-base font-semibold text-black bg-gradient-to-r from-[#3C7795] to-[#8AAEC0] rounded-full transition-all duration-300 hover:shadow-[0_0_30px_rgba(60,119,149,0.4)]"
+                                        className="flex-1 px-8 py-4 font-body text-base font-semibold text-black bg-gradient-to-r from-[#3C7795] to-[#8AAEC0] rounded-2xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(60,119,149,0.4)]"
                                     >
                                         맞춤 상품 보러가기
                                     </button>
                                     <button
                                         onClick={handleRestart}
-                                        className="flex-1 px-8 py-4 font-body text-base font-medium text-[#8AAEC0] bg-[#8AAEC0]/10 border border-[#8AAEC0]/30 rounded-full transition-all duration-300 hover:bg-[#8AAEC0]/20"
+                                        className="flex-1 px-8 py-4 font-body text-base font-medium text-[#8AAEC0] bg-[#8AAEC0]/10 border border-[#8AAEC0]/30 rounded-2xl transition-all duration-300 hover:bg-[#8AAEC0]/20"
                                     >
                                         다시하기
                                     </button>

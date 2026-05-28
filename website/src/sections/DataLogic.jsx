@@ -7,7 +7,7 @@ import axiomData from '../data/axiom.json';
 const { dataLogic } = axiomData;
 const { overview, scoring, skinTypes, questions } = dataLogic;
 
-const AXIS2_BORDER = ['ok', 'brand', 'warn', '#FF5544'];
+const AXIS2_BORDER = ['ok', 'brand', 'warn', colors.brandMid];
 
 function SystemDiagram({ visible }) {
   return (
@@ -33,12 +33,12 @@ function SystemDiagram({ visible }) {
         {/* Q1-Q6, Q7-Q10 */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px,1.5vw,14px)', flexShrink: 0 }}>
           <div style={{ padding: 'clamp(10px,1.2vw,16px) clamp(12px,1.5vw,18px)', background: 'rgba(0,212,255,0.12)', border: `1px solid ${colors.brand}`, borderRadius: 10 }}>
-            <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: colors.brand, letterSpacing: '0.04em' }}>Q1~Q6</p>
-            <p style={{ margin: '2px 0 0', fontSize: 11, color: colors.inkMuted }}>유수분 6문항</p>
+            <p style={{ margin: 0, fontSize: 17, fontWeight: 700, color: colors.brand, letterSpacing: '0.04em' }}>Q1~Q6</p>
+            <p style={{ margin: '2px 0 0', fontSize: 15, fontWeight: 600, color: colors.inkMuted }}>유수분 6문항</p>
           </div>
           <div style={{ padding: 'clamp(10px,1.2vw,16px) clamp(12px,1.5vw,18px)', background: 'rgba(90,154,181,0.12)', border: `1px solid ${colors.brandMid}`, borderRadius: 10 }}>
-            <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: colors.brandMid, letterSpacing: '0.04em' }}>Q7~Q10</p>
-            <p style={{ margin: '2px 0 0', fontSize: 11, color: colors.inkMuted }}>민감도 4문항</p>
+            <p style={{ margin: 0, fontSize: 17, fontWeight: 700, color: colors.brandMid, letterSpacing: '0.04em' }}>Q7~Q10</p>
+            <p style={{ margin: '2px 0 0', fontSize: 15, fontWeight: 600, color: colors.inkMuted }}>민감도 4문항</p>
           </div>
         </div>
 
@@ -53,12 +53,12 @@ function SystemDiagram({ visible }) {
         {/* 결과 박스들 */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px,1.5vw,14px)', flexShrink: 0 }}>
           <div style={{ padding: 'clamp(10px,1.2vw,16px) clamp(12px,1.5vw,18px)', background: colors.bgDeep, border: `1px solid ${colors.line}`, borderRadius: 10 }}>
-            <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: colors.ink }}>유수분 5타입</p>
-            <p style={{ margin: '2px 0 0', fontSize: 11, color: colors.inkFaint }}>0~60점 / 5구간</p>
+            <p style={{ margin: 0, fontSize: 17, fontWeight: 600, color: colors.ink }}>유수분 5타입</p>
+            <p style={{ margin: '2px 0 0', fontSize: 15, fontWeight: 600, color: colors.inkMuted }}>0~60점 / 5구간</p>
           </div>
           <div style={{ padding: 'clamp(10px,1.2vw,16px) clamp(12px,1.5vw,18px)', background: colors.bgDeep, border: `1px solid ${colors.line}`, borderRadius: 10 }}>
-            <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: colors.ink }}>민감도 4등급</p>
-            <p style={{ margin: '2px 0 0', fontSize: 11, color: colors.inkFaint }}>0~40점 / 4구간</p>
+            <p style={{ margin: 0, fontSize: 17, fontWeight: 600, color: colors.ink }}>민감도 4등급</p>
+            <p style={{ margin: '2px 0 0', fontSize: 15, fontWeight: 600, color: colors.inkMuted }}>0~40점 / 4구간</p>
           </div>
         </div>
 
@@ -73,7 +73,7 @@ function SystemDiagram({ visible }) {
           }}
         >
           <span style={{ fontSize: 'clamp(20px,3vw,32px)', fontWeight: 800, color: colors.brand, lineHeight: 1 }}>×</span>
-          <span style={{ fontSize: 11, color: colors.inkFaint }}>조합</span>
+          <span style={{ fontSize: 15, fontWeight: 600, color: colors.inkMuted }}>조합</span>
         </div>
 
         {/* 최종 결과 */}
@@ -88,8 +88,8 @@ function SystemDiagram({ visible }) {
           }}
         >
           <p style={{ margin: '0 0 4px', fontSize: 'clamp(24px,4vw,40px)', fontWeight: 800, color: colors.brand, letterSpacing: '-0.03em', lineHeight: 1 }}>20</p>
-          <p style={{ margin: 0, fontSize: 13, color: colors.inkMuted, lineHeight: 1.4 }}>가지 피부 코드</p>
-          <p style={{ margin: '4px 0 0', fontSize: 11, color: colors.inkFaint }}>5 × 4 = 20</p>
+          <p style={{ margin: 0, fontSize: 17, fontWeight: 500, color: colors.inkMuted, lineHeight: 1.4 }}>가지 피부 코드</p>
+          <p style={{ margin: '4px 0 0', fontSize: 15, fontWeight: 600, color: colors.inkMuted }}>5 × 4 = 20</p>
         </div>
       </div>
     </div>
@@ -100,7 +100,7 @@ function Axis1Cards({ visible }) {
   const types = scoring.axis1.types;
   return (
     <div style={{ marginBottom: 'clamp(40px,5vw,64px)' }}>
-      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkFaint }}>
+      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
         AXIS 1 — 유수분 타입 {scoring.axis1.range}
       </p>
       <div
@@ -133,10 +133,10 @@ function Axis1Cards({ visible }) {
                 )}
               </div>
               <p style={{ margin: '0 0 4px', fontSize: t.body.size, fontWeight: 700, color: colors.ink }}>{tp.type}</p>
-              <p style={{ margin: '0 0 4px', fontSize: 12, fontWeight: 600, fontFamily: 'monospace', color: colors.brand, letterSpacing: '0.04em' }}>{tp.code}</p>
-              <p style={{ margin: '0 0 8px', fontSize: 12, color: colors.inkMuted }}>{tp.min}~{tp.max}점</p>
+              <p style={{ margin: '0 0 4px', fontSize: 16, fontWeight: 600, fontFamily: 'monospace', color: colors.brand, letterSpacing: '0.04em' }}>{tp.code}</p>
+              <p style={{ margin: '0 0 8px', fontSize: 16, fontWeight: 500, color: colors.inkMuted }}>{tp.min}~{tp.max}점</p>
               {skin && (
-                <p style={{ margin: 0, fontSize: 11, color: colors.inkFaint, fontStyle: 'italic', lineHeight: 1.4 }}>
+                <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: colors.inkMuted, fontStyle: 'italic', lineHeight: 1.4 }}>
                   {skin.texture.split(' — ')[1] ?? skin.texture}
                 </p>
               )}
@@ -150,10 +150,10 @@ function Axis1Cards({ visible }) {
 
 function Axis2Cards({ visible }) {
   const grades = scoring.axis2.grades;
-  const borderColors = [colors.ok, colors.brand, colors.warn, '#FF5544'];
+  const borderColors = [colors.ok, colors.brand, colors.warn, colors.brandMid];
   return (
     <div style={{ marginBottom: 'clamp(40px,5vw,64px)' }}>
-      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkFaint }}>
+      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
         AXIS 2 — 민감도 등급 {scoring.axis2.range}
       </p>
       <div
@@ -174,8 +174,8 @@ function Axis2Cards({ visible }) {
             }}
           >
             <p style={{ margin: '0 0 4px', fontSize: t.body.size, fontWeight: 700, color: colors.ink }}>{g.grade}</p>
-            <p style={{ margin: '0 0 4px', fontSize: 12, fontWeight: 600, fontFamily: 'monospace', color: borderColors[i], letterSpacing: '0.04em' }}>{g.code}</p>
-            <p style={{ margin: 0, fontSize: 12, color: colors.inkMuted }}>{g.min}~{g.max}점</p>
+            <p style={{ margin: '0 0 4px', fontSize: 16, fontWeight: 600, fontFamily: 'monospace', color: borderColors[i], letterSpacing: '0.04em' }}>{g.code}</p>
+            <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: colors.inkMuted }}>{g.min}~{g.max}점</p>
           </div>
         ))}
       </div>
@@ -193,7 +193,7 @@ function ExampleCase({ visible }) {
         transition: 'opacity 0.6s ease, transform 0.6s ease',
       }}
     >
-      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkFaint }}>
+      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
         결과 예시
       </p>
       <div
@@ -201,15 +201,15 @@ function ExampleCase({ visible }) {
         className="example-row"
       >
         <div style={{ padding: 'clamp(16px,2vw,24px)', background: colors.bgDeep, border: `1px solid ${colors.brand}`, borderRadius: 12, flex: 1, minWidth: 140 }}>
-          <p style={{ margin: '0 0 4px', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: colors.brand }}>AXIS 1</p>
+          <p style={{ margin: '0 0 4px', fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', color: colors.brand }}>AXIS 1</p>
           <p style={{ margin: '0 0 2px', fontSize: t.body.size, fontWeight: 600, color: colors.ink }}>유수분 합계 15점</p>
-          <p style={{ margin: 0, fontSize: 12, color: colors.inkMuted }}>→ 중성 (TYPE_AXIS) · 13~25점</p>
+          <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: colors.inkMuted }}>→ 중성 (TYPE_AXIS) · 13~25점</p>
         </div>
         <span style={{ fontSize: 24, fontWeight: 700, color: colors.brand, flexShrink: 0 }}>+</span>
         <div style={{ padding: 'clamp(16px,2vw,24px)', background: colors.bgDeep, border: `1px solid ${colors.brandMid}`, borderRadius: 12, flex: 1, minWidth: 140 }}>
-          <p style={{ margin: '0 0 4px', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: colors.brandMid }}>AXIS 2</p>
+          <p style={{ margin: '0 0 4px', fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', color: colors.brandMid }}>AXIS 2</p>
           <p style={{ margin: '0 0 2px', fontSize: t.body.size, fontWeight: 600, color: colors.ink }}>민감도 합계 35점</p>
-          <p style={{ margin: 0, fontSize: 12, color: colors.inkMuted }}>→ 과민/경보 (ST-ALERT) · 31~40점</p>
+          <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: colors.inkMuted }}>→ 과민/경보 (ST-ALERT) · 31~40점</p>
         </div>
         <span style={{ fontSize: 24, fontWeight: 700, color: colors.brand, flexShrink: 0 }}>=</span>
         <div
@@ -223,11 +223,11 @@ function ExampleCase({ visible }) {
             textAlign: 'center',
           }}
         >
-          <p style={{ margin: '0 0 4px', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', color: colors.brand }}>피부 코드</p>
+          <p style={{ margin: '0 0 4px', fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', color: colors.brand }}>피부 코드</p>
           <p style={{ margin: '0 0 2px', fontSize: 'clamp(18px,3vw,26px)', fontWeight: 800, color: colors.brand, letterSpacing: '-0.02em', lineHeight: 1.2 }}>
             과민 중성
           </p>
-          <p style={{ margin: 0, fontSize: 11, fontFamily: 'monospace', color: colors.inkFaint }}>TYPE_AXIS + ST-ALERT</p>
+          <p style={{ margin: 0, fontSize: 15, fontWeight: 600, fontFamily: 'monospace', color: colors.inkMuted }}>TYPE_AXIS + ST-ALERT</p>
         </div>
       </div>
     </div>
@@ -239,7 +239,7 @@ function Accordion() {
 
   return (
     <div>
-      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkFaint }}>
+      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
         Q1~Q10 진단 질문
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -272,12 +272,12 @@ function Accordion() {
                   fontFamily: font.family,
                 }}
               >
-                <span style={{ fontSize: 11, fontWeight: 700, fontFamily: 'monospace', color: axisColor, flexShrink: 0, minWidth: 28 }}>{q.q}</span>
-                <span style={{ fontSize: 11, padding: '2px 8px', border: `1px solid ${axisColor}`, borderRadius: 9999, color: axisColor, flexShrink: 0 }}>{q.measure}</span>
+                <span style={{ fontSize: 15, fontWeight: 700, fontFamily: 'monospace', color: axisColor, flexShrink: 0, minWidth: 28 }}>{q.q}</span>
+                <span style={{ fontSize: 15, fontWeight: 600, padding: '2px 8px', border: `1px solid ${axisColor}`, borderRadius: 9999, color: axisColor, flexShrink: 0 }}>{q.measure}</span>
                 <span style={{ flex: 1, fontSize: t.body.size, color: colors.inkMuted, lineHeight: 1.4 }}>{q.question}</span>
                 <span
                   style={{
-                    fontSize: 14,
+                    fontSize: 18, fontWeight: 500,
                     color: colors.brand,
                     flexShrink: 0,
                     transform: isOpen ? 'rotate(180deg)' : 'none',
@@ -303,7 +303,7 @@ function Accordion() {
                     >
                       <span
                         style={{
-                          fontSize: 12,
+                          fontSize: 16,
                           fontWeight: 700,
                           color: colors.brand,
                           flexShrink: 0,
@@ -315,7 +315,7 @@ function Accordion() {
                       >
                         +{ans.score}점
                       </span>
-                      <span style={{ fontSize: 11, color: colors.inkFaint, flexShrink: 0, paddingTop: 2 }}>{ans.code}</span>
+                      <span style={{ fontSize: 15, fontWeight: 600, color: colors.inkMuted, flexShrink: 0, paddingTop: 2 }}>{ans.code}</span>
                       <span style={{ fontSize: t.body.size, color: colors.inkMuted, lineHeight: 1.5 }}>{ans.text}</span>
                     </div>
                   ))}

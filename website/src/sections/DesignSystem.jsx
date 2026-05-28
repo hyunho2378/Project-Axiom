@@ -251,7 +251,7 @@ const panelLabel = {
 function ColorSwatchCard({ title, items }) {
   return (
     <div style={{ background: color.white, borderRadius: layout.rMd, padding: 24, boxShadow: cardShadow }}>
-      <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>{title}</p>
+      <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>{title}</p>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
         {items.map(item => (
           <div key={item.hex} style={{ flex: '1 1 80px' }}>
@@ -260,7 +260,7 @@ function ColorSwatchCard({ title, items }) {
               border: (item.hex === '#FFFFFF' || item.hex === '#F2F4F8') ? `1px solid ${color.line}` : 'none',
               marginBottom: 6,
             }} />
-            <p style={{ margin: 0, fontSize: 11, fontWeight: 600, color: color.ink }}>{item.name}</p>
+            <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: color.ink }}>{item.name}</p>
             <p style={{ margin: 0, fontSize: t.caption.size, color: color.inkFaint }}>{item.hex}</p>
           </div>
         ))}
@@ -320,7 +320,7 @@ export default function DesignSystem() {
           <h3 style={h3Style}>기반 토큰</h3>
 
           {/* COLOR */}
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>COLOR</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>COLOR</p>
 
           {/* [4] paddingTop/Bottom added to give outlineOffset:2 on p700 breathing room */}
           <div style={{ overflowX: 'auto', marginBottom: 24 }}>
@@ -337,8 +337,8 @@ export default function DesignSystem() {
                     outlineOffset: item.star ? 2 : 0,
                     border: (item.hex === '#EFF6FF' || item.hex === '#FFFFFF') ? `1px solid ${color.line}` : 'none',
                   }} />
-                  <p style={{ margin: 0, fontSize: 11, fontWeight: 700, color: color.inkFaint, textAlign: 'center' }}>{item.token}</p>
-                  <p style={{ margin: 0, fontSize: 10, color: color.inkFaint, textAlign: 'center' }}>{item.hex}</p>
+                  <p style={{ margin: 0, fontSize: 15, fontWeight: 700, color: color.inkFaint, textAlign: 'center' }}>{item.token}</p>
+                  <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: color.inkFaint, textAlign: 'center' }}>{item.hex}</p>
                 </div>
               ))}
             </div>
@@ -355,7 +355,7 @@ export default function DesignSystem() {
 
             {/* Left: TYPOGRAPHY */}
             <div>
-              <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>TYPOGRAPHY</p>
+              <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>TYPOGRAPHY</p>
               <div>
                 {TYPE_SCALE.map((row) => (
                   <div
@@ -369,8 +369,8 @@ export default function DesignSystem() {
                     }}
                   >
                     <div style={{ minWidth: 80, flexShrink: 0 }}>
-                      <p style={{ margin: 0, fontSize: 12, fontWeight: 700, color: color.ink }}>{row.label}</p>
-                      <p style={{ margin: 0, fontSize: 10, color: color.inkFaint, lineHeight: 1.5 }}>{row.spec}</p>
+                      <p style={{ margin: 0, fontSize: 16, fontWeight: 700, color: color.ink }}>{row.label}</p>
+                      <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: color.inkFaint, lineHeight: 1.5 }}>{row.spec}</p>
                     </div>
                     <span style={{
                       flex: 1,
@@ -392,7 +392,7 @@ export default function DesignSystem() {
 
             {/* Right: SPACING */}
             <div>
-              <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>SPACING</p>
+              <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>SPACING</p>
               <div>
                 {SPACING.map(val => (
                   <div key={val} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '8px 0' }}>
@@ -406,7 +406,7 @@ export default function DesignSystem() {
           </div>
 
           {/* BORDER RADIUS */}
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>BORDER RADIUS</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>BORDER RADIUS</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 'clamp(8px,1.5vw,16px)', marginBottom: 'clamp(40px,5vw,64px)' }}>
             {RADII.map(item => (
               <div key={item.name} style={{ background: color.white, borderRadius: layout.rMd, padding: 20, boxShadow: cardShadow, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 10 }}>
@@ -418,13 +418,13 @@ export default function DesignSystem() {
           </div>
 
           {/* ELEVATION / SHADOW */}
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>ELEVATION / SHADOW</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>ELEVATION / SHADOW</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 'clamp(8px,1.5vw,16px)' }}>
             {SHADOWS.map(item => (
               <div key={item.name} style={{ background: color.white, borderRadius: layout.rMd, padding: 20, boxShadow: cardShadow }}>
                 <div style={{ width: '100%', height: 48, background: color.white, borderRadius: layout.rSm, boxShadow: item.value, marginBottom: 12 }} />
                 <p style={{ margin: '0 0 6px', fontSize: t.caption.size, fontWeight: 600, color: color.ink }}>{item.name}</p>
-                <p style={{ margin: 0, fontSize: 11, color: color.inkFaint, fontFamily: 'monospace', wordBreak: 'break-all' }}>{item.value}</p>
+                <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: color.inkFaint, fontFamily: 'monospace', wordBreak: 'break-all' }}>{item.value}</p>
               </div>
             ))}
           </div>
@@ -444,7 +444,7 @@ export default function DesignSystem() {
           <h3 style={h3Style}>컴포넌트</h3>
 
           {/* BUTTON - [7] AND_TINT → color.bg, AND_GREEN → color.inkFaint, [9] label update */}
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>BUTTON</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>BUTTON</p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(4px,0.5vw,8px)', marginBottom: 'clamp(32px,4vw,48px)' }}>
             <div style={{ background: color.white, borderRadius: layout.rMd, padding: 'clamp(20px,2.5vw,36px)', border: `1px solid ${color.line}`, boxShadow: cardShadow }}>
               <p style={{ ...panelLabel, fontSize: '13px', fontWeight: 700, color: color.brand }}>HIG</p>
@@ -458,17 +458,17 @@ export default function DesignSystem() {
             <div style={{ background: color.bg, borderRadius: layout.rMd, padding: 'clamp(20px,2.5vw,36px)', border: `1px solid ${color.line}`, boxShadow: cardShadow }}>
               <p style={{ ...panelLabel, fontSize: '13px', fontWeight: 700, color: color.brand }}>Google Material 3</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-                <button style={{ background: color.brand, color: '#fff', borderRadius: 999, height: 48, padding: '0 24px', fontSize: 16, fontWeight: 600, border: 'none', cursor: 'pointer', fontFamily: "'Noto Sans KR', sans-serif" }}>간편 신청하기</button>
-                <button style={{ background: color.brandPale, color: color.brand, borderRadius: 999, height: 48, padding: '0 24px', fontSize: 16, fontWeight: 600, border: 'none', cursor: 'pointer', fontFamily: "'Noto Sans KR', sans-serif" }}>캐시백 충전</button>
-                <button style={{ background: 'transparent', color: color.brand, borderRadius: 999, height: 48, padding: '0 24px', fontSize: 16, fontWeight: 600, border: `1px solid ${color.brand}`, cursor: 'pointer', fontFamily: "'Noto Sans KR', sans-serif" }}>환불</button>
-                <button style={{ background: 'transparent', color: color.brand, borderRadius: 999, height: 48, padding: '0 24px', fontSize: 16, fontWeight: 600, border: 'none', cursor: 'pointer', fontFamily: "'Noto Sans KR', sans-serif" }}>다음에 하기</button>
+                <button style={{ background: color.brand, color: '#fff', borderRadius: 999, height: 48, padding: '0 24px', fontSize: 20, fontWeight: 600, border: 'none', cursor: 'pointer', fontFamily: "'Noto Sans KR', sans-serif" }}>간편 신청하기</button>
+                <button style={{ background: color.brandPale, color: color.brand, borderRadius: 999, height: 48, padding: '0 24px', fontSize: 20, fontWeight: 600, border: 'none', cursor: 'pointer', fontFamily: "'Noto Sans KR', sans-serif" }}>캐시백 충전</button>
+                <button style={{ background: 'transparent', color: color.brand, borderRadius: 999, height: 48, padding: '0 24px', fontSize: 20, fontWeight: 600, border: `1px solid ${color.brand}`, cursor: 'pointer', fontFamily: "'Noto Sans KR', sans-serif" }}>환불</button>
+                <button style={{ background: 'transparent', color: color.brand, borderRadius: 999, height: 48, padding: '0 24px', fontSize: 20, fontWeight: 600, border: 'none', cursor: 'pointer', fontFamily: "'Noto Sans KR', sans-serif" }}>다음에 하기</button>
               </div>
             </div>
           </div>
 
           {/* STATUS BAR - [1] SVG heights increased, [7] android card bg, [9] labels */}
           {console.log('[DesignSystem] iosStatusBar:', iosStatusBar, '| androidStatusBar:', androidStatusBar)}
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>STATUS BAR</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>STATUS BAR</p>
           <div style={{ ...panelGrid, marginBottom: 'clamp(32px,4vw,48px)' }}>
             <div style={panelCard}>
               <p style={panelLabel}>HIG — 41px</p>
@@ -481,7 +481,7 @@ export default function DesignSystem() {
           </div>
 
           {/* TOP APP BAR - [7] android card + inner bg, [9] labels, [10] visibility fix */}
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>TOP APP BAR</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>TOP APP BAR</p>
           <div style={{ ...panelGrid, marginBottom: 'clamp(32px,4vw,48px)' }}>
             <div style={panelCard}>
               <p style={panelLabel}>HIG</p>
@@ -501,7 +501,7 @@ export default function DesignSystem() {
           </div>
 
           {/* BOTTOM NAVIGATION - [2] use mini components */}
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>BOTTOM NAVIGATION</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>BOTTOM NAVIGATION</p>
           <div style={{ ...panelGrid, marginBottom: 'clamp(32px,4vw,48px)' }}>
             <div style={panelCard}>
               <p style={panelLabel}>HIG</p>
@@ -514,26 +514,26 @@ export default function DesignSystem() {
           </div>
 
           {/* BOTTOM SHEET - [7] android card + inner bg, [9] labels */}
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>BOTTOM SHEET</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>BOTTOM SHEET</p>
           <div style={{ ...panelGrid, marginBottom: 'clamp(32px,4vw,48px)' }}>
             <div style={panelCard}>
               <p style={panelLabel}>HIG</p>
               <div style={{ background: color.white, borderRadius: '20px 20px 0 0', padding: '12px 20px 20px', border: `1px solid ${color.line}` }}>
                 <div style={{ width: 40, height: 4, background: color.line, borderRadius: 999, margin: '0 auto 12px' }} />
-                <p style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>환불 금액을 확인해주세요</p>
+                <p style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>환불 금액을 확인해주세요</p>
               </div>
             </div>
             <div style={panelCard}>
               <p style={panelLabel}>Google Material 3</p>
               <div style={{ background: color.bg, borderRadius: '28px 28px 0 0', padding: '12px 20px 20px', border: `1px solid ${color.line}` }}>
                 <div style={{ width: 32, height: 4, background: '#9CA3AF', borderRadius: 999, margin: '0 auto 12px' }} />
-                <p style={{ margin: 0, fontSize: 16, fontWeight: 700, fontFamily: "'Noto Sans KR', sans-serif" }}>환불 금액을 확인해주세요</p>
+                <p style={{ margin: 0, fontSize: 20, fontWeight: 700, fontFamily: "'Noto Sans KR', sans-serif" }}>환불 금액을 확인해주세요</p>
               </div>
             </div>
           </div>
 
           {/* SEARCH INPUT - [7] android card bg, [9] labels */}
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>SEARCH INPUT</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>SEARCH INPUT</p>
           <div style={{ ...panelGrid, marginBottom: 'clamp(32px,4vw,48px)' }}>
             <div style={panelCard}>
               <p style={panelLabel}>HIG</p>
@@ -552,20 +552,20 @@ export default function DesignSystem() {
                   <circle cx="6.5" cy="6.5" r="5" stroke={color.inkFaint} strokeWidth="1.5" />
                   <line x1="10.5" y1="10.5" x2="14" y2="14" stroke={color.inkFaint} strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
-                <span style={{ color: color.inkFaint, fontSize: 16, fontFamily: "'Noto Sans KR', sans-serif" }}>검색</span>
+                <span style={{ color: color.inkFaint, fontSize: 20, fontWeight: 500, fontFamily: "'Noto Sans KR', sans-serif" }}>검색</span>
               </div>
             </div>
           </div>
 
           {/* FILTER CHIP - [7] android card bg, [9] labels */}
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>FILTER CHIP</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>FILTER CHIP</p>
           <div style={{ ...panelGrid, marginBottom: 'clamp(32px,4vw,48px)' }}>
             <div style={panelCard}>
               <p style={panelLabel}>HIG</p>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 {['전체', '충전', '환불', '결제'].map((chip, i) => (
                   <span key={chip} style={{
-                    padding: '6px 16px', borderRadius: 999, fontSize: 14, fontWeight: 600, cursor: 'pointer',
+                    padding: '6px 16px', borderRadius: 999, fontSize: 18, fontWeight: 600, cursor: 'pointer',
                     background: i === 0 ? color.brand : color.white,
                     color: i === 0 ? '#fff' : color.inkMuted,
                     border: i === 0 ? 'none' : `1px solid ${color.line}`,
@@ -578,35 +578,35 @@ export default function DesignSystem() {
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 {['전체', '충전', '환불', '결제'].map((chip, i) => (
                   <span key={chip} style={{
-                    padding: '6px 16px', borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: 'pointer',
+                    padding: '6px 16px', borderRadius: 8, fontSize: 18, fontWeight: 600, cursor: 'pointer',
                     background: i === 0 ? color.brandPale : color.white,
                     color: i === 0 ? color.brand : color.inkMuted,
                     border: i === 0 ? 'none' : `1px solid ${color.line}`,
                     fontFamily: "'Noto Sans KR', sans-serif",
-                  }}>{i === 0 ? '✓ ' + chip : chip}</span>
+                  }}>{chip}</span>
                 ))}
               </div>
             </div>
           </div>
 
           {/* SNACKBAR - [7] android card bg, [9] labels */}
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>SNACKBAR</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>SNACKBAR</p>
           <div style={{ ...panelGrid, marginBottom: 'clamp(32px,4vw,48px)' }}>
             <div style={panelCard}>
               <p style={panelLabel}>HIG</p>
-              <p style={{ margin: 0, color: color.inkFaint, fontStyle: 'italic', fontSize: 14, textAlign: 'center', padding: '12px 0' }}>iOS에서는 완료 화면으로 피드백을 제공합니다</p>
+              <p style={{ margin: 0, color: color.inkFaint, fontStyle: 'italic', fontSize: 18, fontWeight: 500, textAlign: 'center', padding: '12px 0' }}>iOS에서는 완료 화면으로 피드백을 제공합니다</p>
             </div>
             <div style={panelCard}>
               <p style={panelLabel}>Google Material 3</p>
               <div style={{ background: '#111827', borderRadius: 8, padding: '14px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ color: '#fff', fontSize: 14, fontFamily: "'Noto Sans KR', sans-serif" }}>50,000원 환불이 완료됐어요</span>
-                <span style={{ color: '#93C5FD', fontWeight: 700, fontSize: 14, fontFamily: "'Noto Sans KR', sans-serif", cursor: 'pointer' }}>확인</span>
+                <span style={{ color: '#fff', fontSize: 18, fontWeight: 500, fontFamily: "'Noto Sans KR', sans-serif" }}>50,000원 환불이 완료됐어요</span>
+                <span style={{ color: '#93C5FD', fontWeight: 700, fontSize: 18, fontFamily: "'Noto Sans KR', sans-serif", cursor: 'pointer' }}>확인</span>
               </div>
             </div>
           </div>
 
           {/* COACH MARK - [7] android card bg, [9] labels */}
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>COACH MARK</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>COACH MARK</p>
           <div style={{ ...panelGrid, marginBottom: 'clamp(32px,4vw,48px)' }}>
             {[
               { label: 'HIG', isIos: true },
@@ -619,14 +619,14 @@ export default function DesignSystem() {
                     {[0, 1].map(d => (
                       <div key={d} style={{ width: 8, height: 8, borderRadius: 999, background: d === 0 ? color.brand : color.line }} />
                     ))}
-                    <span style={{ fontSize: 12, color: color.inkFaint, marginLeft: 4 }}>1/2</span>
+                    <span style={{ fontSize: 16, fontWeight: 500, color: color.inkFaint, marginLeft: 4 }}>1/2</span>
                   </div>
-                  <p style={{ margin: '0 0 12px', fontSize: 13, lineHeight: 1.6, color: color.ink }}>충전 버튼을 눌러 강릉페이 잔액을 충전할 수 있습니다.</p>
+                  <p style={{ margin: '0 0 12px', fontSize: 17, fontWeight: 500, lineHeight: 1.6, color: color.ink }}>충전 버튼을 눌러 강릉페이 잔액을 충전할 수 있습니다.</p>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: 13, color: color.inkFaint, cursor: 'pointer' }}>건너뛰기</span>
+                    <span style={{ fontSize: 17, fontWeight: 500, color: color.inkFaint, cursor: 'pointer' }}>건너뛰기</span>
                     <button style={{
                       background: color.brand, color: '#fff', border: 'none', cursor: 'pointer',
-                      borderRadius: p.isIos ? 12 : 999, padding: '6px 16px', fontSize: 13, fontWeight: 600,
+                      borderRadius: p.isIos ? 12 : 999, padding: '6px 16px', fontSize: 17, fontWeight: 600,
                     }}>다음</button>
                   </div>
                 </div>
@@ -635,15 +635,15 @@ export default function DesignSystem() {
           </div>
 
           {/* AUTH (BIOMETRIC) - [3] iOS → face-id-ios.json, [9] labels */}
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>AUTH (BIOMETRIC)</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>AUTH (BIOMETRIC)</p>
           <div style={panelGrid}>
             <div style={{ background: '#111111', borderRadius: layout.rMd, padding: 32, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 120, gap: 8, boxShadow: cardShadow }}>
               <DotLottieReact src="/lottie/face-id-ios.json" autoplay loop style={{ width: 80, height: 80 }} />
-              <span style={{ color: '#fff', fontSize: 12, opacity: 0.7 }}>HIG — Face ID</span>
+              <span style={{ color: '#fff', fontSize: 16, fontWeight: 500, opacity: 0.7 }}>HIG — Face ID</span>
             </div>
             <div style={{ background: '#111111', borderRadius: layout.rMd, padding: 32, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', minHeight: 120, gap: 12, boxShadow: cardShadow }}>
               <DotLottieReact src="/lottie/fingerprint.json" autoplay loop style={{ width: 64, height: 64 }} />
-              <span style={{ color: '#fff', fontSize: 13, fontFamily: "'Noto Sans KR', sans-serif" }}>지문을 인식해주세요</span>
+              <span style={{ color: '#fff', fontSize: 17, fontWeight: 500, fontFamily: "'Noto Sans KR', sans-serif" }}>지문을 인식해주세요</span>
             </div>
           </div>
         </div>
@@ -664,7 +664,7 @@ export default function DesignSystem() {
             {PATTERNS.map((p, i) => (
               <div key={i} style={{ background: color.white, borderRadius: layout.rMd, padding: 'clamp(20px,2.5vw,32px)', boxShadow: cardShadow }}>
                 <p style={{ margin: '0 0 8px', fontSize: t.caption.size, fontWeight: 800, color: color.brand, letterSpacing: '0em', textTransform: 'uppercase' }}>{String(i + 1).padStart(2, '0')}</p>
-                <p style={{ margin: '0 0 8px', fontSize: 16, fontWeight: 700, color: color.ink }}>{p.title}</p>
+                <p style={{ margin: '0 0 8px', fontSize: 20, fontWeight: 700, color: color.ink }}>{p.title}</p>
                 <p style={{ margin: '0 0 16px', fontSize: t.caption.size, lineHeight: 1.6, color: color.inkMuted }}>{p.sub}</p>
                 <ol style={{ margin: 0, paddingLeft: 18 }}>
                   {p.steps.map((step, si) => (
@@ -701,13 +701,13 @@ export default function DesignSystem() {
                 {PLATFORM_SECTIONS.map((sec, si) => (
                   <>
                     <tr key={`g-${si}`} style={{ background: color.brandPale }}>
-                      <td colSpan={3} style={{ padding: '8px 16px', color: color.brand, fontSize: 11, fontWeight: 800, letterSpacing: '0em', textTransform: 'uppercase' }}>{sec.group}</td>
+                      <td colSpan={3} style={{ padding: '8px 16px', color: color.brand, fontSize: 15, fontWeight: 800, letterSpacing: '0em', textTransform: 'uppercase' }}>{sec.group}</td>
                     </tr>
                     {sec.rows.map((row, ri) => (
                       <tr key={`r-${si}-${ri}`} style={{ background: ri % 2 === 0 ? color.white : color.bg }}>
                         <td style={{ padding: '10px 16px', color: color.inkMuted, fontSize: 13 }}>{row.prop}</td>
                         <td style={{ padding: '10px 16px', color: color.ink, fontSize: 13 }}>{row.ios}</td>
-                        <td style={{ padding: '10px 16px', color: color.ink, fontSize: 13, fontFamily: "'Noto Sans KR', sans-serif" }}>{row.and}</td>
+                        <td style={{ padding: '10px 16px', color: color.ink, fontSize: 17, fontWeight: 500, fontFamily: "'Noto Sans KR', sans-serif" }}>{row.and}</td>
                       </tr>
                     ))}
                   </>
@@ -729,7 +729,7 @@ export default function DesignSystem() {
           <p style={subEyebrowStyle}>05 ACCESSIBILITY</p>
           <h3 style={h3Style}>접근성</h3>
 
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>TOUCH TARGET</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>TOUCH TARGET</p>
           <div style={{ ...panelGrid, marginBottom: 'clamp(32px,4vw,48px)' }}>
             <div style={panelCard}>
               <p style={panelLabel}>HIG — 44×44pt</p>
@@ -747,7 +747,7 @@ export default function DesignSystem() {
             </div>
           </div>
 
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>COLOR CONTRAST</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>COLOR CONTRAST</p>
           <div style={{ borderRadius: layout.rMd, overflow: 'hidden', boxShadow: cardShadow, marginBottom: 'clamp(32px,4vw,48px)' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
               <thead>
@@ -765,14 +765,14 @@ export default function DesignSystem() {
                     <td style={{ padding: '10px 16px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <div style={{ width: 40, height: 24, borderRadius: 4, background: pair.bg, border: `1px solid ${color.line}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <span style={{ fontSize: 10, color: pair.fg, fontWeight: 700 }}>Aa</span>
+                          <span style={{ fontSize: 14, color: pair.fg, fontWeight: 700 }}>Aa</span>
                         </div>
-                        <span style={{ fontSize: 12, color: color.inkFaint, fontFamily: 'monospace' }}>{pair.fg} on {pair.bg}</span>
+                        <span style={{ fontSize: 16, fontWeight: 500, color: color.inkFaint, fontFamily: 'monospace' }}>{pair.fg} on {pair.bg}</span>
                       </div>
                     </td>
-                    <td style={{ padding: '10px 16px', color: color.ink, fontSize: 13, fontFamily: 'monospace' }}>{pair.ratio}</td>
+                    <td style={{ padding: '10px 16px', color: color.ink, fontSize: 17, fontWeight: 500, fontFamily: 'monospace' }}>{pair.ratio}</td>
                     <td style={{ padding: '10px 16px' }}>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: pair.pass ? color.ok : color.inkFaint }}>{pair.pass ? 'PASS' : '—'}</span>
+                      <span style={{ fontSize: 16, fontWeight: 700, color: pair.pass ? color.ok : color.inkFaint }}>{pair.pass ? 'PASS' : '—'}</span>
                     </td>
                   </tr>
                 ))}
@@ -780,7 +780,7 @@ export default function DesignSystem() {
             </table>
           </div>
 
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>LARGE TEXT SCALE</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>LARGE TEXT SCALE</p>
           <div style={{ borderRadius: layout.rMd, overflow: 'hidden', boxShadow: cardShadow, marginBottom: 'clamp(32px,4vw,48px)' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
               <thead>
@@ -793,17 +793,17 @@ export default function DesignSystem() {
               <tbody>
                 {LARGE_TEXT.map((row, i) => (
                   <tr key={i} style={{ background: i % 2 === 0 ? color.white : color.bg }}>
-                    <td style={{ padding: '10px 16px', color: color.ink, fontSize: 13, fontFamily: 'monospace' }}>{row.token}</td>
+                    <td style={{ padding: '10px 16px', color: color.ink, fontSize: 17, fontWeight: 500, fontFamily: 'monospace' }}>{row.token}</td>
                     <td style={{ padding: '10px 16px', color: color.inkMuted, fontSize: 13 }}>{row.base}</td>
-                    <td style={{ padding: '10px 16px', color: color.ok, fontSize: 13, fontWeight: 600 }}>{row.large}</td>
-                    <td style={{ padding: '10px 16px', color: color.brand, fontSize: 13, fontWeight: 700 }}>{row.rate}</td>
+                    <td style={{ padding: '10px 16px', color: color.ok, fontSize: 17, fontWeight: 600 }}>{row.large}</td>
+                    <td style={{ padding: '10px 16px', color: color.brand, fontSize: 17, fontWeight: 700 }}>{row.rate}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          <p style={{ fontSize: 11, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>SENIOR ACCESSIBILITY CHECKLIST</p>
+          <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>SENIOR ACCESSIBILITY CHECKLIST</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {CHECKLIST.map((item, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, background: color.white, borderRadius: layout.rSm, padding: '12px 16px', boxShadow: cardShadow }}>
@@ -812,7 +812,7 @@ export default function DesignSystem() {
                     <path d="M2 6l3 3 5-5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
-                <span style={{ fontSize: 14, color: color.ink }}>{item}</span>
+                <span style={{ fontSize: 18, fontWeight: 500, color: color.ink }}>{item}</span>
               </div>
             ))}
           </div>

@@ -104,7 +104,7 @@ export default function AffinityDiagram() {
               {/* Letter */}
               <span
                 style={{
-                  fontSize: 'clamp(64px,8vw,100px)',
+                  fontSize: 'clamp(45px,5.6vw,70px)',
                   fontWeight: 800,
                   lineHeight: 1,
                   color: accent ? color.brand : color.line,

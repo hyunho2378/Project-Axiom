@@ -269,7 +269,7 @@ export default function Hero3D() {
                         <motion.div variants={itemVariants} className="flex gap-4 pointer-events-auto">
                             <button
                                 onClick={() => navigate('/analysis')}
-                                className="btn-glass rounded-full px-6 py-3 md:px-8 md:py-4 text-base md:text-lg"
+                                className="btn-glass rounded-2xl px-6 py-3 md:px-8 md:py-4 text-base md:text-lg"
                             >
                                 <span>Explore AXIOM</span>
                             </button>

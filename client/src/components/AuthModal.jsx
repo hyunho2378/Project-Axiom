@@ -153,7 +153,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.96, y: 24 }}
                         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                        className="relative w-full max-w-md bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-10 shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.12),0_32px_80px_rgba(0,0,0,0.8)]"
+                        className="relative w-full max-w-md bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl p-10 shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.12),0_32px_80px_rgba(0,0,0,0.8)]"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Close */}
@@ -224,7 +224,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                             <button
                                 type="button"
                                 disabled={isLoading}
-                                className="w-full mb-6 flex items-center justify-center gap-3 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full font-body text-sm text-white/70 hover:text-white transition-all duration-200"
+                                className="w-full mb-6 flex items-center justify-center gap-3 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-2xl font-body text-sm text-white/70 hover:text-white transition-all duration-200"
                                 onClick={() => setError('Google 클라이언트 ID가 설정되지 않았습니다. 환경 변수를 확인하여 주십시오.')}
                             >
                                 <svg width="18" height="18" viewBox="0 0 24 24">
@@ -281,11 +281,11 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full mt-2 py-4 bg-[#3C7795] hover:bg-[#8AAEC0] disabled:opacity-40 text-white font-body font-semibold text-sm tracking-[0.12em] uppercase rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(60,119,149,0.25)]"
+                                className="w-full mt-2 py-4 bg-[#3C7795] hover:bg-[#8AAEC0] disabled:opacity-40 text-white font-body font-semibold text-sm tracking-[0.12em] uppercase rounded-2xl transition-all duration-300 shadow-[0_0_20px_rgba(60,119,149,0.25)]"
                             >
                                 {isLoading ? (
                                     <span className="flex items-center justify-center gap-2">
-                                        <span className="w-4 h-4 border-t border-white rounded-full animate-spin" />
+                                        <span className="w-4 h-4 border-t border-white rounded-2xl animate-spin" />
                                         Processing...
                                     </span>
                                 ) : (

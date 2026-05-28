@@ -120,7 +120,7 @@ export default function ServiceSafari() {
                 </h3>
                 <p
                   style={{
-                    fontSize: 14,
+                    fontSize: 18, fontWeight: 500,
                     fontWeight: 600,
                     color: color.inkMuted,
                     letterSpacing: '-0.01em',
@@ -132,7 +132,7 @@ export default function ServiceSafari() {
                 </p>
                 <p
                   style={{
-                    fontSize: 13,
+                    fontSize: 17, fontWeight: 500,
                     fontWeight: 400,
                     lineHeight: 1.6,
                     color: color.inkFaint,
@@ -197,7 +197,7 @@ export default function ServiceSafari() {
               </div>
               <p
                 style={{
-                  fontSize: 14,
+                  fontSize: 18, fontWeight: 500,
                   fontWeight: 500,
                   color: color.inkMuted,
                   margin: 0,

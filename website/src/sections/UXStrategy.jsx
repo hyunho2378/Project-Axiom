@@ -18,7 +18,7 @@ function PositioningMap({ visible }) {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         marginBottom: 'clamp(48px,6vw,80px)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'none' : 'translateY(24px)',
@@ -32,7 +32,7 @@ function PositioningMap({ visible }) {
           fontWeight: 700,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
-          color: colors.inkFaint,
+          color: colors.inkMuted,
         }}
       >
         포지셔닝 맵
@@ -55,10 +55,10 @@ function PositioningMap({ visible }) {
         <line x1="16" y1={MAP_SIZE / 2} x2={MAP_SIZE - 16} y2={MAP_SIZE / 2} stroke={colors.line} strokeWidth="1" />
 
         {/* 축 레이블 */}
-        <text x={MAP_SIZE - 10} y={MAP_SIZE / 2 - 8} textAnchor="end" fontSize="10" fill={colors.inkFaint} fontWeight="600">고럭셔리</text>
-        <text x="10" y={MAP_SIZE / 2 - 8} textAnchor="start" fontSize="10" fill={colors.inkFaint} fontWeight="600">저럭셔리</text>
-        <text x={MAP_SIZE / 2} y="14" textAnchor="middle" fontSize="10" fill={colors.inkFaint} fontWeight="600">고개인화</text>
-        <text x={MAP_SIZE / 2} y={MAP_SIZE - 4} textAnchor="middle" fontSize="10" fill={colors.inkFaint} fontWeight="600">저개인화</text>
+        <text x={MAP_SIZE - 10} y={MAP_SIZE / 2 - 8} textAnchor="end" fontSize="10" fill={colors.inkMuted} fontWeight="600">고럭셔리</text>
+        <text x="10" y={MAP_SIZE / 2 - 8} textAnchor="start" fontSize="10" fill={colors.inkMuted} fontWeight="600">저럭셔리</text>
+        <text x={MAP_SIZE / 2} y="14" textAnchor="middle" fontSize="10" fill={colors.inkMuted} fontWeight="600">고개인화</text>
+        <text x={MAP_SIZE / 2} y={MAP_SIZE - 4} textAnchor="middle" fontSize="10" fill={colors.inkMuted} fontWeight="600">저개인화</text>
 
         {/* 경쟁사 점 */}
         {competitors.filter(c => c.name !== 'AXIOM').map((c, i) => {
@@ -66,8 +66,8 @@ function PositioningMap({ visible }) {
           const cy = PERSONAL_Y[c.personalization] ?? MAP_SIZE / 2;
           return (
             <g key={i}>
-              <circle cx={cx} cy={cy} r="7" fill={colors.bgCard} stroke={colors.inkFaint} strokeWidth="1.5" />
-              <text x={cx} y={cy - 12} textAnchor="middle" fontSize="10" fill={colors.inkFaint}>{c.name}</text>
+              <circle cx={cx} cy={cy} r="7" fill={colors.bgCard} stroke={colors.inkMuted} strokeWidth="1.5" />
+              <text x={cx} y={cy - 12} textAnchor="middle" fontSize="10" fill={colors.inkMuted}>{c.name}</text>
             </g>
           );
         })}
@@ -93,8 +93,8 @@ function PositioningMap({ visible }) {
         style={{
           marginTop: 12,
           fontSize: t.caption.size,
-          color: colors.inkFaint,
-          textAlign: 'center',
+          color: colors.inkMuted,
+          textAlign: 'left',
           maxWidth: 360,
         }}
       >
@@ -114,7 +114,7 @@ function DesignPrinciples({ visible }) {
           fontWeight: 700,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
-          color: colors.inkFaint,
+          color: colors.inkMuted,
         }}
       >
         Design Principles
@@ -155,7 +155,7 @@ function DesignPrinciples({ visible }) {
             <p
               style={{
                 margin: '0 0 8px',
-                fontSize: 13,
+                fontSize: 17,
                 fontWeight: 700,
                 letterSpacing: '0.04em',
                 color: colors.brandMid,
@@ -177,14 +177,14 @@ function DesignPrinciples({ visible }) {
             <p
               style={{
                 margin: '0 0 8px',
-                fontSize: 13,
+                fontSize: 17, fontWeight: 500,
                 lineHeight: 1.5,
                 color: colors.inkMuted,
               }}
             >
               {p.apply}
             </p>
-            <p style={{ margin: 0, fontSize: 12, color: colors.inkFaint, lineHeight: 1.5 }}>
+            <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: colors.inkMuted, lineHeight: 1.5 }}>
               근거: {p.basis}
             </p>
           </div>
@@ -204,7 +204,7 @@ function HMWTable({ visible }) {
           fontWeight: 700,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
-          color: colors.inkFaint,
+          color: colors.inkMuted,
         }}
       >
         HMW → 설계 결정

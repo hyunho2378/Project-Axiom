@@ -101,7 +101,7 @@ export default function Curations({ language }) {
                             viewport={{ once: true }}
                         >
                             {/* Product Card */}
-                            <div className="relative h-[400px] md:h-[480px] rounded-3xl overflow-hidden bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] transition-all duration-500 group-hover:border-white/[0.15] group-hover:bg-white/[0.05]">
+                            <div className="relative h-[400px] md:h-[480px] rounded-2xl overflow-hidden bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] transition-all duration-500 group-hover:border-white/[0.15] group-hover:bg-white/[0.05]">
                                 {/* Gradient Background */}
                                 <div className={`absolute inset-0 bg-gradient-to-br ${product.color} opacity-50 group-hover:opacity-70 transition-opacity duration-500`} />
 
@@ -114,7 +114,7 @@ export default function Curations({ language }) {
 
                                 {/* Content */}
                                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                                    <span className="inline-block px-3 py-1 text-xs uppercase tracking-wider text-white/60 bg-white/10 rounded-full mb-3">
+                                    <span className="inline-block px-3 py-1 text-xs uppercase tracking-wider text-white/60 bg-white/10 rounded-2xl mb-3">
                                         {product.category}
                                     </span>
                                     <h3 className="font-body text-xl md:text-2xl font-medium text-white mb-2">
@@ -126,7 +126,7 @@ export default function Curations({ language }) {
                                 </div>
 
                                 {/* Hover Arrow */}
-                                <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div className="absolute top-6 right-6 w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                                     </svg>
@@ -138,7 +138,7 @@ export default function Curations({ language }) {
                     {/* View All Card */}
                     <div className="flex-shrink-0 w-[200px] md:w-[250px] h-[400px] md:h-[480px] flex items-center justify-center">
                         <button className="flex flex-col items-center gap-4 text-white/40 hover:text-white/80 transition-colors duration-300 group">
-                            <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white/50 transition-colors duration-300">
+                            <div className="w-16 h-16 rounded-2xl border border-white/20 flex items-center justify-center group-hover:border-white/50 transition-colors duration-300">
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                                 </svg>

@@ -32,7 +32,7 @@ export default function Shop() {
                     </p>
 
                     {/* Title - #8AAEC0 */}
-                    <h1 className="text-4xl md:text-5xl font-title-en text-[#8AAEC0] mb-4 leading-tight">
+                    <h1 className="text-3xl md:text-4xl font-title-en text-[#8AAEC0] mb-4 leading-tight">
                         <span className="text-[#8AAEC0]">{userName}</span>님을 위한<br />
                         <span className="text-gradient-cyan">맞춤 처방</span>
                     </h1>
@@ -54,7 +54,7 @@ export default function Shop() {
                     transition={{ duration: 0.6, delay: 0.1 }}
                     className="flex items-center gap-4 mb-8"
                 >
-                    <div className="px-4 py-2 bg-gradient-to-r from-[#1E5672]/30 to-[#3C7795]/30 border border-[#3C7795]/30 rounded-full">
+                    <div className="px-4 py-2 bg-gradient-to-r from-[#1E5672]/30 to-[#3C7795]/30 border border-[#3C7795]/30 rounded-2xl">
                         <span className="text-sm font-body text-[#8AAEC0]">
                             피부 타입: <span className="font-bold text-[#8AAEC0]">{userSkinType}</span>
                         </span>
@@ -86,7 +86,7 @@ export default function Shop() {
                                     className="group block"
                                 >
                                     {/* Card - MIST GLASS STYLE */}
-                                    <div className="relative rounded-3xl overflow-hidden
+                                    <div className="relative rounded-2xl overflow-hidden
                                                     bg-[#8AAEC0]/5 backdrop-blur-md
                                                     border border-[#8AAEC0]/20 
                                                     hover:bg-[#8AAEC0]/10 hover:border-[#3C7795]/50
@@ -97,7 +97,7 @@ export default function Shop() {
                                         <div className="absolute top-3 left-3 z-10">
                                             <span className="px-2.5 py-1 text-[10px] font-bold tracking-wider font-body
                                                            bg-gradient-to-r from-[#1E5672] to-[#3C7795] 
-                                                           text-white rounded-full border border-white/15">
+                                                           text-white rounded-2xl border border-white/15">
                                                 {matchRate}% Match
                                             </span>
                                         </div>
@@ -106,7 +106,7 @@ export default function Shop() {
                                         {product.tag && (
                                             <div className="absolute top-3 right-3 z-10">
                                                 <span className="px-2 py-0.5 text-[9px] uppercase tracking-wider font-body
-                                                               bg-[#8AAEC0]/10 text-[#8AAEC0] rounded-full border border-[#8AAEC0]/20">
+                                                               bg-[#8AAEC0]/10 text-[#8AAEC0] rounded-2xl border border-[#8AAEC0]/20">
                                                     {product.tag}
                                                 </span>
                                             </div>
