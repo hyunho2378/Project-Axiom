@@ -76,6 +76,16 @@ export default function DataLab() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        let cancelled = false;
+        const MIN_LOADING = 1500;
+        const startTime = Date.now();
+
+        const done = () => {
+            if (cancelled) return;
+            const remaining = Math.max(0, MIN_LOADING - (Date.now() - startTime));
+            setTimeout(() => { if (!cancelled) setLoading(false); }, remaining);
+        };
+
         const fetchData = async () => {
             try {
                 const response = await fetch(`${API_URL}/api/stats`);
@@ -86,18 +96,20 @@ export default function DataLab() {
                 if (!response.ok) throw new Error(`Server Error: ${response.status}`);
                 const data = await response.json();
                 if (data.success) {
-                    setStats(data.data);
+                    if (!cancelled) setStats(data.data);
                 } else {
                     throw new Error(data.error || "Failed to load data");
                 }
             } catch (err) {
                 console.error("DataLab Fetch Error:", err);
-                setError(err.message);
+                if (!cancelled) setError(err.message);
             } finally {
-                setLoading(false);
+                done();
             }
         };
         fetchData();
+
+        return () => { cancelled = true; };
     }, []);
 
     if (loading) return (
