@@ -7,7 +7,7 @@ import axiomData from '../data/axiom.json';
 const { dataLogic } = axiomData;
 const { overview, scoring, skinTypes, questions, products } = dataLogic;
 
-const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1zf7-lFTJq_lGPRgrOOeG8kg_IYIs3xWNVyHEcWAhEPY/edit';
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1zf7-lFTJq_lGPRgrOOeG8kg_IYIs3xWNVyHEcWAhEPY/edit?usp=sharing';
 
 const SKIN_HIGHLIGHTS = [
   { oil: '건성',   sens: '비민감',  desc: '유수분 부족하나 장벽은 안정적. 풍부한 보습에 집중.' },
@@ -50,8 +50,8 @@ function SystemDiagram({ visible }) {
       >
         {/* Q1-Q6, Q7-Q10 */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(8px,1.5vw,14px)', flexShrink: 0 }}>
-          <div style={{ padding: 'clamp(10px,1.2vw,16px) clamp(12px,1.5vw,18px)', background: 'rgba(0,212,255,0.12)', border: `1px solid ${colors.brand}`, borderRadius: 10 }}>
-            <p style={{ margin: 0, fontSize: 17, fontWeight: 700, color: colors.brand, letterSpacing: '0.04em' }}>Q1~Q6</p>
+          <div style={{ padding: 'clamp(10px,1.2vw,16px) clamp(12px,1.5vw,18px)', background: 'rgba(90,154,181,0.12)', border: `1px solid ${colors.brandMid}`, borderRadius: 10 }}>
+            <p style={{ margin: 0, fontSize: 17, fontWeight: 700, color: colors.brandMid, letterSpacing: '0.04em' }}>Q1~Q6</p>
             <p style={{ margin: '2px 0 0', fontSize: 15, fontWeight: 600, color: colors.inkMuted }}>유수분 6문항</p>
           </div>
           <div style={{ padding: 'clamp(10px,1.2vw,16px) clamp(12px,1.5vw,18px)', background: 'rgba(90,154,181,0.12)', border: `1px solid ${colors.brandMid}`, borderRadius: 10 }}>
@@ -262,7 +262,7 @@ function Accordion() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {questions.map((q, i) => {
           const isOpen = openIdx === i;
-          const axisColor = q.axis === 1 ? colors.brand : colors.brandMid;
+          const axisColor = colors.brandMid;
           return (
             <div
               key={q.q}

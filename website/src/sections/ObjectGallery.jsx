@@ -85,7 +85,7 @@ function CodeAccordion({ file }) {
   };
 
   return (
-    <div>
+    <div style={{ maxWidth: '100%', overflow: 'hidden' }}>
       <button
         onClick={toggle}
         style={{
@@ -119,14 +119,18 @@ function CodeAccordion({ file }) {
             border: `1px solid ${colors.brandDeep}`,
             borderTop: 'none',
             borderRadius: `0 0 ${layout.rSm} ${layout.rSm}`,
+            maxWidth: '100%',
             maxHeight: 400,
             overflowY: 'auto',
             overflowX: 'auto',
+            WebkitOverflowScrolling: 'touch',
             fontFamily: "'SFMono-Regular', 'Consolas', 'Monaco', monospace",
-            fontSize: 11,
+            fontSize: 'clamp(9px, 1.8vw, 11px)',
             lineHeight: 1.65,
             color: colors.inkMuted,
             whiteSpace: 'pre',
+            wordBreak: 'normal',
+            boxSizing: 'border-box',
           }}
         >
           <code>{fetching ? '// 로딩 중...' : code}</code>

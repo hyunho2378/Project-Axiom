@@ -108,28 +108,19 @@ export default function Hero() {
             href={meta.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
+            className="btn-glow"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
               padding: 'clamp(12px,1.2vw,16px) clamp(24px,2.5vw,36px)',
-              borderRadius: 9999,
-              background: colors.brand,
-              color: colors.bgDeep,
+              borderRadius: layout.rLg,
               fontSize: t.lead.size,
               fontWeight: 700,
-              letterSpacing: '-0.01em',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
               textDecoration: 'none',
               fontFamily: font.family,
-              transition: 'background 0.18s, transform 0.18s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = colors.brandStrong;
-              e.currentTarget.style.transform = 'translateY(-2px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = colors.brand;
-              e.currentTarget.style.transform = 'none';
             }}
           >
             {hero.cta}
