@@ -81,7 +81,7 @@ function FlowRow({ problem, solution }) {
     }}>
       <span style={{
         fontSize: 17, fontWeight: 600,
-        color: color.warn, background: 'rgba(0,212,255,0.08)',
+        color: color.warn, background: 'rgba(90,154,181,0.08)',
         padding: '5px 12px', borderRadius: 100,
         fontFamily: font.family, lineHeight: 1.5,
       }}>

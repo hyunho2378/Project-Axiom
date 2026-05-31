@@ -48,7 +48,7 @@ function PositioningMap({ visible }) {
         <rect x="0" y="0" width={MAP_W} height={MAP_H} fill={colors.bgDeep} rx="12" />
 
         {/* Blue Ocean 영역 */}
-        <rect x={MAP_W / 2} y="0" width={MAP_W / 2} height={MAP_H / 2} fill="rgba(0,212,255,0.05)" />
+        <rect x={MAP_W / 2} y="0" width={MAP_W / 2} height={MAP_H / 2} fill="rgba(90,154,181,0.05)" />
         <text x={MAP_W * 0.75} y={MAP_H * 0.18} textAnchor="middle" fontSize="10" fill={colors.brandPale} fontWeight="700" letterSpacing="2">
           BLUE OCEAN
         </text>
@@ -267,7 +267,7 @@ function HMWTable({ visible }) {
                   <div
                     style={{
                       padding: 'clamp(12px,1.5vw,18px) clamp(14px,2vw,20px)',
-                      background: 'rgba(0,212,255,0.04)',
+                      background: 'rgba(90,154,181,0.04)',
                     }}
                   >
                     <p style={{ margin: 0, fontSize: t.body.size, lineHeight: 1.5, color: colors.ink, fontWeight: 500 }}>

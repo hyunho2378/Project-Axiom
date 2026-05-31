@@ -95,7 +95,7 @@ function PersonaCard({ persona, delay, visible }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {persona.goals.map((g, i) => (
               <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                <span style={{ color: colors.ok, fontWeight: 700, flexShrink: 0, lineHeight: 1.5 }}>•</span>
+                <span style={{ color: colors.brand, fontWeight: 700, flexShrink: 0, lineHeight: 1.5 }}>•</span>
                 <span style={{ fontSize: t.body.size, color: colors.ink, lineHeight: 1.5 }}>{g}</span>
               </div>
             ))}

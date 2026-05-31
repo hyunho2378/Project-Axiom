@@ -173,8 +173,8 @@ function InsightCard({ insight, index, visible }) {
               flexDirection: 'column',
               gap: 2,
               padding: '8px 14px',
-              background: 'rgba(0,212,255,0.08)',
-              border: `1px solid rgba(0,212,255,0.2)`,
+              background: 'rgba(90,154,181,0.08)',
+              border: `1px solid rgba(90,154,181,0.2)`,
               borderRadius: 8,
             }}
           >
@@ -207,7 +207,7 @@ function InsightCard({ insight, index, visible }) {
         style={{
           marginTop: 'clamp(14px,2vw,20px)',
           padding: 'clamp(12px,1.5vw,18px) clamp(14px,2vw,20px)',
-          background: 'rgba(0,212,255,0.04)',
+          background: 'rgba(90,154,181,0.04)',
           borderRadius: 8,
         }}
       >

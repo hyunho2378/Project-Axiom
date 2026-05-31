@@ -12,7 +12,7 @@ export default function QuoteCard({ quote, speaker, delay = 0 }) {
         padding: 'clamp(16px, 2vw, 28px)',
         borderRadius: 'clamp(8px, 1vw, 16px)',
         border: `1px solid ${colors.brand}`,
-        background: 'rgba(0, 212, 255, 0.08)',
+        background: 'rgba(90,154,181,0.08)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(16px)',
         transition: `opacity 0.5s ease ${delay}ms, transform 0.5s ease ${delay}ms`,

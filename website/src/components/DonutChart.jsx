@@ -1,7 +1,7 @@
 import { colors, type as t } from '../tokens/web.js';
 import { useReveal } from '../lib/useReveal.js';
 
-const AXIOM_PALETTE = ['#00D4FF', '#3C7795', '#5A9AB5', '#082B35'];
+const AXIOM_PALETTE = ['#C0F0FF', '#3C7795', '#5A9AB5', '#082B35'];
 
 // segments: [{ label, pct, color? }]
 export default function DonutChart({ title, subtitle, segments = [], source }) {

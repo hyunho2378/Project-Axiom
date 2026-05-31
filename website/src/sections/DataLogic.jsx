@@ -45,6 +45,7 @@ function SystemDiagram({ visible }) {
           alignItems: 'center',
           overflowX: 'auto',
           paddingBottom: 8,
+          width: 'fit-content',
         }}
         className="diagram-row"
       >
@@ -98,7 +99,7 @@ function SystemDiagram({ visible }) {
         <div
           style={{
             padding: 'clamp(16px,2vw,24px) clamp(16px,2vw,24px)',
-            background: 'rgba(0,212,255,0.08)',
+            background: 'rgba(90,154,181,0.08)',
             border: `2px solid ${colors.brand}`,
             borderRadius: 12,
             textAlign: 'center',
@@ -168,7 +169,7 @@ function Axis1Cards({ visible }) {
 
 function Axis2Cards({ visible }) {
   const grades = scoring.axis2.grades;
-  const borderColors = [colors.ok, colors.brand, colors.warn, colors.brandMid];
+  const borderColors = [colors.brand, colors.brandStrong, colors.warn, colors.brandMid];
   return (
     <div style={{ marginBottom: 'clamp(40px,5vw,64px)' }}>
       <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
@@ -232,7 +233,7 @@ function ExampleCase({ visible }) {
         <div
           style={{
             padding: 'clamp(16px,2vw,24px)',
-            background: 'rgba(0,212,255,0.08)',
+            background: 'rgba(90,154,181,0.08)',
             border: `2px solid ${colors.brand}`,
             borderRadius: 12,
             flex: 1,
@@ -324,7 +325,7 @@ function Accordion() {
                           fontWeight: 700,
                           color: colors.brand,
                           flexShrink: 0,
-                          background: 'rgba(0,212,255,0.1)',
+                          background: 'rgba(90,154,181,0.08)',
                           padding: '2px 8px',
                           borderRadius: 4,
                           fontFamily: 'monospace',

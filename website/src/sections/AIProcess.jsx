@@ -55,8 +55,8 @@ export default function AIProcess() {
               <p style={{ margin: 0, fontSize: t.body.size, fontWeight: 500, color: colors.ink, lineHeight: 1.4, flex: 1 }}>
                 {item.desc}
               </p>
-              <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: colors.inkMuted, lineHeight: 1.4 }}>
-                {item.source}
+              <p style={{ margin: '10px 0 0', fontSize: 'clamp(10px,0.76vw,11px)', fontWeight: 400, color: colors.inkMuted, lineHeight: 1.4 }}>
+                출처: {item.source}
               </p>
             </div>
           ))}
@@ -111,13 +111,13 @@ export default function AIProcess() {
                 transition: 'opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s',
               }}
             >
-              <p style={{ margin: '0 0 16px', fontSize: t.body.size, fontWeight: 700, color: colors.ok }}>
+              <p style={{ margin: '0 0 16px', fontSize: t.body.size, fontWeight: 700, color: colors.brand }}>
                 사람이 판단한 것
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {aiProcess.collaboration.human.map((item, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: colors.ok, marginTop: 7, flexShrink: 0 }} />
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: colors.brand, marginTop: 7, flexShrink: 0 }} />
                     <span style={{ fontSize: t.body.size, color: colors.ink, lineHeight: 1.5 }}>{item}</span>
                   </div>
                 ))}

@@ -91,7 +91,7 @@ export default function Prototype() {
                 background: color.white,
                 borderRadius: layout.rMd,
                 padding: 'clamp(40px,5vw,72px) clamp(32px,4vw,56px)',
-                boxShadow: '0 8px 40px rgba(0,212,255,0.12), 0 2px 8px rgba(0,0,0,0.06)',
+                boxShadow: '0 8px 40px rgba(90,154,181,0.12), 0 2px 8px rgba(0,0,0,0.06)',
                 transition: 'box-shadow 0.2s ease',
               }}
                 onMouseEnter={e => e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.10)'}

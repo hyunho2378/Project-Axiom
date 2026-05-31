@@ -215,7 +215,7 @@ export default function BX() {
                   return (
                     <tr
                       key={ri}
-                      style={{ background: isAxiom ? 'rgba(0,212,255,0.06)' : (ri % 2 === 0 ? colors.bgCard : colors.bgDeep) }}
+                      style={{ background: isAxiom ? 'rgba(90,154,181,0.06)' : (ri % 2 === 0 ? colors.bgCard : colors.bgDeep) }}
                     >
                       <td
                         style={{
