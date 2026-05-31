@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { API_URL } from '../config/api';
 
 /**
  * AXIOM AuthModal — Glassmorphism Authentication
@@ -14,6 +13,11 @@ import { API_URL } from '../config/api';
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
+function parseGoogleJWT(token) {
+    const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(atob(base64));
+}
+
 function loadGoogleScript(callback) {
     if (window.google) { callback(); return; }
     const script = document.createElement('script');
@@ -24,18 +28,17 @@ function loadGoogleScript(callback) {
     document.head.appendChild(script);
 }
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function validate(tab, formData) {
     if (tab === 'signup' && (!formData.name || formData.name.trim().length < 2)) {
         return '이름은 2자 이상 입력하여 주십시오.';
     }
-    if (!formData.email || formData.email.trim().length < 6) {
-        return 'Please enter at least 6 characters for your email address.';
-    }
-    if (!formData.email.includes('@')) {
-        return '유효한 이메일 형식을 입력하여 주십시오.';
+    if (!formData.email || !EMAIL_RE.test(formData.email.trim())) {
+        return '올바른 이메일 형식을 입력해주세요.';
     }
     if (!formData.password || formData.password.length < 6) {
-        return 'Please enter at least 6 characters for your password.';
+        return '비밀번호는 6자 이상이어야 합니다.';
     }
     return null;
 }
@@ -53,26 +56,14 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
         loadGoogleScript(() => setGoogleReady(true));
     }, [isOpen]);
 
-    // Handle Google credential response
-    const handleGoogleCredential = useCallback(async (response) => {
-        setIsLoading(true);
-        setError('');
+    // Handle Google credential response — decode JWT client-side, no server call
+    const handleGoogleCredential = useCallback((response) => {
         try {
-            const res = await fetch(`${API_URL}/api/auth/social`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ provider: 'Google', token: response.credential })
-            });
-            const data = await res.json();
-            if (data.success) {
-                onLoginSuccess(data.user, data.token);
-            } else {
-                setError(data.message || 'Google 인증에 실패하였습니다. 잠시 후 다시 시도하여 주십시오.');
-            }
+            const payload = parseGoogleJWT(response.credential);
+            const user = { email: payload.email, name: payload.name || payload.email.split('@')[0] };
+            onLoginSuccess(user, 'google-' + Date.now());
         } catch {
-            setError('네트워크 오류가 발생하였습니다. 연결 상태를 확인하여 주십시오.');
-        } finally {
-            setIsLoading(false);
+            setError('Google 인증 정보를 읽을 수 없습니다. 다시 시도하여 주십시오.');
         }
     }, [onLoginSuccess]);
 
@@ -96,31 +87,14 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
         }
     }, [googleReady, isOpen, handleGoogleCredential]);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const validationError = validate(activeTab, formData);
         if (validationError) { setError(validationError); return; }
 
-        setIsLoading(true);
-        setError('');
-        try {
-            const endpoint = activeTab === 'login' ? '/api/auth/login' : '/api/auth/signup';
-            const res = await fetch(`${API_URL}${endpoint}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-            const data = await res.json();
-            if (data.success) {
-                onLoginSuccess(data.user, data.token);
-            } else {
-                setError(data.message || '인증에 실패하였습니다. 입력 정보를 확인하여 주십시오.');
-            }
-        } catch {
-            setError('네트워크 오류가 발생하였습니다. 연결 상태를 확인하여 주십시오.');
-        } finally {
-            setIsLoading(false);
-        }
+        const user = { email: formData.email, name: formData.name || formData.email.split('@')[0] };
+        onLoginSuccess(user, 'local-' + Date.now());
+        resetForm();
     };
 
     const resetForm = () => {

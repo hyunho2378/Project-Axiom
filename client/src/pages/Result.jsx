@@ -19,11 +19,11 @@ export default function Result() {
     const today = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
     const SKIN_GLOW = {
-        '건성':   'rgba(216, 238, 255, 0.28)',
-        '중성':   'rgba(232, 224, 216, 0.28)',
-        '지성':   'rgba(224, 232, 255, 0.28)',
-        '수부지': 'rgba(232, 224, 208, 0.28)',
-        '복합성': 'rgba(224, 240, 232, 0.28)',
+        '건성':   'rgba(216, 238, 255, 0.5)',
+        '중성':   'rgba(232, 224, 216, 0.5)',
+        '지성':   'rgba(224, 232, 255, 0.5)',
+        '수부지': 'rgba(232, 224, 208, 0.5)',
+        '복합성': 'rgba(224, 240, 232, 0.5)',
     };
     const mainSkinType = skinTypeStr.split(' · ')[0];
     const skinGlow = SKIN_GLOW[mainSkinType] || 'rgba(138, 174, 192, 0.2)';

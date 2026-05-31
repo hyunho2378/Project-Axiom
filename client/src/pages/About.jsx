@@ -287,7 +287,7 @@ export default function About() {
                     >
                         <Link
                             to="/diagnosis"
-                            className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-2xl btn-glow"
+                            className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-[14px] btn-glow"
                         >
                             {c.s4cta}
                         </Link>

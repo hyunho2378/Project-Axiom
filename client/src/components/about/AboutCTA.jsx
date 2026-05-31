@@ -24,7 +24,7 @@ function MagneticButton({ to, label }) {
         >
             <Link
                 to={to}
-                className="inline-block px-8 py-4 border border-brand-600 text-ui-textPrimary font-body text-sm uppercase tracking-widest hover:bg-brand-600 transition-colors duration-300"
+                className="inline-block px-8 py-4 border border-brand-600 text-ui-textPrimary font-body text-sm uppercase tracking-widest rounded-[14px] hover:bg-brand-600 transition-colors duration-300"
             >
                 {label}
             </Link>

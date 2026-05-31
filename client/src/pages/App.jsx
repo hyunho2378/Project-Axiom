@@ -53,12 +53,13 @@ function AppLayout({ children, onLoginClick, isLoggedIn, onLogout, user }) {
  * Home Layout - Header only, no Footer.
  * Home page has its own integrated footer section inside the snap scroll container.
  */
-function HomeLayout({ children, onLoginClick, isLoggedIn, user }) {
+function HomeLayout({ children, onLoginClick, isLoggedIn, onLogout, user }) {
     return (
         <div className="min-h-screen flex flex-col bg-black">
             <Header
                 onLoginClick={onLoginClick}
                 isLoggedIn={isLoggedIn}
+                onLogout={onLogout}
                 user={user}
             />
             {children}

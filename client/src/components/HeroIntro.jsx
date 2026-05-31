@@ -82,7 +82,7 @@ export default function HeroIntro() {
                     >
                         <Link
                             to="/analysis"
-                            className="inline-block px-5 py-3 md:px-8 md:py-4 font-body text-xs md:text-sm uppercase tracking-widest btn-glow"
+                            className="inline-block px-5 py-3 md:px-8 md:py-4 font-body text-xs md:text-sm uppercase tracking-widest rounded-[14px] btn-glow"
                         >
                             BEGIN ANALYSIS →
                         </Link>

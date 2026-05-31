@@ -5,7 +5,7 @@ import { contentData } from '../data/contentData';
 
 const MENU_PATHS = ['/', '/axiom', '/analysis', '/curations', '/datalab'];
 
-export default function Header({ onLoginClick, isLoggedIn, user }) {
+export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [showLangToast, setShowLangToast] = useState(false);
@@ -35,12 +35,6 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
     }, []);
 
     const isActive = (href) => location.pathname === href;
-
-    const handleLogout = () => {
-        localStorage.removeItem('aura_token');
-        localStorage.removeItem('aura_user');
-        window.location.href = '/';
-    };
 
     const handleLangToast = () => {
         setShowLangToast(true);
@@ -129,12 +123,9 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                                 <div ref={userMenuRef} className="relative flex items-center justify-center">
                                     <button
                                         onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                                        className="flex items-center justify-center gap-2 p-0 m-0 text-[#8AAEC0] hover:text-white transition-colors duration-300 group"
+                                        className="flex items-center justify-center p-0 m-0 text-[#8AAEC0] hover:text-white transition-colors duration-300"
                                         aria-label="My Page"
                                     >
-                                        <span className="font-body text-[10px] tracking-widest uppercase opacity-70 group-hover:opacity-100 transition-opacity leading-none">
-                                            {user?.name || user?.email?.split('@')[0] || 'MY PAGE'}
-                                        </span>
                                         <svg className="w-5 h-5 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                             <circle cx="12" cy="7" r="4" />
@@ -158,7 +149,7 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                                             </Link>
                                             <div className="my-1 border-t border-ui-border" />
                                             <button
-                                                onClick={handleLogout}
+                                                onClick={onLogout}
                                                 className="w-full text-left px-4 py-2 text-sm text-ui-textSecondary hover:bg-void-lighter transition-colors"
                                             >
                                                 로그아웃
@@ -280,7 +271,7 @@ export default function Header({ onLoginClick, isLoggedIn, user }) {
                                             </svg>
                                         </Link>
                                         <button
-                                            onClick={handleLogout}
+                                            onClick={onLogout}
                                             className="flex items-center justify-center p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors font-body text-[10px] tracking-widest uppercase leading-none mt-1"
                                         >
                                             로그아웃

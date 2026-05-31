@@ -1,6 +1,6 @@
 import { useState, useEffect, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import SilkRibbon from './three/SilkRibbon';
+import DNAHelix from './three/DNAHelix';
 
 const PHASES = [
     { text: '피부 데이터를 수집하고 있습니다', duration: 1500 },
@@ -40,10 +40,10 @@ export default function AnalysisLoader({ onComplete }) {
 
     return (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-void">
-            {/* SilkRibbon — replaces spinner, 192×192px centered */}
+            {/* DNAHelix — 분석 대기 비주얼, 192×192px centered */}
             <div className="w-48 h-48 mb-8">
                 <Suspense fallback={null}>
-                    <SilkRibbon />
+                    <DNAHelix />
                 </Suspense>
             </div>
             <AnimatePresence mode="wait">

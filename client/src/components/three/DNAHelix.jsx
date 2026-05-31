@@ -127,15 +127,15 @@ function HelixScene() {
         const t = state.clock.elapsedTime;
         const { helix, strandSpheres, rungs, stars } = objs;
 
-        // helix slow rotation + bob
-        helix.rotation.y = t * 0.06;
-        helix.rotation.x = Math.sin(t * 0.12) * 0.04;
-        helix.position.y = Math.sin(t * 0.2) * 0.25;
+        // helix rotation + bob (speed ×1.8)
+        helix.rotation.y = t * 0.11;
+        helix.rotation.x = Math.sin(t * 0.22) * 0.04;
+        helix.position.y = Math.sin(t * 0.36) * 0.25;
 
-        // sphere emissive wave (light flows top→bottom)
+        // sphere emissive wave (light flows top→bottom, speed ×1.8)
         strandSpheres.forEach(strand => {
             strand.forEach(({ sphere, baseT, mat }) => {
-                const wave = Math.sin((baseT * 4 - t * 0.35) * Math.PI);
+                const wave = Math.sin((baseT * 4 - t * 0.63) * Math.PI);
                 mat.emissiveIntensity = 0.4 + Math.max(0, wave) * 0.6;
                 const sprite = sphere.children[0];
                 if (sprite) {
@@ -147,13 +147,13 @@ function HelixScene() {
         });
 
         rungs.forEach(({ rung, baseT }) => {
-            const wave = Math.sin((baseT * 4 - t * 0.35) * Math.PI);
+            const wave = Math.sin((baseT * 4 - t * 0.63) * Math.PI);
             rung.material.emissiveIntensity = 0.2 + Math.max(0, wave) * 0.4;
             rung.material.opacity = 0.5 + Math.max(0, wave) * 0.3;
         });
 
-        stars.rotation.y = t * 0.01;
-        stars.rotation.x = Math.sin(t * 0.005) * 0.1;
+        stars.rotation.y = t * 0.018;
+        stars.rotation.x = Math.sin(t * 0.009) * 0.1;
     });
 
     const { helix, stars, ambientLight, keyLight, rimLight, topLight } = objs;

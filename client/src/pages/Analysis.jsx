@@ -149,7 +149,7 @@ export default function Analysis() {
                                 </p>
                                 <button
                                     onClick={() => setQuizPhase('gender')}
-                                    className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-2xl btn-glow"
+                                    className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-[14px] btn-glow"
                                 >
                                     BEGIN ANALYSIS
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
