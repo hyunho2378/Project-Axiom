@@ -172,12 +172,12 @@ function RingScene() {
 
     useEffect(() => () => { objs.textures.forEach(t => t.dispose()); }, [objs]);
 
-    useFrame((state) => {
+    useFrame((state, delta) => {
         const t = state.clock.elapsedTime;
         const { ringGroup, mainRing, innerRing, outerRing, discMat, glowSprites, coreGlow, keyLight } = objs;
 
-        // slow auto-rotation + tilt
-        ringGroup.rotation.y = t * 0.025;
+        // rotation + tilt
+        ringGroup.rotation.y += delta * 0.5;
         ringGroup.rotation.x = 0.35 + Math.sin(t * 0.10) * 0.03;
         ringGroup.position.y = Math.sin(t * 0.18) * 0.12;
 
@@ -217,6 +217,7 @@ function RingScene() {
 export default function AuroraRing() {
     return (
         <Canvas
+            frameloop="always"
             camera={{ fov: 36, position: [0, 2.8, 6.5], near: 0.1, far: 100 }}
             gl={{ antialias: true, alpha: true }}
             dpr={[1, 2]}

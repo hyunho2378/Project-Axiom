@@ -81,20 +81,14 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                                     key={label}
                                     to={MENU_PATHS[index]}
                                     className={`
-                                        relative text-[13px] tracking-[0.1em] uppercase font-body
+                                        text-[13px] tracking-[0.1em] uppercase font-body
                                         ${isActive(MENU_PATHS[index])
-                                            ? 'text-[#3C7795]'
-                                            : 'text-white/80'}
+                                            ? 'text-white'
+                                            : 'text-[#8AAEC0]/60'}
                                         hover:text-[#8AAEC0] transition-colors duration-300
                                     `}
                                 >
                                     {label}
-                                    {isActive(MENU_PATHS[index]) && (
-                                        <motion.div
-                                            layoutId="nav-underline"
-                                            className="absolute -bottom-1 left-0 right-0 h-[1px] bg-[#3C7795]"
-                                        />
-                                    )}
                                 </Link>
                             ))}
                         </nav>
@@ -311,8 +305,8 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                                         border-b border-[rgba(90,154,181,0.08)]
                                         transition-colors duration-200
                                         ${isActive(MENU_PATHS[index])
-                                            ? 'text-[#3C7795]'
-                                            : 'text-white/70 hover:text-[#8AAEC0] hover:bg-white/[0.02]'}
+                                            ? 'text-white'
+                                            : 'text-[#8AAEC0]/60 hover:text-[#8AAEC0] hover:bg-white/[0.02]'}
                                     `}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
