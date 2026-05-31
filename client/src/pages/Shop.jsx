@@ -1,6 +1,26 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ALL_PRODUCTS } from '../data/productsData';
+import { useLanguage } from '../context/LanguageContext';
+
+const COPY = {
+    ko: {
+        forUser: (name) => `${name}님을 위한`,
+        prescription: '맞춤 처방',
+        descPre: (name) => `${name}님의 피부 타입 분석 결과에 기반한 최적의 솔루션입니다. AI가 분석한 `,
+        descPost: ' 피부에 맞는 제품을 추천해 드립니다.',
+        skinTypeLabel: '피부 타입:',
+        productCount: (n) => `${n}개의 맞춤 제품`,
+    },
+    en: {
+        forUser: (name) => `Curated for ${name}`,
+        prescription: 'Skin Prescription',
+        descPre: (name) => `Personalized solutions based on ${name}'s analysis. AI-formulated for `,
+        descPost: ' skin type.',
+        skinTypeLabel: 'Skin Type:',
+        productCount: (n) => `${n} curated products`,
+    },
+};
 
 /**
  * Shop Page - LUXURY TECH Aesthetic
@@ -12,6 +32,8 @@ import { ALL_PRODUCTS } from '../data/productsData';
  * - NO PURPLE / NO #082B35
  */
 export default function Shop() {
+    const { language } = useLanguage();
+    const c = COPY[language] || COPY.en;
     const userSkinType = "수부지";
     const userName = "게스트";
 
@@ -33,14 +55,14 @@ export default function Shop() {
 
                     {/* Title - #8AAEC0 */}
                     <h1 className="text-3xl md:text-4xl font-title-en text-[#8AAEC0] mb-4 leading-tight">
-                        <span className="text-[#8AAEC0]">{userName}</span>님을 위한<br />
-                        <span className="text-gradient-cyan">맞춤 처방</span>
+                        <span className="text-[#8AAEC0]">{c.forUser(userName)}</span><br />
+                        <span className="text-gradient-cyan">{c.prescription}</span>
                     </h1>
 
                     {/* Description - Mist */}
-                    <p className="text-[#8AAEC0] text-base md:text-lg mb-6 font-body whitespace-nowrap overflow-hidden text-ellipsis"
+                    <p className="text-[#8AAEC0] text-base md:text-lg mb-6 font-body overflow-hidden text-ellipsis"
                         style={{ wordBreak: 'keep-all' }}>
-                        {userName}님의 피부 타입 분석 결과에 기반한 최적의 솔루션입니다. AI가 분석한 <span className="text-[#3C7795] font-bold">{userSkinType}</span> 피부에 맞는 제품을 추천해 드립니다.
+                        {c.descPre(userName)}<span className="text-[#3C7795] font-bold">{userSkinType}</span>{c.descPost}
                     </p>
 
                     {/* Divider */}
@@ -56,11 +78,11 @@ export default function Shop() {
                 >
                     <div className="px-4 py-2 bg-gradient-to-r from-[#1E5672]/30 to-[#3C7795]/30 border border-[#3C7795]/30 rounded-2xl">
                         <span className="text-sm font-body text-[#8AAEC0]">
-                            피부 타입: <span className="font-bold text-[#8AAEC0]">{userSkinType}</span>
+                            {c.skinTypeLabel} <span className="font-bold text-[#8AAEC0]">{userSkinType}</span>
                         </span>
                     </div>
                     <span className="text-sm text-[#8AAEC0]/50 font-body">
-                        {recommendedProducts.length}개의 맞춤 제품
+                        {c.productCount(recommendedProducts.length)}
                     </span>
                 </motion.div>
 
@@ -136,7 +158,7 @@ export default function Shop() {
 
                                             {/* Description - Mist dimmed */}
                                             <p className="font-body text-xs text-[#8AAEC0]/60 leading-relaxed line-clamp-2" style={{ wordBreak: 'keep-all' }}>
-                                                {product.desc}
+                                                {typeof product.desc === 'object' ? (product.desc[language] || product.desc.en) : product.desc}
                                             </p>
                                         </div>
                                     </div>

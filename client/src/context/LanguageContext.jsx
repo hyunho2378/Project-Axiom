@@ -12,12 +12,12 @@ import uiText from '../data/ui_text.json';
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-    // Default to Korean, persist preference in localStorage
+    // Default to English, persist preference in localStorage
     const [language, setLanguage] = useState(() => {
         if (typeof window !== 'undefined') {
-            return localStorage.getItem('aura-language') || 'ko';
+            return localStorage.getItem('aura-language') || 'en';
         }
-        return 'ko';
+        return 'en';
     });
 
     // Persist language preference

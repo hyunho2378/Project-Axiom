@@ -2,6 +2,7 @@ import { useState, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnalysisLoader from '../components/AnalysisLoader';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
@@ -11,7 +12,31 @@ import { getRecommendedProducts, getSkinTypeData } from '../data/axiomData';
 
 const API_URL = "https://project-axiom.onrender.com";
 
-function analyzeSkin(answers) {
+const GENDERS = [
+    { value: '여성', ko: '여성', en: 'Female' },
+    { value: '남성', ko: '남성', en: 'Male' },
+];
+const AGES = [
+    { value: '10대', ko: '10대', en: 'Teens' },
+    { value: '20대', ko: '20대', en: '20s' },
+    { value: '30대', ko: '30대', en: '30s' },
+    { value: '40대', ko: '40대', en: '40s' },
+    { value: '50대 이상', ko: '50대 이상', en: '50s +' },
+];
+const COPY = {
+    ko: {
+        introDesc: '수백만 개의 데이터 포인트를 분석하여\n당신 피부만의 고유한 중심축을 찾아냅니다.',
+        genderHeading: '정확한 데이터 분석을 위해\n성별을 선택해 주세요.',
+        ageHeading: '연령대를 선택해 주세요.',
+    },
+    en: {
+        introDesc: 'Millions of data points analyzed.\nDefining the singular axis of your skin.',
+        genderHeading: 'For precision in your analysis,\nplease select your gender.',
+        ageHeading: 'Please select your age group.',
+    },
+};
+
+function analyzeSkin(answers, language = 'ko') {
     let oilScore = 0, sensScore = 0, oilMax = 0, sensMax = 0;
     questions.forEach(q => {
         const score = answers[q.id] ?? 0;
@@ -34,13 +59,15 @@ function analyzeSkin(answers) {
     else if (sensPercent > 30) subType = "민감 주의";
 
     const finalType = `${mainType} · ${subType}`;
-    const skinData = getSkinTypeData(finalType);
+    const skinData = getSkinTypeData(finalType, language);
 
     return { titleKo: finalType, descriptionKo: skinData.description, characteristicKo: skinData.characteristic, careDirectionKo: skinData.careDirection, oilPercent, sensPercent };
 }
 
 export default function Analysis() {
     const navigate = useNavigate();
+    const { language } = useLanguage();
+    const c = COPY[language] || COPY.en;
     const [quizPhase, setQuizPhase] = useState('intro');
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState({});
@@ -50,7 +77,7 @@ export default function Analysis() {
     const [resultData, setResultData] = useState(null);
 
     const submitQuiz = (newAnswers) => {
-        const analysisResult = analyzeSkin(newAnswers);
+        const analysisResult = analyzeSkin(newAnswers, language);
         const products = getRecommendedProducts(analysisResult.titleKo);
 
         const finalAnswers = { ...newAnswers, gender: userData.gender, age: userData.age };
@@ -144,8 +171,8 @@ export default function Analysis() {
                         {quizPhase === 'intro' && (
                             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="w-full">
                                 <h1 className="text-4xl md:text-6xl font-title-en font-bold mb-6 leading-title">Discover Your Axis.</h1>
-                                <p className="text-[#8AAEC0] text-lg font-body mb-12 leading-body tracking-normal">
-                                    수백만 개의 데이터 포인트를 분석하여<br />당신 피부만의 고유한 중심축을 찾아냅니다.
+                                <p className="text-[#8AAEC0] text-lg font-body mb-12 leading-body tracking-normal" style={{ whiteSpace: 'pre-line' }}>
+                                    {c.introDesc}
                                 </p>
                                 <button
                                     onClick={() => setQuizPhase('gender')}
@@ -163,10 +190,10 @@ export default function Analysis() {
                         {quizPhase === 'gender' && (
                             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="w-full">
                                 <p className="text-[#8AAEC0] text-[10px] font-body tracking-widest uppercase mb-4">Step 01</p>
-                                <h2 className="text-3xl font-body font-bold mb-10 leading-title">정확한 데이터 분석을 위해<br />성별을 선택해 주세요.</h2>
+                                <h2 className="text-3xl font-body font-bold mb-10 leading-title" style={{ whiteSpace: 'pre-line' }}>{c.genderHeading}</h2>
                                 <div className="grid grid-cols-2 gap-4">
-                                    {['여성', '남성'].map(g => (
-                                        <button key={g} onClick={() => { setUserData(p => ({ ...p, gender: g })); setQuizPhase('age'); }} className="p-6 text-center bg-[#05080a] border border-[#222] hover:border-[#00E0FF] rounded-2xl font-body font-bold text-[#8AAEC0] hover:text-white transition-colors">{g}</button>
+                                    {GENDERS.map(g => (
+                                        <button key={g.value} onClick={() => { setUserData(p => ({ ...p, gender: g.value })); setQuizPhase('age'); }} className="p-6 text-center bg-[#05080a] border border-[#222] hover:border-[#00E0FF] rounded-2xl font-body font-bold text-[#8AAEC0] hover:text-white transition-colors">{g[language] || g.en}</button>
                                     ))}
                                 </div>
                             </motion.div>
@@ -175,10 +202,10 @@ export default function Analysis() {
                         {quizPhase === 'age' && (
                             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="w-full">
                                 <p className="text-[#8AAEC0] text-[10px] font-body tracking-widest uppercase mb-4">Step 02</p>
-                                <h2 className="text-3xl font-body font-bold mb-10 leading-title">연령대를 선택해 주세요.</h2>
+                                <h2 className="text-3xl font-body font-bold mb-10 leading-title">{c.ageHeading}</h2>
                                 <div className="grid grid-cols-2 gap-4">
-                                    {['10대', '20대', '30대', '40대', '50대 이상'].map(a => (
-                                        <button key={a} onClick={() => { setUserData(p => ({ ...p, age: a })); setQuizPhase('quiz'); }} className="p-6 bg-[#05080a] border border-[#222] hover:border-[#00E0FF] rounded-2xl font-body font-bold text-[#8AAEC0] hover:text-white transition-colors text-center">{a}</button>
+                                    {AGES.map(a => (
+                                        <button key={a.value} onClick={() => { setUserData(p => ({ ...p, age: a.value })); setQuizPhase('quiz'); }} className="p-6 bg-[#05080a] border border-[#222] hover:border-[#00E0FF] rounded-2xl font-body font-bold text-[#8AAEC0] hover:text-white transition-colors text-center">{a[language] || a.en}</button>
                                     ))}
                                 </div>
                                 <button onClick={() => setQuizPhase('gender')} className="mt-8 text-sm text-[#555] hover:text-[#00E0FF] transition-colors font-body tracking-widest uppercase font-bold">← Back</button>
@@ -198,12 +225,12 @@ export default function Analysis() {
                                 </div>
                                 <AnimatePresence mode="wait">
                                     <motion.div key={currentQuestion} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="mb-10">
-                                        <h2 className="text-2xl font-body font-bold leading-body tracking-normal" style={{ wordBreak: 'keep-all' }}>{questions[currentQuestion].text}</h2>
+                                        <h2 className="text-2xl font-body font-bold leading-body tracking-normal" style={{ wordBreak: 'keep-all' }}>{questions[currentQuestion].text[language] || questions[currentQuestion].text.en}</h2>
                                     </motion.div>
                                 </AnimatePresence>
                                 <div className="space-y-3">
                                     {questions[currentQuestion].options.map((opt, i) => (
-                                        <button key={i} onClick={() => handleOptionSelect(opt, i)} disabled={isAnimating} className={`w-full p-5 text-left rounded-2xl transition-all font-body tracking-normal ${selectedOption === i ? 'bg-[#00E0FF]/10 border border-[#00E0FF] text-white font-bold' : 'bg-[#05080a] border border-[#222] text-[#8AAEC0] hover:border-[#00E0FF]/50 hover:text-white'}`}>{opt.text}</button>
+                                        <button key={i} onClick={() => handleOptionSelect(opt, i)} disabled={isAnimating} className={`w-full p-5 text-left rounded-2xl transition-all font-body tracking-normal ${selectedOption === i ? 'bg-[#00E0FF]/10 border border-[#00E0FF] text-white font-bold' : 'bg-[#05080a] border border-[#222] text-[#8AAEC0] hover:border-[#00E0FF]/50 hover:text-white'}`}>{opt[language] || opt.en}</button>
                                     ))}
                                 </div>
                                 <button onClick={handleBack} className="mt-8 text-sm text-[#555] hover:text-[#00E0FF] transition-colors font-body tracking-widest uppercase font-bold">← Back</button>

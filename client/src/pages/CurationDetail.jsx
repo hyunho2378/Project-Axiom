@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ALL_PRODUCTS } from '../data/productsData';
+import { useLanguage } from '../context/LanguageContext';
 
 /**
  * Product Detail Page - AXIOM Official
@@ -12,6 +13,7 @@ import { ALL_PRODUCTS } from '../data/productsData';
 
 export default function CurationDetail() {
     const { id } = useParams();
+    const { language } = useLanguage();
     const product = ALL_PRODUCTS.find(p => p.id === parseInt(id));
 
     if (!product) {
@@ -73,7 +75,7 @@ export default function CurationDetail() {
 
                         {/* Title: Korean is sans, English is serif */}
                         <h1 className="font-body text-3xl md:text-4xl font-bold mb-3 text-white leading-tight tracking-tight">
-                            {product.nameKr}
+                            {language === 'en' ? product.name : product.nameKr}
                         </h1>
                         <p className="font-title-en text-[#8AAEC0] text-lg md:text-xl italic mb-10">
                             {product.name}
@@ -92,7 +94,7 @@ export default function CurationDetail() {
                                 <span className="w-2 h-2 rounded-2xl bg-[#00E0FF]"></span> Formula Details
                             </p>
                             <p className="font-body text-[#E0E0E0] leading-[1.8] whitespace-pre-line text-sm md:text-base tracking-tight">
-                                {product.fullDesc}
+                                {typeof product.fullDesc === 'object' ? (product.fullDesc[language] || product.fullDesc.en) : product.fullDesc}
                             </p>
                         </div>
 
@@ -102,7 +104,7 @@ export default function CurationDetail() {
                                 <span className="w-2 h-2 rounded-2xl bg-[#333]"></span> Key Ingredients
                             </p>
                             <div className="flex flex-wrap gap-2">
-                                {product.ingredients.map((ingredient, idx) => (
+                                {(language === 'en' ? (product.ingredientsEn || product.ingredients) : product.ingredients).map((ingredient, idx) => (
                                     <span
                                         key={idx}
                                         className="px-4 py-2 text-xs font-body text-[#8AAEC0] bg-[#111] border border-[#222] rounded-2xl hover:border-[#00E0FF]/50 hover:text-white transition-colors"

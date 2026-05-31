@@ -2,17 +2,18 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { contentData } from '../data/contentData';
+import { useLanguage } from '../context/LanguageContext';
 
 const MENU_PATHS = ['/', '/axiom', '/analysis', '/curations', '/datalab'];
 
 export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [showLangToast, setShowLangToast] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const userMenuRef = useRef(null);
     const location = useLocation();
     const { nav } = contentData;
+    const { language, toggleLanguage } = useLanguage();
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -35,11 +36,6 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
     }, []);
 
     const isActive = (href) => location.pathname === href;
-
-    const handleLangToast = () => {
-        setShowLangToast(true);
-        setTimeout(() => setShowLangToast(false), 2000);
-    };
 
     return (
         <>
@@ -98,25 +94,19 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                         <div className="w-[1px] h-4 bg-white/15" />
 
                         <div className="flex items-center gap-4">
-                            {/* Language — Coming Soon toast */}
-                            <div className="relative flex items-center justify-center">
-                                <button
-                                    onClick={handleLangToast}
-                                    className="flex items-center justify-center w-5 h-5 p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
-                                    aria-label="Language"
-                                >
-                                    <svg className="w-5 h-5 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <line x1="2" y1="12" x2="22" y2="12" />
-                                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                                    </svg>
-                                </button>
-                                {showLangToast && (
-                                    <div className="absolute top-8 right-0 px-4 py-2 bg-void-light border border-ui-border rounded-2xl text-xs text-ui-textMuted whitespace-nowrap z-50">
-                                        번역 기능은 준비 중입니다
-                                    </div>
-                                )}
-                            </div>
+                            {/* Language toggle */}
+                            <button
+                                onClick={toggleLanguage}
+                                className="flex items-center gap-1.5 p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
+                                aria-label="Toggle language"
+                            >
+                                <svg className="w-5 h-5 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="2" y1="12" x2="22" y2="12" />
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                                </svg>
+                                <span className="font-body text-[9px] tracking-widest uppercase">{language === 'en' ? 'EN' : 'KO'}</span>
+                            </button>
 
                             {/* User Icon — dropdown when logged in */}
                             {isLoggedIn ? (
@@ -248,14 +238,16 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                                 className="mt-8 flex items-center justify-center gap-6"
                             >
                                 <button
-                                    onClick={handleLangToast}
-                                    className="flex items-center justify-center w-6 h-6 p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors"
+                                    onClick={toggleLanguage}
+                                    className="flex items-center gap-1.5 p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors"
+                                    aria-label="Toggle language"
                                 >
                                     <svg className="w-6 h-6 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                         <circle cx="12" cy="12" r="10" />
                                         <line x1="2" y1="12" x2="22" y2="12" />
                                         <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                                     </svg>
+                                    <span className="font-body text-[9px] tracking-widest uppercase">{language === 'en' ? 'EN' : 'KO'}</span>
                                 </button>
 
                                 {isLoggedIn ? (

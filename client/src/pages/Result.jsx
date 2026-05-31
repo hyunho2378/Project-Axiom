@@ -3,30 +3,68 @@ import { useLocation, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import html2canvas from 'html2canvas';
 import ResultCrystal from '../components/three/ResultCrystal';
-import { getRecommendedProducts } from '../data/axiomData';
+import SharedCanvas from '../components/three/products/SharedCanvas';
+import ProductPreview from '../components/three/products/ProductPreview';
+import { getRecommendedProducts, getSkinTypeData } from '../data/axiomData';
+import { PRODUCTS } from '../data/products';
+import { useLanguage } from '../context/LanguageContext';
+
+const CATEGORY_TO_TYPE = {
+    '토너': 'toner',
+    '앰플': 'ampoule',
+    '튜브형 크림': 'tube',
+    '튜브형크림': 'tube',
+    '선크림': 'sunscreen',
+    '원형 크림': 'jar',
+    '원형크림': 'jar',
+};
+
+const COPY = {
+    ko: {
+        charLabel: '피부 특성',
+        careLabel: '관리 방향',
+        viewProducts: '맞춤 상품 보기',
+        viewCard: '카드 보기',
+        curationTitle: '당신을 위한 큐레이션',
+        curationSub: (t) => `${t}에 맞춘 5가지`,
+        whyLabel: '당신에게 맞는 이유',
+        formulatedFor: (t) => `${t} 피부 처방 ·`,
+    },
+    en: {
+        charLabel: 'Skin Profile',
+        careLabel: 'Care Direction',
+        viewProducts: 'View Recommendations',
+        viewCard: 'View Card',
+        curationTitle: 'Curated For You',
+        curationSub: (t) => `Five Essentials · ${t}`,
+        whyLabel: 'Why It Works',
+        formulatedFor: (t) => `Formulated for ${t} ·`,
+    },
+};
+
+function to3DProduct(product) {
+    const productType = CATEGORY_TO_TYPE[product.category] || 'toner';
+    const list = PRODUCTS[productType] || [];
+    const match = list.find(p => p.skinType === product.skinType);
+    return match ? { ...match, productType } : { ...product, productType, nameKo: product.nameKr, nameEn: product.name };
+}
 
 export default function Result() {
     const { state } = useLocation();
+    const { language } = useLanguage();
+    const c = COPY[language] || COPY.en;
     const receiptRef = useRef(null);
     const [isSavingReceipt, setIsSavingReceipt] = useState(false);
+    const [cardOpen, setCardOpen] = useState(false);
 
     if (!state?.skinTypeStr) {
         return <Navigate to="/analysis" replace />;
     }
 
-    const { skinTypeStr, description, characteristic, careDirection, products } = state;
+    const { skinTypeStr, products } = state;
+    const { description, characteristic, careDirection } = getSkinTypeData(skinTypeStr, language);
     const displayProducts = (products?.length > 0) ? products : getRecommendedProducts(skinTypeStr);
     const today = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
-
-    const SKIN_GLOW = {
-        '건성':   'rgba(216, 238, 255, 0.5)',
-        '중성':   'rgba(232, 224, 216, 0.5)',
-        '지성':   'rgba(224, 232, 255, 0.5)',
-        '수부지': 'rgba(232, 224, 208, 0.5)',
-        '복합성': 'rgba(224, 240, 232, 0.5)',
-    };
-    const mainSkinType = skinTypeStr.split(' · ')[0];
-    const skinGlow = SKIN_GLOW[mainSkinType] || 'rgba(138, 174, 192, 0.2)';
 
     const saveReceipt = async () => {
         if (!receiptRef.current || isSavingReceipt) return;
@@ -50,7 +88,9 @@ export default function Result() {
     };
 
     return (
-        <div className="min-h-screen bg-black pt-32 pb-40 px-6">
+        <>
+            <SharedCanvas />
+            <div className="min-h-screen bg-black pt-32 pb-40 px-6">
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-32">
 
                 {/* LEFT: Persistent Step-10 3D Sphere */}
@@ -87,7 +127,7 @@ export default function Result() {
                             {characteristic && (
                                 <>
                                     <hr className="border-[#1E5672] my-5" />
-                                    <p className="font-body text-[10px] text-[#3C7795] uppercase tracking-widest mb-2">피부 특성</p>
+                                    <p className="font-body text-[10px] text-[#3C7795] uppercase tracking-widest mb-2">{c.charLabel}</p>
                                     <p className="font-body text-[#8AAEC0] text-sm leading-body whitespace-pre-line">{characteristic}</p>
                                 </>
                             )}
@@ -95,7 +135,7 @@ export default function Result() {
                             {careDirection && (
                                 <>
                                     <hr className="border-[#1E5672] my-5" />
-                                    <p className="font-body text-[10px] text-[#3C7795] uppercase tracking-widest mb-2">관리 방향</p>
+                                    <p className="font-body text-[10px] text-[#3C7795] uppercase tracking-widest mb-2">{c.careLabel}</p>
                                     <p className="font-body text-[#8AAEC0] text-sm leading-body whitespace-pre-line">{careDirection}</p>
                                 </>
                             )}
@@ -105,27 +145,97 @@ export default function Result() {
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-[#222]">
                         <button
                             onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
-                            className="flex-1 text-center py-4 bg-[#00E0FF] text-black font-body font-bold text-xs tracking-widest uppercase rounded-2xl hover:bg-white transition-colors"
-                        >맞춤 상품 보기</button>
+                            className="flex-1 text-center py-4 font-body font-bold text-xs tracking-widest uppercase rounded-[14px] btn-glow"
+                        >{c.viewProducts}</button>
                         <button
-                            onClick={saveReceipt}
-                            disabled={isSavingReceipt}
-                            className="flex-1 py-4 border border-[#1E5672] text-[#8AAEC0] font-body font-bold text-xs tracking-widest uppercase rounded-2xl hover:bg-[#1E5672]/20 transition-colors disabled:opacity-40"
+                            onClick={() => setCardOpen(true)}
+                            className="flex-1 py-4 border border-[#1E5672] text-[#8AAEC0] font-body font-bold text-xs tracking-widest uppercase rounded-[14px] hover:bg-[#1E5672]/20 transition-colors"
                         >
-                            {isSavingReceipt ? 'Saving…' : 'Save Card'}
+                            {c.viewCard}
                         </button>
                     </motion.div>
                 </div>
             </div>
 
-            {/* AXIOM RECEIPT CARD */}
-            <div className="max-w-7xl mx-auto mb-24 flex justify-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7 }}
-                    className="w-full max-w-sm"
+            {/* 당신을 위한 큐레이션 */}
+            <div id="products" className="max-w-7xl mx-auto pt-24 border-t border-[#222]">
+                <div className="mb-10">
+                    <h3 className="font-title-ko text-3xl font-bold text-white leading-title">{c.curationTitle}</h3>
+                    <p className="font-body text-sm text-[#5A9AB5] mt-2">{c.curationSub(skinTypeStr)}</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {displayProducts.map((product, i) => (
+                        <motion.div
+                            key={product.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.08 }}
+                            whileHover={{ borderColor: 'rgba(90, 154, 181, 0.55)', boxShadow: '0 4px 32px rgba(90, 154, 181, 0.1)' }}
+                            style={{
+                                background: 'rgba(8, 30, 50, 0.4)',
+                                borderWidth: '1px',
+                                borderStyle: 'solid',
+                                borderColor: 'rgba(90, 154, 181, 0.2)',
+                                borderRadius: '14px',
+                                overflow: 'hidden',
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            {/* 3D ProductPreview 영역 */}
+                            <div style={{ height: 220, flexShrink: 0, background: '#040c14' }}>
+                                <ProductPreview product={to3DProduct(product)} size="small" />
+                            </div>
+
+                            {/* 본문 */}
+                            <div className="p-5 flex flex-col flex-grow gap-0">
+                                <p className="font-title-ko text-white text-base font-semibold leading-tight">{product.nameKr}</p>
+                                <p className="font-title-en text-[#5A9AB5] text-xs italic mt-1">{product.name}</p>
+                                <p className="font-body text-[#8AAEC0] text-xs leading-relaxed mt-3 line-clamp-2">{typeof product.desc === 'object' ? (product.desc[language] || product.desc.en) : product.desc}</p>
+
+                                {/* 왜 당신에게 맞는 이유 */}
+                                <div className="mt-4 pt-4" style={{ borderTop: '1px solid rgba(30, 86, 114, 0.4)' }}>
+                                    <p className="font-body text-[9px] text-[#3C7795] uppercase tracking-widest mb-1.5">{c.whyLabel}</p>
+                                    <p className="font-body text-xs text-[#5A9AB5] leading-relaxed">
+                                        {c.formulatedFor(product.skinType)} {(language === 'en' ? (product.ingredientsEn || product.ingredients) : product.ingredients)?.slice(0, 2).join(' · ')}
+                                    </p>
+                                </div>
+
+                                <p className="font-body text-[#00E0FF] text-base font-semibold mt-auto pt-4">{product.price}</p>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+        </div>
+
+        {/* AXIOM RECEIPT CARD — 모달 */}
+        {cardOpen && (
+            <div
+                onClick={() => setCardOpen(false)}
+                style={{
+                    position: 'fixed', inset: 0, zIndex: 100,
+                    background: 'rgba(0,0,0,0.85)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    padding: '24px', overflowY: 'auto',
+                }}
+            >
+                <div
+                    onClick={e => e.stopPropagation()}
+                    style={{ position: 'relative', maxWidth: '400px', width: '100%' }}
                 >
+                    <button
+                        onClick={() => setCardOpen(false)}
+                        style={{
+                            position: 'absolute', top: -14, right: -14, zIndex: 10,
+                            width: 30, height: 30, borderRadius: '50%',
+                            background: '#0A0A0A', border: '1px solid #333',
+                            color: '#8AAEC0', fontSize: '13px',
+                            cursor: 'pointer', display: 'flex',
+                            alignItems: 'center', justifyContent: 'center',
+                        }}
+                    >✕</button>
+
                     <p className="font-body text-[9px] text-[#333] tracking-[0.3em] uppercase mb-4 text-center">
                         AXIOM Analysis Card · Save for Instagram
                     </p>
@@ -205,69 +315,9 @@ export default function Result() {
                     >
                         {isSavingReceipt ? '· SAVING ·' : '↓ SAVE ANALYSIS CARD'}
                     </button>
-                </motion.div>
-            </div>
-
-            {/* 당신을 위한 큐레이션 */}
-            <div id="products" className="max-w-7xl mx-auto pt-24 border-t border-[#222]">
-                <div className="mb-10">
-                    <h3 className="font-title-ko text-3xl font-bold text-white leading-title">당신을 위한 큐레이션</h3>
-                    <p className="font-body text-sm text-[#5A9AB5] mt-2">{skinTypeStr}에 맞춘 5가지</p>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {displayProducts.map((product, i) => (
-                        <motion.div
-                            key={product.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.08 }}
-                            whileHover={{ borderColor: 'rgba(90, 154, 181, 0.55)', boxShadow: '0 4px 32px rgba(90, 154, 181, 0.1)' }}
-                            style={{
-                                background: 'rgba(8, 30, 50, 0.4)',
-                                borderWidth: '1px',
-                                borderStyle: 'solid',
-                                borderColor: 'rgba(90, 154, 181, 0.2)',
-                                borderRadius: '16px',
-                                overflow: 'hidden',
-                                display: 'flex',
-                                flexDirection: 'column',
-                            }}
-                        >
-                            {/* 상단 글로우 영역 */}
-                            <div style={{
-                                height: 160,
-                                background: `radial-gradient(circle at 50% 40%, ${skinGlow} 0%, transparent 70%), #040c14`,
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: 8,
-                                position: 'relative',
-                            }}>
-                                <span className="font-body text-[10px] text-[#5A9AB5] tracking-widest uppercase">{product.category}</span>
-                                <span className="font-body text-[9px] text-[#3C7795] tracking-wider">{product.tag}</span>
-                            </div>
-
-                            {/* 본문 */}
-                            <div className="p-5 flex flex-col flex-grow gap-0">
-                                <p className="font-title-ko text-white text-base font-semibold leading-tight">{product.nameKr}</p>
-                                <p className="font-title-en text-[#5A9AB5] text-xs italic mt-1">{product.name}</p>
-                                <p className="font-body text-[#8AAEC0] text-xs leading-relaxed mt-3 line-clamp-2">{product.desc}</p>
-
-                                {/* 왜 당신에게 맞는 이유 */}
-                                <div className="mt-4 pt-4" style={{ borderTop: '1px solid rgba(30, 86, 114, 0.4)' }}>
-                                    <p className="font-body text-[9px] text-[#3C7795] uppercase tracking-widest mb-1.5">당신에게 맞는 이유</p>
-                                    <p className="font-body text-xs text-[#5A9AB5] leading-relaxed">
-                                        {product.skinType} 피부 처방 · {product.ingredients?.slice(0, 2).join(' · ')}
-                                    </p>
-                                </div>
-
-                                <p className="font-body text-[#00E0FF] text-base font-semibold mt-auto pt-4">{product.price}</p>
-                            </div>
-                        </motion.div>
-                    ))}
                 </div>
             </div>
-        </div>
+        )}
+        </>
     );
 }

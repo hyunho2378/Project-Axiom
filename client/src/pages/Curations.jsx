@@ -4,9 +4,30 @@ import { Link } from 'react-router-dom';
 import { CATEGORIES, getAllProducts, formatPrice } from '../data/products';
 import ProductPreview from '../components/three/products/ProductPreview';
 import SharedCanvas from '../components/three/products/SharedCanvas';
+import { useLanguage } from '../context/LanguageContext';
 
-const CATEGORY_LABELS = { toner: '토너', ampoule: '앰플', tube: '튜브 크림', sunscreen: '선크림', jar: '원형 크림' };
+const CATEGORY_LABELS = {
+    toner:     { ko: '토너',     en: 'Toner' },
+    ampoule:   { ko: '앰플',     en: 'Ampoule' },
+    tube:      { ko: '튜브 크림', en: 'Tube Cream' },
+    sunscreen: { ko: '선크림',   en: 'Sunscreen' },
+    jar:       { ko: '원형 크림', en: 'Jar Cream' },
+};
 const SKIN_TYPES = ['건성', '중성', '지성', '수부지', '복합성'];
+const SKIN_TYPE_LABELS = {
+    ko: { '건성': '건성', '중성': '중성', '지성': '지성', '수부지': '수부지', '복합성': '복합성' },
+    en: { '건성': 'Dry', '중성': 'Normal', '지성': 'Oily', '수부지': 'Combo-Dry', '복합성': 'Combination' },
+};
+const COPY = {
+    ko: {
+        desc: '피부 타입과 미세한 신호에 완벽하게 조율된 정밀 처방.\n오직 당신의 데이터를 바탕으로 설계된 포뮬러를 경험해 보세요.',
+        emptyState: '해당 조건에 맞는 처방 솔루션이 없습니다.',
+    },
+    en: {
+        desc: 'Precision formulas tuned to your skin type and its subtlest signals.\nExperience solutions designed exclusively from your data.',
+        emptyState: 'No formulas match the selected criteria.',
+    },
+};
 
 const TYPE_BASE  = { toner: 100, ampoule: 105, tube: 110, jar: 115, sunscreen: 120 };
 const SKIN_INDEX = { '건성': 0, '중성': 1, '지성': 2, '수부지': 3, '복합성': 4 };
@@ -15,6 +36,7 @@ function deriveId(p) {
 }
 
 function ProductCard({ product, index }) {
+    const { language } = useLanguage();
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -37,8 +59,8 @@ function ProductCard({ product, index }) {
 
                     {/* 칩 */}
                     <div className="flex gap-2 mb-3 flex-shrink-0">
-                        <span className="chip chip-sm font-body">{CATEGORY_LABELS[product.productType]}</span>
-                        <span className="chip chip-sm font-body">{product.skinType}</span>
+                        <span className="chip chip-sm font-body">{CATEGORY_LABELS[product.productType]?.[language] || CATEGORY_LABELS[product.productType]?.en}</span>
+                        <span className="chip chip-sm font-body">{SKIN_TYPE_LABELS[language]?.[product.skinType] || product.skinType}</span>
                     </div>
 
                     {/* 제품명 */}
@@ -49,13 +71,13 @@ function ProductCard({ product, index }) {
 
                     {/* 설명 */}
                     <p className="font-body text-ui-textSecondary text-sm mt-3 line-clamp-2 min-h-[40px] flex-shrink-0">
-                        {product.desc}
+                        {typeof product.desc === 'object' ? (product.desc[language] || product.desc.en) : product.desc}
                     </p>
 
                     {/* 제품 정보 */}
                     <div className="mt-3 space-y-1 text-xs text-ui-textMuted font-body flex-grow">
-                        <p>{product.texture}</p>
-                        <p className="text-brand-400">{product.ingredients}</p>
+                        <p>{typeof product.texture === 'object' ? (product.texture[language] || product.texture.en) : product.texture}</p>
+                        <p className="text-brand-400">{language === 'en' ? (product.ingredientsEn?.join(', ') || product.ingredients) : product.ingredients}</p>
                         <p>{product.volume}{product.functional ? ' · ' + product.functional : ''}</p>
                     </div>
 
@@ -70,6 +92,8 @@ function ProductCard({ product, index }) {
 }
 
 export default function Curations() {
+    const { language } = useLanguage();
+    const c = COPY[language] || COPY.en;
     const [activeCategory, setActiveCategory] = useState('all');
     const [activeSkin, setActiveSkin] = useState(null);
 
@@ -90,9 +114,8 @@ export default function Curations() {
                         <h1 className="font-title-en text-3xl md:text-5xl font-bold mb-4 text-white leading-title">
                             Axiom Collections
                         </h1>
-                        <p className="font-body text-ui-textSecondary text-sm md:text-lg max-w-2xl leading-body">
-                            피부 타입과 미세한 신호에 완벽하게 조율된 정밀 처방.<br className="hidden md:block" />
-                            오직 당신의 데이터를 바탕으로 설계된 포뮬러를 경험해 보세요.
+                        <p className="font-body text-ui-textSecondary text-sm md:text-lg max-w-2xl leading-body" style={{ whiteSpace: 'pre-line' }}>
+                            {c.desc}
                         </p>
                     </motion.div>
                 </div>
@@ -107,7 +130,7 @@ export default function Curations() {
                                 onClick={() => setActiveCategory(cat.key)}
                                 className={`chip ${activeCategory === cat.key ? 'chip-active' : ''}`}
                             >
-                                {cat.label}
+                                {typeof cat.label === 'object' ? (cat.label[language] || cat.label.en) : cat.label}
                             </button>
                         ))}
                     </div>
@@ -121,7 +144,7 @@ export default function Curations() {
                                 onClick={() => setActiveSkin(activeSkin === skin ? null : skin)}
                                 className={`chip ${activeSkin === skin ? 'chip-active' : ''}`}
                             >
-                                {skin}
+                                {SKIN_TYPE_LABELS[language]?.[skin] || skin}
                             </button>
                         ))}
                     </div>
@@ -143,7 +166,7 @@ export default function Curations() {
                     ) : (
                         <div className="text-center py-32 border border-ui-border rounded-2xl">
                             <p className="font-body text-ui-textSecondary text-sm">
-                                해당 조건에 맞는 처방 솔루션이 없습니다.
+                                {c.emptyState}
                             </p>
                         </div>
                     )}

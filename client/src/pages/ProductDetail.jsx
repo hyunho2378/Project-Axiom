@@ -2,10 +2,17 @@ import { useParams, Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getAllProducts, formatPrice } from '../data/products';
 import ProductPreview from '../components/three/products/ProductPreview';
+import { useLanguage } from '../context/LanguageContext';
 
 const TYPE_BASE  = { toner: 100, ampoule: 105, tube: 110, jar: 115, sunscreen: 120 };
 const SKIN_INDEX = { '건성': 0, '중성': 1, '지성': 2, '수부지': 3, '복합성': 4 };
-const CATEGORY_LABELS = { toner: '토너', ampoule: '앰플', tube: '튜브 크림', sunscreen: '선크림', jar: '원형 크림' };
+const CATEGORY_LABELS = {
+    toner:     { ko: '토너',     en: 'Toner' },
+    ampoule:   { ko: '앰플',     en: 'Ampoule' },
+    tube:      { ko: '튜브 크림', en: 'Tube Cream' },
+    sunscreen: { ko: '선크림',   en: 'Sunscreen' },
+    jar:       { ko: '원형 크림', en: 'Jar Cream' },
+};
 
 function deriveId(p) {
     return (TYPE_BASE[p.productType] ?? 100) + (SKIN_INDEX[p.skinType] ?? 0);
@@ -14,6 +21,7 @@ function deriveId(p) {
 export default function ProductDetail() {
     const { id } = useParams();
     const location = useLocation();
+    const { language } = useLanguage();
     const isShopRoute = location.pathname.startsWith('/shop');
 
     const product = getAllProducts().find(p => deriveId(p) === parseInt(id));
@@ -63,7 +71,7 @@ export default function ProductDetail() {
                     >
                         {/* 칩 */}
                         <div className="flex flex-wrap gap-2">
-                            <span className="chip chip-sm font-body">{CATEGORY_LABELS[product.productType]}</span>
+                            <span className="chip chip-sm font-body">{CATEGORY_LABELS[product.productType]?.[language] || CATEGORY_LABELS[product.productType]?.en}</span>
                             <span className="chip chip-sm font-body">{product.skinType}</span>
                             {product.functional && (
                                 <span className="chip chip-sm font-body">{product.functional}</span>
@@ -89,7 +97,7 @@ export default function ProductDetail() {
 
                         {/* 설명 (line-clamp 없이 풀 텍스트) */}
                         <p className="font-body text-ui-textSecondary text-base leading-body" style={{ wordBreak: 'keep-all' }}>
-                            {product.desc}
+                            {typeof product.desc === 'object' ? (product.desc[language] || product.desc.en) : product.desc}
                         </p>
 
                         <div className="border-t border-ui-border" />
@@ -97,12 +105,12 @@ export default function ProductDetail() {
                         {/* 제품 상세 */}
                         <div className="space-y-4 font-body text-sm">
                             <div className="flex gap-4">
-                                <span className="text-ui-textMuted w-16 flex-shrink-0">제형</span>
-                                <span className="text-ui-textPrimary">{product.texture}</span>
+                                <span className="text-ui-textMuted w-16 flex-shrink-0">{language === 'en' ? 'Texture' : '제형'}</span>
+                                <span className="text-ui-textPrimary">{typeof product.texture === 'object' ? (product.texture[language] || product.texture.en) : product.texture}</span>
                             </div>
                             <div className="flex gap-4">
-                                <span className="text-ui-textMuted w-16 flex-shrink-0">성분</span>
-                                <span className="text-brand-400">{product.ingredients}</span>
+                                <span className="text-ui-textMuted w-16 flex-shrink-0">{language === 'en' ? 'Key Ingredients' : '성분'}</span>
+                                <span className="text-brand-400">{language === 'en' ? (product.ingredientsEn?.join(', ') || product.ingredients) : product.ingredients}</span>
                             </div>
                             <div className="flex gap-4">
                                 <span className="text-ui-textMuted w-16 flex-shrink-0">용량</span>
