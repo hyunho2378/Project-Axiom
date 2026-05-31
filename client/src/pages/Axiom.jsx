@@ -41,7 +41,7 @@ export default function Axiom() {
                         height: 600,
                         background: 'radial-gradient(circle, rgba(90,154,181,0.18) 0%, rgba(0,212,255,0.08) 35%, transparent 70%)',
                         filter: 'blur(60px)',
-                        zIndex: 5,
+                        zIndex: 20,
                     }}
                 />
             )}
