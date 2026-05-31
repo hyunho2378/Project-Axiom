@@ -7,7 +7,7 @@ const LINKS = [
   { label: 'Strategy',   to: '/strategy' },
   { label: 'BX',         to: '/bx' },
   { label: 'Data Logic', to: '/data-logic' },
-  { label: 'Demo',       to: '/demo' },
+  { label: '3D GALLERY', to: '/demo' },
 ];
 
 export default function Nav() {
