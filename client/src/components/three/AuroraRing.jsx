@@ -177,8 +177,9 @@ function RingScene() {
         const { ringGroup, mainRing, innerRing, outerRing, discMat, glowSprites, coreGlow, keyLight } = objs;
 
         // rotation + tilt
-        ringGroup.rotation.y += delta * 0.5;
-        ringGroup.rotation.x = 0.35 + Math.sin(t * 0.10) * 0.03;
+        ringGroup.rotation.y += delta * 1.2;
+        ringGroup.rotation.z += delta * 0.25;
+        ringGroup.rotation.x = 0.35 + Math.sin(t * 0.12) * 0.12;
         ringGroup.position.y = Math.sin(t * 0.18) * 0.12;
 
         // emissive pulse
