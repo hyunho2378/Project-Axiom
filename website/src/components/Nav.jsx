@@ -41,20 +41,9 @@ export default function Nav() {
           gap: 24,
         }}
       >
-        {/* 워드마크 */}
-        <Link
-          to="/"
-          style={{
-            textDecoration: 'none',
-            flexShrink: 0,
-            fontSize: 18,
-            fontWeight: 800,
-            letterSpacing: '-0.04em',
-            color: colors.brand,
-            fontFamily: "'BentonModDisp', 'Didot', 'Georgia', serif",
-          }}
-        >
-          AXIOM
+        {/* 로고 */}
+        <Link to="/" style={{ textDecoration: 'none', flexShrink: 0, display: 'flex', alignItems: 'center' }}>
+          <img src="/axiom-logo.svg" alt="AXIOM" style={{ height: 28, width: 'auto', display: 'block' }} />
         </Link>
 
         {/* 네비게이션 링크 */}

@@ -1,3 +1,24 @@
+@font-face {
+  font-family: 'BentonModDisp';
+  src:
+    url('/fonts/1fb69e487c978f4ca06f3d9dbdf20136.woff2') format('woff2'),
+    url('/fonts/1fb69e487c978f4ca06f3d9dbdf20136.woff') format('woff'),
+    url('/fonts/BentonModDisp-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BentonModDisp';
+  src:
+    url('/fonts/BentonModDisp-Regular.woff') format('woff'),
+    url('/fonts/BentonModDisp-Regular.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }

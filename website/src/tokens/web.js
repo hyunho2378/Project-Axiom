@@ -4,8 +4,9 @@ export const colors = {
   bgCard:       '#0A0A0A',
   bgCardHover:  '#082B35',
 
-  brand:        '#00D4FF',
-  brandStrong:  '#00E0FF',
+  brand:        '#2A6885',
+  brandStrong:  '#3C7795',
+  neon:         '#00D4FF',
   brandPale:    '#C0F0FF',
   brandMid:     '#5A9AB5',
   brandDeep:    '#2A6885',
