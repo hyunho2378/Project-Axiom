@@ -13,7 +13,7 @@ export default function Philosophy() {
     const prefersReduced = useReducedMotion();
 
     return (
-        <section className="py-32 px-6 bg-void-deep border-t border-ui-border">
+        <section className="py-32 px-6 bg-void-deepest">
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
                 <motion.div

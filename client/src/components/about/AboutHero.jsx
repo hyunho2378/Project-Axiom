@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { motion, useMotionValue, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 
 const COPY = {
@@ -22,32 +21,10 @@ const COPY = {
 export default function AboutHero() {
     const { language } = useLanguage();
     const c = COPY[language] || COPY.en;
-    const cursorX = useMotionValue(-200);
-    const cursorY = useMotionValue(-200);
     const prefersReduced = useReducedMotion();
-
-    useEffect(() => {
-        if (prefersReduced) return;
-        const handle = (e) => { cursorX.set(e.clientX); cursorY.set(e.clientY); };
-        window.addEventListener('mousemove', handle);
-        return () => window.removeEventListener('mousemove', handle);
-    }, [prefersReduced]);
 
     return (
         <section className="relative min-h-screen flex flex-col justify-center items-start text-left bg-void-deepest overflow-hidden px-6">
-
-            {/* Radial orb */}
-            {!prefersReduced && (
-                <motion.div
-                    className="pointer-events-none fixed w-[500px] h-[500px] rounded-2xl -translate-x-1/2 -translate-y-1/2"
-                    style={{
-                        left: cursorX,
-                        top: cursorY,
-                        background: 'radial-gradient(circle, rgba(42,104,133,0.5) 0%, transparent 70%)',
-                        filter: 'blur(80px)',
-                    }}
-                />
-            )}
 
             <div className="relative z-10 max-w-4xl mx-auto">
                 <motion.p

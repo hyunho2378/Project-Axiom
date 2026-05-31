@@ -21,7 +21,7 @@ export default function Features() {
     const prefersReduced = useReducedMotion();
 
     return (
-        <section className="py-32 px-6 bg-void-deep border-t border-ui-border">
+        <section className="py-32 px-6 bg-void-deepest">
             <div className="max-w-7xl mx-auto">
 
                 <div className="mb-16">

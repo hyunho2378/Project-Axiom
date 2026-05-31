@@ -47,7 +47,7 @@ function lerp(start, end, t) {
 }
 
 
-export default function EvolvingBlob({ step = 0, colorOverride = null, emissiveOverride = null }) {
+export default function EvolvingBlob({ step = 0, colorOverride = null, emissiveOverride = null, emissiveIntensityOverride = null }) {
     const meshRef = useRef();
     const materialRef = useRef();
 
@@ -66,11 +66,16 @@ export default function EvolvingBlob({ step = 0, colorOverride = null, emissiveO
     // Target stage (clamped to valid range)
     const targetStage = useMemo(() => {
         const stage = STAGES[Math.min(Math.max(step, 0), 10)];
-        if (colorOverride || emissiveOverride) {
-            return { ...stage, color: colorOverride || stage.color, emissive: emissiveOverride || stage.emissive };
+        if (colorOverride || emissiveOverride || emissiveIntensityOverride !== null) {
+            return {
+                ...stage,
+                color: colorOverride || stage.color,
+                emissive: emissiveOverride || stage.emissive,
+                emissiveIntensity: emissiveIntensityOverride ?? stage.emissiveIntensity,
+            };
         }
         return stage;
-    }, [step, colorOverride, emissiveOverride]);
+    }, [step, colorOverride, emissiveOverride, emissiveIntensityOverride]);
 
     // Animate values in useFrame for smooth transitions
     useFrame((state, delta) => {

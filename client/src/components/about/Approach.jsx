@@ -51,7 +51,7 @@ export default function Approach() {
     const prefersReduced = useReducedMotion();
 
     return (
-        <section className="py-32 px-6 bg-void-deepest border-t border-ui-border overflow-hidden">
+        <section className="py-32 px-6 bg-void-deepest overflow-hidden">
             <div className="max-w-7xl mx-auto">
 
                 <div className="mb-16">
