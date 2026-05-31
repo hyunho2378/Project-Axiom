@@ -30,6 +30,7 @@ import ResearcherEditorial from './ResearcherEditorial';
 import HumanityDataMap from './HumanityDataMap';
 import Cart from './Cart';
 import Checkout from './Checkout';
+import OrderComplete from './OrderComplete';
 
 /**
  * App Layout - Wraps all routes with Header and Footer
@@ -156,6 +157,9 @@ function AppContent() {
 
                 {/* Checkout */}
                 <Route path="/checkout" element={<AppLayout {...layoutProps}><Checkout /></AppLayout>} />
+
+                {/* Order Complete */}
+                <Route path="/order-complete" element={<AppLayout {...layoutProps}><OrderComplete /></AppLayout>} />
 
                 {/* Campaigns */}
                 <Route path="/campaigns" element={<AppLayout {...layoutProps}><Campaigns /></AppLayout>} />

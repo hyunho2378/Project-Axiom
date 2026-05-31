@@ -81,7 +81,7 @@ export default function Checkout() {
         } else {
             clear();
         }
-        navigate('/order-complete');
+        navigate('/order-complete', { state: { orderItems, total } });
     };
 
     if (orderItems.length === 0) {

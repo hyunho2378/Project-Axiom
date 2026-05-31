@@ -123,7 +123,7 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                             {/* Language toggle */}
                             <button
                                 onClick={toggleLanguage}
-                                className="flex items-center gap-1.5 p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
+                                className="flex items-center p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
                                 aria-label="Toggle language"
                             >
                                 <svg className="w-5 h-5 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -131,7 +131,6 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                                     <line x1="2" y1="12" x2="22" y2="12" />
                                     <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                                 </svg>
-                                <span className="font-body text-[9px] tracking-widest uppercase">{language === 'en' ? 'EN' : 'KO'}</span>
                             </button>
 
                             {/* User Icon — dropdown when logged in */}
@@ -209,7 +208,7 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
 
                         <button
                             onClick={toggleLanguage}
-                            className="flex items-center gap-1 p-3 min-h-[44px] min-w-[44px] justify-center text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
+                            className="flex items-center justify-center p-3 min-h-[44px] min-w-[44px] text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
                             aria-label="Toggle language"
                         >
                             <svg className="w-4 h-4 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -217,7 +216,6 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                                 <line x1="2" y1="12" x2="22" y2="12" />
                                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                             </svg>
-                            <span className="font-body text-[9px] tracking-widest uppercase">{language === 'en' ? 'EN' : 'KO'}</span>
                         </button>
 
                         {isLoggedIn ? (
