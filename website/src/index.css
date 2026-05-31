@@ -42,7 +42,7 @@ body {
 /* ── BEGIN ANALYSIS 버튼 glow effect ── */
 .btn-glow {
   position: relative;
-  border: 1px solid #2A6885;
+  border: 1px solid #5A9AB5;
   background: transparent;
   color: #ffffff;
   text-decoration: none;

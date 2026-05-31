@@ -4,12 +4,12 @@ export const colors = {
   bgCard:       '#0A0A0A',
   bgCardHover:  '#082B35',
 
-  brand:        '#2A6885',
+  brand:        '#5A9AB5',
   brandStrong:  '#3C7795',
   neon:         '#00D4FF',
   brandPale:    '#C0F0FF',
   brandMid:     '#5A9AB5',
-  brandDeep:    '#2A6885',
+  brandDeep:    '#5A9AB5',
   brandVoid:    '#082B35',
 
   ink:          '#FFFFFF',
