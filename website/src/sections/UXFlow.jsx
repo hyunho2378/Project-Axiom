@@ -110,7 +110,6 @@ export default function UXFlow() {
                 style={{
                   background: colors.bgDeep,
                   border: `1px solid ${colors.line}`,
-                  borderTop: `2px solid ${colors.brand}`,
                   borderRadius: 'clamp(6px,0.8vw,10px)',
                   padding: 'clamp(14px,1.8vw,20px)',
                   opacity: flowVisible ? 1 : 0,

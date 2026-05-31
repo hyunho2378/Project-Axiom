@@ -122,7 +122,6 @@ export default function BX() {
                 key={v.id}
                 style={{
                   background: colors.bgCard,
-                  borderTop: `2px solid ${colors.brand}`,
                   borderRadius: 'clamp(8px,1vw,14px)',
                   padding: 'clamp(20px,2.5vw,32px)',
                   display: 'flex',
@@ -222,8 +221,7 @@ export default function BX() {
                   style={{
                     padding: 'clamp(10px,1.2vw,16px) clamp(12px,1.5vw,18px)',
                     background: colors.bgDeep,
-                    borderLeft: `3px solid ${colors.warn}`,
-                    borderRadius: `0 8px 8px 0`,
+                    borderRadius: 8,
                   }}
                 >
                   <p style={{ margin: 0, fontSize: t.body.size, color: colors.inkMuted, lineHeight: 1.5 }}>
@@ -235,8 +233,7 @@ export default function BX() {
                   style={{
                     padding: 'clamp(10px,1.2vw,16px) clamp(12px,1.5vw,18px)',
                     background: colors.bgCard,
-                    borderLeft: `3px solid ${colors.ok}`,
-                    borderRadius: `0 8px 8px 0`,
+                    borderRadius: 8,
                   }}
                 >
                   <p style={{ margin: 0, fontSize: t.body.size, color: colors.ink, lineHeight: 1.5 }}>

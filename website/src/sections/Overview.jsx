@@ -95,8 +95,7 @@ export default function Overview() {
                 key={i}
                 style={{
                   background: colors.bgCard,
-                  borderLeft: `2px solid ${colors.brand}`,
-                  borderRadius: `0 clamp(8px,1vw,12px) clamp(8px,1vw,12px) 0`,
+                  borderRadius: 'clamp(8px,1vw,12px)',
                   padding: 'clamp(14px,1.5vw,20px) clamp(16px,2vw,24px)',
                   opacity: rightVisible ? 1 : 0,
                   transform: rightVisible ? 'none' : 'translateX(16px)',

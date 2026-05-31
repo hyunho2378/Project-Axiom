@@ -230,7 +230,7 @@
   },
   "survey": {
     "overview": {
-      "period": "2026.04.28 ~ 2026.05.09",
+      "period": "2026년 4~5월",
       "n": 52,
       "male": 16,
       "female": 36
@@ -1034,7 +1034,7 @@
         "motivation": "효율 + 확신",
         "barrier": "복합 피부 고민을 수용하는 서비스 부재",
         "trigger": "\"이게 왜 나한테 맞는지\" 설명해주는 서비스",
-        "axiomTouchpoint": "복합 멀티셀렉 + Explainability → Principle 02",
+        "axiomTouchpoint": "여러 고민을 함께 선택 + 추천 이유 설명",
         "representativeQuote": {
           "text": "복합성이라고 하면 T존은 지성, U존은 건성이잖아. 근데 앱은 그냥 '복합성'으로 퉁쳐버려. 내 피부를 제대로 이해하는 느낌이 전혀 없어.",
           "speakers": [
@@ -1065,7 +1065,7 @@
         "motivation": "최소 노력으로 적당한 결과",
         "barrier": "탐색 행위 자체에 대한 거부감",
         "trigger": "딱 하나, 명확한 추천",
-        "axiomTouchpoint": "Zero Search 플로우 → Principle 01",
+        "axiomTouchpoint": "검색 없이 안내하는 흐름",
         "representativeQuote": {
           "text": "나는 그냥 뭐 사면 돼요, 딱 하나 알려줬으면 좋겠어. 리뷰 읽는 것도 일이고, 성분 공부해야 하고. 그냥 AI가 알아서 해줬으면 좋겠어.",
           "speakers": [
@@ -1139,27 +1139,27 @@
         "id": "card1",
         "stat": "67.3%",
         "label": "내 피부에 맞는 제품 찾기 어렵다고 답했다",
-        "source": "Q3, n=52"
+        "source": "설문 52명"
       },
       {
         "id": "card2",
         "stat": "81.8%",
         "label": "피부 진단 후 실제 구매로 이어지지 않았다",
-        "source": "Q11, n=44"
+        "source": "설문 44명"
       },
       {
         "id": "card3",
         "stat": "80.8%",
         "label": "AI 기반 큐레이션 서비스를 사용할 의향이 있다",
-        "source": "Q15, n=52"
+        "source": "설문 52명"
       }
     ],
     "donutCharts": [
       {
         "id": "abandonReason",
         "title": "구매 포기 이유",
-        "subtitle": "n=39, 복수응답",
-        "source": "Q8",
+        "subtitle": "39명, 여러 개 선택 가능",
+        "source": "설문 39명",
         "segments": [
           {
             "label": "피부에 맞는지 몰라서",
@@ -1186,8 +1186,8 @@
       {
         "id": "postDiagnosis",
         "title": "진단 후 행동",
-        "subtitle": "n=44",
-        "source": "Q11",
+        "subtitle": "44명",
+        "source": "설문 44명",
         "segments": [
           {
             "label": "참고만 했다",

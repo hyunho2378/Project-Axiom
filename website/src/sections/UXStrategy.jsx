@@ -134,8 +134,7 @@ function DesignPrinciples({ visible }) {
             key={p.id}
             style={{
               background: colors.bgDeep,
-              borderLeft: `4px solid ${colors.brand}`,
-              borderRadius: `0 clamp(8px,1vw,12px) clamp(8px,1vw,12px) 0`,
+              borderRadius: 'clamp(8px,1vw,12px)',
               padding: 'clamp(20px,2.5vw,32px)',
               opacity: visible ? 1 : 0,
               transform: visible ? 'none' : 'translateY(20px)',

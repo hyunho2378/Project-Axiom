@@ -67,7 +67,6 @@ export default function AIProcess() {
               key={i}
               style={{
                 background: colors.bgCard,
-                borderTop: `2px solid ${colors.brand}`,
                 borderRadius: 'clamp(8px,1vw,14px)',
                 padding: 'clamp(20px,2.5vw,32px)',
                 display: 'flex',
@@ -161,8 +160,7 @@ export default function AIProcess() {
             <div
               style={{
                 background: colors.bgCard,
-                borderLeft: `3px solid ${colors.brand}`,
-                borderRadius: `0 clamp(8px,1vw,12px) clamp(8px,1vw,12px) 0`,
+                borderRadius: 'clamp(8px,1vw,12px)',
                 padding: 'clamp(20px,2.5vw,32px)',
                 opacity: collabVisible ? 1 : 0,
                 transform: collabVisible ? 'none' : 'translateX(-16px)',
@@ -185,8 +183,7 @@ export default function AIProcess() {
             <div
               style={{
                 background: colors.bgCard,
-                borderLeft: `3px solid ${colors.ok}`,
-                borderRadius: `0 clamp(8px,1vw,12px) clamp(8px,1vw,12px) 0`,
+                borderRadius: 'clamp(8px,1vw,12px)',
                 padding: 'clamp(20px,2.5vw,32px)',
                 opacity: collabVisible ? 1 : 0,
                 transform: collabVisible ? 'none' : 'translateX(16px)',

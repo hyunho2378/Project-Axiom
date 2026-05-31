@@ -13,7 +13,6 @@ function PersonaCard({ persona, delay, visible }) {
     <div
       style={{
         background: colors.bgCard,
-        borderTop: `2px solid ${colors.brand}`,
         borderRadius: 'clamp(12px,1.5vw,20px)',
         padding: 'clamp(24px,3vw,40px)',
         display: 'flex',
@@ -120,12 +119,11 @@ function PersonaCard({ persona, delay, visible }) {
         style={{
           padding: 'clamp(12px,1.5vw,16px) clamp(14px,2vw,20px)',
           background: colors.bgDeep,
-          borderLeft: `3px solid ${colors.brand}`,
-          borderRadius: `0 8px 8px 0`,
+          borderRadius: 8,
         }}
       >
         <span style={{ fontSize: t.caption.size, fontWeight: 700, color: colors.brand }}>
-          AXIOM 접점: {persona.axiomTouchpoint}
+          AXIOM의 해결: {persona.axiomTouchpoint}
         </span>
       </div>
 

@@ -165,8 +165,7 @@ function Axis2Cards({ visible }) {
             key={g.code}
             style={{
               background: colors.bgDeep,
-              borderLeft: `3px solid ${borderColors[i]}`,
-              borderRadius: `0 clamp(8px,1vw,12px) clamp(8px,1vw,12px) 0`,
+              borderRadius: 'clamp(8px,1vw,12px)',
               padding: 'clamp(14px,1.8vw,22px)',
               opacity: visible ? 1 : 0,
               transform: visible ? 'none' : 'translateY(16px)',

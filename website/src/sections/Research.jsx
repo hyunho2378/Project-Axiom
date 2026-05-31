@@ -10,9 +10,8 @@ const { survey, chartData, insights } = researchData;
 
 function MetaBar({ visible }) {
   const items = [
-    { label: 'Survey', value: `n=${survey.overview.n}`, sub: survey.overview.period },
-    { label: 'Interview', value: `n=${survey.overview.interviewN ?? 12}`, sub: '심층 인터뷰' },
-    { label: 'Period', value: survey.overview.period.split(' ~ ')[0], sub: `~ ${survey.overview.period.split(' ~ ')[1]}` },
+    { label: '설문조사', value: `${survey.overview.n}명`, sub: survey.overview.period },
+    { label: '인터뷰', value: `${survey.overview.interviewN ?? 12}명`, sub: '심층 인터뷰' },
   ];
 
   return (
@@ -77,7 +76,6 @@ function StatCards({ cards, visible }) {
           key={card.id}
           style={{
             background: colors.bgCard,
-            borderTop: `2px solid ${colors.brand}`,
             borderRadius: 'clamp(8px,1vw,12px)',
             padding: 'clamp(20px,2.5vw,32px)',
             opacity: visible ? 1 : 0,
@@ -210,8 +208,7 @@ function InsightCard({ insight, index, visible }) {
           marginTop: 'clamp(14px,2vw,20px)',
           padding: 'clamp(12px,1.5vw,18px) clamp(14px,2vw,20px)',
           background: 'rgba(0,212,255,0.04)',
-          borderLeft: `2px solid ${colors.brand}`,
-          borderRadius: `0 8px 8px 0`,
+          borderRadius: 8,
         }}
       >
         <p style={{ margin: '0 0 4px', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.08em', color: colors.brand }}>
@@ -246,7 +243,7 @@ export default function Research() {
           <SectionHeader
             eyebrow="04 RESEARCH"
             headline="유저 리서치: 52명의 데이터가 말한 것"
-            sub="설문(n=52) + 심층 인터뷰(n=12)를 통해 발견한 세 개의 인사이트"
+            sub="설문 52명 + 인터뷰 12명을 통해 발견한 세 개의 인사이트"
             align="left"
           />
         </div>

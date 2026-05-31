@@ -73,7 +73,7 @@ export default function BarChart({ title, subtitle, bars = [], source }) {
           fontSize: t.caption.size,
           color: colors.inkMuted,
         }}>
-          출처: {source}
+          {source}
         </p>
       )}
     </div>

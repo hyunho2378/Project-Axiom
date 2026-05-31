@@ -92,7 +92,7 @@ export default function DonutChart({ title, subtitle, segments = [], source }) {
       </div>
 
       {source && (
-        <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkMuted }}>출처: {source}</p>
+        <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkMuted }}>{source}</p>
       )}
     </div>
   );

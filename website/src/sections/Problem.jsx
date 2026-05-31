@@ -122,7 +122,6 @@ function StatCards({ cards, visible }) {
           key={card.id}
           style={{
             background: colors.bgCard,
-            borderTop: `2px solid ${colors.brand}`,
             borderRadius: 'clamp(8px,1vw,12px)',
             padding: 'clamp(20px,2.5vw,32px)',
             opacity: visible ? 1 : 0,
