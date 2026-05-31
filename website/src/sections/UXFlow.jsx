@@ -38,8 +38,10 @@ function FlowStep({ label, isAxiom, index, visible, isLast }) {
 }
 
 export default function UXFlow() {
-  const [flowRef,  flowVisible]  = useReveal({ threshold: 0.1 });
-  const [princRef, princVisible] = useReveal({ threshold: 0.1 });
+  const [existFlowRef, existFlowVisible] = useReveal({ threshold: 0.15 });
+  const [axiomFlowRef, axiomFlowVisible] = useReveal({ threshold: 0.15 });
+  const [pagesRef,     pagesVisible]     = useReveal({ threshold: 0.05 });
+  const [princRef,     princVisible]     = useReveal({ threshold: 0.1 });
 
   return (
     <section
@@ -50,14 +52,14 @@ export default function UXFlow() {
         <SectionHeader
           eyebrow="10 UX FLOW"
           headline="진단부터 구매까지 단 하나의 흐름"
-          sub="기존 플로우와의 비교 · 인터랙션 원칙"
+          sub="기존 플로우와의 비교, 인터랙션 원칙"
           align="left"
         />
 
         {/* ── 플로우 비교 ── */}
-        <div ref={flowRef} style={{ marginBottom: 'clamp(56px,7vw,96px)' }}>
+        <div style={{ marginBottom: 'clamp(56px,7vw,96px)' }}>
           {/* 기존 플로우 */}
-          <div style={{ marginBottom: 'clamp(20px,3vw,32px)' }}>
+          <div ref={existFlowRef} style={{ marginBottom: 'clamp(20px,3vw,32px)' }}>
             <p style={{ margin: '0 0 clamp(10px,1.5vw,16px)', fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.inkMuted }}>
               기존 — 이탈 유발 구조
             </p>
@@ -68,7 +70,7 @@ export default function UXFlow() {
                   label={step}
                   isAxiom={false}
                   index={i}
-                  visible={flowVisible}
+                  visible={existFlowVisible}
                   isLast={i === EXISTING_STEPS.length - 1}
                 />
               ))}
@@ -76,7 +78,7 @@ export default function UXFlow() {
           </div>
 
           {/* AXIOM 플로우 */}
-          <div>
+          <div ref={axiomFlowRef}>
             <p style={{ margin: '0 0 clamp(10px,1.5vw,16px)', fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.brand }}>
               AXIOM — Zero Search, One Flow
             </p>
@@ -87,7 +89,7 @@ export default function UXFlow() {
                   label={step}
                   isAxiom={true}
                   index={i}
-                  visible={flowVisible}
+                  visible={axiomFlowVisible}
                   isLast={i === AXIOM_STEPS.length - 1}
                 />
               ))}
@@ -96,6 +98,7 @@ export default function UXFlow() {
 
           {/* 페이지별 상세 */}
           <div
+            ref={pagesRef}
             style={{
               marginTop: 'clamp(24px,3vw,40px)',
               display: 'grid',
@@ -112,8 +115,8 @@ export default function UXFlow() {
                   border: `1px solid ${colors.line}`,
                   borderRadius: 'clamp(6px,0.8vw,10px)',
                   padding: 'clamp(14px,1.8vw,20px)',
-                  opacity: flowVisible ? 1 : 0,
-                  transform: flowVisible ? 'none' : 'translateY(16px)',
+                  opacity: pagesVisible ? 1 : 0,
+                  transform: pagesVisible ? 'none' : 'translateY(16px)',
                   transition: `opacity 0.5s ease ${i * 80}ms, transform 0.5s ease ${i * 80}ms`,
                 }}
               >

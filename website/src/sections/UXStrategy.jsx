@@ -302,7 +302,7 @@ export default function UXStrategy() {
         <SectionHeader
           eyebrow="06 UX STRATEGY"
           headline="인사이트에서 설계 원칙으로"
-          sub="포지셔닝 맵 · Design Principles · 해결 질문 → 설계 결정"
+          sub="포지셔닝 맵, Design Principles, 해결 질문 → 설계 결정"
           align="left"
         />
 
