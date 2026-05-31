@@ -25,7 +25,7 @@ function NarrativeFlow({ items, visible }) {
           style={{
             display: 'flex',
             alignItems: 'flex-start',
-            flexShrink: 0,
+            flex: 1,
           }}
         >
           <div
@@ -33,7 +33,7 @@ function NarrativeFlow({ items, visible }) {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              maxWidth: 200,
+              flex: 1,
               opacity: visible ? 1 : 0,
               transform: visible ? 'none' : 'translateY(20px)',
               transition: `opacity 0.5s ease ${i * 100}ms, transform 0.5s ease ${i * 100}ms`,
@@ -205,7 +205,7 @@ export default function Problem() {
           <p
             style={{
               margin: '0 0 clamp(24px,3vw,40px)',
-              fontSize: t.caption.size,
+              fontSize: t.sublabel.size,
               fontWeight: 700,
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
@@ -241,7 +241,7 @@ export default function Problem() {
                   <p
                     style={{
                       margin: '0 0 8px',
-                      fontSize: t.caption.size,
+                      fontSize: t.sublabel.size,
                       fontWeight: 700,
                       letterSpacing: '0.1em',
                       color: colors.brand,
@@ -252,7 +252,7 @@ export default function Problem() {
                   <h3
                     style={{
                       margin: '0 0 clamp(12px,1.5vw,20px)',
-                      fontSize: t.h2.size,
+                      fontSize: 'clamp(18px,2.4vw,36px)',
                       fontWeight: 700,
                       lineHeight: 1.3,
                       letterSpacing: t.h2.ls,
@@ -266,8 +266,8 @@ export default function Problem() {
                   <p
                     style={{
                       margin: 0,
-                      fontSize: t.body.size,
-                      lineHeight: t.body.lh,
+                      fontSize: t.lead.size,
+                      lineHeight: t.lead.lh,
                       color: colors.inkMuted,
                     }}
                   >
