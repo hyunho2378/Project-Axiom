@@ -1,12 +1,15 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 
-/**
- * AXIOM OFFICIAL MINIMALIST FOOTER
- * - High-end Editorial Layout (YSL Beauty Standard)
- * - Strict Golden Margin Container Compliant
- */
+const COPY = {
+    ko: { tagline: '데이터가 보여주는 가장 아름다운 진실', privacy: '개인정보처리방침', terms: '이용약관' },
+    en: { tagline: 'The most beautiful truth that data reveals.', privacy: 'Privacy Policy', terms: 'Terms of Use' },
+};
+
 export default function Footer() {
+    const { language } = useLanguage();
+    const c = COPY[language] || COPY.en;
     return (
         <footer className="w-full bg-black border-t border-[#111] py-16 mt-auto">
             <div className="max-w-7xl mx-auto px-6 flex flex-col space-y-6">
@@ -17,7 +20,7 @@ export default function Footer() {
                         <img src="/images/Axiom_logo.svg" alt="AXIOM" className="h-7 w-auto object-contain" />
                     </Link>
                     <p className="font-body text-sm text-[#8AAEC0]/60 tracking-wide whitespace-nowrap mt-4 md:mt-0">
-                        데이터가 보여주는 가장 아름다운 진실
+                        {c.tagline}
                     </p>
                 </div>
 
@@ -28,10 +31,10 @@ export default function Footer() {
                     </div>
                     <div className="flex space-x-6 font-body tracking-wide">
                         <Link to="/privacy" className="hover:text-[#8AAEC0] transition-colors duration-300">
-                            개인정보처리방침
+                            {c.privacy}
                         </Link>
                         <Link to="/terms" className="hover:text-[#8AAEC0] transition-colors duration-300">
-                            이용약관
+                            {c.terms}
                         </Link>
                     </div>
                 </div>

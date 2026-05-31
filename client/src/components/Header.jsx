@@ -6,6 +6,11 @@ import { useLanguage } from '../context/LanguageContext';
 
 const MENU_PATHS = ['/', '/axiom', '/analysis', '/curations', '/datalab'];
 
+const USER_MENU = {
+    ko: { dashboard: '대시보드', profile: '내 프로필', logout: '로그아웃' },
+    en: { dashboard: 'Dashboard', profile: 'My Profile', logout: 'Log Out' },
+};
+
 export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,6 +19,7 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
     const location = useLocation();
     const { nav } = contentData;
     const { language, toggleLanguage } = useLanguage();
+    const um = USER_MENU[language] || USER_MENU.en;
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -128,21 +134,21 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                                                 className="block px-4 py-2 text-sm text-ui-textSecondary hover:bg-void-lighter transition-colors"
                                                 onClick={() => setIsUserMenuOpen(false)}
                                             >
-                                                대시보드
+                                                {um.dashboard}
                                             </Link>
                                             <Link
                                                 to="/profile"
                                                 className="block px-4 py-2 text-sm text-ui-textSecondary hover:bg-void-lighter transition-colors"
                                                 onClick={() => setIsUserMenuOpen(false)}
                                             >
-                                                내 프로필
+                                                {um.profile}
                                             </Link>
                                             <div className="my-1 border-t border-ui-border" />
                                             <button
                                                 onClick={onLogout}
                                                 className="w-full text-left px-4 py-2 text-sm text-ui-textSecondary hover:bg-void-lighter transition-colors"
                                             >
-                                                로그아웃
+                                                {um.logout}
                                             </button>
                                         </div>
                                     )}
@@ -266,7 +272,7 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                                             onClick={onLogout}
                                             className="flex items-center justify-center p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors font-body text-[10px] tracking-widest uppercase leading-none mt-1"
                                         >
-                                            로그아웃
+                                            {um.logout}
                                         </button>
                                     </div>
                                 ) : (

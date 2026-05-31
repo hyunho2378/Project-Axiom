@@ -13,6 +13,16 @@ const CATEGORY_LABELS = {
     sunscreen: { ko: '선크림',   en: 'Sunscreen' },
     jar:       { ko: '원형 크림', en: 'Jar Cream' },
 };
+const COPY = {
+    ko: {
+        notFound: '제품을 찾을 수 없습니다', back: '← 돌아가기', backToCollection: '← 컬렉션으로 돌아가기',
+        volume: '용량', functional: '기능성', skinType: '피부타입', addToCart: '장바구니 담기',
+    },
+    en: {
+        notFound: 'Product not found', back: '← Go back', backToCollection: '← Back to Collection',
+        volume: 'Volume', functional: 'Function', skinType: 'Skin Type', addToCart: 'Add to Cart',
+    },
+};
 
 function deriveId(p) {
     return (TYPE_BASE[p.productType] ?? 100) + (SKIN_INDEX[p.skinType] ?? 0);
@@ -25,14 +35,15 @@ export default function ProductDetail() {
     const isShopRoute = location.pathname.startsWith('/shop');
 
     const product = getAllProducts().find(p => deriveId(p) === parseInt(id));
+    const c = COPY[language] || COPY.en;
 
     if (!product) {
         return (
             <main className="min-h-screen bg-void-base flex items-center justify-center">
                 <div className="text-center">
-                    <h1 className="font-body text-2xl text-white mb-4">제품을 찾을 수 없습니다</h1>
+                    <h1 className="font-body text-2xl text-white mb-4">{c.notFound}</h1>
                     <Link to={isShopRoute ? "/shop" : "/curations"} className="text-brand-500 hover:text-white font-body transition-colors">
-                        ← 돌아가기
+                        {c.back}
                     </Link>
                 </div>
             </main>
@@ -47,7 +58,7 @@ export default function ProductDetail() {
                     to={isShopRoute ? "/shop" : "/curations"}
                     className="inline-flex items-center gap-2 font-body text-sm text-ui-textMuted hover:text-brand-400 transition-colors mb-12"
                 >
-                    ← 컬렉션으로 돌아가기
+                    {c.backToCollection}
                 </Link>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
@@ -113,17 +124,17 @@ export default function ProductDetail() {
                                 <span className="text-brand-400">{language === 'en' ? (product.ingredientsEn?.join(', ') || product.ingredients) : product.ingredients}</span>
                             </div>
                             <div className="flex gap-4">
-                                <span className="text-ui-textMuted w-16 flex-shrink-0">용량</span>
+                                <span className="text-ui-textMuted w-16 flex-shrink-0">{c.volume}</span>
                                 <span className="text-ui-textPrimary">{product.volume}</span>
                             </div>
                             {product.functional && (
                                 <div className="flex gap-4">
-                                    <span className="text-ui-textMuted w-16 flex-shrink-0">기능성</span>
+                                    <span className="text-ui-textMuted w-16 flex-shrink-0">{c.functional}</span>
                                     <span className="text-ui-textPrimary">{product.functional}</span>
                                 </div>
                             )}
                             <div className="flex gap-4">
-                                <span className="text-ui-textMuted w-16 flex-shrink-0">피부타입</span>
+                                <span className="text-ui-textMuted w-16 flex-shrink-0">{c.skinType}</span>
                                 <span className="text-ui-textPrimary">{product.skinType}</span>
                             </div>
                         </div>
@@ -134,7 +145,7 @@ export default function ProductDetail() {
                                          border border-white/15
                                          hover:brightness-110 transition-all duration-300
                                          shadow-lg hover:shadow-[0_8px_32px_rgba(60,119,149,0.40)] mt-2">
-                            장바구니 담기
+                            {c.addToCart}
                         </button>
                     </motion.div>
                 </div>

@@ -1,20 +1,22 @@
 import { useState, useEffect, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DNAHelix from './three/DNAHelix';
+import { useLanguage } from '../context/LanguageContext';
 
-const PHASES = [
-    { text: '피부 데이터를 수집하고 있습니다', duration: 1500 },
-    { text: '고유 피부 축을 분석하고 있습니다', duration: 1500 },
-    { text: '맞춤 솔루션을 구성하고 있습니다', duration: 1500 },
-];
+const PHASE_DURATIONS = [1500, 1500, 1500];
+const PHASE_TEXT = {
+    ko: ['피부 데이터를 수집하고 있습니다', '고유 피부 축을 분석하고 있습니다', '맞춤 솔루션을 구성하고 있습니다'],
+    en: ['Collecting skin data', 'Analyzing your unique skin axis', 'Composing your custom solution'],
+};
 
 export default function AnalysisLoader({ onComplete }) {
+    const { language } = useLanguage();
     const [phaseIndex, setPhaseIndex] = useState(0);
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
         let elapsed = 0;
-        const totalDuration = PHASES.reduce((acc, p) => acc + p.duration, 0);
+        const totalDuration = PHASE_DURATIONS.reduce((acc, d) => acc + d, 0);
 
         const progressInterval = setInterval(() => {
             elapsed += 50;
@@ -22,9 +24,9 @@ export default function AnalysisLoader({ onComplete }) {
         }, 50);
 
         let phaseElapsed = 0;
-        PHASES.forEach((phase, i) => {
+        PHASE_DURATIONS.forEach((duration, i) => {
             setTimeout(() => setPhaseIndex(i), phaseElapsed);
-            phaseElapsed += phase.duration;
+            phaseElapsed += duration;
         });
 
         const completeTimer = setTimeout(() => {
@@ -55,7 +57,7 @@ export default function AnalysisLoader({ onComplete }) {
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.3 }}
                 >
-                    {PHASES[phaseIndex].text}
+                    {(PHASE_TEXT[language] || PHASE_TEXT.en)[phaseIndex]}
                 </motion.p>
             </AnimatePresence>
 

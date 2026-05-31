@@ -118,7 +118,7 @@ export default function CurationDetail() {
                         {/* Actions */}
                         <div className="flex gap-4">
                             <button className="flex-1 bg-[#00E0FF] hover:bg-white text-black font-body font-bold uppercase tracking-widest text-sm py-5 rounded-2xl transition-colors shadow-[0_0_20px_rgba(0,224,255,0.3)] hover:shadow-[0_0_20px_rgba(255,255,255,0.5)]">
-                                장바구니 담기
+                                {language === 'en' ? 'Add to Cart' : '장바구니 담기'}
                             </button>
                             <button className="px-8 border border-[#333] hover:border-[#00E0FF] rounded-2xl flex items-center justify-center transition-colors group">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-[#8AAEC0] group-hover:text-[#00E0FF] transition-colors" stroke="currentColor" strokeWidth="1.5">
