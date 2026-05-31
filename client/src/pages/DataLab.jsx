@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { SKIN_TYPE_NAMES } from '../data/axiomData';
+import AuroraRing from '../components/three/AuroraRing';
 
 const API_URL = "https://project-axiom.onrender.com";
 
@@ -72,9 +73,15 @@ export default function DataLab() {
     }, []);
 
     if (loading) return (
-        <div className="min-h-screen bg-black flex flex-col justify-center items-center gap-4">
-            <div className="w-8 h-8 border-2 border-[#3C7795] border-t-[#3C7795] rounded-2xl animate-spin"></div>
-            <p className="text-[#3C7795] text-xs tracking-widest animate-pulse">{c.connecting}</p>
+        <div className="min-h-screen bg-black flex flex-col justify-center items-center">
+            <div className="w-[400px] h-[400px]">
+                <Suspense fallback={null}>
+                    <AuroraRing />
+                </Suspense>
+            </div>
+            <p className="text-[#8AAEC0] text-xs tracking-[0.2em] uppercase -mt-6">
+                {c.connecting}
+            </p>
         </div>
     );
 
