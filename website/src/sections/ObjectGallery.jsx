@@ -166,7 +166,7 @@ function ObjectCard({ obj, isLast }) {
       {/* RIGHT: info */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(16px,2vw,24px)', paddingTop: 'clamp(8px,1vw,16px)' }}>
         <div>
-          <p style={{ margin: '0 0 8px', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', color: colors.brand }}>
+          <p style={{ margin: '0 0 8px', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', color: colors.brand, fontFamily: font.display }}>
             {obj.label}
           </p>
           <p style={{ margin: '0 0 12px', fontSize: t.h3.size, fontWeight: t.h3.weight, color: colors.ink, letterSpacing: t.h3.ls, lineHeight: t.h3.lh }}>

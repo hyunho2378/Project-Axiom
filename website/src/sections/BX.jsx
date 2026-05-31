@@ -15,9 +15,9 @@ const COMP_COLS = [
   { key: 'koService',       label: '국내 서비스' },
 ];
 
-function cell(val) {
-  if (val === true)  return <span style={{ color: colors.brandMid,  fontSize: 18, fontWeight: 500 }}>O</span>;
-  if (val === false) return <span style={{ color: colors.inkMuted, fontSize: 18, fontWeight: 500 }}>X</span>;
+function cell(val, isAxiom) {
+  if (val === true)  return <span style={{ color: isAxiom ? colors.brandMid : colors.white,  fontSize: 18, fontWeight: 500 }}>O</span>;
+  if (val === false) return <span style={{ color: isAxiom ? colors.inkMuted : colors.white, fontSize: 18, fontWeight: 500 }}>X</span>;
   return val;
 }
 
@@ -56,14 +56,14 @@ export default function BX() {
             alt="AXIOM"
             style={{
               display: 'block',
-              margin: '0 auto clamp(8px,1vw,16px)',
+              margin: '0 auto clamp(24px,3vw,40px)',
               height: 'clamp(40px,7vw,80px)',
               width: 'auto',
             }}
           />
           <p
             style={{
-              margin: '0 0 clamp(12px,1.5vw,20px)',
+              margin: '0 0 clamp(28px,3.5vw,48px)',
               fontSize: 'clamp(16px,2vw,24px)',
               fontWeight: 500,
               color: colors.inkMuted,
@@ -78,7 +78,7 @@ export default function BX() {
               display: 'flex',
               flexWrap: 'wrap',
               justifyContent: 'center',
-              gap: 'clamp(8px,1.5vw,16px)',
+              gap: 'clamp(16px,2.5vw,28px)',
               maxWidth: '56ch',
               margin: '0 auto',
             }}
@@ -89,12 +89,12 @@ export default function BX() {
           </div>
           <p
             style={{
-              margin: 'clamp(12px,1.5vw,20px) auto 0',
+              margin: 'clamp(28px,3.5vw,48px) auto 0',
               fontSize: t.body.size,
               color: colors.brand,
               fontWeight: 600,
               maxWidth: '48ch',
-              lineHeight: 1.5,
+              lineHeight: 1.7,
             }}
           >
             {bx.naming.synthesis}
@@ -128,7 +128,7 @@ export default function BX() {
                   transition: `opacity 0.5s ease ${i * 80}ms, transform 0.5s ease ${i * 80}ms`,
                 }}
               >
-                <p style={{ margin: 0, fontSize: 24, fontWeight: 700, color: colors.brand, letterSpacing: '-0.02em' }}>
+                <p style={{ margin: 0, fontSize: 24, fontWeight: 700, color: colors.brand, letterSpacing: '-0.02em', fontFamily: font.display }}>
                   {v.name}
                 </p>
                 <p style={{ margin: 0, fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.brandMid }}>
@@ -215,7 +215,10 @@ export default function BX() {
                   return (
                     <tr
                       key={ri}
-                      style={{ background: isAxiom ? 'rgba(90,154,181,0.06)' : (ri % 2 === 0 ? colors.bgCard : colors.bgDeep) }}
+                      style={{
+                        background: isAxiom ? 'rgba(90,154,181,0.06)' : (ri % 2 === 0 ? colors.bgCard : colors.bgDeep),
+                        outline: isAxiom ? `2px solid ${colors.brand}` : undefined,
+                      }}
                     >
                       <td
                         style={{
@@ -233,12 +236,14 @@ export default function BX() {
                           key={col.key}
                           style={{
                             ...tdStyle,
-                            color: isAxiom && typeof brand[col.key] === 'string' ? colors.ink : colors.inkMuted,
+                            color: isAxiom
+                              ? (typeof brand[col.key] === 'string' ? colors.ink : colors.inkMuted)
+                              : colors.white,
                             fontWeight: isAxiom ? 500 : 500,
                             textAlign: typeof brand[col.key] === 'boolean' ? 'center' : 'left',
                           }}
                         >
-                          {cell(brand[col.key])}
+                          {cell(brand[col.key], isAxiom)}
                         </td>
                       ))}
                     </tr>
@@ -270,7 +275,7 @@ const thStyle = {
   fontWeight: 700,
   letterSpacing: '0.08em',
   textTransform: 'uppercase',
-  color: colors.inkMuted,
+  color: colors.white,
   textAlign: 'left',
   borderBottom: `1px solid ${colors.line}`,
   whiteSpace: 'nowrap',

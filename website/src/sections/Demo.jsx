@@ -1,6 +1,5 @@
 import { colors, font, type as t, layout } from '../tokens/web.js';
 import { useReveal } from '../lib/useReveal.js';
-import SectionHeader from '../components/SectionHeader.jsx';
 import axiomData from '../data/axiom.json';
 
 const { demo } = axiomData;
@@ -47,12 +46,19 @@ export default function Demo() {
           textAlign: 'center',
         }}
       >
-        <SectionHeader
-          eyebrow="11 3D GALLERY"
-          headline="AXIOM 라이브 서비스"
-          sub="직접 체험하기"
-          align="center"
-        />
+        <div style={{ marginBottom: 'clamp(32px,4vw,56px)' }}>
+          <h2 style={{
+            margin: 0,
+            fontSize: 'clamp(21px,3.75vw,47px)',
+            fontWeight: 800,
+            lineHeight: 1.1,
+            letterSpacing: '-0.03em',
+            color: colors.ink,
+            fontFamily: font.display,
+          }}>
+            Define your Axis
+          </h2>
+        </div>
 
         <div
           ref={ref}
