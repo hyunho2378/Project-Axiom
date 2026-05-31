@@ -11,19 +11,19 @@ const STAGE_LABELS = [
 
 const OBJECTS = [
   /* ── 시그니처 / 이펙트 ── */
-  { file: 'axiom-planet.html',    name: 'planet',       label: 'AXIOM PLANET',  ko: '진단 행성',      desc: '분석 시작 전부터 최종 결과까지, 진단의 여정을 하나의 구체로.',         interaction: 'step'   },
-  { file: 'axiom-crystal-v3.html', name: 'crystal',       label: 'CRYSTAL',       ko: '브랜드 크리스탈', desc: '수천 개의 데이터가 하나의 결정으로 피어나는 순간.',    interaction: 'rotate' },
-  { file: 'axiom-dna-helix.html',  name: 'dna-helix',     label: 'DNA HELIX',     ko: 'DNA 헬릭스',     desc: '데이터가 나선으로 정렬되며 분석이 시작되는 순간.',      interaction: 'none'   },
-  { file: 'axiom-aurora-v2.html',  name: 'aurora-v2',     label: 'AURORA RING',   ko: '오로라 링',      desc: '흐르는 빛의 고리, 살아있는 데이터의 맥동.',            interaction: 'rotate' },
-  { file: 'axiom-nebula.html',     name: 'nebula',        label: 'NEBULA',        ko: '파티클 성운',    desc: '수천 개의 신호가 모여 형태를 찾아가는 과정.',           interaction: 'click'  },
-  { file: 'axiom-ribbon.html',     name: 'ribbon',        label: 'SILK RIBBON',   ko: '실크 리본',      desc: '피부 위를 흐르는 부드러운 결의 시각화.',                interaction: 'none'   },
-  { file: 'axiom-stage.html',      name: 'stage',         label: 'PRODUCT STAGE', ko: '제품 스테이지',  desc: '큐레이션된 제품이 놓이는 빛의 무대.',                  interaction: 'none'   },
+  { file: 'axiom-planet.html',    name: 'planet',       label: 'AXIOM PLANET',  ko: '진단 행성',      desc: '분석 시작 전부터 최종 결과까지, 진단의 여정을 하나의 구체로',         interaction: 'step'   },
+  { file: 'axiom-crystal-v3.html', name: 'crystal',       label: 'CRYSTAL',       ko: '브랜드 크리스탈', desc: '수천 개의 데이터가 하나의 결정으로 피어나는 순간',    interaction: 'rotate' },
+  { file: 'axiom-dna-helix.html',  name: 'dna-helix',     label: 'DNA HELIX',     ko: 'DNA 헬릭스',     desc: '데이터가 나선으로 정렬되며 분석이 시작되는 순간',      interaction: 'none'   },
+  { file: 'axiom-aurora-v2.html',  name: 'aurora-v2',     label: 'AURORA RING',   ko: '오로라 링',      desc: '흐르는 빛의 고리, 살아있는 데이터의 맥동',            interaction: 'rotate' },
+  { file: 'axiom-nebula.html',     name: 'nebula',        label: 'NEBULA',        ko: '파티클 성운',    desc: '수천 개의 신호가 모여 형태를 찾아가는 과정',           interaction: 'click'  },
+  { file: 'axiom-ribbon.html',     name: 'ribbon',        label: 'SILK RIBBON',   ko: '실크 리본',      desc: '피부 위를 흐르는 부드러운 결의 시각화',                interaction: 'none'   },
+  { file: 'axiom-stage.html',      name: 'stage',         label: 'PRODUCT STAGE', ko: '제품 스테이지',  desc: '큐레이션된 제품이 놓이는 빛의 무대',                  interaction: 'none'   },
   /* ── 제품 오브제 ── */
-  { file: 'axiom-toner.html',      name: 'toner',         label: 'TONER',         ko: '토너',           desc: '피부 결을 정돈하는 첫 번째 레이어. 수분 공급과 유효 성분 흡수력 강화.', interaction: 'rotate' },
-  { file: 'axiom-ampoule.html',    name: 'ampoule',       label: 'AMPOULE',       ko: '앰플',           desc: '고농축 에센스. 피부 깊은 곳까지 유효 성분을 직접 전달.',  interaction: 'rotate' },
-  { file: 'axiom-jar.html',        name: 'jar',           label: 'CREAM',         ko: '크림',           desc: '보습의 완성. 피부 장벽을 봉인하고 수분을 장시간 유지.',  interaction: 'rotate' },
-  { file: 'axiom-sunscreen.html',  name: 'sunscreen',     label: 'SUNSCREEN',     ko: '선크림',         desc: 'UV 차단. 피부 보호 루틴의 마지막 단계.',               interaction: 'rotate' },
-  { file: 'axiom-tube.html',       name: 'tube',          label: 'TUBE',          ko: '튜브',           desc: '다목적 포뮬러. 피부 타입에 따른 맞춤형 집중 케어.',     interaction: 'rotate' },
+  { file: 'axiom-toner.html',      name: 'toner',         label: 'TONER',         ko: '토너',           desc: '피부 결을 정돈하며 다음 단계의 흡수를 여는 첫 번째 레이어', interaction: 'rotate' },
+  { file: 'axiom-ampoule.html',    name: 'ampoule',       label: 'AMPOULE',       ko: '앰플',           desc: '피부 가장 깊은 곳까지 유효 성분을 전하는 고농축 에센스',  interaction: 'rotate' },
+  { file: 'axiom-jar.html',        name: 'jar',           label: 'CREAM',         ko: '크림',           desc: '피부 장벽을 봉인해 수분을 오래 머무르게 하는 보습의 완성',  interaction: 'rotate' },
+  { file: 'axiom-sunscreen.html',  name: 'sunscreen',     label: 'SUNSCREEN',     ko: '선크림',         desc: '자외선으로부터 피부를 지키는 루틴의 마지막 완성',               interaction: 'rotate' },
+  { file: 'axiom-tube.html',       name: 'tube',          label: 'TUBE',          ko: '튜브',           desc: '피부 타입에 맞춰 집중 케어하는 다목적 포뮬러',     interaction: 'rotate' },
 ];
 
 const IFRAME_H = 480;
@@ -300,17 +300,17 @@ function ObjectCard({ obj, isLast }) {
         </div>
 
         {obj.interaction === 'rotate' && (
-          <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkFaint, letterSpacing: '0.12em' }}>
+          <p style={{ margin: 0, fontSize: t.sublabel.size, fontWeight: 700, color: colors.brandPale, letterSpacing: '0.12em' }}>
             마우스로 자유롭게 돌려보세요
           </p>
         )}
         {obj.interaction === 'click' && (
-          <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkFaint, letterSpacing: '0.12em' }}>
+          <p style={{ margin: 0, fontSize: t.sublabel.size, fontWeight: 700, color: colors.brandPale, letterSpacing: '0.12em' }}>
             마우스로 중앙을 눌러보세요
           </p>
         )}
         {obj.interaction === 'step' && (
-          <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkFaint, letterSpacing: '0.12em' }}>
+          <p style={{ margin: 0, fontSize: t.sublabel.size, fontWeight: 700, color: colors.brandPale, letterSpacing: '0.12em' }}>
             마우스로 돌려보고, 버튼으로 진단 단계를 따라가 보세요
           </p>
         )}
