@@ -49,7 +49,7 @@ export default function AIProcess() {
                 transition: `opacity 0.5s ease ${i * 80}ms, transform 0.5s ease ${i * 80}ms`,
               }}
             >
-              <p style={{ margin: 0, fontSize: 'clamp(28px,4vw,44px)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1, color: colors.brand }}>
+              <p style={{ margin: 0, fontSize: 'clamp(28px,4vw,44px)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1, color: colors.brand, fontFamily: font.display }}>
                 {item.stat}
               </p>
               <p style={{ margin: 0, fontSize: t.body.size, fontWeight: 500, color: colors.ink, lineHeight: 1.4, flex: 1 }}>

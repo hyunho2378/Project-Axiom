@@ -1582,22 +1582,19 @@
     },
     "why3D": [
       {
-        "stat": "+94%",
-        "desc": "3D 제품 뷰어 도입 시 구매 전환율 증가",
-        "source": "KIBME, Gaussian Splatting 기술 동향, 2025",
-        "reliability": "중간 — KIBME 원문 검증 미완, 2차 출처 혼재"
+        "stat": "+23%",
+        "desc": "3D 제품 뷰어 도입 후 구매 전환율 증가 (Dermalogica Canada)",
+        "source": "Shopify"
       },
       {
-        "stat": "82%",
-        "desc": "3D 모델과 상호작용한 방문자 비율",
-        "source": "KIBME, 2025",
-        "reliability": "중간"
+        "stat": "+11%",
+        "desc": "AR·3D 제품 뷰어 도입 후 구매 전환율 증가 (옴니어스 렌즈)",
+        "source": "한국디자인진흥원(디자인DB)"
       },
       {
         "stat": "67.3%",
         "desc": "시각 고급스러움이 신뢰도에 영향",
-        "source": "AXIOM 유저 리서치, 설문 52명, 2026년 4~5월",
-        "reliability": "강함"
+        "source": "AXIOM 유저 리서치, 2026.04"
       }
     ]
   },
