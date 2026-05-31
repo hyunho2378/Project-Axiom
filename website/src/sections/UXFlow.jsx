@@ -120,9 +120,19 @@ export default function UXFlow() {
                   transition: `opacity 0.5s ease ${i * 80}ms, transform 0.5s ease ${i * 80}ms`,
                 }}
               >
-                <p style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 700, color: colors.ink }}>{page.name}</p>
-                <p style={{ margin: '0 0 6px', fontSize: 16, fontWeight: 600, color: colors.brandMid }}>{page.purpose}</p>
-                <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: colors.inkMuted, lineHeight: 1.5 }}>{page.desc}</p>
+                <div style={{ marginBottom: 10 }}>
+                  <span style={{ fontSize: 17, fontWeight: 700, color: colors.ink }}>{page.name}</span>
+                  <span style={{ margin: '0 6px', color: colors.inkFaint }}>/</span>
+                  <span style={{ fontSize: 15, fontWeight: 600, color: colors.brandMid }}>{page.subName}</span>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+                  {page.bullets.map((b, j) => (
+                    <div key={j} style={{ display: 'flex', gap: 7, alignItems: 'flex-start' }}>
+                      <span style={{ color: colors.brand, flexShrink: 0, lineHeight: 1.5, fontWeight: 700 }}>•</span>
+                      <span style={{ fontSize: 14, fontWeight: 500, color: colors.inkMuted, lineHeight: 1.5 }}>{b}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>

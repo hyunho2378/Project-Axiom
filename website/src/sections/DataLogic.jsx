@@ -349,7 +349,7 @@ function Accordion() {
   );
 }
 
-function SheetLink({ href }) {
+function SheetLink({ href, label }) {
   return (
     <div style={{ marginTop: 'clamp(24px,3vw,40px)', display: 'flex', justifyContent: 'center' }}>
       <a
@@ -372,7 +372,7 @@ function SheetLink({ href }) {
           textDecoration: 'none',
         }}
       >
-        전체 데이터 보기 (Google Sheets) →
+        {label} →
       </a>
     </div>
   );
@@ -455,7 +455,7 @@ function SkinTypeMatrix({ visible }) {
         ))}
       </div>
 
-      <SheetLink href={SHEET_RESULTS} />
+      <SheetLink href={SHEET_RESULTS} label="전체 피부 진단 결과 보러가기" />
     </div>
   );
 }
@@ -524,7 +524,7 @@ function ProductMapping({ visible }) {
         </table>
       </div>
 
-      <SheetLink href={SHEET_PRODUCTS} />
+      <SheetLink href={SHEET_PRODUCTS} label="전체 화장품 정보 보러가기" />
     </div>
   );
 }
@@ -567,7 +567,7 @@ export default function DataLogic() {
         </div>
 
         <Accordion />
-        <SheetLink href={SHEET_QUESTIONS} />
+        <SheetLink href={SHEET_QUESTIONS} label="전체 질문 데이터 로직 보러가기" />
 
         <div ref={matrixRef}>
           <SkinTypeMatrix visible={matrixVisible} />

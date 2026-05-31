@@ -118,7 +118,7 @@ function DesignPrinciples({ visible }) {
       <p
         style={{
           margin: '0 0 clamp(20px,3vw,32px)',
-          fontSize: t.sublabel.size,
+          fontSize: 'clamp(22px,1.75vw,23px)',
           fontWeight: 700,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
@@ -150,29 +150,21 @@ function DesignPrinciples({ visible }) {
               gap: 0,
             }}
           >
-            <p
-              style={{
-                margin: '0 0 10px',
-                fontSize: 'clamp(32px,4vw,48px)',
-                fontWeight: 800,
-                letterSpacing: '-0.05em',
-                lineHeight: 1,
-                color: colors.brand,
-              }}
-            >
-              {p.id}
-            </p>
-            <p
+            <div
               style={{
                 margin: '0 0 14px',
-                fontSize: 17,
-                fontWeight: 700,
-                letterSpacing: '0.04em',
-                color: colors.brandMid,
+                display: 'flex',
+                alignItems: 'baseline',
+                gap: 10,
               }}
             >
-              {p.name}
-            </p>
+              <span style={{ fontSize: 'clamp(20px,2.2vw,26px)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1, color: colors.brand }}>
+                {p.id}
+              </span>
+              <span style={{ fontSize: 'clamp(17px,1.8vw,22px)', fontWeight: 700, letterSpacing: '0.02em', color: colors.brandMid, fontFamily: font.display }}>
+                {p.name}
+              </span>
+            </div>
             <p
               style={{
                 margin: '0 0 16px',
