@@ -31,7 +31,7 @@ function StatCard({ item, index, visible }) {
             lineHeight: 1,
             letterSpacing: '-0.04em',
             color: colors.brand,
-            fontFamily: font.family,
+            fontFamily: font.display,
           }}
         >
           {value.toLocaleString()}
@@ -43,6 +43,7 @@ function StatCard({ item, index, visible }) {
             lineHeight: 1,
             letterSpacing: '-0.02em',
             color: colors.brand,
+            fontFamily: font.display,
           }}
         >
           {item.unit}

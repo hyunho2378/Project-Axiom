@@ -1,4 +1,4 @@
-import { colors, type as t, layout } from '../tokens/web.js';
+import { colors, font, type as t, layout } from '../tokens/web.js';
 import { useReveal } from '../lib/useReveal.js';
 
 export default function SectionHeader({ eyebrow, headline, sub, align = 'left' }) {
@@ -26,6 +26,7 @@ export default function SectionHeader({ eyebrow, headline, sub, align = 'left' }
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
           color: colors.brand,
+          fontFamily: font.display,
         }}>
           {eyebrow}
         </p>
@@ -39,6 +40,7 @@ export default function SectionHeader({ eyebrow, headline, sub, align = 'left' }
         color: colors.ink,
         wordBreak: 'keep-all',
         overflowWrap: 'break-word',
+        fontFamily: font.display,
       }}>
         {headline}
       </h2>

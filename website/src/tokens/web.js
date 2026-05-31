@@ -32,7 +32,8 @@ export const colors = {
 export const color = colors;
 
 export const font = {
-  family: "'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', system-ui, sans-serif",
+  family:  "'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', system-ui, sans-serif",
+  display: "'BentonModDisp', 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', system-ui, sans-serif",
 };
 
 export const type = {
