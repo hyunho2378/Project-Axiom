@@ -51,7 +51,7 @@ export default function AnalysisLoader({ onComplete }) {
             <AnimatePresence mode="wait">
                 <motion.p
                     key={phaseIndex}
-                    className="font-body text-sm text-[#8AAEC0] mb-8 tracking-widest uppercase"
+                    className="font-body text-[28px] text-[#8AAEC0] mb-8 tracking-widest uppercase"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
@@ -69,7 +69,7 @@ export default function AnalysisLoader({ onComplete }) {
                 />
             </div>
 
-            <p className="font-body text-xs text-[#5A9AB5] mt-3">
+            <p className="font-body text-[24px] text-[#5A9AB5] mt-3">
                 {Math.round(progress)}%
             </p>
         </div>

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useLocation, Navigate } from 'react-router-dom';
+import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import html2canvas from 'html2canvas';
 import ResultCrystal from '../components/three/ResultCrystal';
@@ -8,6 +8,14 @@ import ProductPreview from '../components/three/products/ProductPreview';
 import { getRecommendedProducts, getSkinTypeData } from '../data/axiomData';
 import { PRODUCTS } from '../data/products';
 import { useLanguage } from '../context/LanguageContext';
+
+const CARD_COLORS = {
+    '건성':   '#7FC4E8',
+    '중성':   '#3FD8C0',
+    '지성':   '#5566FF',
+    '수부지': '#22B8E0',
+    '복합성': '#2ED0B0',
+};
 
 const CATEGORY_TO_TYPE = {
     '토너': 'toner',
@@ -52,6 +60,7 @@ function to3DProduct(product) {
 export default function Result() {
     const { state } = useLocation();
     const { language } = useLanguage();
+    const navigate = useNavigate();
     const c = COPY[language] || COPY.en;
     const receiptRef = useRef(null);
     const [isSavingReceipt, setIsSavingReceipt] = useState(false);
@@ -62,6 +71,7 @@ export default function Result() {
     }
 
     const { skinTypeStr, products } = state;
+    const accentColor = CARD_COLORS[skinTypeStr.split(' · ')[0]] || '#00D4FF';
     const { description, characteristic, careDirection } = getSkinTypeData(skinTypeStr, language);
     const displayProducts = (products?.length > 0) ? products : getRecommendedProducts(skinTypeStr);
     const today = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
@@ -171,6 +181,7 @@ export default function Result() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.08 }}
                             whileHover={{ borderColor: 'rgba(90, 154, 181, 0.55)', boxShadow: '0 4px 32px rgba(90, 154, 181, 0.1)' }}
+                            onClick={() => navigate(`/curations/${product.id}`)}
                             style={{
                                 background: 'rgba(8, 30, 50, 0.4)',
                                 borderWidth: '1px',
@@ -180,6 +191,7 @@ export default function Result() {
                                 overflow: 'hidden',
                                 display: 'flex',
                                 flexDirection: 'column',
+                                cursor: 'pointer',
                             }}
                         >
                             {/* 3D ProductPreview 영역 */}
@@ -243,19 +255,19 @@ export default function Result() {
                     <div
                         ref={receiptRef}
                         style={{
-                            background: '#000000',
+                            background: `radial-gradient(circle at 50% 18%, ${accentColor}1a 0%, transparent 58%), #000000`,
                             width: '360px',
                             minHeight: '640px',
                             display: 'flex',
                             flexDirection: 'column',
                             padding: '40px 32px',
-                            border: '1px solid #1a1a1a',
+                            border: `1px solid ${accentColor}4d`,
                             borderRadius: '16px',
                             fontFamily: 'monospace',
                         }}
                     >
                         <div style={{ borderBottom: '1px solid #1a1a1a', paddingBottom: '20px', marginBottom: '24px' }}>
-                            <p style={{ color: '#3C7795', fontSize: '9px', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '6px' }}>
+                            <p style={{ color: accentColor, fontSize: '9px', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '6px' }}>
                                 AXIOM LABORATORY
                             </p>
                             <p style={{ color: '#222', fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
@@ -274,12 +286,12 @@ export default function Result() {
 
                         <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginBottom: '32px' }}>
                             {[0,1,2,3,4,5,6,7,8].map(i => (
-                                <span key={i} style={{ color: '#222', fontSize: '10px' }}>·</span>
+                                <span key={i} style={{ color: accentColor, fontSize: '10px', opacity: 0.4 }}>·</span>
                             ))}
                         </div>
 
                         <div style={{ marginBottom: '24px' }}>
-                            <p style={{ color: '#3C7795', fontSize: '9px', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '8px' }}>
+                            <p style={{ color: accentColor, fontSize: '9px', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '8px' }}>
                                 AXIOM Prescription
                             </p>
                             <p style={{ color: '#8AAEC0', fontSize: '11px', lineHeight: 1.6, letterSpacing: '0.02em' }}>
@@ -300,7 +312,7 @@ export default function Result() {
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <span style={{ color: '#333', fontSize: '8px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Precision</span>
-                                <span style={{ color: '#3C7795', fontSize: '8px', letterSpacing: '0.1em' }}>Clinical Grade</span>
+                                <span style={{ color: accentColor, fontSize: '8px', letterSpacing: '0.1em' }}>Clinical Grade</span>
                             </div>
                             <p style={{ color: '#1a1a1a', fontSize: '8px', letterSpacing: '0.3em', textTransform: 'uppercase', marginTop: '16px', textAlign: 'center' }}>
                                 axiom.studio · Define Your Axis
