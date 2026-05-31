@@ -139,16 +139,19 @@ function DesignPrinciples({ visible }) {
             key={p.id}
             style={{
               background: colors.bgDeep,
-              borderRadius: 'clamp(8px,1vw,12px)',
-              padding: 'clamp(20px,2.5vw,32px)',
+              borderRadius: 'clamp(10px,1.2vw,16px)',
+              padding: 'clamp(28px,3.5vw,48px)',
               opacity: visible ? 1 : 0,
               transform: visible ? 'none' : 'translateY(20px)',
               transition: `opacity 0.5s ease ${i * 80}ms, transform 0.5s ease ${i * 80}ms`,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 0,
             }}
           >
             <p
               style={{
-                margin: '0 0 2px',
+                margin: '0 0 10px',
                 fontSize: 'clamp(32px,4vw,48px)',
                 fontWeight: 800,
                 letterSpacing: '-0.05em',
@@ -160,7 +163,7 @@ function DesignPrinciples({ visible }) {
             </p>
             <p
               style={{
-                margin: '0 0 8px',
+                margin: '0 0 14px',
                 fontSize: 17,
                 fontWeight: 700,
                 letterSpacing: '0.04em',
@@ -171,10 +174,10 @@ function DesignPrinciples({ visible }) {
             </p>
             <p
               style={{
-                margin: '0 0 10px',
+                margin: '0 0 16px',
                 fontSize: t.body.size,
                 fontWeight: 600,
-                lineHeight: 1.4,
+                lineHeight: 1.6,
                 color: colors.ink,
               }}
             >
@@ -182,15 +185,15 @@ function DesignPrinciples({ visible }) {
             </p>
             <p
               style={{
-                margin: '0 0 8px',
+                margin: '0 0 14px',
                 fontSize: 17, fontWeight: 500,
-                lineHeight: 1.5,
+                lineHeight: 1.65,
                 color: colors.inkMuted,
               }}
             >
               {p.apply}
             </p>
-            <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: colors.inkMuted, lineHeight: 1.5 }}>
+            <p style={{ margin: 0, fontSize: 'clamp(10px,0.76vw,11px)', fontWeight: 400, color: colors.inkFaint, lineHeight: 1.5 }}>
               근거: {p.basis}
             </p>
           </div>

@@ -48,7 +48,7 @@ export default function Demo() {
         }}
       >
         <SectionHeader
-          eyebrow="11 DEMO"
+          eyebrow="11 3D GALLERY"
           headline="AXIOM 라이브 서비스"
           sub="직접 체험하기"
           align="center"

@@ -9,7 +9,7 @@
   },
   "hero": {
     "wordmark": "AXIOM",
-    "tagline": "The Self-Evident Axis of Beauty.",
+    "tagline": "The Self-Evident Axis of Beauty",
     "definition": "AI 피부 진단 기반 하이엔드 뷰티 큐레이션 플랫폼",
     "cta": "BEGIN ANALYSIS",
     "brandStory": {
@@ -346,14 +346,14 @@
     ],
     "designPrinciples": [
       {
-        "id": "P01",
+        "id": "1.",
         "name": "Zero Search",
         "headline": "사용자는 탐색하지 않는다. 플로우가 안내한다.",
-        "basis": "구매 포기 \"제품 너무 많아서\" 46.2% / P03 \"복잡해서 그냥 닫거든\"",
+        "basis": "구매 포기 \"제품 너무 많아서\" 46.2%",
         "apply": "검색창 없음. 카테고리 브라우징 없음. 선택지 항상 5개 이하."
       },
       {
-        "id": "P02",
+        "id": "2.",
         "name": "Explain, Don't Display",
         "headline": "데이터를 보여주지 말고 설명하라.",
         "basis": "미전환 이유 \"결과 부정확하게 느껴져서\" 41.7% / 신뢰도 2.95점",
@@ -362,17 +362,17 @@
         "langDont": "\"피지 과다 분비 경향\""
       },
       {
-        "id": "P03",
+        "id": "3.",
         "name": "Visual = Trust",
         "headline": "시각 퀄리티는 심미적 선택이 아니라 신뢰 설계다.",
-        "basis": "67.3% 시각→신뢰 / P04 \"디자인 허술하면 성분도 허술할 것 같고\"",
+        "basis": "67.3% 시각→신뢰",
         "apply": "다크 톤 유지. 3D 오브제 = 신뢰 신호. 배너/팝업 없음."
       },
       {
-        "id": "P04",
+        "id": "4.",
         "name": "One Flow, One Truth",
         "headline": "진단부터 구매까지 단 하나의 흐름. 이탈점을 만들지 않는다.",
-        "basis": "미전환 81.8% / P12 \"진단 받고 앱 닫고 인스타그램 봤어\"",
+        "basis": "미전환 81.8%",
         "apply": "외부 링크 없음. 결과→큐레이션 자동 전환."
       }
     ],
@@ -496,7 +496,7 @@
       "axiom": "Axiom (자명한 진리): 증명할 필요 없이 그 자체로 확실한 정답",
       "synthesis": "데이터로 증명된, 당신만의 흔들리지 않는 아름다움의 기준"
     },
-    "slogan": "The Self-Evident Axis of Beauty.",
+    "slogan": "The Self-Evident Axis of Beauty",
     "philosophy": "The Self-Evident Truth (자명한 진실)",
     "pillars": [
       {
