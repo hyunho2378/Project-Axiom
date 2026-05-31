@@ -14,24 +14,27 @@ export default function HeroIntro() {
         : { initial: { opacity: 0 }, animate: { opacity: 1 } };
 
     return (
-        <section
-            className="relative h-screen overflow-hidden bg-void-deep"
-        >
+        <section className="relative bg-void-deep overflow-hidden flex flex-col min-h-screen md:block md:h-screen">
             {/* Grain overlay */}
             <div
                 className="pointer-events-none absolute inset-0 z-10 opacity-[0.03]"
                 style={{ backgroundImage: 'url(/images/grain.png)', backgroundSize: '200px' }}
             />
 
-            {/* Text — left column
-                outer wrapper: pointer-events-none so crystal on the right receives mouse events
-                inner text block: pointer-events-auto to keep button/link clickable */}
-            <div className="relative z-20 flex items-center h-full max-w-7xl mx-auto px-6 pointer-events-none">
-                <div className="max-w-lg pointer-events-auto">
+            {/* Crystal — mobile: flow top (relative), desktop: absolute background */}
+            <div className="relative z-0 w-full h-[55vh] flex-shrink-0 md:absolute md:inset-0 md:h-auto">
+                <CrystalOrb />
+            </div>
+
+            {/* Text — mobile: block centered below crystal, desktop: absolute left column */}
+            <div className="relative z-20 px-6 py-10 pointer-events-auto text-center
+                            md:absolute md:inset-0 md:flex md:items-center md:h-full
+                            md:max-w-7xl md:mx-auto md:px-6 md:py-0 md:text-left md:pointer-events-none">
+                <div className="max-w-sm mx-auto pointer-events-auto md:max-w-lg md:mx-0">
                     <motion.p
                         {...fadeIn}
                         transition={{ duration: 0.6 }}
-                        className="font-body text-brand-600 text-[10px] tracking-[0.35em] uppercase mb-10"
+                        className="font-body text-brand-600 text-[10px] tracking-[0.35em] uppercase mb-6 md:mb-10"
                     >
                         AXIOM LABORATORY
                     </motion.p>
@@ -51,21 +54,21 @@ export default function HeroIntro() {
                         initial={prefersReduced ? {} : { scaleX: 0 }}
                         animate={{ scaleX: 1 }}
                         transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                        className="origin-left w-8 h-[1px] bg-brand-600 my-6"
+                        className="mx-auto w-8 h-[1px] bg-brand-600 my-6 origin-center md:origin-left md:mx-0"
                     />
 
                     <motion.p
                         initial={prefersReduced ? {} : { opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.7 }}
-                        className="font-body text-ui-textSecondary text-base md:text-lg leading-body-lg max-w-sm mb-10"
+                        className="font-body text-ui-textSecondary text-base md:text-lg leading-body-lg max-w-sm mx-auto mb-8 md:mb-10 md:mx-0"
                     >
                         {language === 'en'
                             ? <>Every skin is born<br />with its own center of balance.</>
                             : <>모든 피부는 태어나는 순간,<br />자신만의 고유한 중심축을 가집니다.</>}
                     </motion.p>
 
-                    <div className="flex gap-6 mb-12">
+                    <div className="flex gap-6 mb-10 justify-center md:justify-start md:mb-12">
                         {CATEGORIES.map((cat, i) => (
                             <motion.span
                                 key={cat}
@@ -83,6 +86,7 @@ export default function HeroIntro() {
                         initial={prefersReduced ? {} : { opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 1.1 }}
+                        className="flex justify-center md:block"
                     >
                         <Link
                             to="/analysis"
@@ -94,17 +98,11 @@ export default function HeroIntro() {
                 </div>
             </div>
 
-            {/* Crystal — full background */}
-            <div className="absolute inset-0 z-0">
-                <CrystalOrb />
-            </div>
-
-            {/* Left gradient — text readability */}
+            {/* Left gradient — desktop only for text readability */}
             <div
-                className="absolute inset-0 z-[1] pointer-events-none"
+                className="hidden md:block absolute inset-0 z-[1] pointer-events-none"
                 style={{ background: 'linear-gradient(to right, #03070a 0%, #03070a 30%, transparent 65%)' }}
             />
-
         </section>
     );
 }

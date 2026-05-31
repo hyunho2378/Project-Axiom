@@ -75,7 +75,7 @@ function makeMat(colorHex, emitHex, emitInt, metal, rough) {
 }
 
 // ── INNER SCENE COMPONENT ─────────────────────────────────────────────────
-function CrystalScene() {
+function CrystalScene({ isMobile }) {
     const objs = useMemo(() => {
         // Glow textures (CanvasTexture)
         const glowTex1 = makeGlowTexture('rgba(255,255,255,1)', 'rgba(0,212,255,1)',   512);
@@ -182,7 +182,7 @@ function CrystalScene() {
         }));
 
         // Position: right side, raised slightly
-        flower.position.x = 1.8;
+        flower.position.x = isMobile ? 0 : 1.8;
         flower.position.y = 0.3;
         flower.position.z = 0;
         flower.rotation.y = -Math.PI / 6;
@@ -214,7 +214,7 @@ function CrystalScene() {
             ambientLight, keyLight, fillLight, rimLight,
             textures: [glowTex1, glowTex2, glowTex3],
         };
-    }, []);
+    }, [isMobile]);
 
     // Dispose textures on unmount
     useEffect(() => () => {
@@ -289,7 +289,7 @@ function CrystalScene() {
 // ── PUBLIC COMPONENT ──────────────────────────────────────────────────────
 export default function CrystalOrb() {
     const isMobile = window.innerWidth < 768;
-    const camPos = isMobile ? [1.8, 0.5, 9] : [0, 0.5, 7];
+    const camPos = isMobile ? [0, 0.5, 8.5] : [0, 0.5, 7];
 
     return (
         <Canvas
@@ -303,7 +303,7 @@ export default function CrystalOrb() {
                 gl.toneMappingExposure = 1.6;
             }}
         >
-            <CrystalScene />
+            <CrystalScene isMobile={isMobile} />
         </Canvas>
     );
 }
