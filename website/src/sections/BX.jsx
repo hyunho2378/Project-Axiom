@@ -66,7 +66,7 @@ export default function BX() {
               margin: '0 0 clamp(28px,3.5vw,48px)',
               fontSize: 'clamp(16px,2vw,24px)',
               fontWeight: 500,
-              color: colors.inkMuted,
+              color: colors.ink,
               fontStyle: 'italic',
               letterSpacing: '0.02em',
             }}
@@ -91,7 +91,7 @@ export default function BX() {
             style={{
               margin: 'clamp(28px,3.5vw,48px) auto 0',
               fontSize: t.body.size,
-              color: colors.brand,
+              color: colors.ink,
               fontWeight: 600,
               maxWidth: '48ch',
               lineHeight: 1.7,
@@ -217,7 +217,6 @@ export default function BX() {
                       key={ri}
                       style={{
                         background: isAxiom ? 'rgba(90,154,181,0.06)' : (ri % 2 === 0 ? colors.bgCard : colors.bgDeep),
-                        outline: isAxiom ? `2px solid ${colors.brand}` : undefined,
                       }}
                     >
                       <td
@@ -227,11 +226,14 @@ export default function BX() {
                           color: isAxiom ? colors.brand : colors.ink,
                           whiteSpace: 'nowrap',
                           borderRight: `1px solid ${colors.line}`,
+                          borderTop:    isAxiom ? `2px solid ${colors.brand}` : undefined,
+                          borderBottom: isAxiom ? `2px solid ${colors.brand}` : undefined,
+                          borderLeft:   isAxiom ? `2px solid ${colors.brand}` : undefined,
                         }}
                       >
                         {brand.brand}
                       </td>
-                      {COMP_COLS.map(col => (
+                      {COMP_COLS.map((col, ci) => (
                         <td
                           key={col.key}
                           style={{
@@ -241,6 +243,9 @@ export default function BX() {
                               : colors.white,
                             fontWeight: isAxiom ? 500 : 500,
                             textAlign: typeof brand[col.key] === 'boolean' ? 'center' : 'left',
+                            borderTop:    isAxiom ? `2px solid ${colors.brand}` : undefined,
+                            borderBottom: isAxiom ? `2px solid ${colors.brand}` : undefined,
+                            borderRight:  isAxiom && ci === COMP_COLS.length - 1 ? `2px solid ${colors.brand}` : undefined,
                           }}
                         >
                           {cell(brand[col.key], isAxiom)}
