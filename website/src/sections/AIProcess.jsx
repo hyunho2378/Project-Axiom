@@ -5,20 +5,6 @@ import axiomData from '../data/axiom.json';
 
 const { aiProcess } = axiomData;
 
-const ORBS = [
-  { file: 'axiom-crystal-v3', label: 'CrystalOrb' },
-  { file: 'axiom-dna-helix',  label: 'DNAHelix' },
-  { file: 'axiom-aurora-v2',  label: 'AuroraRing' },
-  { file: 'axiom-nebula',     label: 'ParticleNebula' },
-  { file: 'axiom-ribbon',     label: 'SilkRibbon' },
-  { file: 'axiom-toner',      label: 'TonerBottle' },
-  { file: 'axiom-ampoule',    label: 'AmpouleBottle' },
-  { file: 'axiom-tube',       label: 'TubeCream' },
-  { file: 'axiom-sunscreen',  label: 'SunscreenTube' },
-  { file: 'axiom-jar',        label: 'JarCream' },
-  { file: 'axiom-stage',      label: 'ProductStage' },
-];
-
 function reliabilityBadge(rel) {
   if (!rel) return null;
   const isStrong = rel.startsWith('강함');
@@ -35,7 +21,6 @@ function reliabilityBadge(rel) {
 
 export default function AIProcess() {
   const [why3dRef,  why3dVisible]  = useReveal({ threshold: 0.1 });
-  const [gallRef,   gallVisible]   = useReveal({ threshold: 0.05 });
   const [collabRef, collabVisible] = useReveal({ threshold: 0.1 });
 
   return (
@@ -47,7 +32,7 @@ export default function AIProcess() {
         <SectionHeader
           eyebrow="09 AI PROCESS"
           headline="3D + Claude Code 협업 구조"
-          sub="왜 3D인가 · 오브제 갤러리 · AI와 사람의 역할 분담"
+          sub="왜 3D인가 · AI와 사람의 역할 분담"
           align="left"
         />
 
@@ -89,56 +74,6 @@ export default function AIProcess() {
               {reliabilityBadge(item.reliability)}
             </div>
           ))}
-        </div>
-
-        {/* ── 3D 오브제 갤러리 ── */}
-        <div
-          ref={gallRef}
-          style={{ marginBottom: 'clamp(56px,7vw,96px)' }}
-        >
-          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
-            3D 오브제 갤러리
-          </p>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: 'clamp(8px,1.5vw,14px)',
-              opacity: gallVisible ? 1 : 0,
-              transition: 'opacity 0.7s ease',
-            }}
-            className="gallery-grid"
-          >
-            {ORBS.map((orb, i) => (
-              <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <div
-                  style={{
-                    background: colors.bgDeep,
-                    borderRadius: 'clamp(6px,0.8vw,10px)',
-                    overflow: 'hidden',
-                    border: `1px solid ${colors.line}`,
-                    height: 'clamp(120px,16vw,200px)',
-                  }}
-                >
-                  <iframe
-                    src={`/3d-ref/${orb.file}.html`}
-                    title={orb.label}
-                    loading="lazy"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      border: 'none',
-                      pointerEvents: 'auto',
-                      display: 'block',
-                    }}
-                  />
-                </div>
-                <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: colors.inkMuted, textAlign: 'center', lineHeight: 1.4 }}>
-                  {orb.label}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* ── AI 협업 역할 구분 ── */}
@@ -211,9 +146,6 @@ export default function AIProcess() {
         @media (max-width: 900px) {
           .why3d-grid    { grid-template-columns: 1fr !important; }
           .collab-grid   { grid-template-columns: 1fr !important; }
-        }
-        @media (max-width: 768px) {
-          .gallery-grid  { grid-template-columns: repeat(2, 1fr) !important; }
         }
       `}</style>
     </section>
