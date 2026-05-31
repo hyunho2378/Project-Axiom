@@ -33,12 +33,15 @@ export default function Axiom() {
         <main ref={mainRef} className="bg-void-deepest min-h-screen">
             {!prefersReduced && (
                 <motion.div
-                    className="pointer-events-none fixed w-[350px] h-[350px] rounded-full -translate-x-1/2 -translate-y-1/2"
+                    className="pointer-events-none fixed rounded-full -translate-x-1/2 -translate-y-1/2"
                     style={{
                         left: cursorX,
                         top: cursorY,
-                        background: 'radial-gradient(circle, rgba(42,104,133,0.35) 0%, transparent 45%)',
+                        width: 600,
+                        height: 600,
+                        background: 'radial-gradient(circle, rgba(90,154,181,0.18) 0%, rgba(0,212,255,0.08) 35%, transparent 70%)',
                         filter: 'blur(60px)',
+                        zIndex: 5,
                     }}
                 />
             )}
