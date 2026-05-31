@@ -7,28 +7,16 @@
   *{margin:0;padding:0;box-sizing:border-box}
   body{background:#000;overflow:hidden;font-family:'Helvetica Neue',sans-serif}
   canvas{display:block;width:100vw;height:100vh}
-  #label{
-    position:fixed;top:36px;left:50%;transform:translateX(-50%);
-    font-size:11px;letter-spacing:.4em;color:rgba(0,180,220,.6);
-    text-transform:uppercase;pointer-events:none;
-  }
-  #state{
-    position:fixed;bottom:36px;left:50%;transform:translateX(-50%);
-    font-size:11px;letter-spacing:.3em;color:rgba(90,154,181,.6);
-    text-transform:uppercase;pointer-events:none;
-    transition:opacity .6s;
-  }
+
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
-<div id="label">Particle Nebula · Landing Transition</div>
-<div id="state">click to toggle</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 const canvas = document.getElementById('c');
-const stateEl = document.getElementById('state');
+
 const W = () => window.innerWidth;
 const H = () => window.innerHeight;
 
@@ -190,7 +178,7 @@ let targetMorphT = 1.0;
 canvas.addEventListener('click', () => {
   isGathered = !isGathered;
   targetMorphT = isGathered ? 1.0 : 0.0;
-  stateEl.textContent = isGathered ? 'gathered' : 'scattered';
+
 });
 
 // ── ANIMATE ──────────────────────────────────────

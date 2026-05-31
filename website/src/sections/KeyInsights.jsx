@@ -80,7 +80,7 @@ export default function KeyInsights() {
 
                 <h2
                   style={{
-                    fontSize: 'clamp(32px,4vw,60px)',
+                    fontSize: 'clamp(26px,3vw,54px)',
                     fontWeight: 800,
                     lineHeight: 1.22,
                     letterSpacing: '-0.03em',

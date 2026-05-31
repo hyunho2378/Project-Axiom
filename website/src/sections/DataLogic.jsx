@@ -343,7 +343,7 @@ export default function DataLogic() {
       <div style={{ maxWidth: layout.container, margin: '0 auto' }}>
         <SectionHeader
           eyebrow="08 DATA LOGIC"
-          headline="2축 독립 채점 → 20가지 피부 코드"
+          headline="유분·민감도 두 기준으로 분석 → 20가지 피부 타입"
           sub={`${overview.axis1} · ${overview.axis2}`}
           align="left"
         />

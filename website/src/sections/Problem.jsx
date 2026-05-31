@@ -189,7 +189,7 @@ export default function Problem() {
           <SectionHeader
             eyebrow="03 PROBLEM"
             headline="왜 사람들은 뷰티 앱을 쓰고도 제품을 못 사는가"
-            sub="데스크 리서치와 유저 리서치가 수렴한 세 가지 핵심 문제"
+            sub="데스크 리서치와 유저 리서치에서 공통적으로 나타난 세 가지 핵심 문제"
             align="left"
           />
         </div>
@@ -248,7 +248,7 @@ export default function Problem() {
                       color: colors.brand,
                     }}
                   >
-                    {p.id} · {p.stat} {p.statLabel}
+                    {p.stat} {p.statLabel}
                   </p>
                   <h3
                     style={{

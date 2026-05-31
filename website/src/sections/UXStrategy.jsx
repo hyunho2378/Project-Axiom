@@ -18,7 +18,8 @@ function PositioningMap({ visible }) {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-start',
+        alignItems: 'center',
+        width: '100%',
         marginBottom: 'clamp(48px,6vw,80px)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'none' : 'translateY(24px)',
@@ -33,6 +34,7 @@ function PositioningMap({ visible }) {
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
           color: colors.inkMuted,
+          alignSelf: 'flex-start',
         }}
       >
         포지셔닝 맵
@@ -40,7 +42,7 @@ function PositioningMap({ visible }) {
 
       <svg
         viewBox={`0 0 ${MAP_SIZE} ${MAP_SIZE}`}
-        style={{ width: 'clamp(280px,50vw,400px)', height: 'clamp(280px,50vw,400px)', display: 'block' }}
+        style={{ width: 'clamp(320px,70vw,660px)', height: 'clamp(320px,70vw,660px)', display: 'block' }}
       >
         <rect x="0" y="0" width={MAP_SIZE} height={MAP_SIZE} fill={colors.bgDeep} rx="12" />
 
@@ -91,11 +93,11 @@ function PositioningMap({ visible }) {
 
       <p
         style={{
-          marginTop: 12,
+          marginTop: 16,
           fontSize: t.caption.size,
           color: colors.inkMuted,
-          textAlign: 'left',
-          maxWidth: 360,
+          textAlign: 'center',
+          maxWidth: 480,
         }}
       >
         {positioningMap.vacantZone}
@@ -207,7 +209,7 @@ function HMWTable({ visible }) {
           color: colors.inkMuted,
         }}
       >
-        HMW → 설계 결정
+        해결 질문 → 설계 결정
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px,3vw,32px)' }}>
         {hmw.map((group, gi) => (
@@ -296,7 +298,7 @@ export default function UXStrategy() {
         <SectionHeader
           eyebrow="06 UX STRATEGY"
           headline="인사이트에서 설계 원칙으로"
-          sub="포지셔닝 맵 · Design Principles · HMW → 설계 결정"
+          sub="포지셔닝 맵 · Design Principles · 해결 질문 → 설계 결정"
           align="left"
         />
 

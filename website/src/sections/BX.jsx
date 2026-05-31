@@ -55,7 +55,7 @@ export default function BX() {
           <h2
             style={{
               margin: '0 0 clamp(8px,1vw,16px)',
-              fontSize: 'clamp(39px,7vw,84px)',
+              fontSize: 'clamp(33px,6vw,78px)',
               fontWeight: 800,
               letterSpacing: '-0.05em',
               lineHeight: 0.95,

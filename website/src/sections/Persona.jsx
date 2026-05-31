@@ -154,8 +154,8 @@ export default function Persona() {
       <div style={{ maxWidth: layout.container, margin: '0 auto' }}>
         <SectionHeader
           eyebrow="05 PERSONA"
-          headline="리서치가 수렴한 두 명의 사용자"
-          sub="52명의 데이터와 12명의 인터뷰에서 귀납적으로 도출된 핵심 페르소나"
+          headline="리서치가 보여준 두 명의 사용자"
+          sub="52명의 데이터와 12명의 인터뷰에서 발견한 핵심 페르소나"
           align="left"
         />
 

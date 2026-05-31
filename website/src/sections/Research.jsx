@@ -246,7 +246,7 @@ export default function Research() {
           <SectionHeader
             eyebrow="04 RESEARCH"
             headline="유저 리서치: 52명의 데이터가 말한 것"
-            sub="설문(n=52) + 심층 인터뷰(n=12) 혼합 방법론으로 수렴한 세 개의 인사이트"
+            sub="설문(n=52) + 심층 인터뷰(n=12)를 통해 발견한 세 개의 인사이트"
             align="left"
           />
         </div>
@@ -281,22 +281,6 @@ export default function Research() {
               source={d.source}
             />
           ))}
-        </div>
-
-        <div
-          style={{
-            marginBottom: 'clamp(48px,6vw,80px)',
-            opacity: chartsVisible ? 1 : 0,
-            transform: chartsVisible ? 'none' : 'translateY(24px)',
-            transition: 'opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s',
-          }}
-        >
-          <BarChart
-            title={chartData.barChart.title}
-            subtitle={chartData.barChart.subtitle}
-            bars={chartData.barChart.bars}
-            source={chartData.barChart.source}
-          />
         </div>
 
         <div ref={insightsRef}>

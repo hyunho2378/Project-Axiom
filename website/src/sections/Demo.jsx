@@ -84,9 +84,7 @@ export default function Demo() {
             BEGIN ANALYSIS →
           </a>
 
-          <p style={{ margin: 0, fontSize: 17, fontWeight: 500, color: colors.inkMuted, letterSpacing: '0.02em' }}>
-            {demo.liveUrl}
-          </p>
+
         </div>
       </div>
     </section>

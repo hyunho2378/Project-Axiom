@@ -1,8 +1,8 @@
 export const colors = {
-  bg:           '#040A12',
+  bg:           '#000000',
   bgDeep:       '#000000',
-  bgCard:       '#0A1628',
-  bgCardHover:  '#0D1E38',
+  bgCard:       '#0A0A0A',
+  bgCardHover:  '#082B35',
 
   brand:        '#00D4FF',
   brandStrong:  '#00E0FF',
@@ -19,9 +19,9 @@ export const colors = {
   labelBg2:     '#357292',
   labelBg3:     '#28637E',
 
-  line:         '#0D2438',
-  warn:         '#FF8866',
-  ok:           '#44CCBB',
+  line:         '#082B35',
+  warn:         '#8AAEC0',
+  ok:           '#00D4FF',
 
   white:        '#FFFFFF',
   black:        '#000000',

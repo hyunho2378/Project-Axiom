@@ -1,47 +1,41 @@
-// AXIOM Portfolio - bui2ld fix
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { colors, font } from './tokens/web.js';
 import Nav from './components/Nav.jsx';
-import Hero from './sections/Hero.jsx';
-import Overview from './sections/Overview.jsx';
-import Problem from './sections/Problem.jsx';
-import Research from './sections/Research.jsx';
-import Persona from './sections/Persona.jsx';
-import UXStrategy from './sections/UXStrategy.jsx';
-import BX from './sections/BX.jsx';
-import DataLogic from './sections/DataLogic.jsx';
-import AIProcess from './sections/AIProcess.jsx';
-import UXFlow from './sections/UXFlow.jsx';
-import Demo from './sections/Demo.jsx';
-import Credits from './sections/Credits.jsx';
+import ScrollToTop from './lib/ScrollToTop.jsx';
+import PageOverview from './pages/PageOverview.jsx';
+import PageResearch from './pages/PageResearch.jsx';
+import PageStrategy from './pages/PageStrategy.jsx';
+import PageBX from './pages/PageBX.jsx';
+import PageDataLogic from './pages/PageDataLogic.jsx';
+import PageDemo from './pages/PageDemo.jsx';
 
 export default function App() {
   return (
-    <div
-      style={{
-        background: colors.bg,
-        fontFamily: font.family,
-        minHeight: '100vh',
-        WebkitFontSmoothing: 'antialiased',
-        MozOsxFontSmoothing: 'grayscale',
-        wordBreak: 'keep-all',
-        overflowWrap: 'break-word',
-      }}
-    >
-      <Nav />
-      <main>
-        <Hero />
-        <Overview />
-        <Problem />
-        <Research />
-        <Persona />
-        <UXStrategy />
-        <BX />
-        <DataLogic />
-        <AIProcess />
-        <UXFlow />
-        <Demo />
-        <Credits />
-      </main>
-    </div>
+    <BrowserRouter>
+      <div
+        style={{
+          background: colors.bg,
+          fontFamily: font.family,
+          minHeight: '100vh',
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale',
+          wordBreak: 'keep-all',
+          overflowWrap: 'break-word',
+        }}
+      >
+        <Nav />
+        <ScrollToTop />
+        <main>
+          <Routes>
+            <Route path="/"           element={<PageOverview />} />
+            <Route path="/research"   element={<PageResearch />} />
+            <Route path="/strategy"   element={<PageStrategy />} />
+            <Route path="/bx"         element={<PageBX />} />
+            <Route path="/data-logic" element={<PageDataLogic />} />
+            <Route path="/demo"       element={<PageDemo />} />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }

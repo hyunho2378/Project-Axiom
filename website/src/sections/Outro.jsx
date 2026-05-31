@@ -39,7 +39,7 @@ export default function Outro() {
           }}
         >
           <h2 style={{
-            fontSize: 'clamp(40px,6vw,80px)',
+            fontSize: 'clamp(34px,5vw,74px)',
             fontWeight: 800,
             lineHeight: 1.1,
             letterSpacing: '-0.04em',

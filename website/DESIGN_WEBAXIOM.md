@@ -3,10 +3,10 @@
 ## 컬러 토큰 (전체 교체 대상)
 
 ### 배경
-bg: #040A12 (메인 배경)
+bg: #000000 (메인 배경)
 bgDeep: #000000
-bgCard: #0A1628
-bgCardHover: #0D1E38
+bgCard: #0A0A0A
+bgCardHover: #082B35
 
 ### 브랜드
 brand: #00D4FF (Neon Primary)
@@ -27,9 +27,9 @@ labelBg2: #357292
 labelBg3: #28637E
 
 ### 상태
-line: #0D2438
-warn: #FF8866
-ok: #44CCBB
+line: #082B35
+warn: #8AAEC0
+ok: #00D4FF
 
 ## 타이포그래피
 영문 타이틀: BentonModDisp Semibold (CDN or local font)

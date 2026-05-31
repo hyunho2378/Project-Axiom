@@ -72,7 +72,7 @@ export default function UxConcept() {
 
         {/* Main headline */}
         <h2 style={{
-          fontSize: 'clamp(34px,5.6vw,84px)',
+          fontSize: 'clamp(28px,4.6vw,78px)',
           fontWeight: 800,
           lineHeight: 1.22,
           letterSpacing: '-0.04em',

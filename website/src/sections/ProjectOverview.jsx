@@ -43,7 +43,7 @@ export default function ProjectOverview() {
 
           <h2
             style={{
-              fontSize: 'clamp(40px,5vw,80px)',
+              fontSize: 'clamp(34px,4vw,74px)',
               fontWeight: 800,
               lineHeight: 1.22,
               letterSpacing: '-0.035em',
