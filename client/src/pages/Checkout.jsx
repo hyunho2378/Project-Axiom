@@ -30,6 +30,7 @@ const COPY = {
         card: '신용 / 체크카드',
         simplePay: '간편결제',
         checkout: '결제하기',
+        processing: '결제 중...',
         back: '← 장바구니로',
         demoNote: '전시용 체험 결제입니다. 실제 청구가 발생하지 않습니다.',
     },
@@ -49,6 +50,7 @@ const COPY = {
         card: 'Credit / Debit Card',
         simplePay: 'Quick Pay',
         checkout: 'Complete Order',
+        processing: 'Processing...',
         back: '← Back to Cart',
         demoNote: 'This is a demonstration checkout. No charge will occur.',
     },
@@ -72,16 +74,22 @@ export default function Checkout() {
         : items;
 
     const [payMethod, setPayMethod] = useState('card');
+    const [isProcessing, setIsProcessing] = useState(false);
 
     const total = orderItems.reduce((s, i) => s + i.price * i.qty, 0);
 
     const handleCheckout = () => {
-        if (isBuyNow) {
-            clearBuyNow();
-        } else {
-            clear();
-        }
-        navigate('/order-complete', { state: { orderItems, total } });
+        if (isProcessing) return;
+        setIsProcessing(true);
+        const snapshot = { orderItems, total };
+        setTimeout(() => {
+            if (isBuyNow) {
+                clearBuyNow();
+            } else {
+                clear();
+            }
+            navigate('/order-complete', { state: snapshot });
+        }, 1000);
     };
 
     if (orderItems.length === 0) {
@@ -250,9 +258,22 @@ export default function Checkout() {
 
                             <button
                                 onClick={handleCheckout}
-                                className="btn-glow w-full py-4 rounded-2xl font-body text-sm font-bold tracking-[0.1em] uppercase"
+                                disabled={isProcessing}
+                                className={`btn-glow w-full py-4 rounded-2xl font-body text-sm font-bold tracking-[0.1em] uppercase transition-opacity ${isProcessing ? 'opacity-70' : ''}`}
                             >
-                                {c.checkout} — {formatPrice(total)}
+                                {isProcessing ? (
+                                    <span className="flex items-center justify-center gap-2.5">
+                                        <motion.span
+                                            animate={{ rotate: 360 }}
+                                            transition={{ duration: 0.9, repeat: Infinity, ease: 'linear' }}
+                                            className="w-4 h-4 rounded-full border border-white/20 border-t-white"
+                                            style={{ display: 'block', flexShrink: 0 }}
+                                        />
+                                        {c.processing}
+                                    </span>
+                                ) : (
+                                    `${c.checkout} — ${formatPrice(total)}`
+                                )}
                             </button>
 
                             <p className="font-body text-[10px] text-ui-textMuted/60 text-center mt-4 leading-relaxed">

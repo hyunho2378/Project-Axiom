@@ -86,15 +86,23 @@ export default function Cart() {
                 ) : (
                     <>
                         <div className="flex flex-col gap-4 mb-10">
-                            <AnimatePresence initial={false}>
-                                {items.map((item) => (
+                            <AnimatePresence>
+                                {items.map((item, i) => (
                                     <motion.div
                                         key={item.id}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, x: -20, height: 0, marginBottom: 0 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="flex items-start gap-5 p-5 rounded-2xl bg-void-light border border-ui-border"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{
+                                            opacity: 1,
+                                            y: 0,
+                                            transition: { duration: 0.4, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] },
+                                        }}
+                                        exit={{
+                                            opacity: 0,
+                                            x: -24,
+                                            height: 0,
+                                            transition: { duration: 0.25, ease: [0.4, 0, 1, 1] },
+                                        }}
+                                        className="flex items-start gap-5 p-5 rounded-2xl bg-void-light border border-ui-border overflow-hidden"
                                     >
                                         {/* 제품 정보 */}
                                         <div className="flex-1 min-w-0">
@@ -123,9 +131,18 @@ export default function Cart() {
                                             >
                                                 −
                                             </button>
-                                            <span className="w-6 text-center font-body text-sm text-ui-textPrimary tabular-nums">
-                                                {item.qty}
-                                            </span>
+                                            <AnimatePresence mode="wait" initial={false}>
+                                                <motion.span
+                                                    key={item.qty}
+                                                    initial={{ scale: 1.35, opacity: 0 }}
+                                                    animate={{ scale: 1, opacity: 1 }}
+                                                    exit={{ scale: 0.65, opacity: 0 }}
+                                                    transition={{ duration: 0.14, ease: [0.16, 1, 0.3, 1] }}
+                                                    className="w-6 text-center font-body text-sm text-ui-textPrimary tabular-nums block"
+                                                >
+                                                    {item.qty}
+                                                </motion.span>
+                                            </AnimatePresence>
                                             <button
                                                 onClick={() => updateQty(item.id, item.qty + 1)}
                                                 className="w-7 h-7 rounded-full border border-ui-border text-ui-textMuted hover:border-brand-400/60 hover:text-white transition-colors flex items-center justify-center font-body text-base"

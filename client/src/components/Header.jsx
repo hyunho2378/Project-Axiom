@@ -113,11 +113,20 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                                     <line x1="3" y1="6" x2="21" y2="6" />
                                     <path d="M16 10a4 4 0 0 1-8 0" />
                                 </svg>
-                                {cartCount > 0 && (
-                                    <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-[#3C7795] text-white text-[10px] font-bold flex items-center justify-center leading-none">
-                                        {cartCount > 9 ? '9+' : cartCount}
-                                    </span>
-                                )}
+                                <AnimatePresence>
+                                    {cartCount > 0 && (
+                                        <motion.span
+                                            key={cartCount}
+                                            initial={{ scale: 0.4, opacity: 0 }}
+                                            animate={{ scale: 1, opacity: 1 }}
+                                            exit={{ scale: 0, opacity: 0 }}
+                                            transition={{ type: 'spring', stiffness: 500, damping: 22 }}
+                                            className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-[#3C7795] text-white text-[10px] font-bold flex items-center justify-center leading-none"
+                                        >
+                                            {cartCount > 9 ? '9+' : cartCount}
+                                        </motion.span>
+                                    )}
+                                </AnimatePresence>
                             </Link>
 
                             {/* Language toggle */}
@@ -199,11 +208,20 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                                 <line x1="3" y1="6" x2="21" y2="6" />
                                 <path d="M16 10a4 4 0 0 1-8 0" />
                             </svg>
-                            {cartCount > 0 && (
-                                <span className="absolute top-1.5 right-1.5 min-w-[14px] h-[14px] px-0.5 rounded-full bg-[#3C7795] text-white text-[9px] font-bold flex items-center justify-center leading-none">
-                                    {cartCount > 9 ? '9+' : cartCount}
-                                </span>
-                            )}
+                            <AnimatePresence>
+                                {cartCount > 0 && (
+                                    <motion.span
+                                        key={cartCount}
+                                        initial={{ scale: 0.4, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        exit={{ scale: 0, opacity: 0 }}
+                                        transition={{ type: 'spring', stiffness: 500, damping: 22 }}
+                                        className="absolute top-1.5 right-1.5 min-w-[14px] h-[14px] px-0.5 rounded-full bg-[#3C7795] text-white text-[9px] font-bold flex items-center justify-center leading-none"
+                                    >
+                                        {cartCount > 9 ? '9+' : cartCount}
+                                    </motion.span>
+                                )}
+                            </AnimatePresence>
                         </Link>
 
                         <button

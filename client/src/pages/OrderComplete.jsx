@@ -74,17 +74,40 @@ export default function OrderComplete() {
             <div className="max-w-2xl mx-auto px-6 pt-28 pb-24">
 
                 {/* 성공 아이콘 + 헤드라인 */}
-                <motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7 }}
-                    className="text-center mb-12"
-                >
-                    <div className="w-16 h-16 rounded-full border border-[#2A6885]/50 flex items-center justify-center mx-auto mb-8">
-                        <svg className="w-7 h-7 text-[#3C7795]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="20 6 9 17 4 12" />
-                        </svg>
+                <div className="text-center mb-12">
+                    {/* 아이콘 + glow */}
+                    <div className="relative w-16 h-16 mx-auto mb-8">
+                        {/* 은은한 glow — 1회 페이드 */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: [0, 0.28, 0] }}
+                            transition={{ duration: 2.2, delay: 0.3, ease: 'easeOut' }}
+                            className="absolute inset-[-12px] rounded-full bg-[#3C7795]/20 blur-2xl pointer-events-none"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.6 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                            className="w-16 h-16 rounded-full border border-[#2A6885]/50 flex items-center justify-center"
+                        >
+                            <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                <motion.polyline
+                                    points="20 6 9 17 4 12"
+                                    stroke="#3C7795"
+                                    strokeWidth="1.5"
+                                    initial={{ pathLength: 0, opacity: 0 }}
+                                    animate={{ pathLength: 1, opacity: 1 }}
+                                    transition={{ duration: 0.5, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                                />
+                            </svg>
+                        </motion.div>
                     </div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    >
                     <p className="font-body text-[10px] tracking-[0.22em] uppercase text-brand-400 mb-4">
                         {c.eyebrow}
                     </p>
@@ -95,7 +118,8 @@ export default function OrderComplete() {
                         {c.sub}
                     </p>
                     <div className="w-16 h-[1px] bg-[#2A6885]/40 mx-auto mt-8" />
-                </motion.div>
+                    </motion.div>
+                </div>
 
                 {/* 주문 번호 */}
                 <motion.div

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { getAllProducts, formatPrice } from '../data/products';
 import ProductPreview from '../components/three/products/ProductPreview';
 import { useLanguage } from '../context/LanguageContext';
@@ -168,9 +168,20 @@ export default function ProductDetail() {
                                 className="w-full py-4 rounded-2xl text-sm font-bold tracking-[0.1em] uppercase font-body
                                            border border-[#3C7795]/60 text-[#8AAEC0]
                                            hover:border-[#8AAEC0] hover:text-white
-                                           transition-all duration-300"
+                                           transition-all duration-300 overflow-hidden"
                             >
-                                {added ? c.added : c.addToCart}
+                                <AnimatePresence mode="wait" initial={false}>
+                                    <motion.span
+                                        key={added ? 'added' : 'default'}
+                                        initial={{ opacity: 0, y: 8 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -8 }}
+                                        transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                                        className="block"
+                                    >
+                                        {added ? c.added : c.addToCart}
+                                    </motion.span>
+                                </AnimatePresence>
                             </button>
                             <button
                                 onClick={() => {
@@ -188,6 +199,26 @@ export default function ProductDetail() {
                             >
                                 {c.buyNow}
                             </button>
+
+                            {/* 담기 토스트 */}
+                            <AnimatePresence>
+                                {added && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 6 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: 6 }}
+                                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                                        className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-[#2A6885]/12 border border-[#2A6885]/25"
+                                    >
+                                        <svg className="w-3.5 h-3.5 text-[#3C7795] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <polyline points="20 6 9 17 4 12" />
+                                        </svg>
+                                        <p className="font-body text-xs text-[#8AAEC0] tracking-[0.08em]">
+                                            {language === 'en' ? 'Added to cart' : '장바구니에 담겼습니다'}
+                                        </p>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </motion.div>
                 </div>
