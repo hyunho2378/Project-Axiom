@@ -27,7 +27,7 @@ export default function HeroIntro() {
             </div>
 
             {/* Text — mobile: block centered below crystal, desktop: absolute left column */}
-            <div className="relative z-20 px-6 py-10 pointer-events-auto text-center
+            <div className="relative z-20 px-6 pt-4 pb-10 pointer-events-auto text-center
                             md:absolute md:inset-0 md:flex md:items-center md:h-full
                             md:max-w-7xl md:mx-auto md:px-6 md:py-0 md:text-left md:pointer-events-none">
                 <div className="max-w-sm mx-auto pointer-events-auto md:max-w-lg md:mx-0">
