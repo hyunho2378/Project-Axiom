@@ -255,7 +255,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess }) {
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full mt-2 py-4 bg-[#3C7795] hover:bg-[#8AAEC0] disabled:opacity-40 text-white font-body font-semibold text-sm tracking-[0.12em] uppercase rounded-2xl transition-all duration-300 shadow-[0_0_20px_rgba(60,119,149,0.25)]"
+                                className="btn-glow w-full mt-2 py-4 disabled:opacity-40 font-body font-semibold text-sm tracking-[0.12em] uppercase rounded-2xl"
                             >
                                 {isLoading ? (
                                     <span className="flex items-center justify-center gap-2">

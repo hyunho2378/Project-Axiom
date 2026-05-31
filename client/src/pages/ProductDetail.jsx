@@ -184,11 +184,7 @@ export default function ProductDetail() {
                                     });
                                     navigate('/checkout?mode=buynow');
                                 }}
-                                className="w-full py-4 rounded-2xl text-sm font-bold tracking-[0.1em] uppercase font-body
-                                           bg-gradient-to-r from-[#1E5672] to-[#3C7795] text-white
-                                           border border-white/15
-                                           hover:brightness-110 transition-all duration-300
-                                           shadow-lg hover:shadow-[0_8px_32px_rgba(60,119,149,0.40)]"
+                                className="btn-glow w-full py-4 rounded-2xl text-sm font-bold tracking-[0.1em] uppercase font-body"
                             >
                                 {c.buyNow}
                             </button>

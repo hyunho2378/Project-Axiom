@@ -311,7 +311,7 @@ export default function ResearcherEditorial() {
                         <div className="lg:col-span-5 flex flex-col gap-4">
                             <Link
                                 to="/analysis"
-                                className="inline-flex items-center justify-center gap-4 px-10 py-5 bg-[#3C7795] hover:bg-[#8AAEC0] text-white font-body font-semibold text-xs tracking-[0.2em] uppercase rounded-2xl transition-all duration-300"
+                                className="btn-glow inline-flex items-center justify-center gap-4 px-10 py-5 font-body font-semibold text-xs tracking-[0.2em] uppercase rounded-2xl"
                             >
                                 Begin Your Analysis →
                             </Link>
