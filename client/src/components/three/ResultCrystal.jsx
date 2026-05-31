@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Environment } from '@react-three/drei';
+import { Environment, OrbitControls } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import EvolvingBlob, { EvolvingParticles, Starfield } from './EvolvingBlob';
 
@@ -22,6 +22,7 @@ export default function ResultCrystal({ skinType }) {
             dpr={[1, 1.5]}
             gl={{ toneMappingExposure: 1.15 }}
         >
+            <OrbitControls enableZoom={false} enablePan={false} />
             <ambientLight intensity={0.35} />
             <spotLight position={[10, 10, 10]} intensity={1.0} color={preset.key} />
             <pointLight position={[-10, -5, -5]} intensity={0.4} color={preset.fill} />

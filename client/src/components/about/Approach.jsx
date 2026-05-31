@@ -37,7 +37,7 @@ function TiltCard({ item, index, prefersReduced }) {
             style={prefersReduced ? {} : { rotateX, rotateY, transformStyle: 'preserve-3d', perspective: 800 }}
             onMouseMove={handleMouse}
             onMouseLeave={handleLeave}
-            className="flex-shrink-0 w-64 md:w-auto p-8 rounded-2xl border border-ui-border snap-start cursor-default"
+            className="w-full md:w-auto p-8 rounded-2xl border border-ui-border cursor-default"
             whileHover={prefersReduced ? {} : { borderColor: '#2A6885' }}
         >
             <h3 className="font-title-en text-2xl text-white">{item.title}</h3>
@@ -61,8 +61,8 @@ export default function Approach() {
                     </h2>
                 </div>
 
-                {/* Mobile: horizontal scroll / Desktop: 3-col grid */}
-                <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-6 md:overflow-x-visible" style={{ scrollbarWidth: 'none' }}>
+                {/* Mobile: 1-col vertical / Desktop: 3-col grid */}
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
                     {APPROACH.map((item, i) => (
                         <TiltCard key={item.title} item={item} index={i} prefersReduced={prefersReduced} />
                     ))}

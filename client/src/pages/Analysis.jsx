@@ -169,21 +169,23 @@ export default function Analysis() {
 
                     <div className="flex flex-col justify-center h-full">
                         {quizPhase === 'intro' && (
-                            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="w-full">
+                            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="w-full text-center md:text-left">
                                 <h1 className="text-4xl md:text-6xl font-title-en font-bold mb-6 leading-title">Discover Your Axis.</h1>
                                 <p className="text-[#8AAEC0] text-lg font-body mb-12 leading-body tracking-normal" style={{ whiteSpace: 'pre-line' }}>
                                     {c.introDesc}
                                 </p>
-                                <button
-                                    onClick={() => setQuizPhase('gender')}
-                                    className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-[14px] btn-glow"
-                                >
-                                    BEGIN ANALYSIS
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                        <line x1="5" y1="12" x2="19" y2="12" />
-                                        <polyline points="12 5 19 12 12 19" />
-                                    </svg>
-                                </button>
+                                <div className="flex justify-center md:justify-start">
+                                    <button
+                                        onClick={() => setQuizPhase('gender')}
+                                        className="inline-flex items-center gap-4 px-16 py-5 font-body font-semibold text-sm tracking-[0.22em] uppercase rounded-[14px] btn-glow"
+                                    >
+                                        BEGIN ANALYSIS
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <line x1="5" y1="12" x2="19" y2="12" />
+                                            <polyline points="12 5 19 12 12 19" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </motion.div>
                         )}
 

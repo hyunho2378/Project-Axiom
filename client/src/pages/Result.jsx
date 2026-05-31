@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import html2canvas from 'html2canvas';
 import ResultCrystal from '../components/three/ResultCrystal';
 import SharedCanvas from '../components/three/products/SharedCanvas';
@@ -222,19 +222,29 @@ export default function Result() {
         </div>
 
         {/* AXIOM RECEIPT CARD — 모달 */}
+        <AnimatePresence>
         {cardOpen && (
-            <div
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
                 onClick={() => setCardOpen(false)}
                 style={{
                     position: 'fixed', inset: 0, zIndex: 100,
                     background: 'rgba(0,0,0,0.85)',
+                    backdropFilter: 'blur(8px)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    padding: '24px', overflowY: 'auto',
+                    padding: '20px', overflowY: 'auto',
                 }}
             >
-                <div
+                <motion.div
+                    initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 30, scale: 0.97 }}
+                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                     onClick={e => e.stopPropagation()}
-                    style={{ position: 'relative', maxWidth: '400px', width: '100%' }}
+                    style={{ position: 'relative', maxWidth: '400px', width: '100%', maxHeight: '90vh', overflowY: 'auto' }}
                 >
                     <button
                         onClick={() => setCardOpen(false)}
@@ -327,9 +337,10 @@ export default function Result() {
                     >
                         {isSavingReceipt ? '· SAVING ·' : '↓ SAVE ANALYSIS CARD'}
                     </button>
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
         )}
+        </AnimatePresence>
         </>
     );
 }

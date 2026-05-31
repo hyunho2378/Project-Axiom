@@ -168,7 +168,7 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                         </div>
                     </div>
 
-                    {/* Mobile: globe + hamburger */}
+                    {/* Mobile: globe + login + hamburger */}
                     <div className="lg:hidden flex items-center gap-1">
                         <button
                             onClick={toggleLanguage}
@@ -182,6 +182,30 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                             </svg>
                             <span className="font-body text-[9px] tracking-widest uppercase">{language === 'en' ? 'EN' : 'KO'}</span>
                         </button>
+
+                        {isLoggedIn ? (
+                            <Link
+                                to="/dashboard"
+                                className="flex items-center justify-center p-3 min-h-[44px] min-w-[44px] text-[#8AAEC0] hover:text-white transition-colors duration-300"
+                                aria-label="Dashboard"
+                            >
+                                <svg className="w-4 h-4 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                            </Link>
+                        ) : (
+                            <button
+                                onClick={onLoginClick}
+                                className="flex items-center justify-center p-3 min-h-[44px] min-w-[44px] text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
+                                aria-label="Log In"
+                            >
+                                <svg className="w-4 h-4 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                            </button>
+                        )}
 
                         <button
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -243,36 +267,6 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                                 </Link>
                             ))}
 
-                            <div className="px-8 py-4">
-                                {isLoggedIn ? (
-                                    <div className="flex items-center gap-6">
-                                        <Link
-                                            to="/dashboard"
-                                            className="font-body text-[11px] tracking-[0.25em] uppercase text-white/60 hover:text-[#8AAEC0] transition-colors"
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                        >
-                                            {um.dashboard}
-                                        </Link>
-                                        <button
-                                            onClick={() => { onLogout(); setIsMobileMenuOpen(false); }}
-                                            className="font-body text-[11px] tracking-[0.25em] uppercase text-white/40 hover:text-[#8AAEC0] transition-colors"
-                                        >
-                                            {um.logout}
-                                        </button>
-                                    </div>
-                                ) : (
-                                    <button
-                                        onClick={() => { setIsMobileMenuOpen(false); onLoginClick(); }}
-                                        className="flex items-center gap-2 font-body text-[11px] tracking-[0.25em] uppercase text-white/60 hover:text-[#8AAEC0] transition-colors"
-                                    >
-                                        <svg className="w-4 h-4 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                            <circle cx="12" cy="7" r="4" />
-                                        </svg>
-                                        {language === 'en' ? 'SIGN IN' : '로그인'}
-                                    </button>
-                                )}
-                            </div>
                         </div>
                     </motion.div>
                 )}
