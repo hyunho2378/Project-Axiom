@@ -14,10 +14,12 @@ function PersonaCard({ persona, delay, visible }) {
       style={{
         background: colors.bgCard,
         borderRadius: 'clamp(12px,1.5vw,20px)',
-        padding: 'clamp(24px,3vw,40px)',
+        padding: 'clamp(18px,2vw,28px)',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'clamp(16px,2vw,24px)',
+        gap: 'clamp(12px,1.5vw,18px)',
+        height: '100%',
+        boxSizing: 'border-box',
         opacity: visible ? 1 : 0,
         transform: visible ? 'none' : 'translateY(28px)',
         transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`,
@@ -93,7 +95,7 @@ function PersonaCard({ persona, delay, visible }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {persona.goals.map((g, i) => (
               <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                <span style={{ color: colors.ok, fontWeight: 700, flexShrink: 0, lineHeight: 1.5 }}>—</span>
+                <span style={{ color: colors.ok, fontWeight: 700, flexShrink: 0, lineHeight: 1.5 }}>•</span>
                 <span style={{ fontSize: t.body.size, color: colors.ink, lineHeight: 1.5 }}>{g}</span>
               </div>
             ))}
@@ -106,7 +108,7 @@ function PersonaCard({ persona, delay, visible }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {persona.pains.map((p, i) => (
               <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                <span style={{ color: colors.warn, fontWeight: 700, flexShrink: 0, lineHeight: 1.5 }}>—</span>
+                <span style={{ color: colors.warn, fontWeight: 700, flexShrink: 0, lineHeight: 1.5 }}>•</span>
                 <span style={{ fontSize: t.body.size, color: colors.inkMuted, lineHeight: 1.5 }}>{p}</span>
               </div>
             ))}

@@ -6,9 +6,10 @@ import axiomData from '../data/axiom.json';
 const { uxStrategy } = axiomData;
 const { positioningMap, designPrinciples, hmw } = uxStrategy;
 
-const LUXURY_X = { '낮음': 60, '중간': 200, '높음': 340 };
+const MAP_W = 640;
+const MAP_H = 400;
+const LUXURY_X = { '낮음': 96, '중간': 320, '높음': 544 };
 const PERSONAL_Y = { '낮음': 340, '중간': 200, '높음': 60 };
-const MAP_SIZE = 400;
 
 function PositioningMap({ visible }) {
   const competitors = positioningMap.competitors;
@@ -41,31 +42,31 @@ function PositioningMap({ visible }) {
       </p>
 
       <svg
-        viewBox={`0 0 ${MAP_SIZE} ${MAP_SIZE}`}
-        style={{ width: 'clamp(320px,70vw,660px)', height: 'clamp(320px,70vw,660px)', display: 'block' }}
+        viewBox={`0 0 ${MAP_W} ${MAP_H}`}
+        style={{ width: 'min(900px, 90vw)', height: 'auto', display: 'block' }}
       >
-        <rect x="0" y="0" width={MAP_SIZE} height={MAP_SIZE} fill={colors.bgDeep} rx="12" />
+        <rect x="0" y="0" width={MAP_W} height={MAP_H} fill={colors.bgDeep} rx="12" />
 
         {/* Blue Ocean 영역 */}
-        <rect x={MAP_SIZE / 2} y="0" width={MAP_SIZE / 2} height={MAP_SIZE / 2} fill="rgba(0,212,255,0.05)" />
-        <text x={MAP_SIZE * 0.75} y={MAP_SIZE * 0.16} textAnchor="middle" fontSize="10" fill={colors.brandPale} fontWeight="700" letterSpacing="2">
+        <rect x={MAP_W / 2} y="0" width={MAP_W / 2} height={MAP_H / 2} fill="rgba(0,212,255,0.05)" />
+        <text x={MAP_W * 0.75} y={MAP_H * 0.18} textAnchor="middle" fontSize="10" fill={colors.brandPale} fontWeight="700" letterSpacing="2">
           BLUE OCEAN
         </text>
 
         {/* 축선 */}
-        <line x1={MAP_SIZE / 2} y1="16" x2={MAP_SIZE / 2} y2={MAP_SIZE - 16} stroke={colors.line} strokeWidth="1" />
-        <line x1="16" y1={MAP_SIZE / 2} x2={MAP_SIZE - 16} y2={MAP_SIZE / 2} stroke={colors.line} strokeWidth="1" />
+        <line x1={MAP_W / 2} y1="16" x2={MAP_W / 2} y2={MAP_H - 16} stroke={colors.line} strokeWidth="1" />
+        <line x1="16" y1={MAP_H / 2} x2={MAP_W - 16} y2={MAP_H / 2} stroke={colors.line} strokeWidth="1" />
 
         {/* 축 레이블 */}
-        <text x={MAP_SIZE - 10} y={MAP_SIZE / 2 - 8} textAnchor="end" fontSize="10" fill={colors.inkMuted} fontWeight="600">고럭셔리</text>
-        <text x="10" y={MAP_SIZE / 2 - 8} textAnchor="start" fontSize="10" fill={colors.inkMuted} fontWeight="600">저럭셔리</text>
-        <text x={MAP_SIZE / 2} y="14" textAnchor="middle" fontSize="10" fill={colors.inkMuted} fontWeight="600">고개인화</text>
-        <text x={MAP_SIZE / 2} y={MAP_SIZE - 4} textAnchor="middle" fontSize="10" fill={colors.inkMuted} fontWeight="600">저개인화</text>
+        <text x={MAP_W - 10} y={MAP_H / 2 - 8} textAnchor="end" fontSize="10" fill={colors.inkMuted} fontWeight="600">고럭셔리</text>
+        <text x="10" y={MAP_H / 2 - 8} textAnchor="start" fontSize="10" fill={colors.inkMuted} fontWeight="600">저럭셔리</text>
+        <text x={MAP_W / 2} y="14" textAnchor="middle" fontSize="10" fill={colors.inkMuted} fontWeight="600">고개인화</text>
+        <text x={MAP_W / 2} y={MAP_H - 4} textAnchor="middle" fontSize="10" fill={colors.inkMuted} fontWeight="600">저개인화</text>
 
         {/* 경쟁사 점 */}
         {competitors.filter(c => c.name !== 'AXIOM').map((c, i) => {
-          const cx = LUXURY_X[c.luxury] ?? MAP_SIZE / 2;
-          const cy = PERSONAL_Y[c.personalization] ?? MAP_SIZE / 2;
+          const cx = LUXURY_X[c.luxury] ?? MAP_W / 2;
+          const cy = PERSONAL_Y[c.personalization] ?? MAP_H / 2;
           return (
             <g key={i}>
               <circle cx={cx} cy={cy} r="7" fill={colors.bgCard} stroke={colors.inkMuted} strokeWidth="1.5" />
@@ -74,14 +75,18 @@ function PositioningMap({ visible }) {
           );
         })}
 
-        {/* AXIOM 점 */}
+        {/* AXIOM 점 — pulse */}
         {(() => {
           const axiomComp = competitors.find(c => c.name === 'AXIOM');
           if (!axiomComp) return null;
-          const cx = LUXURY_X[axiomComp.luxury] ?? 340;
+          const cx = LUXURY_X[axiomComp.luxury] ?? 544;
           const cy = PERSONAL_Y[axiomComp.personalization] ?? 60;
           return (
             <g>
+              <circle cx={cx} cy={cy} r="18" fill="none" stroke={colors.brand} strokeWidth="1.5" strokeOpacity="0.6">
+                <animate attributeName="r" values="14;30;14" dur="2.4s" repeatCount="indefinite" />
+                <animate attributeName="stroke-opacity" values="0.6;0;0.6" dur="2.4s" repeatCount="indefinite" />
+              </circle>
               <circle cx={cx} cy={cy} r="22" fill={colors.brand} fillOpacity="0.1" />
               <circle cx={cx} cy={cy} r="12" fill={colors.brand} fillOpacity="0.25" />
               <circle cx={cx} cy={cy} r="6" fill={colors.brand} />

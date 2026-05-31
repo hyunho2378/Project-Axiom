@@ -19,7 +19,7 @@ function MetaBar({ visible }) {
       style={{
         display: 'flex',
         gap: 'clamp(24px,4vw,48px)',
-        marginBottom: 'clamp(40px,5vw,64px)',
+        marginBottom: 'clamp(24px,3vw,40px)',
         flexWrap: 'wrap',
         opacity: visible ? 1 : 0,
         transform: visible ? 'none' : 'translateY(16px)',
@@ -67,7 +67,7 @@ function StatCards({ cards, visible }) {
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
         gap: 'clamp(12px,2vw,20px)',
-        marginBottom: 'clamp(48px,6vw,72px)',
+        marginBottom: 'clamp(28px,3.5vw,44px)',
       }}
       className="research-stat-grid"
     >
@@ -125,7 +125,7 @@ function InsightCard({ insight, index, visible }) {
       style={{
         background: colors.bgCard,
         borderRadius: 'clamp(10px,1.2vw,16px)',
-        padding: 'clamp(24px,3vw,40px)',
+        padding: 'clamp(16px,2vw,28px)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'none' : 'translateY(24px)',
         transition: `opacity 0.6s ease ${index * 120}ms, transform 0.6s ease ${index * 120}ms`,
@@ -262,7 +262,7 @@ export default function Research() {
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: 'clamp(16px,3vw,40px)',
-            marginBottom: 'clamp(48px,6vw,72px)',
+            marginBottom: 'clamp(28px,3.5vw,44px)',
             opacity: chartsVisible ? 1 : 0,
             transform: chartsVisible ? 'none' : 'translateY(24px)',
             transition: 'opacity 0.6s ease, transform 0.6s ease',
@@ -297,7 +297,7 @@ export default function Research() {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: 'clamp(16px,2vw,24px)',
+              gap: 'clamp(12px,1.5vw,18px)',
             }}
           >
             {insights.map((insight, i) => (
