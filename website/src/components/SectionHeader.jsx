@@ -33,14 +33,14 @@ export default function SectionHeader({ eyebrow, headline, sub, align = 'left' }
       )}
       <h2 style={{
         margin: '0',
-        fontSize: t.h1.size,
+        fontSize: 'clamp(21px,3.75vw,47px)',
         fontWeight: t.h1.weight,
         lineHeight: t.h1.lh,
         letterSpacing: t.h1.ls,
         color: colors.ink,
         wordBreak: 'keep-all',
         overflowWrap: 'break-word',
-        fontFamily: font.display,
+        fontFamily: font.family,
       }}>
         {headline}
       </h2>

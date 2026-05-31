@@ -121,8 +121,8 @@ function Axis1Cards({ visible }) {
   const types = scoring.axis1.types;
   return (
     <div style={{ marginBottom: 'clamp(40px,5vw,64px)' }}>
-      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
-        AXIS 1 — 유수분 타입 {scoring.axis1.range}
+      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+        AXIS 1: 유수분 타입 {scoring.axis1.range}
       </p>
       <div
         style={{ display: 'flex', gap: 'clamp(8px,1.5vw,14px)', overflowX: 'auto', paddingBottom: 8 }}
@@ -174,8 +174,8 @@ function Axis2Cards({ visible }) {
   const borderColors = [colors.brand, colors.brandStrong, colors.warn, colors.brandMid];
   return (
     <div style={{ marginBottom: 'clamp(40px,5vw,64px)' }}>
-      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
-        AXIS 2 — 민감도 등급 {scoring.axis2.range}
+      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+        AXIS 2: 민감도 등급 {scoring.axis2.range}
       </p>
       <div
         style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'clamp(8px,1.5vw,14px)' }}
@@ -213,7 +213,7 @@ function ExampleCase({ visible }) {
         transition: 'opacity 0.6s ease, transform 0.6s ease',
       }}
     >
-      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
         결과 예시
       </p>
       <div
@@ -259,7 +259,7 @@ function Accordion() {
 
   return (
     <div>
-      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
         Q1~Q10 진단 질문
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -406,8 +406,8 @@ function SkinTypeMatrix({ visible }) {
         transition: 'opacity 0.7s ease, transform 0.7s ease',
       }}
     >
-      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
-        결과 — 20종 피부 타입 매트릭스
+      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+        결과: 20종 피부 타입 매트릭스
       </p>
 
       <div style={{ overflowX: 'auto', marginBottom: 'clamp(24px,3vw,36px)', borderRadius: layout.rMd, border: `1px solid ${colors.line}` }}>
@@ -443,7 +443,7 @@ function SkinTypeMatrix({ visible }) {
         </table>
       </div>
 
-      <p style={{ margin: '0 0 clamp(12px,1.5vw,18px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.inkMuted }}>
+      <p style={{ margin: '0 0 clamp(12px,1.5vw,18px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.inkMuted }}>
         핵심 타입 하이라이트
       </p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(8px,1.5vw,14px)' }} className="highlight-grid">
@@ -495,8 +495,8 @@ function ProductMapping({ visible }) {
         transition: 'opacity 0.7s ease, transform 0.7s ease',
       }}
     >
-      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
-        제품 매칭 — 피부 타입별 25개 제품
+      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+        제품 매칭: 피부 타입별 25개 제품
       </p>
 
       <div style={{ overflowX: 'auto', borderRadius: layout.rMd, border: `1px solid ${colors.line}` }}>

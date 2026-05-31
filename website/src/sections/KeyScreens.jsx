@@ -12,7 +12,7 @@ const SCREENS = [
     title: '환불 동등 위계',
     problem: '환불 메뉴를 찾지 못해 탐색 실패',
     solution: '잔액 카드에 충전·환불·QR결제 3슬롯 동일 위계 배치',
-    tobeLabel: '환불 화면 — 잔액 카드 + 환불 내역',
+    tobeLabel: '환불 화면: 잔액 카드 + 환불 내역',
   },
   {
     id: 'S3',
@@ -20,7 +20,7 @@ const SCREENS = [
     title: '캐시백 체감',
     problem: '"1,345원 적립" — 숫자만 보여줌',
     solution: '5단계 메시지로 캐시백을 일상 언어로 번역',
-    tobeLabel: '홈 코치마크 — 충전 버튼 안내',
+    tobeLabel: '홈 코치마크: 충전 버튼 안내',
   },
   {
     id: 'S4',
@@ -28,7 +28,7 @@ const SCREENS = [
     title: '충전 3단계 압축',
     problem: '6단계 충전 플로우 — 귀찮아서 포기',
     solution: '금액 선택 → 확인 → 완료, 빠른금액 칩 1탭',
-    tobeLabel: '충전 화면 Step 1 — 빠른금액 칩 + 숫자패드',
+    tobeLabel: '충전 화면 Step 1: 빠른금액 칩 + 숫자패드',
   },
 ];
 

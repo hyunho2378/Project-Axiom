@@ -61,7 +61,7 @@ export default function UXFlow() {
           {/* 기존 플로우 */}
           <div ref={existFlowRef} style={{ marginBottom: 'clamp(20px,3vw,32px)' }}>
             <p style={{ margin: '0 0 clamp(10px,1.5vw,16px)', fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.inkMuted }}>
-              기존 — 이탈 유발 구조
+              기존: 이탈 유발 구조
             </p>
             <div style={{ display: 'flex', alignItems: 'center', overflowX: 'auto', paddingBottom: 8, gap: 0 }} className="flow-scroll">
               {EXISTING_STEPS.map((step, i) => (
@@ -80,7 +80,7 @@ export default function UXFlow() {
           {/* AXIOM 플로우 */}
           <div ref={axiomFlowRef}>
             <p style={{ margin: '0 0 clamp(10px,1.5vw,16px)', fontSize: 15, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.brand }}>
-              AXIOM — Zero Search, One Flow
+              AXIOM: Zero Search, One Flow
             </p>
             <div style={{ display: 'flex', alignItems: 'center', overflowX: 'auto', paddingBottom: 8, gap: 0 }} className="flow-scroll">
               {AXIOM_STEPS.map((step, i) => (
@@ -130,7 +130,7 @@ export default function UXFlow() {
 
         {/* ── 인터랙션 원칙 ── */}
         <div ref={princRef}>
-          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
             인터랙션 원칙
           </p>
           <div

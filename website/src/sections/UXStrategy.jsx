@@ -30,7 +30,7 @@ function PositioningMap({ visible }) {
       <p
         style={{
           margin: '0 0 clamp(16px,2vw,24px)',
-          fontSize: t.caption.size,
+          fontSize: t.sublabel.size,
           fontWeight: 700,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
@@ -117,7 +117,7 @@ function DesignPrinciples({ visible }) {
       <p
         style={{
           margin: '0 0 clamp(20px,3vw,32px)',
-          fontSize: t.caption.size,
+          fontSize: t.sublabel.size,
           fontWeight: 700,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
@@ -209,7 +209,7 @@ function HMWTable({ visible }) {
       <p
         style={{
           margin: '0 0 clamp(20px,3vw,32px)',
-          fontSize: t.caption.size,
+          fontSize: t.sublabel.size,
           fontWeight: 700,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
@@ -231,7 +231,7 @@ function HMWTable({ visible }) {
             <p
               style={{
                 margin: '0 0 10px',
-                fontSize: t.caption.size,
+                fontSize: t.sublabel.size,
                 fontWeight: 700,
                 letterSpacing: '0.08em',
                 color: colors.brand,

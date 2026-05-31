@@ -68,7 +68,7 @@ export default function UserTest() {
               color: color.inkFaint, margin: 0, fontFamily: font.family,
               textAlign: 'center', maxWidth: '40ch',
             }}>
-              사용성 테스트 결과 — 과업 성공률 · 오류 빈도 · SUS 점수 — 평가 완료 후 채움
+              사용성 테스트 결과: 과업 성공률 · 오류 빈도 · SUS 점수 (평가 완료 후 채움)
             </p>
           </div>
         </div>

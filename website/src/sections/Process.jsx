@@ -268,7 +268,7 @@ export default function Process() {
             letterSpacing: t.eyebrow.ls, textTransform: t.eyebrow.transform,
             color: color.inkFaint, margin: '0 0 20px', fontFamily: font.family,
           }}>
-            HEURISTIC VIOLATIONS — BEFORE / AFTER
+            HEURISTIC VIOLATIONS: BEFORE / AFTER
           </p>
 
           {/* Table header */}

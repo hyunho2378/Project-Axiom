@@ -67,8 +67,8 @@ export default function AIProcess() {
           ref={collabRef}
           style={{ marginBottom: aiProcess.pending?.length ? 'clamp(32px,4vw,48px)' : 0 }}
         >
-          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
-            역할 분담 — AI vs Human
+          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+            역할 분담: AI vs Human
           </p>
           <div
             style={{

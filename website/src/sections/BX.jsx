@@ -106,7 +106,7 @@ export default function BX() {
           ref={valuesRef}
           style={{ marginBottom: 'clamp(56px,7vw,96px)' }}
         >
-          <p style={{ margin: '0 0 clamp(20px,3vw,32px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+          <p style={{ margin: '0 0 clamp(20px,3vw,32px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
             Core Values
           </p>
           <div
@@ -157,7 +157,7 @@ export default function BX() {
             transition: 'opacity 0.6s ease, transform 0.6s ease',
           }}
         >
-          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+          <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
             Color Palette
           </p>
           <div
@@ -196,7 +196,7 @@ export default function BX() {
             transition: 'opacity 0.6s ease, transform 0.6s ease',
           }}
         >
-          <p style={{ margin: '0 0 clamp(20px,3vw,32px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+          <p style={{ margin: '0 0 clamp(20px,3vw,32px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
             경쟁사 비교
           </p>
           <div style={{ overflowX: 'auto', borderRadius: 'clamp(8px,1vw,14px)', border: `1px solid ${colors.line}` }}>

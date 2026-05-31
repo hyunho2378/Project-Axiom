@@ -27,8 +27,8 @@ const ROWS = [
   },
   {
     feature: '생체인증',
-    ios: 'Face ID — 중앙 Lottie · State Machine 19단계',
-    android: '지문 인증 — 하단 고정 + 텍스트 fallback',
+    ios: 'Face ID: 중앙 Lottie · State Machine 19단계',
+    android: '지문 인증: 하단 고정 + 텍스트 fallback',
   },
   {
     feature: '바텀시트',
@@ -37,7 +37,7 @@ const ROWS = [
   },
   {
     feature: '스낵바',
-    ios: '없음 (iOS HIG — 시스템 Alert·ActionSheet 사용)',
+    ios: '없음 (iOS HIG: 시스템 Alert·ActionSheet 사용)',
     android: '슬라이드업 2.8초 자동 소멸 · 실행취소 버튼',
   },
 ];
@@ -227,7 +227,7 @@ export default function DualDesignSystem() {
             fontSize: t.caption.size, lineHeight: t.caption.lh,
             color: color.inkFaint, fontFamily: font.family,
           }}>
-            지역화폐 앱은 SI 외주라 디자인시스템 부재 — iOS HIG + Android MD3 양 플랫폼 네이티브 동시 구현.
+            지역화폐 앱은 SI 외주라 디자인시스템 부재, iOS HIG + Android MD3 양 플랫폼 네이티브 동시 구현.
           </p>
         </div>
 

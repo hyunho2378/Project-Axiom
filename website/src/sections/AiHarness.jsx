@@ -41,19 +41,19 @@ const AGENTS = [
   { id: 'BN', label: '검색·발견', desc: '상점 검색, 지도, 카테고리 필터', color: color.brand },
   { id: 'MY', label: 'MY·카드', desc: 'MY 탭, 카드 관리, 설정 플로우', color: color.brand },
   { id: 'FX', label: '버그·지도·내역', desc: '버그 수정, 지도 통합, 거래 내역', color: color.brand },
-  { id: 'VR', label: '검증 — 44항목', desc: '빌드·토큰·접근성·로직 전수 검사', color: color.warn },
+  { id: 'VR', label: '검증: 44항목', desc: '빌드·토큰·접근성·로직 전수 검사', color: color.warn },
 ];
 
 const MODELS = [
   {
     name: 'Sonnet',
     uses: ['단순 매핑', '컴포넌트 교체', '스타일 수정', '반복 작업'],
-    note: '속도 우선 — 결과 예측 가능',
+    note: '속도 우선, 결과 예측 가능',
   },
   {
     name: 'Opus',
     uses: ['아키텍처 설계', '디버깅', '검증 에이전트', '트레이드오프 판단'],
-    note: '정확도 우선 — 복잡한 의존성',
+    note: '정확도 우선, 복잡한 의존성',
   },
 ];
 
@@ -542,7 +542,7 @@ export default function AiHarness() {
             letterSpacing: t.eyebrow.ls, textTransform: t.eyebrow.transform,
             color: color.brand, margin: '0 0 20px', fontFamily: font.family,
           }}>
-            CLAUDE CODE — 12개 툴
+            CLAUDE CODE: 12개 툴
           </p>
           <div style={{
             display: 'grid',

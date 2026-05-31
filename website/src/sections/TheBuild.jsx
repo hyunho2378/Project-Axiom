@@ -395,7 +395,7 @@ function S5Block({ visible }) {
             fontFamily: font.family,
           }}>62.5%</span>
           <span style={{ fontSize: t.body.size, color: color.inkMuted, fontFamily: font.family }}>
-            설문 68명 — 계산대 앞 잔액 부족 당황 경험
+            설문 68명, 계산대 앞 잔액 부족 당황 경험
           </span>
         </div>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -643,7 +643,7 @@ function FeaturesBlock({ visible }) {
           letterSpacing: t.eyebrow.ls, textTransform: t.eyebrow.transform,
           color: color.brand, fontFamily: font.family,
         }}>
-          THE BUILD — FULL SCOPE
+          THE BUILD: FULL SCOPE
         </p>
         <h3 style={{
           margin: '0 0 clamp(32px,4vw,48px)',

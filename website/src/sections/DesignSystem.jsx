@@ -471,11 +471,11 @@ export default function DesignSystem() {
           <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>STATUS BAR</p>
           <div style={{ ...panelGrid, marginBottom: 'clamp(32px,4vw,48px)' }}>
             <div style={panelCard}>
-              <p style={panelLabel}>HIG — 41px</p>
+              <p style={panelLabel}>HIG: 41px</p>
               <img src={iosStatusBar} alt="" style={{ width: '100%', height: 'auto' }} />
             </div>
             <div style={panelCard}>
-              <p style={panelLabel}>Google Material 3 — 42px</p>
+              <p style={panelLabel}>Google Material 3: 42px</p>
               <img src={androidStatusBar} alt="" style={{ width: '100%', height: 'auto' }} />
             </div>
           </div>
@@ -639,7 +639,7 @@ export default function DesignSystem() {
           <div style={panelGrid}>
             <div style={{ background: '#111111', borderRadius: layout.rMd, padding: 32, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 120, gap: 8, boxShadow: cardShadow }}>
               <DotLottieReact src="/lottie/face-id-ios.json" autoplay loop style={{ width: 80, height: 80 }} />
-              <span style={{ color: '#fff', fontSize: 16, fontWeight: 500, opacity: 0.7 }}>HIG — Face ID</span>
+              <span style={{ color: '#fff', fontSize: 16, fontWeight: 500, opacity: 0.7 }}>HIG: Face ID</span>
             </div>
             <div style={{ background: '#111111', borderRadius: layout.rMd, padding: 32, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', minHeight: 120, gap: 12, boxShadow: cardShadow }}>
               <DotLottieReact src="/lottie/fingerprint.json" autoplay loop style={{ width: 64, height: 64 }} />
@@ -732,14 +732,14 @@ export default function DesignSystem() {
           <p style={{ fontSize: 15, fontWeight: 700, color: color.inkFaint, margin: '0 0 12px', letterSpacing: '0em', textTransform: 'uppercase' }}>TOUCH TARGET</p>
           <div style={{ ...panelGrid, marginBottom: 'clamp(32px,4vw,48px)' }}>
             <div style={panelCard}>
-              <p style={panelLabel}>HIG — 44×44pt</p>
+              <p style={panelLabel}>HIG: 44×44pt</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                 <div style={{ width: 44, height: 44, background: color.brandPale, borderRadius: layout.rSm, flexShrink: 0 }} />
                 <p style={{ margin: 0, fontSize: t.caption.size, color: color.inkMuted }}>44pt × 44pt 최소 터치 영역</p>
               </div>
             </div>
             <div style={panelCard}>
-              <p style={panelLabel}>Google Material 3 — 48×48dp</p>
+              <p style={panelLabel}>Google Material 3: 48×48dp</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                 <div style={{ width: 48, height: 48, background: color.brandPale, borderRadius: layout.rSm, flexShrink: 0 }} />
                 <p style={{ margin: 0, fontSize: t.caption.size, color: color.inkMuted, fontFamily: "'Noto Sans KR', sans-serif" }}>48dp × 48dp 최소 터치 영역</p>

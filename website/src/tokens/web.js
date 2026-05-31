@@ -44,7 +44,8 @@ export const type = {
   lead:    { size: 'clamp(13px,1.17vw,17px)',  lh: 1.75, weight: 500 },
   body:    { size: 'clamp(11px,0.9vw,13px)',   lh: 1.78, weight: 500 },
   caption: { size: 'clamp(10px,0.76vw,11px)',  lh: 1.55, weight: 500 },
-  eyebrow: { size: 'clamp(13px,1vw,16px)', lh: 1.4, weight: 800, ls: '0em', transform: 'uppercase' },
+  eyebrow:  { size: 'clamp(19px,1.4vw,22px)', lh: 1.4, weight: 800, ls: '0em', transform: 'uppercase' },
+  sublabel: { size: 'clamp(16px,1.35vw,17px)' },
 };
 
 export const layout = {

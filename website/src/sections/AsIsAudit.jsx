@@ -4,19 +4,19 @@ import { useReveal } from '../lib/useReveal.js';
 const POINTS = [
   {
     num: '01',
-    title: 'IA 구조 — B2C/B2B 혼재',
+    title: 'IA 구조: B2C/B2B 혼재',
     body: '소비자 화면에 가맹점 포탈·정산 메뉴가 혼재. 타깃이 다른 두 인터페이스가 하나의 앱에서 충돌하며 소비자 탐색 경로를 방해합니다.',
     heuristic: 'Nielsen #4 일관성 · Shneiderman #3 단순성',
   },
   {
     num: '02',
-    title: '큰글씨 모드 다크패턴 — 환불 선택적 노출',
+    title: '큰글씨 모드 다크패턴: 환불 선택적 노출',
     body: '환불 메뉴가 큰글씨 접근성 모드에서만 노출됩니다. 권리 기능을 특정 모드에서만 보이게 한 구조적 다크패턴.',
     heuristic: 'Nielsen #6 인식 보조 · Nielsen #10 도움말',
   },
   {
     num: '03',
-    title: "용어 체계 붕괴 — '강릉머니' 0명 인지",
+    title: "용어 체계 붕괴: '강릉머니' 0명 인지",
     body: "서비스 명칭 '강릉머니'를 관찰 참여자 4인 전원이 인지하지 못했습니다. 사용자 언어와 시스템 언어의 단절.",
     heuristic: 'Nielsen #2 사용자 언어 · Shneiderman #8 단순 오류',
   },
@@ -179,7 +179,7 @@ export default function AsIsAudit() {
             letterSpacing: t.eyebrow.ls, textTransform: t.eyebrow.transform,
             color: color.inkFaint, margin: '0 0 16px',
           }}>
-            HEURISTIC VIOLATIONS — 6건
+            HEURISTIC VIOLATIONS: 6건
           </p>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             {VIOLATIONS.map(({ code, label }) => (
