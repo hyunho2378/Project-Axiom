@@ -41,7 +41,7 @@ function makeSideLabel(p){
   for(let i=0;i<2000;i++){ctx.fillStyle=`rgba(255,255,255,${Math.random()*.015})`;ctx.fillRect(Math.random()*TW,Math.random()*TH,1,1);}
   const KR=fontsReady?'PretendardVar,Noto Sans KR,sans-serif':'Noto Sans KR,sans-serif';
   const EN='Cormorant Garamond,Georgia,serif';
-  ctx.textAlign='center';const FC=TW/2;
+  ctx.textAlign='center';const FC=TW/4;const BC=TW*3/4;
   // 앞면
   if(logoImg){ctx.save();ctx.filter='brightness(0) invert(1)';ctx.drawImage(logoImg,FC-132,28,264,100);ctx.restore();}
   else{ctx.fillStyle='#FFF';ctx.font=`italic 300 66px ${EN}`;ctx.fillText('Axiom',FC,122);ctx.fillStyle='#8AAEC0';ctx.beginPath();ctx.arc(FC+10,80,4,0,Math.PI*2);ctx.fill();}
@@ -66,7 +66,7 @@ function makeSideLabel(p){
     if(logoImg){ctx.save();ctx.filter='brightness(0) invert(0.9)';ctx.drawImage(logoImg,cx-98,y,196,74);ctx.restore();}
     else{ctx.fillStyle='rgba(255,255,255,.82)';ctx.font=`italic 300 54px ${EN}`;ctx.fillText('Axiom',cx,y+46);}
   }
-  drawBack(TW/6);drawBack(TW*5/6);
+  drawBack(BC);
   const tex=new THREE.CanvasTexture(c);tex.anisotropy=16;return tex;
 }
 
