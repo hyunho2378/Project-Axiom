@@ -7,7 +7,9 @@ import axiomData from '../data/axiom.json';
 const { dataLogic } = axiomData;
 const { overview, scoring, skinTypes, questions, products } = dataLogic;
 
-const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1zf7-lFTJq_lGPRgrOOeG8kg_IYIs3xWNVyHEcWAhEPY/edit?usp=sharing';
+const SHEET_RESULTS   = 'https://docs.google.com/spreadsheets/d/1oXaG8BJmhKiHOLsH6b-ylkpvf-dthlholxXzes77lT8/edit?usp=sharing';
+const SHEET_PRODUCTS  = 'https://docs.google.com/spreadsheets/d/16LeDf6YsbA_lO7kAUuY_NcIPC2r45XBmyH014KsLVmI/edit?usp=sharing';
+const SHEET_QUESTIONS = 'https://docs.google.com/spreadsheets/d/1RNVo3PTC3oB-XSsEtV08oUyd2rsM9-NgUDz3bmicfOE/edit?usp=sharing';
 
 const SKIN_HIGHLIGHTS = [
   { oil: '건성',   sens: '비민감',  desc: '유수분 부족하나 장벽은 안정적. 풍부한 보습에 집중.' },
@@ -347,11 +349,11 @@ function Accordion() {
   );
 }
 
-function SheetLink() {
+function SheetLink({ href }) {
   return (
     <div style={{ marginTop: 'clamp(24px,3vw,40px)', display: 'flex', justifyContent: 'center' }}>
       <a
-        href={SHEET_URL}
+        href={href}
         target="_blank"
         rel="noopener noreferrer"
         className="btn-glow"
@@ -453,7 +455,7 @@ function SkinTypeMatrix({ visible }) {
         ))}
       </div>
 
-      <SheetLink />
+      <SheetLink href={SHEET_RESULTS} />
     </div>
   );
 }
@@ -522,7 +524,7 @@ function ProductMapping({ visible }) {
         </table>
       </div>
 
-      <SheetLink />
+      <SheetLink href={SHEET_PRODUCTS} />
     </div>
   );
 }
@@ -565,6 +567,7 @@ export default function DataLogic() {
         </div>
 
         <Accordion />
+        <SheetLink href={SHEET_QUESTIONS} />
 
         <div ref={matrixRef}>
           <SkinTypeMatrix visible={matrixVisible} />
