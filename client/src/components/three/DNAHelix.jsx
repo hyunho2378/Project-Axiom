@@ -118,6 +118,7 @@ function HelixScene() {
         const topLight  = new THREE.PointLight(0x5A9AB5, 6, 14, 2);    // brand.400
         topLight.position.set(0, 6, 2);
 
+        helix.scale.setScalar(1.5);
         return { helix, strandSpheres, rungs, stars, ambientLight, keyLight, rimLight, topLight, textures: [glowTex] };
     }, []);
 

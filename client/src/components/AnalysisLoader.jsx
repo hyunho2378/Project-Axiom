@@ -42,8 +42,8 @@ export default function AnalysisLoader({ onComplete }) {
 
     return (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-void">
-            {/* DNAHelix — 분석 대기 비주얼, 192×192px centered */}
-            <div className="w-48 h-48 mb-8">
+            {/* DNAHelix — 분석 대기 비주얼, 288×288px centered */}
+            <div className="w-72 h-72 mb-8">
                 <Suspense fallback={null}>
                     <DNAHelix />
                 </Suspense>
@@ -51,7 +51,7 @@ export default function AnalysisLoader({ onComplete }) {
             <AnimatePresence mode="wait">
                 <motion.p
                     key={phaseIndex}
-                    className="font-body text-[28px] text-[#8AAEC0] mb-8 tracking-widest uppercase"
+                    className="font-body text-[14px] text-[#8AAEC0] mb-8 tracking-widest uppercase"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
@@ -69,7 +69,7 @@ export default function AnalysisLoader({ onComplete }) {
                 />
             </div>
 
-            <p className="font-body text-[24px] text-[#5A9AB5] mt-3">
+            <p className="font-body text-[12px] text-[#5A9AB5] mt-3">
                 {Math.round(progress)}%
             </p>
         </div>
