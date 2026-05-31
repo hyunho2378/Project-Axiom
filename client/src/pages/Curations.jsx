@@ -65,8 +65,12 @@ function ProductCard({ product, index }) {
 
                     {/* 제품명 */}
                     <div className="min-h-[56px] flex-shrink-0">
-                        <h3 className="font-body text-ui-textPrimary text-lg leading-tight">{product.nameKo}</h3>
-                        <p className="font-title-en text-brand-400 text-sm italic mt-1">{product.nameEn}</p>
+                        <h3 className="font-body text-ui-textPrimary text-lg leading-tight">
+                            {language === 'en' ? product.nameEn : product.nameKo}
+                        </h3>
+                        <p className="font-title-en text-brand-400 text-sm italic mt-1">
+                            {language === 'en' ? product.nameKo : product.nameEn}
+                        </p>
                     </div>
 
                     {/* 설명 */}

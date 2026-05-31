@@ -6,6 +6,10 @@ import { useLanguage } from '../context/LanguageContext';
 
 const TYPE_BASE  = { toner: 100, ampoule: 105, tube: 110, jar: 115, sunscreen: 120 };
 const SKIN_INDEX = { '건성': 0, '중성': 1, '지성': 2, '수부지': 3, '복합성': 4 };
+const SKIN_TYPE_LABELS = {
+    ko: { '건성': '건성', '중성': '중성', '지성': '지성', '수부지': '수부지', '복합성': '복합성' },
+    en: { '건성': 'Dry', '중성': 'Normal', '지성': 'Oily', '수부지': 'Combo-Dry', '복합성': 'Combination' },
+};
 const CATEGORY_LABELS = {
     toner:     { ko: '토너',     en: 'Toner' },
     ampoule:   { ko: '앰플',     en: 'Ampoule' },
@@ -83,7 +87,7 @@ export default function ProductDetail() {
                         {/* 칩 */}
                         <div className="flex flex-wrap gap-2">
                             <span className="chip chip-sm font-body">{CATEGORY_LABELS[product.productType]?.[language] || CATEGORY_LABELS[product.productType]?.en}</span>
-                            <span className="chip chip-sm font-body">{product.skinType}</span>
+                            <span className="chip chip-sm font-body">{SKIN_TYPE_LABELS[language]?.[product.skinType] || product.skinType}</span>
                             {product.functional && (
                                 <span className="chip chip-sm font-body">{product.functional}</span>
                             )}
@@ -92,10 +96,10 @@ export default function ProductDetail() {
                         {/* 제품명 */}
                         <div>
                             <h1 className="font-body text-3xl lg:text-3xl text-ui-textPrimary leading-title">
-                                {product.nameKo}
+                                {language === 'en' ? product.nameEn : product.nameKo}
                             </h1>
                             <p className="font-title-en text-brand-400 text-lg italic mt-2">
-                                {product.nameEn}
+                                {language === 'en' ? product.nameKo : product.nameEn}
                             </p>
                         </div>
 
@@ -135,7 +139,7 @@ export default function ProductDetail() {
                             )}
                             <div className="flex gap-4">
                                 <span className="text-ui-textMuted w-16 flex-shrink-0">{c.skinType}</span>
-                                <span className="text-ui-textPrimary">{product.skinType}</span>
+                                <span className="text-ui-textPrimary">{SKIN_TYPE_LABELS[language]?.[product.skinType] || product.skinType}</span>
                             </div>
                         </div>
 
