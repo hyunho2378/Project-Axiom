@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { contentData } from '../data/contentData';
 import { useLanguage } from '../context/LanguageContext';
+import { useCartStore } from '../store/useCartStore';
 
 const MENU_PATHS = ['/', '/axiom', '/analysis', '/curations', '/datalab'];
 
@@ -41,6 +42,7 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    const cartCount = useCartStore(state => state.totalCount());
     const isActive = (href) => location.pathname === href;
 
     return (
@@ -100,6 +102,24 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                         <div className="w-[1px] h-4 bg-white/15" />
 
                         <div className="flex items-center gap-4">
+                            {/* Cart icon */}
+                            <Link
+                                to="/cart"
+                                className="relative flex items-center justify-center p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
+                                aria-label="Cart"
+                            >
+                                <svg className="w-5 h-5 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                                    <line x1="3" y1="6" x2="21" y2="6" />
+                                    <path d="M16 10a4 4 0 0 1-8 0" />
+                                </svg>
+                                {cartCount > 0 && (
+                                    <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-[#3C7795] text-white text-[10px] font-bold flex items-center justify-center leading-none">
+                                        {cartCount > 9 ? '9+' : cartCount}
+                                    </span>
+                                )}
+                            </Link>
+
                             {/* Language toggle */}
                             <button
                                 onClick={toggleLanguage}
@@ -168,8 +188,25 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                         </div>
                     </div>
 
-                    {/* Mobile: globe + login + hamburger */}
+                    {/* Mobile: globe + cart + login + hamburger */}
                     <div className="lg:hidden flex items-center gap-1">
+                        <Link
+                            to="/cart"
+                            className="relative flex items-center justify-center p-3 min-h-[44px] min-w-[44px] text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
+                            aria-label="Cart"
+                        >
+                            <svg className="w-4 h-4 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <path d="M16 10a4 4 0 0 1-8 0" />
+                            </svg>
+                            {cartCount > 0 && (
+                                <span className="absolute top-1.5 right-1.5 min-w-[14px] h-[14px] px-0.5 rounded-full bg-[#3C7795] text-white text-[9px] font-bold flex items-center justify-center leading-none">
+                                    {cartCount > 9 ? '9+' : cartCount}
+                                </span>
+                            )}
+                        </Link>
+
                         <button
                             onClick={toggleLanguage}
                             className="flex items-center gap-1 p-3 min-h-[44px] min-w-[44px] justify-center text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"

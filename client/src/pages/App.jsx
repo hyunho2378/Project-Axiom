@@ -28,6 +28,7 @@ import TeamPage from './TeamPage';
 import Privacy from './Privacy';
 import ResearcherEditorial from './ResearcherEditorial';
 import HumanityDataMap from './HumanityDataMap';
+import Cart from './Cart';
 
 /**
  * App Layout - Wraps all routes with Header and Footer
@@ -148,6 +149,9 @@ function AppContent() {
                 {/* Shop */}
                 <Route path="/shop" element={<AppLayout {...layoutProps}><Shop /></AppLayout>} />
                 <Route path="/shop/:id" element={<AppLayout {...layoutProps}><ProductDetail /></AppLayout>} />
+
+                {/* Cart */}
+                <Route path="/cart" element={<AppLayout {...layoutProps}><Cart /></AppLayout>} />
 
                 {/* Campaigns */}
                 <Route path="/campaigns" element={<AppLayout {...layoutProps}><Campaigns /></AppLayout>} />

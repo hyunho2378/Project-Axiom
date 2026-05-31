@@ -1,8 +1,10 @@
-import { useParams, Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getAllProducts, formatPrice } from '../data/products';
 import ProductPreview from '../components/three/products/ProductPreview';
 import { useLanguage } from '../context/LanguageContext';
+import { useCartStore } from '../store/useCartStore';
 
 const TYPE_BASE  = { toner: 100, ampoule: 105, tube: 110, jar: 115, sunscreen: 120 };
 const SKIN_INDEX = { '건성': 0, '중성': 1, '지성': 2, '수부지': 3, '복합성': 4 };
@@ -20,11 +22,13 @@ const CATEGORY_LABELS = {
 const COPY = {
     ko: {
         notFound: '제품을 찾을 수 없습니다', back: '← 돌아가기', backToCollection: '← 컬렉션으로 돌아가기',
-        volume: '용량', functional: '기능성', skinType: '피부타입', addToCart: '장바구니 담기',
+        volume: '용량', functional: '기능성', skinType: '피부타입',
+        addToCart: '장바구니 담기', added: '담김 ✓', buyNow: '바로 구매',
     },
     en: {
         notFound: 'Product not found', back: '← Go back', backToCollection: '← Back to Collection',
-        volume: 'Volume', functional: 'Function', skinType: 'Skin Type', addToCart: 'Add to Cart',
+        volume: 'Volume', functional: 'Function', skinType: 'Skin Type',
+        addToCart: 'Add to Cart', added: 'Added ✓', buyNow: 'Buy Now',
     },
 };
 
@@ -35,7 +39,10 @@ function deriveId(p) {
 export default function ProductDetail() {
     const { id } = useParams();
     const location = useLocation();
+    const navigate = useNavigate();
     const { language } = useLanguage();
+    const { addItem, setBuyNow } = useCartStore();
+    const [added, setAdded] = useState(false);
     const isShopRoute = location.pathname.startsWith('/shop');
 
     const product = getAllProducts().find(p => deriveId(p) === parseInt(id));
@@ -143,14 +150,49 @@ export default function ProductDetail() {
                             </div>
                         </div>
 
-                        {/* 장바구니 버튼 */}
-                        <button className="w-full py-4 rounded-2xl text-sm font-bold tracking-[0.1em] uppercase font-body
-                                         bg-gradient-to-r from-[#1E5672] to-[#3C7795] text-white
-                                         border border-white/15
-                                         hover:brightness-110 transition-all duration-300
-                                         shadow-lg hover:shadow-[0_8px_32px_rgba(60,119,149,0.40)] mt-2">
-                            {c.addToCart}
-                        </button>
+                        {/* 장바구니 담기 + 바로 구매 */}
+                        <div className="flex flex-col gap-3 mt-2">
+                            <button
+                                onClick={() => {
+                                    addItem({
+                                        id: deriveId(product),
+                                        nameKo: product.nameKo,
+                                        nameEn: product.nameEn,
+                                        price: product.price,
+                                        productType: product.productType,
+                                        skinType: product.skinType,
+                                    });
+                                    setAdded(true);
+                                    setTimeout(() => setAdded(false), 1500);
+                                }}
+                                className="w-full py-4 rounded-2xl text-sm font-bold tracking-[0.1em] uppercase font-body
+                                           border border-[#3C7795]/60 text-[#8AAEC0]
+                                           hover:border-[#8AAEC0] hover:text-white
+                                           transition-all duration-300"
+                            >
+                                {added ? c.added : c.addToCart}
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setBuyNow({
+                                        id: deriveId(product),
+                                        nameKo: product.nameKo,
+                                        nameEn: product.nameEn,
+                                        price: product.price,
+                                        productType: product.productType,
+                                        skinType: product.skinType,
+                                    });
+                                    navigate('/checkout?mode=buynow');
+                                }}
+                                className="w-full py-4 rounded-2xl text-sm font-bold tracking-[0.1em] uppercase font-body
+                                           bg-gradient-to-r from-[#1E5672] to-[#3C7795] text-white
+                                           border border-white/15
+                                           hover:brightness-110 transition-all duration-300
+                                           shadow-lg hover:shadow-[0_8px_32px_rgba(60,119,149,0.40)]"
+                            >
+                                {c.buyNow}
+                            </button>
+                        </div>
                     </motion.div>
                 </div>
             </div>
