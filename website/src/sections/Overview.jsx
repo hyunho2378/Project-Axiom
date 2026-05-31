@@ -65,17 +65,19 @@ export default function Overview() {
             >
               {overview.description}
             </p>
-            <p
-              style={{
-                margin: 0,
-                fontSize: t.body.size,
-                lineHeight: t.body.lh,
-                color: colors.inkMuted,
-                fontStyle: 'italic',
-              }}
-            >
-              {overview.previousFailure}
-            </p>
+            {overview.previousFailure && (
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: t.body.size,
+                  lineHeight: t.body.lh,
+                  color: colors.inkMuted,
+                  fontStyle: 'italic',
+                }}
+              >
+                {overview.previousFailure}
+              </p>
+            )}
           </div>
 
           {/* 우측: roles 카드 4개 */}

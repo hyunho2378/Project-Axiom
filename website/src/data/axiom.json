@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "AXIOM: AI 피부 진단 기반 하이엔드 뷰티 큐레이션 플랫폼 UX 서비스 디자인",
+    "title": "AXIOM — AI 피부 진단 기반 하이엔드 뷰티 큐레이션",
     "team": "Axiom",
     "school": "한림대학교 디지털인문예술전공",
     "purpose": "Define your Axis",
@@ -39,8 +39,8 @@
     }
   ],
   "overview": {
-    "headline": "브랜딩 + UX + AI + 3D\n4축 통합 증명",
-    "description": "전공 전시회 동아리 부문 출품을 위해 시각, 논리, AI 프로세스, 실제 구현물 4축을 통합한 하이엔드 뷰티 큐레이션 플랫폼 UX 서비스 디자인 프로젝트.",
+    "headline": "브랜딩 · UX · AI · 3D",
+    "description": "시각·논리·AI·구현을 하나로 통합한, AI 피부 진단 기반 하이엔드 뷰티 큐레이션 플랫폼 UX 서비스 디자인.",
     "roles": [
       {
         "label": "BX / 브랜딩",
@@ -76,7 +76,7 @@
       "NeonDB",
       "Vercel"
     ],
-    "previousFailure": "작년 실패 원인: '예쁜 쓰레기' — 시각적 완성도만 높고 디자인 의사결정 논리 부재",
+    "previousFailure": "",
     "goal": "시각 + 논리 + AI 프로세스 + 실제 구현물 4축 통합",
     "coreValueProp": "검색할 필요 없는 뷰티 경험. AI가 피부를 진단하고, 브랜드가 큐레이션하고, 고객은 신뢰하고 경험한다.",
     "sections": [
