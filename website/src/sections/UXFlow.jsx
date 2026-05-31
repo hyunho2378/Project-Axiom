@@ -46,7 +46,7 @@ export default function UXFlow() {
   return (
     <section
       id="ux-flow"
-      style={{ background: colors.bgCard, fontFamily: font.family, padding: `clamp(32px,4vw,60px) clamp(20px,6vw,100px)` }}
+      style={{ background: colors.bgCard, fontFamily: font.family, padding: `clamp(32px,4vw,60px) clamp(20px,5vw,80px)` }}
     >
       <div style={{ maxWidth: layout.container, margin: '0 auto' }}>
         <SectionHeader

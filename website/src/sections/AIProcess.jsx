@@ -7,19 +7,19 @@ const { aiProcess } = axiomData;
 
 
 export default function AIProcess() {
-  const [why3dRef,  why3dVisible]  = useReveal({ threshold: 0.1 });
+  const [why3dRef, why3dVisible] = useReveal({ threshold: 0.1 });
   const [collabRef, collabVisible] = useReveal({ threshold: 0.1 });
 
   return (
     <section
       id="ai-process"
-      style={{ background: colors.bg, fontFamily: font.family, padding: `clamp(32px,4vw,60px) clamp(20px,6vw,100px)` }}
+      style={{ background: colors.bg, fontFamily: font.family, padding: `clamp(32px,4vw,60px) clamp(20px,5vw,80px)` }}
     >
       <div style={{ maxWidth: layout.container, margin: '0 auto' }}>
         <SectionHeader
           eyebrow="09 AI PROCESS"
-          headline="3D + Claude Code 협업 구조"
-          sub="왜 3D인가 · AI와 사람의 역할 분담"
+          headline="3D 프로그램 사용이 아닌 100% AI 디자인 과정"
+          sub="3D 디자이너 없이도 AI로 100% 구현되는 그래픽"
           align="left"
         />
 

@@ -7,7 +7,7 @@ export default function NextPageCTA({ to, label, hint }) {
       style={{
         fontFamily: font.family,
         borderTop: `1px solid ${colors.line}`,
-        padding: `clamp(64px,8vw,120px) clamp(20px,6vw,100px)`,
+        padding: `clamp(64px,8vw,120px) clamp(20px,5vw,80px)`,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

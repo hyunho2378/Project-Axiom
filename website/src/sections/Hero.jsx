@@ -27,7 +27,7 @@ export default function Hero() {
           maxWidth: layout.container,
           width: '100%',
           margin: '0 auto',
-          padding: `clamp(40px,5vw,70px) clamp(20px,6vw,100px)`,
+          padding: `clamp(40px,5vw,70px) clamp(20px,5vw,80px)`,
           display: 'grid',
           gridTemplateColumns: 'minmax(0,1fr) min(480px,50vw)',
           gap: 'clamp(32px,4vw,80px)',

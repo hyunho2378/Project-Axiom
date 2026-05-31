@@ -291,7 +291,7 @@ export default function UXStrategy() {
       style={{
         background: colors.bgCard,
         fontFamily: font.family,
-        padding: `clamp(32px,4vw,60px) clamp(20px,6vw,100px)`,
+        padding: `clamp(32px,4vw,60px) clamp(20px,5vw,80px)`,
       }}
     >
       <div style={{ maxWidth: layout.container, margin: '0 auto' }}>

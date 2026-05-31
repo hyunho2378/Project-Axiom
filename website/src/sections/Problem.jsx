@@ -180,7 +180,7 @@ export default function Problem() {
       style={{
         background: colors.bgDeep,
         fontFamily: font.family,
-        padding: `clamp(32px,4vw,60px) clamp(20px,6vw,100px)`,
+        padding: `clamp(32px,4vw,60px) clamp(20px,5vw,80px)`,
       }}
     >
       <div style={{ maxWidth: layout.container, margin: '0 auto' }}>
