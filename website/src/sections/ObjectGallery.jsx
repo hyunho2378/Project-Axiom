@@ -3,8 +3,15 @@ import { colors, font, type as t, layout } from '../tokens/web.js';
 import { useReveal } from '../lib/useReveal.js';
 import SectionHeader from '../components/SectionHeader.jsx';
 
+const STAGE_LABELS = [
+  '분석 시작 전', '분석 시작', '성별 선택', '나이대 선택',
+  '질문 1', '질문 2', '질문 3', '질문 4', '질문 5', '질문 6',
+  '질문 7', '질문 8', '질문 9', '질문 10', '최종 결과',
+];
+
 const OBJECTS = [
   /* ── 시그니처 / 이펙트 ── */
+  { file: 'axiom-planet.html',    name: 'planet',       label: 'AXIOM PLANET',  ko: '진단 행성',      desc: '분석 시작 전부터 최종 결과까지, 진단의 여정을 하나의 구체로.',         interaction: 'step'   },
   { file: 'axiom-crystal-v3.html', name: 'crystal',       label: 'CRYSTAL',       ko: '브랜드 크리스탈', desc: '수천 개의 데이터가 하나의 결정으로 피어나는 순간.',    interaction: 'rotate' },
   { file: 'axiom-dna-helix.html',  name: 'dna-helix',     label: 'DNA HELIX',     ko: 'DNA 헬릭스',     desc: '데이터가 나선으로 정렬되며 분석이 시작되는 순간.',      interaction: 'none'   },
   { file: 'axiom-aurora-v2.html',  name: 'aurora-v2',     label: 'AURORA RING',   ko: '오로라 링',      desc: '흐르는 빛의 고리, 살아있는 데이터의 맥동.',            interaction: 'rotate' },
@@ -63,6 +70,119 @@ function LazyIframe({ src, title }) {
           </span>
         </div>
       )}
+    </div>
+  );
+}
+
+function PlanetIframe({ src, title }) {
+  const [loaded, setLoaded] = useState(false);
+  const [ready,  setReady]  = useState(false);
+  const [step,   setStep]   = useState(0);
+  const obsRef    = useRef(null);
+  const iframeRef = useRef(null);
+
+  useEffect(() => {
+    const el = obsRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setLoaded(true); },
+      { rootMargin: '300px' }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!ready) return;
+    iframeRef.current?.contentWindow?.postMessage({ type: 'AXIOM_SET_STEP', step }, '*');
+  }, [step, ready]);
+
+  return (
+    <div ref={obsRef} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div style={{
+        width: '100%',
+        height: IFRAME_H,
+        background: colors.bg,
+        borderRadius: layout.rMd,
+        overflow: 'hidden',
+        border: `1px solid ${colors.line}`,
+        flexShrink: 0,
+      }}>
+        {loaded ? (
+          <iframe
+            ref={iframeRef}
+            src={src}
+            title={title}
+            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+            loading="lazy"
+            onLoad={() => {
+              setTimeout(() => {
+                setReady(true);
+                iframeRef.current?.contentWindow?.postMessage({ type: 'AXIOM_SET_STEP', step: 0 }, '*');
+              }, 300);
+            }}
+          />
+        ) : (
+          <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ color: colors.line, fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+              LOADING
+            </span>
+          </div>
+        )}
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <button
+          onClick={() => setStep(s => Math.max(0, s - 1))}
+          disabled={step === 0}
+          style={{
+            padding: '7px 18px',
+            background: 'transparent',
+            border: `1px solid ${step === 0 ? colors.line : colors.brandDeep}`,
+            borderRadius: layout.rSm,
+            color: step === 0 ? colors.inkFaint : colors.brand,
+            fontFamily: font.display,
+            fontSize: t.caption.size,
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            cursor: step === 0 ? 'default' : 'pointer',
+            transition: 'border-color 0.2s, color 0.2s',
+            flexShrink: 0,
+          }}
+        >
+          ← PREV
+        </button>
+
+        <div style={{ flex: 1, textAlign: 'center' }}>
+          <p style={{ margin: 0, fontSize: t.caption.size, fontWeight: 700, color: colors.brand, fontFamily: font.display, letterSpacing: '0.12em' }}>
+            {step} / 14
+          </p>
+          <p style={{ margin: '2px 0 0', fontSize: t.caption.size, fontWeight: 500, color: colors.inkMuted }}>
+            {STAGE_LABELS[step]}
+          </p>
+        </div>
+
+        <button
+          onClick={() => setStep(s => Math.min(14, s + 1))}
+          disabled={step === 14}
+          style={{
+            padding: '7px 18px',
+            background: 'transparent',
+            border: `1px solid ${step === 14 ? colors.line : colors.brandDeep}`,
+            borderRadius: layout.rSm,
+            color: step === 14 ? colors.inkFaint : colors.brand,
+            fontFamily: font.display,
+            fontSize: t.caption.size,
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            cursor: step === 14 ? 'default' : 'pointer',
+            transition: 'border-color 0.2s, color 0.2s',
+            flexShrink: 0,
+          }}
+        >
+          NEXT →
+        </button>
+      </div>
     </div>
   );
 }
@@ -161,7 +281,9 @@ function ObjectCard({ obj, isLast }) {
       className="obj-card"
     >
       {/* LEFT: 3D iframe */}
-      <LazyIframe src={`/3d-ref/${obj.file}`} title={obj.label} />
+      {obj.interaction === 'step'
+        ? <PlanetIframe src={`/3d-ref/${obj.file}`} title={obj.label} />
+        : <LazyIframe   src={`/3d-ref/${obj.file}`} title={obj.label} />}
 
       {/* RIGHT: info */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(16px,2vw,24px)', paddingTop: 'clamp(8px,1vw,16px)' }}>
@@ -185,6 +307,11 @@ function ObjectCard({ obj, isLast }) {
         {obj.interaction === 'click' && (
           <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkFaint, letterSpacing: '0.12em' }}>
             마우스로 중앙을 눌러보세요
+          </p>
+        )}
+        {obj.interaction === 'step' && (
+          <p style={{ margin: 0, fontSize: t.caption.size, color: colors.inkFaint, letterSpacing: '0.12em' }}>
+            마우스로 돌려보고, 버튼으로 진단 단계를 따라가 보세요
           </p>
         )}
 
