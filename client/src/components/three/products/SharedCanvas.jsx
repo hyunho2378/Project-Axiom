@@ -6,9 +6,10 @@ export default function SharedCanvas() {
   return (
     <Canvas
       camera={{ position: [0, 0.2, 8], fov: 34 }}
+      dpr={[1, 1.5]}
       gl={{
         alpha: true,
-        antialias: true,
+        antialias: false,
         toneMapping: THREE.ACESFilmicToneMapping,
         toneMappingExposure: 1.5,
       }}

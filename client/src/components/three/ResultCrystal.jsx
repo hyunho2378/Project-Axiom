@@ -17,15 +17,15 @@ export default function ResultCrystal({ skinType }) {
     const preset = LIGHT_PRESETS[mainType] || LIGHT_PRESETS['건성'];
 
     return (
-        <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
+        <Canvas camera={{ position: [0, 0, 8], fov: 45 }} dpr={[1, 1.5]}>
             <ambientLight intensity={0.5} />
             <spotLight position={[10, 10, 10]} intensity={1.2} color={preset.key} />
             <pointLight position={[-10, -5, -5]} intensity={0.4} color={preset.fill} />
             <pointLight position={[5, -10, 5]} intensity={0.3} color={preset.rim} />
             <Suspense fallback={null}>
                 <Starfield />
-                <EvolvingBlob step={10} />
-                <EvolvingParticles step={10} />
+                <EvolvingBlob step={10} colorOverride={preset.key} emissiveOverride={preset.rim} />
+                <EvolvingParticles step={10} colorOverride={preset.rim} />
                 <Environment preset="city" />
             </Suspense>
             <EffectComposer>

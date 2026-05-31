@@ -47,7 +47,7 @@ function lerp(start, end, t) {
 }
 
 
-export default function EvolvingBlob({ step = 0 }) {
+export default function EvolvingBlob({ step = 0, colorOverride = null, emissiveOverride = null }) {
     const meshRef = useRef();
     const materialRef = useRef();
 
@@ -65,8 +65,12 @@ export default function EvolvingBlob({ step = 0 }) {
 
     // Target stage (clamped to valid range)
     const targetStage = useMemo(() => {
-        return STAGES[Math.min(Math.max(step, 0), 10)];
-    }, [step]);
+        const stage = STAGES[Math.min(Math.max(step, 0), 10)];
+        if (colorOverride || emissiveOverride) {
+            return { ...stage, color: colorOverride || stage.color, emissive: emissiveOverride || stage.emissive };
+        }
+        return stage;
+    }, [step, colorOverride, emissiveOverride]);
 
     // Animate values in useFrame for smooth transitions
     useFrame((state, delta) => {
@@ -179,7 +183,7 @@ export function Starfield({ count = 1200 }) {
 }
 
 // Orbiting particles that also evolve with stage
-export function EvolvingParticles({ step = 0, count = 50 }) {
+export function EvolvingParticles({ step = 0, count = 50, colorOverride = null }) {
     const pointsRef = useRef();
 
     const positions = useMemo(() => {
@@ -219,7 +223,7 @@ export function EvolvingParticles({ step = 0, count = 50 }) {
             </bufferGeometry>
             <pointsMaterial
                 size={0.03 + (step / 10) * 0.04}
-                color={step >= 7 ? '#00E0FF' : '#8AAEC0'}
+                color={colorOverride || (step >= 7 ? '#00E0FF' : '#8AAEC0')}
                 transparent
                 opacity={intensity}
                 sizeAttenuation
