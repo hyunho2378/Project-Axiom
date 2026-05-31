@@ -168,129 +168,112 @@ export default function Header({ onLoginClick, isLoggedIn, onLogout }) {
                         </div>
                     </div>
 
-                    {/* Mobile Hamburger */}
-                    <button
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="lg:hidden flex flex-col items-end gap-1.5 p-3 -mr-2 min-h-[44px] min-w-[44px] justify-center"
-                        aria-label="Toggle menu"
-                    >
-                        <motion.span
-                            animate={{ rotate: isMobileMenuOpen ? 45 : 0, y: isMobileMenuOpen ? 6 : 0 }}
-                            className="w-6 h-[1.5px] bg-white/80 block origin-center"
-                        />
-                        <motion.span
-                            animate={{ opacity: isMobileMenuOpen ? 0 : 1 }}
-                            className="w-4 h-[1.5px] bg-white/50 block"
-                        />
-                        <motion.span
-                            animate={{ rotate: isMobileMenuOpen ? -45 : 0, y: isMobileMenuOpen ? -6 : 0 }}
-                            className="w-6 h-[1.5px] bg-white/80 block origin-center"
-                        />
-                    </button>
+                    {/* Mobile: globe + hamburger */}
+                    <div className="lg:hidden flex items-center gap-1">
+                        <button
+                            onClick={toggleLanguage}
+                            className="flex items-center gap-1 p-3 min-h-[44px] min-w-[44px] justify-center text-white/50 hover:text-[#8AAEC0] transition-colors duration-300"
+                            aria-label="Toggle language"
+                        >
+                            <svg className="w-4 h-4 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="2" y1="12" x2="22" y2="12" />
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                            </svg>
+                            <span className="font-body text-[9px] tracking-widest uppercase">{language === 'en' ? 'EN' : 'KO'}</span>
+                        </button>
+
+                        <button
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            className="flex flex-col items-end gap-1.5 p-3 -mr-2 min-h-[44px] min-w-[44px] justify-center"
+                            aria-label="Toggle menu"
+                        >
+                            <motion.span
+                                animate={{ rotate: isMobileMenuOpen ? 45 : 0, y: isMobileMenuOpen ? 6 : 0 }}
+                                className="w-6 h-[1.5px] bg-white/80 block origin-center"
+                            />
+                            <motion.span
+                                animate={{ opacity: isMobileMenuOpen ? 0 : 1 }}
+                                className="w-4 h-[1.5px] bg-white/50 block"
+                            />
+                            <motion.span
+                                animate={{ rotate: isMobileMenuOpen ? -45 : 0, y: isMobileMenuOpen ? -6 : 0 }}
+                                className="w-6 h-[1.5px] bg-white/80 block origin-center"
+                            />
+                        </button>
+                    </div>
                 </div>
             </motion.header>
 
-            {/* Mobile Menu */}
+            {/* Mobile backdrop — closes menu on outside click */}
+            {isMobileMenuOpen && (
+                <div
+                    className="fixed inset-0 z-[39] lg:hidden"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                />
+            )}
+
+            {/* Mobile dropdown — slides down from header */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="fixed inset-0 z-40 lg:hidden"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        style={{ overflow: 'hidden' }}
+                        className="fixed top-16 left-0 right-0 z-40 lg:hidden"
                     >
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="absolute inset-0 bg-black/98 backdrop-blur-2xl"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                        />
-
-                        <motion.nav
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 20 }}
-                            transition={{ duration: 0.4, delay: 0.1 }}
-                            className="relative z-10 flex flex-col items-center justify-center h-full gap-8"
-                        >
+                        <div className="bg-black/95 backdrop-blur-xl border-b border-[rgba(90,154,181,0.15)]">
                             {nav.menu.map((label, index) => (
-                                <motion.div
+                                <Link
                                     key={label}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.1 + index * 0.05 }}
+                                    to={MENU_PATHS[index]}
+                                    className={`
+                                        block px-8 py-4 font-body text-[11px] tracking-[0.25em] uppercase
+                                        border-b border-[rgba(90,154,181,0.08)]
+                                        transition-colors duration-200
+                                        ${isActive(MENU_PATHS[index])
+                                            ? 'text-[#3C7795]'
+                                            : 'text-white/70 hover:text-[#8AAEC0] hover:bg-white/[0.02]'}
+                                    `}
+                                    onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    <Link
-                                        to={MENU_PATHS[index]}
-                                        className={`
-                                            text-2xl tracking-[0.15em] uppercase font-body
-                                            ${isActive(MENU_PATHS[index])
-                                                ? 'text-[#3C7795]'
-                                                : 'text-white/80'}
-                                            hover:text-[#8AAEC0] transition-colors duration-300
-                                        `}
-                                    >
-                                        {label}
-                                    </Link>
-                                </motion.div>
+                                    {label}
+                                </Link>
                             ))}
 
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.4 }}
-                                className="mt-8 flex items-center justify-center gap-6"
-                            >
-                                <button
-                                    onClick={toggleLanguage}
-                                    className="flex items-center gap-1.5 p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors"
-                                    aria-label="Toggle language"
-                                >
-                                    <svg className="w-6 h-6 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <line x1="2" y1="12" x2="22" y2="12" />
-                                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                                    </svg>
-                                    <span className="font-body text-[9px] tracking-widest uppercase">{language === 'en' ? 'EN' : 'KO'}</span>
-                                </button>
-
+                            <div className="px-8 py-4">
                                 {isLoggedIn ? (
-                                    <div className="flex items-center justify-center gap-6">
+                                    <div className="flex items-center gap-6">
                                         <Link
                                             to="/dashboard"
-                                            className="flex items-center justify-center w-6 h-6 p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors"
+                                            className="font-body text-[11px] tracking-[0.25em] uppercase text-white/60 hover:text-[#8AAEC0] transition-colors"
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
-                                            <svg className="w-6 h-6 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                                <circle cx="12" cy="7" r="4" />
-                                            </svg>
+                                            {um.dashboard}
                                         </Link>
                                         <button
-                                            onClick={onLogout}
-                                            className="flex items-center justify-center p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors font-body text-[10px] tracking-widest uppercase leading-none mt-1"
+                                            onClick={() => { onLogout(); setIsMobileMenuOpen(false); }}
+                                            className="font-body text-[11px] tracking-[0.25em] uppercase text-white/40 hover:text-[#8AAEC0] transition-colors"
                                         >
                                             {um.logout}
                                         </button>
                                     </div>
                                 ) : (
                                     <button
-                                        onClick={() => {
-                                            setIsMobileMenuOpen(false);
-                                            onLoginClick();
-                                        }}
-                                        className="flex items-center justify-center w-6 h-6 p-0 m-0 text-white/50 hover:text-[#8AAEC0] transition-colors"
+                                        onClick={() => { setIsMobileMenuOpen(false); onLoginClick(); }}
+                                        className="flex items-center gap-2 font-body text-[11px] tracking-[0.25em] uppercase text-white/60 hover:text-[#8AAEC0] transition-colors"
                                     >
-                                        <svg className="w-6 h-6 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                        <svg className="w-4 h-4 block" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                             <circle cx="12" cy="7" r="4" />
                                         </svg>
+                                        {language === 'en' ? 'SIGN IN' : '로그인'}
                                     </button>
                                 )}
-                            </motion.div>
-                        </motion.nav>
+                            </div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
