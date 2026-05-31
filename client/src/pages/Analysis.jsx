@@ -7,7 +7,7 @@ import { Environment } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import EvolvingBlob, { EvolvingParticles, Starfield } from '../components/three/EvolvingBlob';
 import { questions } from '../data/questions';
-import { getRecommendedProducts, getSkinDescription } from '../data/axiomData';
+import { getRecommendedProducts, getSkinTypeData } from '../data/axiomData';
 
 const API_URL = "https://project-axiom.onrender.com";
 
@@ -34,9 +34,9 @@ function analyzeSkin(answers) {
     else if (sensPercent > 30) subType = "민감 주의";
 
     const finalType = `${mainType} · ${subType}`;
-    const desc = getSkinDescription(finalType);
+    const skinData = getSkinTypeData(finalType);
 
-    return { titleKo: finalType, descriptionKo: desc, oilPercent, sensPercent };
+    return { titleKo: finalType, descriptionKo: skinData.description, characteristicKo: skinData.characteristic, careDirectionKo: skinData.careDirection, oilPercent, sensPercent };
 }
 
 export default function Analysis() {
@@ -67,6 +67,8 @@ export default function Analysis() {
         setResultData({
             skinTypeStr: analysisResult.titleKo,
             description: analysisResult.descriptionKo,
+            characteristic: analysisResult.characteristicKo,
+            careDirection: analysisResult.careDirectionKo,
             products,
             oilPercent: analysisResult.oilPercent,
             sensPercent: analysisResult.sensPercent,

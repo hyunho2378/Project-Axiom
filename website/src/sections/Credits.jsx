@@ -13,7 +13,7 @@ export default function Credits() {
       style={{
         background: colors.bgDeep,
         fontFamily: font.family,
-        padding: `clamp(64px,8vw,120px) clamp(20px,6vw,100px)`,
+        padding: `clamp(32px,4vw,60px) clamp(20px,6vw,100px)`,
         textAlign: 'center',
       }}
     >
