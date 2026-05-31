@@ -35,9 +35,37 @@ const COPY = {
     },
 };
 
+const GENDER_MAP = {
+    '남성': { ko: '남성', en: 'Male' },
+    '여성': { ko: '여성', en: 'Female' },
+    '기타': { ko: '기타', en: 'Other' },
+};
+const AGE_MAP = {
+    '10대': { ko: '10대', en: '10s' },
+    '20대': { ko: '20대', en: '20s' },
+    '30대': { ko: '30대', en: '30s' },
+    '40대': { ko: '40대', en: '40s' },
+    '50대': { ko: '50대', en: '50s' },
+    '60대': { ko: '60대', en: '60s+' },
+};
+
 function displaySkinType(skinType, language) {
     if (!skinType || skinType === 'N/A') return skinType;
     return SKIN_TYPE_NAMES[skinType]?.[language] || skinType;
+}
+
+function formatTimestamp(raw, language) {
+    const d = new Date(raw);
+    if (isNaN(d.getTime())) return raw;
+    if (language === 'en') {
+        return d.toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+    const yyyy = d.getFullYear();
+    const mm   = String(d.getMonth() + 1).padStart(2, '0');
+    const dd   = String(d.getDate()).padStart(2, '0');
+    const hh   = String(d.getHours()).padStart(2, '0');
+    const mi   = String(d.getMinutes()).padStart(2, '0');
+    return `${yyyy}.${mm}.${dd} ${hh}:${mi}`;
 }
 
 export default function DataLab() {
@@ -179,13 +207,13 @@ export default function DataLab() {
                                     <div className="flex justify-between items-start mb-1">
                                         <span className="text-[#3C7795] text-xs font-bold">{displaySkinType(entry.skinType, language)}</span>
                                         <span className="text-[#8AAEC0]/50 text-[10px] font-body">
-                                            {new Date(entry.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                            {formatTimestamp(entry.createdAt, language)}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2 text-[11px] text-[#8AAEC0]">
-                                        <span>{entry.gender}</span>
+                                        <span>{GENDER_MAP[entry.gender]?.[language] || entry.gender}</span>
                                         <span className="w-1 h-1 bg-[#8AAEC0]/30 rounded-full"></span>
-                                        <span>{entry.age}</span>
+                                        <span>{AGE_MAP[entry.age]?.[language] || entry.age}</span>
                                     </div>
                                 </div>
                             ))}
