@@ -101,13 +101,13 @@ export default function DataLab() {
     }, []);
 
     if (loading) return (
-        <div className="min-h-screen bg-black flex flex-col justify-center items-center">
-            <div className="w-[400px] h-[400px]">
+        <div className="min-h-screen bg-black flex flex-col justify-center items-center gap-10">
+            <div className="w-[360px] h-[360px] flex-shrink-0 overflow-hidden">
                 <Suspense fallback={null}>
                     <AuroraRing />
                 </Suspense>
             </div>
-            <p className="text-[#8AAEC0] text-xs tracking-[0.2em] uppercase -mt-6">
+            <p className="text-[#8AAEC0] text-xs tracking-[0.2em] uppercase">
                 {c.connecting}
             </p>
         </div>
