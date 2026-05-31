@@ -5,7 +5,25 @@ import SectionHeader from '../components/SectionHeader.jsx';
 import axiomData from '../data/axiom.json';
 
 const { dataLogic } = axiomData;
-const { overview, scoring, skinTypes, questions } = dataLogic;
+const { overview, scoring, skinTypes, questions, products } = dataLogic;
+
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1zf7-lFTJq_lGPRgrOOeG8kg_IYIs3xWNVyHEcWAhEPY/edit';
+
+const SKIN_HIGHLIGHTS = [
+  { oil: '건성',   sens: '비민감',  desc: '유수분 부족하나 장벽은 안정적. 풍부한 보습에 집중.' },
+  { oil: '중성',   sens: '비민감',  desc: '유수분 밸런스 안정적. AXIOM이 정의하는 건강한 기준점.' },
+  { oil: '지성',   sens: '과민/경보', desc: '피지 많고 반응성 최고. 오일 컨트롤과 진정을 동시에.' },
+  { oil: '수부지', sens: '민감',    desc: '수분 부족한 지성 피부. 가벼운 수분 + 장벽 강화 필수.' },
+  { oil: '복합성', sens: '민감 주의', desc: '부위별 관리가 핵심. T존 유분, U존 수분 분리 접근.' },
+];
+
+const CATEGORY_LABELS = {
+  toner:     '토너',
+  ampoule:   '앰플',
+  tubeCream: '튜브형 크림',
+  jarCream:  '원형 크림',
+  sunscreen: '선크림',
+};
 
 const AXIS2_BORDER = ['ok', 'brand', 'warn', colors.brandMid];
 
@@ -328,11 +346,163 @@ function Accordion() {
   );
 }
 
+function SheetLink() {
+  return (
+    <div style={{ marginTop: 'clamp(20px,2.5vw,32px)' }}>
+      <a href={SHEET_URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+        <button
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '10px 20px',
+            background: 'transparent',
+            border: `1px solid ${colors.brandDeep}`,
+            borderRadius: layout.rSm,
+            cursor: 'pointer',
+            fontFamily: font.family,
+            fontSize: t.caption.size,
+            fontWeight: 700,
+            color: colors.brand,
+            letterSpacing: '0.08em',
+            transition: 'border-color 0.2s, color 0.2s',
+          }}
+          onMouseEnter={e => { e.currentTarget.style.borderColor = colors.brand; }}
+          onMouseLeave={e => { e.currentTarget.style.borderColor = colors.brandDeep; }}
+        >
+          전체 데이터 보기 (Google Sheets) →
+        </button>
+      </a>
+    </div>
+  );
+}
+
+function SkinTypeMatrix({ visible }) {
+  const oilTypes = scoring.axis1.types;
+  const sensGrades = scoring.axis2.grades;
+
+  const thBase = {
+    padding: 'clamp(8px,1vw,14px)',
+    borderBottom: `1px solid ${colors.line}`,
+    borderRight: `1px solid ${colors.line}`,
+    fontFamily: font.family,
+  };
+  const tdBase = {
+    padding: 'clamp(8px,1vw,14px)',
+    borderBottom: `1px solid ${colors.line}`,
+    borderRight: `1px solid ${colors.line}`,
+    verticalAlign: 'middle',
+    fontFamily: font.family,
+  };
+
+  return (
+    <div
+      style={{
+        marginTop: 'clamp(56px,7vw,96px)',
+        marginBottom: 'clamp(48px,6vw,80px)',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'none' : 'translateY(24px)',
+        transition: 'opacity 0.7s ease, transform 0.7s ease',
+      }}
+    >
+      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+        결과 — 20종 피부 타입 매트릭스
+      </p>
+
+      <div style={{ overflowX: 'auto', marginBottom: 'clamp(24px,3vw,36px)', borderRadius: layout.rMd, border: `1px solid ${colors.line}` }}>
+        <table style={{ borderCollapse: 'collapse', width: '100%', minWidth: 560 }}>
+          <thead>
+            <tr>
+              <th style={{ ...thBase, background: colors.bgDeep, color: colors.inkFaint, fontWeight: 700, textAlign: 'left', fontSize: t.caption.size, letterSpacing: '0.06em', minWidth: 100 }}>
+                유수분 \ 민감도
+              </th>
+              {sensGrades.map(g => (
+                <th key={g.code} style={{ ...thBase, background: colors.bgDeep, textAlign: 'center', minWidth: 110 }}>
+                  <span style={{ display: 'block', fontSize: t.body.size, fontWeight: 700, color: colors.ink }}>{g.grade}</span>
+                  <span style={{ display: 'block', fontSize: t.caption.size, fontWeight: 600, color: colors.brand, marginTop: 2 }}>{g.min}~{g.max}점</span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {oilTypes.map((tp, ri) => (
+              <tr key={tp.code}>
+                <td style={{ ...tdBase, background: colors.bgDeep }}>
+                  <span style={{ display: 'block', fontSize: t.body.size, fontWeight: 700, color: colors.ink }}>{tp.type}</span>
+                  <span style={{ display: 'block', fontSize: t.caption.size, color: colors.inkFaint, marginTop: 2 }}>{tp.min}~{tp.max}점</span>
+                </td>
+                {sensGrades.map((g, ci) => (
+                  <td key={g.code} style={{ ...tdBase, textAlign: 'center', background: (ri + ci) % 2 === 0 ? colors.bgDeep : 'transparent' }}>
+                    <span style={{ fontSize: t.body.size, fontWeight: 600, color: colors.inkMuted }}>{tp.type}·{g.grade}</span>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p style={{ margin: '0 0 clamp(12px,1.5vw,18px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.inkMuted }}>
+        핵심 타입 하이라이트
+      </p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(8px,1.5vw,14px)' }} className="highlight-grid">
+        {SKIN_HIGHLIGHTS.map((h, i) => (
+          <div key={i} style={{ background: colors.bgDeep, border: `1px solid ${colors.line}`, borderRadius: layout.rMd, padding: 'clamp(12px,1.5vw,20px)' }}>
+            <p style={{ margin: '0 0 8px', fontSize: t.body.size, fontWeight: 700, color: colors.brand }}>{h.oil} · {h.sens}</p>
+            <p style={{ margin: 0, fontSize: t.lead.size, fontWeight: 400, color: colors.inkMuted, lineHeight: t.lead.lh }}>{h.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <SheetLink />
+    </div>
+  );
+}
+
+function ProductMapping({ visible }) {
+  return (
+    <div
+      style={{
+        marginBottom: 'clamp(48px,6vw,80px)',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'none' : 'translateY(24px)',
+        transition: 'opacity 0.7s ease, transform 0.7s ease',
+      }}
+    >
+      <p style={{ margin: '0 0 clamp(24px,3vw,36px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+        제품 매칭 — 피부 타입별 25개 제품
+      </p>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(24px,3vw,40px)' }}>
+        {Object.entries(products).map(([cat, items]) => (
+          <div key={cat}>
+            <p style={{ margin: '0 0 clamp(10px,1.2vw,16px)', fontSize: t.body.size, fontWeight: 700, color: colors.ink, borderBottom: `1px solid ${colors.line}`, paddingBottom: 10 }}>
+              {CATEGORY_LABELS[cat]}
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 'clamp(8px,1.2vw,14px)' }} className="product-row">
+              {items.map((item, i) => (
+                <div key={i} style={{ background: colors.bgDeep, border: `1px solid ${colors.line}`, borderRadius: layout.rMd, padding: 'clamp(10px,1.2vw,16px)' }}>
+                  <p style={{ margin: '0 0 4px', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.1em', color: colors.brand, textTransform: 'uppercase' }}>{item.skinType}</p>
+                  <p style={{ margin: 0, fontSize: t.lead.size, fontWeight: 500, color: colors.ink, lineHeight: 1.4 }}>{item.nameKo}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <SheetLink />
+    </div>
+  );
+}
+
 export default function DataLogic() {
   const [diagramRef,  diagramVisible]  = useReveal({ threshold: 0.1 });
   const [axis1Ref,    axis1Visible]    = useReveal({ threshold: 0.1 });
   const [axis2Ref,    axis2Visible]    = useReveal({ threshold: 0.1 });
   const [exampleRef,  exampleVisible]  = useReveal({ threshold: 0.1 });
+  const [matrixRef,   matrixVisible]   = useReveal({ threshold: 0.1 });
+  const [productRef,  productVisible]  = useReveal({ threshold: 0.1 });
 
   return (
     <section
@@ -364,6 +534,14 @@ export default function DataLogic() {
         </div>
 
         <Accordion />
+
+        <div ref={matrixRef}>
+          <SkinTypeMatrix visible={matrixVisible} />
+        </div>
+
+        <div ref={productRef}>
+          <ProductMapping visible={productVisible} />
+        </div>
       </div>
 
       <style>{`
@@ -375,6 +553,14 @@ export default function DataLogic() {
         @media (max-width: 640px) {
           .axis1-row { gap: 10px !important; }
           .diagram-row { gap: 8px !important; }
+        }
+        @media (max-width: 900px) {
+          .highlight-grid { grid-template-columns: 1fr 1fr !important; }
+          .product-row { grid-template-columns: repeat(3, 1fr) !important; }
+        }
+        @media (max-width: 600px) {
+          .highlight-grid { grid-template-columns: 1fr !important; }
+          .product-row { grid-template-columns: repeat(2, 1fr) !important; }
         }
       `}</style>
     </section>
