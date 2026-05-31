@@ -1,10 +1,12 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import CrystalOrb from './three/CrystalOrb';
+import { useLanguage } from '../context/LanguageContext';
 
 const CATEGORIES = ['Diagnosis', 'Curation', 'Ritual'];
 
 export default function HeroIntro() {
+    const { language } = useLanguage();
     const prefersReduced = useReducedMotion();
 
     const fadeIn = prefersReduced
@@ -58,7 +60,9 @@ export default function HeroIntro() {
                         transition={{ duration: 0.8, delay: 0.7 }}
                         className="font-body text-ui-textSecondary text-base md:text-lg leading-body-lg max-w-sm mb-10"
                     >
-                        모든 피부는 태어나는 순간,<br />자신만의 고유한 중심축을 가집니다.
+                        {language === 'en'
+                            ? <>Every skin is born<br />with its own center of balance.</>
+                            : <>모든 피부는 태어나는 순간,<br />자신만의 고유한 중심축을 가집니다.</>}
                     </motion.p>
 
                     <div className="flex gap-6 mb-12">

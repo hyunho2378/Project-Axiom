@@ -1,10 +1,15 @@
 import { motion, useReducedMotion } from 'framer-motion';
+import { useLanguage } from '../../context/LanguageContext';
 
-const BODY = '감각이나 유행이 아닌, 피부 타입과 컨디션, 성분 반응 데이터를 기준으로 피부를 해석합니다. AXIOM은 수백만 개의 데이터 포인트를 분석하여 당신 피부만의 고유한 중심축을 정의합니다.';
-
-const WORDS = BODY.split(' ');
+const BODY = {
+    ko: '감각이나 유행이 아닌, 피부 타입과 컨디션, 성분 반응 데이터를 기준으로 피부를 해석합니다. AXIOM은 수백만 개의 데이터 포인트를 분석하여 당신 피부만의 고유한 중심축을 정의합니다.',
+    en: 'We interpret skin not through trends or sensation, but through skin type, condition, and ingredient response data. AXIOM analyzes millions of data points to define the singular, unwavering axis of your skin.',
+};
 
 export default function Philosophy() {
+    const { language } = useLanguage();
+    const body = BODY[language] || BODY.en;
+    const words = body.split(' ');
     const prefersReduced = useReducedMotion();
 
     return (
@@ -25,10 +30,10 @@ export default function Philosophy() {
 
                 <div className="font-body text-ui-textSecondary text-base md:text-lg leading-body-lg">
                     {prefersReduced ? (
-                        <p>{BODY}</p>
+                        <p>{body}</p>
                     ) : (
                         <p>
-                            {WORDS.map((word, i) => (
+                            {words.map((word, i) => (
                                 <motion.span
                                     key={i}
                                     initial={{ opacity: 0.15 }}

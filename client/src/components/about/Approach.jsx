@@ -1,16 +1,18 @@
 import { useRef } from 'react';
 import { motion, useMotionValue, useTransform, useReducedMotion } from 'framer-motion';
+import { useLanguage } from '../../context/LanguageContext';
 
 const APPROACH = [
-    { title: 'Craft',           sub: '정교한 설계', desc: '모든 진단 단계는 피부과학 연구 기반으로 설계되었습니다.' },
-    { title: 'Detail',          sub: '세밀한 분류', desc: '20가지 피부 타입을 세분화하여 정교한 매칭을 실현합니다.' },
-    { title: 'Personalization', sub: '오직 당신만', desc: '당신의 피부는 세상에 하나뿐입니다. 솔루션도 마찬가지입니다.' },
-    { title: 'Fact',            sub: '사실과 진실', desc: '느낌이나 추측이 아닌 데이터만으로 진단합니다.' },
-    { title: 'One & Only',      sub: '단 한 사람',  desc: '모두가 아닌 당신 한 사람에게만 맞춤화됩니다.' },
-    { title: 'Art',             sub: '미학적 경험', desc: '기술은 똑똑해야 하고, 결과물은 아름다워야 합니다.' },
+    { title: 'Craft',           sub: { ko: '정교한 설계', en: 'Precision Design' },         desc: { ko: '모든 진단 단계는 피부과학 연구 기반으로 설계되었습니다.',          en: 'Every diagnostic step is grounded in dermatological science.' } },
+    { title: 'Detail',          sub: { ko: '세밀한 분류', en: 'Meticulous Classification' }, desc: { ko: '20가지 피부 타입을 세분화하여 정교한 매칭을 실현합니다.',          en: 'Twenty skin types, each mapped with precision for the most exact match.' } },
+    { title: 'Personalization', sub: { ko: '오직 당신만', en: 'You, Only You' },             desc: { ko: '당신의 피부는 세상에 하나뿐입니다. 솔루션도 마찬가지입니다.',      en: 'Your skin is one of a kind. So is every solution we create.' } },
+    { title: 'Fact',            sub: { ko: '사실과 진실', en: 'Truth Above All' },           desc: { ko: '느낌이나 추측이 아닌 데이터만으로 진단합니다.',                    en: 'Not intuition. Not trend. Data alone shapes every diagnosis.' } },
+    { title: 'One & Only',      sub: { ko: '단 한 사람',  en: 'One Person' },               desc: { ko: '모두가 아닌 당신 한 사람에게만 맞춤화됩니다.',                    en: 'Formulated for one — you — and no one else.' } },
+    { title: 'Art',             sub: { ko: '미학적 경험', en: 'Aesthetic Experience' },      desc: { ko: '기술은 똑똑해야 하고, 결과물은 아름다워야 합니다.',              en: 'Intelligent technology must produce beautiful results.' } },
 ];
 
 function TiltCard({ item, index, prefersReduced }) {
+    const { language } = useLanguage();
     const cardRef = useRef(null);
     const mouseX = useMotionValue(0.5);
     const mouseY = useMotionValue(0.5);
@@ -39,8 +41,8 @@ function TiltCard({ item, index, prefersReduced }) {
             whileHover={prefersReduced ? {} : { borderColor: '#2A6885' }}
         >
             <h3 className="font-title-en text-2xl text-white">{item.title}</h3>
-            <p className="font-body text-brand-400 text-xs tracking-wider mt-1">{item.sub}</p>
-            <p className="font-body text-ui-textSecondary text-sm mt-3">{item.desc}</p>
+            <p className="font-body text-brand-400 text-xs tracking-wider mt-1">{item.sub[language] || item.sub.en}</p>
+            <p className="font-body text-ui-textSecondary text-sm mt-3">{item.desc[language] || item.desc.en}</p>
         </motion.div>
     );
 }

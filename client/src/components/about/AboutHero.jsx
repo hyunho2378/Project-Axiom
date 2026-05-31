@@ -1,7 +1,27 @@
 import { useEffect } from 'react';
 import { motion, useMotionValue, useReducedMotion } from 'framer-motion';
+import { useLanguage } from '../../context/LanguageContext';
+
+const COPY = {
+    ko: {
+        axisLabel: 'Axis (축)',
+        axisDef: '흔들리지 않는 나만의 중심',
+        axiomLabel: 'Axiom (자명한 진리)',
+        axiomDef: '증명할 필요 없이 그 자체로 확실한 정답',
+        tagline: '데이터로 증명된, 당신만의 흔들리지 않는 아름다움의 기준',
+    },
+    en: {
+        axisLabel: 'Axis',
+        axisDef: 'Your unwavering center.',
+        axiomLabel: 'Axiom',
+        axiomDef: 'A truth so clear, it needs no proof.',
+        tagline: 'Your standard of beauty, made certain by data.',
+    },
+};
 
 export default function AboutHero() {
+    const { language } = useLanguage();
+    const c = COPY[language] || COPY.en;
     const cursorX = useMotionValue(-200);
     const cursorY = useMotionValue(-200);
     const prefersReduced = useReducedMotion();
@@ -57,12 +77,12 @@ export default function AboutHero() {
                     className="font-body text-sm mb-8 space-y-2"
                 >
                     <div className="flex gap-3 items-baseline">
-                        <span className="text-brand-600 text-[10px] tracking-widest uppercase w-36 flex-shrink-0">Axis (축)</span>
-                        <span className="text-ui-textSecondary">흔들리지 않는 나만의 중심</span>
+                        <span className="text-brand-600 text-[10px] tracking-widest uppercase w-36 flex-shrink-0">{c.axisLabel}</span>
+                        <span className="text-ui-textSecondary">{c.axisDef}</span>
                     </div>
                     <div className="flex gap-3 items-baseline">
-                        <span className="text-brand-600 text-[10px] tracking-widest uppercase w-36 flex-shrink-0">Axiom (자명한 진리)</span>
-                        <span className="text-ui-textSecondary">증명할 필요 없이 그 자체로 확실한 정답</span>
+                        <span className="text-brand-600 text-[10px] tracking-widest uppercase w-36 flex-shrink-0">{c.axiomLabel}</span>
+                        <span className="text-ui-textSecondary">{c.axiomDef}</span>
                     </div>
                 </motion.div>
 
@@ -72,7 +92,7 @@ export default function AboutHero() {
                     transition={{ duration: 0.8, delay: 0.7 }}
                     className="font-body text-ui-textMuted text-sm leading-body-lg"
                 >
-                    데이터로 증명된, 당신만의 흔들리지 않는 아름다움의 기준
+                    {c.tagline}
                 </motion.p>
 
             </div>
