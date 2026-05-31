@@ -49,9 +49,46 @@ const AGE_MAP = {
     '60대': { ko: '60대', en: '60s+' },
 };
 
+const LEGACY_TYPE_MAP = {
+    'Oily-Resilient':              '지성 · 비민감',
+    'Oily-Sensitive Watch':        '지성 · 민감 주의',
+    'Oily-Sensitive':              '지성 · 민감',
+    'Oily-Reactive':               '지성 · 과민',
+    'Dry-Resilient':               '건성 · 비민감',
+    'Dry-Sensitive Watch':         '건성 · 민감 주의',
+    'Dry-Sensitive':               '건성 · 민감',
+    'Dry-Reactive':                '건성 · 과민',
+    'Normal-Resilient':            '중성 · 비민감',
+    'Normal-Sensitive Watch':      '중성 · 민감 주의',
+    'Normal-Sensitive':            '중성 · 민감',
+    'Normal-Reactive':             '중성 · 과민',
+    'Combination-Resilient':       '복합성 · 비민감',
+    'Combination-Sensitive Watch': '복합성 · 민감 주의',
+    'Combination-Sensitive':       '복합성 · 민감',
+    'Combination-Reactive':        '복합성 · 과민',
+    'Combo-Dry-Resilient':         '수부지 · 비민감',
+    'Combo-Dry-Sensitive Watch':   '수부지 · 민감 주의',
+    'Combo-Dry-Sensitive':         '수부지 · 민감',
+    'Combo-Dry-Reactive':          '수부지 · 과민',
+};
+
+const TYPE_COLORS = {
+    '건성':  '#7FC4E8',
+    '중성':  '#3FD8C0',
+    '지성':  '#5566FF',
+    '수부지': '#22B8E0',
+    '복합성': '#2ED0B0',
+};
+
+function normalizeSkinType(raw) {
+    if (!raw) return raw;
+    return LEGACY_TYPE_MAP[raw] || raw;
+}
+
 function displaySkinType(skinType, language) {
     if (!skinType || skinType === 'N/A') return skinType;
-    return SKIN_TYPE_NAMES[skinType]?.[language] || skinType;
+    const normalized = normalizeSkinType(skinType);
+    return SKIN_TYPE_NAMES[normalized]?.[language] || normalized;
 }
 
 function formatTimestamp(raw, language) {
@@ -74,6 +111,7 @@ export default function DataLab() {
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showAllTypes, setShowAllTypes] = useState(false);
 
     useEffect(() => {
         let cancelled = false;
@@ -134,9 +172,19 @@ export default function DataLab() {
         </div>
     );
 
-    const mostCommon = stats?.typeDistribution?.length
-        ? [...stats.typeDistribution].sort((a, b) => b.count - a.count)[0]
-        : { skinType: 'N/A', count: 0 };
+    const mergedDist = (() => {
+        if (!stats?.typeDistribution?.length) return [];
+        const counts = {};
+        stats.typeDistribution.forEach(item => {
+            const key = normalizeSkinType(item.skinType);
+            counts[key] = (counts[key] || 0) + item.count;
+        });
+        return Object.entries(counts)
+            .map(([skinType, count]) => ({ skinType, count }))
+            .sort((a, b) => b.count - a.count);
+    })();
+
+    const mostCommon = mergedDist.length > 0 ? mergedDist[0] : { skinType: 'N/A', count: 0 };
 
     return (
         <div className="min-h-screen bg-black text-white pt-24 overflow-hidden font-body">
@@ -188,27 +236,48 @@ export default function DataLab() {
 
                     <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="lg:col-span-2 bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-2xl p-6 backdrop-blur-sm">
                         <h2 className="text-sm font-bold text-white mb-6 border-b border-[#8AAEC0]/10 pb-2">{c.distribution}</h2>
-                        <div className="space-y-4">
-                            {stats.typeDistribution.map((item, index) => {
+                        <div className="space-y-3">
+                            {(showAllTypes ? mergedDist : mergedDist.slice(0, 8)).map((item, index) => {
                                 const percentage = stats.totalCount > 0 ? (item.count / stats.totalCount) * 100 : 0;
+                                const mainType = item.skinType.split(' · ')[0];
+                                const dotColor = TYPE_COLORS[mainType] || '#5A9AB5';
                                 return (
                                     <div key={item.skinType} className="group">
-                                        <div className="flex justify-between text-xs mb-1">
-                                            <span className="text-[#8AAEC0] group-hover:text-white transition-colors">{displaySkinType(item.skinType, language)}</span>
-                                            <span className="text-[#3C7795] font-body">{percentage.toFixed(1)}%</span>
+                                        <div className="flex justify-between items-center text-xs mb-1">
+                                            <div className="flex items-center gap-2">
+                                                <span style={{
+                                                    display: 'inline-block', width: 8, height: 8, borderRadius: '50%',
+                                                    background: `radial-gradient(circle at 30% 30%, ${dotColor}, ${dotColor}88)`,
+                                                    boxShadow: `0 0 6px ${dotColor}55`,
+                                                    flexShrink: 0,
+                                                }} />
+                                                <span className="text-[#8AAEC0] group-hover:text-white transition-colors">
+                                                    {displaySkinType(item.skinType, language)}
+                                                </span>
+                                            </div>
+                                            <span className="text-[#8AAEC0]/70 font-body ml-2">{percentage.toFixed(1)}%</span>
                                         </div>
-                                        <div className="w-full bg-[#8AAEC0]/10 h-1.5 rounded-full overflow-hidden">
+                                        <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.05)' }}>
                                             <motion.div
-                                                className="h-full bg-gradient-to-r from-[#1E5672] to-[#8AAEC0]"
+                                                className="h-full rounded-full"
+                                                style={{ background: `linear-gradient(90deg, ${dotColor}, ${dotColor}cc)` }}
                                                 initial={{ width: 0 }}
                                                 animate={{ width: `${percentage}%` }}
-                                                transition={{ duration: 1, delay: index * 0.1 }}
+                                                transition={{ duration: 1, delay: index * 0.05 }}
                                             />
                                         </div>
                                     </div>
                                 );
                             })}
                         </div>
+                        {mergedDist.length > 8 && (
+                            <button
+                                onClick={() => setShowAllTypes(!showAllTypes)}
+                                className="mt-4 text-[10px] text-[#8AAEC0]/50 hover:text-[#8AAEC0] transition-colors tracking-widest uppercase font-body"
+                            >
+                                {showAllTypes ? '▲ COLLAPSE' : `▼ +${mergedDist.length - 8} MORE`}
+                            </button>
+                        )}
                     </motion.div>
 
                     <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-2xl p-6 backdrop-blur-sm flex flex-col">
