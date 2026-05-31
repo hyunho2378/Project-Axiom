@@ -66,12 +66,10 @@ export default function Nav() {
                   style={{
                     textDecoration: 'none',
                     fontSize: 13,
-                    fontWeight: active ? 700 : 500,
-                    color: active ? colors.brand : colors.inkMuted,
+                    fontWeight: active ? 700 : 400,
+                    color: active ? colors.ink : colors.inkMuted,
                     letterSpacing: '-0.01em',
                     transition: 'color 0.18s',
-                    borderBottom: active ? `1px solid ${colors.brand}` : '1px solid transparent',
-                    paddingBottom: 2,
                   }}
                   onMouseEnter={(e) => { if (!active) e.currentTarget.style.color = colors.ink; }}
                   onMouseLeave={(e) => { if (!active) e.currentTarget.style.color = colors.inkMuted; }}
