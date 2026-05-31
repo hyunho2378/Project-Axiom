@@ -99,7 +99,8 @@ function PositioningMap({ visible }) {
       <p
         style={{
           marginTop: 16,
-          fontSize: t.caption.size,
+          fontSize: t.sublabel.size,
+          fontWeight: 600,
           color: colors.inkMuted,
           textAlign: 'center',
           maxWidth: 480,

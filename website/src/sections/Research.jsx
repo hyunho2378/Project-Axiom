@@ -242,7 +242,7 @@ export default function Research() {
         <div ref={headerRef}>
           <SectionHeader
             eyebrow="04 RESEARCH"
-            headline="유저 리서치: 52명의 데이터가 말한 것"
+            headline="사용자는 왜 진단 후 멈추는가"
             sub="설문 52명 + 인터뷰 12명을 통해 발견한 세 개의 인사이트"
             align="left"
           />

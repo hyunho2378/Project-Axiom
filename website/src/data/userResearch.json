@@ -1020,7 +1020,7 @@
         "location": "서울 마포구",
         "skinType": "복합성 (T존 지성, 볼 건성)",
         "monthlySpend": "8~15만원",
-        "searchRoute": "유튜브 스킨케어 영상 → 화해 성분 확인 → 올리브영 상세페이지 → 네이버 블로그 후기 → 구매 (or 포기)",
+        "searchRoute": "유튜브 → 화해 → 올리브영 → 블로그 → 구매 / 포기",
         "avgSearchTime": "20~40분",
         "diagnosisExp": "올리브영 스킨스캔 1회, 화해 수회",
         "goals": [
@@ -1078,7 +1078,7 @@
   "insights": [
     {
       "id": "INSIGHT_01",
-      "title": "진단은 받지만, 아무것도 달라지지 않는다",
+      "title": "진단은 받지만, 아무것도 달라지지 않는다.",
       "quantitative": [
         {
           "stat": "18.2%",
@@ -1100,7 +1100,7 @@
     },
     {
       "id": "INSIGHT_02",
-      "title": "사용자는 \"왜\"를 원한다",
+      "title": "사용자는 \"왜\"를 원한다.",
       "quantitative": [
         {
           "stat": "41.7%",
@@ -1117,7 +1117,7 @@
     },
     {
       "id": "INSIGHT_03",
-      "title": "보이는 것이 믿음을 만든다",
+      "title": "보이는 것이 믿음을 만든다.",
       "quantitative": [
         {
           "stat": "67.3%",

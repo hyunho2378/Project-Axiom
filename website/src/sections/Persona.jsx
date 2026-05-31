@@ -154,7 +154,7 @@ export default function Persona() {
       <div style={{ maxWidth: layout.container, margin: '0 auto' }}>
         <SectionHeader
           eyebrow="05 PERSONA"
-          headline="리서치가 보여준 두 명의 사용자"
+          headline="이런 고민을 가진 사람들"
           sub="52명의 데이터와 12명의 인터뷰에서 발견한 핵심 페르소나"
           align="left"
         />
@@ -165,6 +165,7 @@ export default function Persona() {
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: 'clamp(16px,2.5vw,32px)',
+            alignItems: 'stretch',
           }}
           className="persona-grid"
         >
