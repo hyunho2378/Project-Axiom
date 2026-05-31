@@ -148,13 +148,13 @@ export default function DataLab() {
                 </div>
 
                 {/* 2. Top Metrics */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-2xl p-4">
                         <h3 className="text-[#8AAEC0] text-[10px] uppercase tracking-wider mb-1">{c.totalResponses}</h3>
                         <p className="text-3xl font-bold text-white">{stats.totalCount.toLocaleString()}</p>
                     </motion.div>
 
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="col-span-2 bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-2xl p-4 flex items-center justify-between">
+                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="md:col-span-2 bg-[#8AAEC0]/5 border border-[#8AAEC0]/10 rounded-2xl p-4 flex items-center justify-between">
                         <div>
                             <h3 className="text-[#8AAEC0] text-[10px] uppercase tracking-wider mb-1">{c.dominantType}</h3>
                             <p className="text-xl font-bold text-[#3C7795]">{displaySkinType(mostCommon.skinType, language)}</p>

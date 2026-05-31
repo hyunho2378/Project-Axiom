@@ -256,7 +256,7 @@ export default function Result() {
                         ref={receiptRef}
                         style={{
                             background: `radial-gradient(circle at 50% 18%, ${accentColor}1a 0%, transparent 58%), #000000`,
-                            width: '360px',
+                            width: '100%',
                             minHeight: '640px',
                             display: 'flex',
                             flexDirection: 'column',
