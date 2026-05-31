@@ -16,8 +16,15 @@ export function getProductTint(product) {
   return list[idx >= 0 ? idx : 0];
 }
 
+function normalizeStr(val) {
+  if (val == null) return '';
+  if (typeof val === 'object') return val.ko || val.en || '';
+  return String(val);
+}
+
 function wrapText(ctx, text, maxWidth) {
-  const words = text.split(' ');
+  const str = normalizeStr(text);
+  const words = str.split(' ');
   const lines = [];
   let line = '';
   for (const word of words) {
@@ -112,9 +119,7 @@ export function makeLabelCanvas(product, w, h, logoImg, fontsReady) {
   // 뒷면 (좌측 1/6, 우측 5/6 동일)
   function drawBack(cx) {
     ctx.font = `300 ${Math.round(h * 0.022)}px ${KR}`;
-    const descLines = typeof product.desc === 'string'
-      ? wrapText(ctx, product.desc, w * 0.12)
-      : product.desc;
+    const descLines = wrapText(ctx, normalizeStr(product.desc), w * 0.12);
 
     const lnH = h * 0.022;
     const dh = descLines.length * lnH;
@@ -148,7 +153,7 @@ export function makeLabelCanvas(product, w, h, logoImg, fontsReady) {
 
     ctx.fillStyle = 'rgba(255,255,255,.72)';
     ctx.font = `300 ${Math.round(h * 0.015)}px ${KR}`;
-    ctx.fillText(product.texture, cx, y); y += h * 0.026;
+    ctx.fillText(normalizeStr(product.texture), cx, y); y += h * 0.026;
 
     if (product.functional) {
       ctx.fillStyle = 'rgba(255,255,255,.88)';
@@ -289,9 +294,7 @@ export function makeBackLabelCanvas(product, w, h, logoImg, fontsReady) {
   const isSunscreen = product.productType === 'sunscreen';
 
   ctx.font = `300 26px ${KR}`;
-  const descLines = Array.isArray(product.desc)
-    ? product.desc
-    : wrapText(ctx, product.desc, w * 0.85);
+  const descLines = wrapText(ctx, normalizeStr(product.desc), w * 0.85);
   const descH   = descLines.length * 36;
   const funcH   = product.functional ? 44 : 0;
   const spfH    = isSunscreen ? 44 : 0;
@@ -321,7 +324,7 @@ export function makeBackLabelCanvas(product, w, h, logoImg, fontsReady) {
 
   ctx.fillStyle = 'rgba(255,255,255,.70)';
   ctx.font = `300 23px ${KR}`;
-  ctx.fillText(product.texture, CX, y); y += 44;
+  ctx.fillText(normalizeStr(product.texture), CX, y); y += 44;
 
   if (product.functional) {
     ctx.fillStyle = 'rgba(255,255,255,.86)';

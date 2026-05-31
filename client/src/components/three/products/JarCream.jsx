@@ -18,8 +18,15 @@ const PROFILE = [
   new THREE.Vector2(1.12,  0.57),
 ];
 
+function normalizeStr(val) {
+  if (val == null) return '';
+  if (typeof val === 'object') return val.ko || val.en || '';
+  return String(val);
+}
+
 function wrapText(ctx, text, maxWidth) {
-  const words = text.split(' ');
+  const str = normalizeStr(text);
+  const words = str.split(' ');
   const lines = [];
   let line = '';
   for (const word of words) {
@@ -101,9 +108,7 @@ function makeLabel(product, w, h, logoImg, fontsReady) {
 
   // ── 뒷면 (BC 기준, 1번만) ──
   ctx.font = `300 ${Math.round(h * 0.022)}px ${KR}`;
-  const descLines = typeof product.desc === 'string'
-    ? wrapText(ctx, product.desc, w * 0.12)
-    : product.desc;
+  const descLines = wrapText(ctx, normalizeStr(product.desc), w * 0.12);
 
   const lnH = h * 0.022;
   const dh  = descLines.length * lnH;
@@ -137,7 +142,7 @@ function makeLabel(product, w, h, logoImg, fontsReady) {
 
   ctx.fillStyle = 'rgba(255,255,255,.72)';
   ctx.font = `300 ${Math.round(h * 0.015)}px ${KR}`;
-  ctx.fillText(product.texture, BC, by); by += h * 0.026;
+  ctx.fillText(normalizeStr(product.texture), BC, by); by += h * 0.026;
 
   if (product.functional) {
     ctx.fillStyle = 'rgba(255,255,255,.88)';
