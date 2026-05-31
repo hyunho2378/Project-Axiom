@@ -51,19 +51,16 @@ export default function BX() {
             transition: 'opacity 0.7s ease, transform 0.7s ease',
           }}
         >
-          <h2
+          <img
+            src="/axiom-logo.svg"
+            alt="AXIOM"
             style={{
-              margin: '0 0 clamp(8px,1vw,16px)',
-              fontSize: 'clamp(33px,6vw,78px)',
-              fontWeight: 800,
-              letterSpacing: '-0.05em',
-              lineHeight: 0.95,
-              color: colors.ink,
-              fontFamily: "'BentonModDisp', 'Didot', 'Georgia', serif",
+              display: 'block',
+              margin: '0 auto clamp(8px,1vw,16px)',
+              height: 'clamp(40px,7vw,80px)',
+              width: 'auto',
             }}
-          >
-            {bx.naming.word}
-          </h2>
+          />
           <p
             style={{
               margin: '0 0 clamp(12px,1.5vw,20px)',
