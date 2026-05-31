@@ -11,8 +11,8 @@ const STAGE_LABELS = [
 
 const OBJECTS = [
   /* ── 시그니처 / 이펙트 ── */
-  { file: 'axiom-planet.html',    name: 'planet',       label: 'AXIOM PLANET',  ko: '진단 행성',      desc: '분석 시작 전부터 최종 결과까지, 진단의 여정을 하나의 구체로',         interaction: 'step'   },
   { file: 'axiom-crystal-v3.html', name: 'crystal',       label: 'CRYSTAL',       ko: '브랜드 크리스탈', desc: '수천 개의 데이터가 하나의 결정으로 피어나는 순간',    interaction: 'rotate' },
+  { file: 'axiom-planet.html',    name: 'planet',       label: 'AXIOM PLANET',  ko: '진단 행성',      desc: '분석 시작 전부터 최종 결과까지, 진단의 여정을 하나의 구체로',         interaction: 'step'   },
   { file: 'axiom-dna-helix.html',  name: 'dna-helix',     label: 'DNA HELIX',     ko: 'DNA 헬릭스',     desc: '데이터가 나선으로 정렬되며 분석이 시작되는 순간',      interaction: 'none'   },
   { file: 'axiom-aurora-v2.html',  name: 'aurora-v2',     label: 'AURORA RING',   ko: '오로라 링',      desc: '흐르는 빛의 고리, 살아있는 데이터의 맥동',            interaction: 'rotate' },
   { file: 'axiom-nebula.html',     name: 'nebula',        label: 'NEBULA',        ko: '파티클 성운',    desc: '수천 개의 신호가 모여 형태를 찾아가는 과정',           interaction: 'click'  },
