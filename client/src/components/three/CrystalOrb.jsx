@@ -1,5 +1,5 @@
-import { useRef, useMemo, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { useRef, useMemo, useEffect, useState } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
 // ── LAYER CONFIG (from axiom-crystal-v3.html) ─────────────────────────────
@@ -76,6 +76,13 @@ function makeMat(colorHex, emitHex, emitInt, metal, rough) {
 
 // ── INNER SCENE COMPONENT ─────────────────────────────────────────────────
 function CrystalScene({ isMobile }) {
+    const { camera } = useThree();
+
+    useEffect(() => {
+        camera.position.set(0, isMobile ? 0.3 : 0.5, isMobile ? 9 : 7);
+        camera.lookAt(0, 0, 0);
+    }, [isMobile, camera]);
+
     const objs = useMemo(() => {
         // Glow textures (CanvasTexture)
         const glowTex1 = makeGlowTexture('rgba(255,255,255,1)', 'rgba(0,212,255,1)',   512);
@@ -183,9 +190,9 @@ function CrystalScene({ isMobile }) {
 
         // Position: right side, raised slightly
         flower.position.x = isMobile ? 0 : 1.8;
-        flower.position.y = 0.3;
+        flower.position.y = isMobile ? 0.2 : 0.3;
         flower.position.z = 0;
-        flower.rotation.y = -Math.PI / 6;
+        flower.rotation.y = isMobile ? 0 : -Math.PI / 6;
 
         // ── SCENE LIGHTS ──────────────────────────────────────────────
         const ambientLight = new THREE.AmbientLight(0x06141A, 1.2);
@@ -288,12 +295,22 @@ function CrystalScene({ isMobile }) {
 
 // ── PUBLIC COMPONENT ──────────────────────────────────────────────────────
 export default function CrystalOrb() {
-    const isMobile = window.innerWidth < 768;
-    const camPos = isMobile ? [0, 0.5, 8.5] : [0, 0.5, 7];
+    const [isMobile, setIsMobile] = useState(
+        () => typeof window !== 'undefined' ? window.innerWidth < 768 : false
+    );
+
+    useEffect(() => {
+        const onResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', onResize);
+        onResize();
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
+
+    const initCamPos = isMobile ? [0, 0.3, 9] : [0, 0.5, 7];
 
     return (
         <Canvas
-            camera={{ fov: 38, position: camPos, near: 0.1, far: 100 }}
+            camera={{ fov: 38, position: initCamPos, near: 0.1, far: 100 }}
             gl={{ antialias: true, alpha: true }}
             shadows="soft"
             dpr={[1, 2]}
