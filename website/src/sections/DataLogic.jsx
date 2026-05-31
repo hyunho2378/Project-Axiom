@@ -348,30 +348,28 @@ function Accordion() {
 
 function SheetLink() {
   return (
-    <div style={{ marginTop: 'clamp(20px,2.5vw,32px)' }}>
-      <a href={SHEET_URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-        <button
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 8,
-            padding: '10px 20px',
-            background: 'transparent',
-            border: `1px solid ${colors.brandDeep}`,
-            borderRadius: layout.rSm,
-            cursor: 'pointer',
-            fontFamily: font.family,
-            fontSize: t.caption.size,
-            fontWeight: 700,
-            color: colors.brand,
-            letterSpacing: '0.08em',
-            transition: 'border-color 0.2s, color 0.2s',
-          }}
-          onMouseEnter={e => { e.currentTarget.style.borderColor = colors.brand; }}
-          onMouseLeave={e => { e.currentTarget.style.borderColor = colors.brandDeep; }}
-        >
-          전체 데이터 보기 (Google Sheets) →
-        </button>
+    <div style={{ marginTop: 'clamp(24px,3vw,40px)', display: 'flex', justifyContent: 'center' }}>
+      <a
+        href={SHEET_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn-glow"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 12,
+          padding: '18px 52px',
+          borderRadius: 12,
+          fontSize: t.lead.size,
+          fontWeight: 600,
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          fontFamily: font.family,
+          color: colors.ink,
+          textDecoration: 'none',
+        }}
+      >
+        전체 데이터 보기 (Google Sheets) →
       </a>
     </div>
   );
@@ -459,7 +457,32 @@ function SkinTypeMatrix({ visible }) {
   );
 }
 
+const SKIN_TYPE_ORDER = ['건성', '중성', '지성', '수부지', '복합성'];
+const CAT_KEYS = ['toner', 'ampoule', 'tubeCream', 'jarCream', 'sunscreen'];
+
 function ProductMapping({ visible }) {
+  const thBase = {
+    padding: '8px 12px',
+    fontSize: t.caption.size,
+    fontWeight: 700,
+    letterSpacing: '0.06em',
+    background: colors.bgDeep,
+    borderBottom: `1px solid ${colors.line}`,
+    borderRight: `1px solid ${colors.line}`,
+    fontFamily: font.family,
+    whiteSpace: 'nowrap',
+  };
+  const tdBase = {
+    padding: '8px 12px',
+    fontSize: 14,
+    fontWeight: 500,
+    color: colors.inkMuted,
+    borderBottom: `1px solid ${colors.line}`,
+    borderRight: `1px solid ${colors.line}`,
+    lineHeight: 1.45,
+    fontFamily: font.family,
+  };
+
   return (
     <div
       style={{
@@ -469,26 +492,33 @@ function ProductMapping({ visible }) {
         transition: 'opacity 0.7s ease, transform 0.7s ease',
       }}
     >
-      <p style={{ margin: '0 0 clamp(24px,3vw,36px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
+      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
         제품 매칭 — 피부 타입별 25개 제품
       </p>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(24px,3vw,40px)' }}>
-        {Object.entries(products).map(([cat, items]) => (
-          <div key={cat}>
-            <p style={{ margin: '0 0 clamp(10px,1.2vw,16px)', fontSize: t.body.size, fontWeight: 700, color: colors.ink, borderBottom: `1px solid ${colors.line}`, paddingBottom: 10 }}>
-              {CATEGORY_LABELS[cat]}
-            </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 'clamp(8px,1.2vw,14px)' }} className="product-row">
-              {items.map((item, i) => (
-                <div key={i} style={{ background: colors.bgDeep, border: `1px solid ${colors.line}`, borderRadius: layout.rMd, padding: 'clamp(10px,1.2vw,16px)' }}>
-                  <p style={{ margin: '0 0 4px', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.1em', color: colors.brand, textTransform: 'uppercase' }}>{item.skinType}</p>
-                  <p style={{ margin: 0, fontSize: t.lead.size, fontWeight: 500, color: colors.ink, lineHeight: 1.4 }}>{item.nameKo}</p>
-                </div>
+      <div style={{ overflowX: 'auto', borderRadius: layout.rMd, border: `1px solid ${colors.line}` }}>
+        <table style={{ borderCollapse: 'collapse', minWidth: 640, width: '100%' }}>
+          <thead>
+            <tr>
+              <th style={{ ...thBase, textAlign: 'left', color: colors.inkMuted, minWidth: 64 }}>피부타입</th>
+              {CAT_KEYS.map(cat => (
+                <th key={cat} style={{ ...thBase, textAlign: 'center', color: colors.brand }}>{CATEGORY_LABELS[cat]}</th>
               ))}
-            </div>
-          </div>
-        ))}
+            </tr>
+          </thead>
+          <tbody>
+            {SKIN_TYPE_ORDER.map((skin, ri) => (
+              <tr key={skin}>
+                <td style={{ ...thBase, color: colors.brand, background: colors.bgDeep, fontWeight: 700 }}>{skin}</td>
+                {CAT_KEYS.map(cat => (
+                  <td key={cat} style={{ ...tdBase, background: ri % 2 === 0 ? 'transparent' : colors.bgDeep }}>
+                    {products[cat]?.[ri]?.nameKo ?? '—'}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <SheetLink />

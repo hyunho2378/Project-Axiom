@@ -25,7 +25,6 @@ export default function BX() {
   const [namingRef,   namingVisible]   = useReveal({ threshold: 0.1 });
   const [valuesRef,   valuesVisible]   = useReveal({ threshold: 0.1 });
   const [paletteRef,  paletteVisible]  = useReveal({ threshold: 0.1 });
-  const [langRef,     langVisible]     = useReveal({ threshold: 0.1 });
   const [compRef,     compVisible]     = useReveal({ threshold: 0.05 });
 
   return (
@@ -186,60 +185,6 @@ export default function BX() {
                 <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: colors.inkMuted, textAlign: 'center', lineHeight: 1.3, maxWidth: 64 }}>
                   {c.role}
                 </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ── 브랜드 언어 변환표 ── */}
-        <div
-          ref={langRef}
-          style={{ marginBottom: 'clamp(56px,7vw,96px)' }}
-        >
-          <p style={{ margin: '0 0 8px', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
-            브랜드 언어
-          </p>
-          <p style={{ margin: '0 0 clamp(20px,3vw,32px)', fontSize: t.body.size, color: colors.inkMuted }}>
-            수치에서 서사로
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(10px,1.5vw,16px)' }}>
-            {bx.brandLanguage.map((row, i) => (
-              <div
-                key={i}
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr auto 1fr',
-                  gap: 'clamp(8px,1.5vw,20px)',
-                  alignItems: 'center',
-                  opacity: langVisible ? 1 : 0,
-                  transform: langVisible ? 'none' : 'translateY(12px)',
-                  transition: `opacity 0.4s ease ${i * 60}ms, transform 0.4s ease ${i * 60}ms`,
-                }}
-                className="lang-row"
-              >
-                <div
-                  style={{
-                    padding: 'clamp(10px,1.2vw,16px) clamp(12px,1.5vw,18px)',
-                    background: colors.bgDeep,
-                    borderRadius: 8,
-                  }}
-                >
-                  <p style={{ margin: 0, fontSize: t.body.size, color: colors.inkMuted, lineHeight: 1.5 }}>
-                    {row.dont}
-                  </p>
-                </div>
-                <div style={{ color: colors.brand, fontSize: 18, fontWeight: 700, flexShrink: 0, userSelect: 'none' }}>→</div>
-                <div
-                  style={{
-                    padding: 'clamp(10px,1.2vw,16px) clamp(12px,1.5vw,18px)',
-                    background: colors.bgCard,
-                    borderRadius: 8,
-                  }}
-                >
-                  <p style={{ margin: 0, fontSize: t.body.size, color: colors.ink, lineHeight: 1.5 }}>
-                    {row.do}
-                  </p>
-                </div>
               </div>
             ))}
           </div>

@@ -5,19 +5,6 @@ import axiomData from '../data/axiom.json';
 
 const { aiProcess } = axiomData;
 
-function reliabilityBadge(rel) {
-  if (!rel) return null;
-  const isStrong = rel.startsWith('강함');
-  const isWeak   = rel.startsWith('약함');
-  const icon  = '';
-  const color = isStrong ? colors.ok : colors.warn;
-  const short = rel.split(' — ')[0];
-  return (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 15, color, fontWeight: 600 }}>
-      {icon} {short}
-    </span>
-  );
-}
 
 export default function AIProcess() {
   const [why3dRef,  why3dVisible]  = useReveal({ threshold: 0.1 });
@@ -71,7 +58,6 @@ export default function AIProcess() {
               <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: colors.inkMuted, lineHeight: 1.4 }}>
                 {item.source}
               </p>
-              {reliabilityBadge(item.reliability)}
             </div>
           ))}
         </div>
