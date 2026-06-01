@@ -233,6 +233,7 @@ function CodeAccordion({ file }) {
             border: `1px solid ${colors.brandDeep}`,
             borderTop: 'none',
             borderRadius: `0 0 ${layout.rSm} ${layout.rSm}`,
+            width: '100%',
             maxWidth: '100%',
             maxHeight: 400,
             overflowY: 'auto',
@@ -280,7 +281,7 @@ function ObjectCard({ obj, isLast }) {
         : <LazyIframe src={`/3d-ref/${obj.file}`} title={obj.label} />}
 
       {/* RIGHT: info */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(16px,2vw,24px)', paddingTop: 'clamp(8px,1vw,16px)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(16px,2vw,24px)', paddingTop: 'clamp(8px,1vw,16px)', minWidth: 0, overflow: 'hidden' }}>
         <div>
           <p style={{ margin: '0 0 8px', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', color: colors.brand, fontFamily: font.display }}>
             {obj.label}
