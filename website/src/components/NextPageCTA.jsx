@@ -34,7 +34,7 @@ export default function NextPageCTA({ to, label, hint }) {
           alignItems: 'center',
           gap: 16,
           padding: '18px 52px',
-          borderRadius: 12,
+          borderRadius: layout.rLg,
           fontSize: t.lead.size,
           fontWeight: 600,
           letterSpacing: '0.14em',

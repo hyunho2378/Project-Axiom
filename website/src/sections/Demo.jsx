@@ -78,7 +78,7 @@ export default function Demo() {
               alignItems: 'center',
               gap: 16,
               padding: '20px 64px',
-              borderRadius: 16,
+              borderRadius: layout.rLg,
               fontSize: 14,
               fontWeight: 600,
               letterSpacing: '0.22em',

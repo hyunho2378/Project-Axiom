@@ -117,7 +117,7 @@ export default function Prototype() {
                   gap: 8,
                   padding: '12px 24px',
                   background: link.accent,
-                  borderRadius: '999px',
+                  borderRadius: layout.rLg,
                   color: color.white,
                   fontSize: 18, fontWeight: 700,
                   fontFamily: font.family,
