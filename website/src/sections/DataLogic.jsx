@@ -7,17 +7,8 @@ import axiomData from '../data/axiom.json';
 const { dataLogic } = axiomData;
 const { overview, scoring, skinTypes, questions, products } = dataLogic;
 
-const SHEET_RESULTS   = 'https://docs.google.com/spreadsheets/d/1oXaG8BJmhKiHOLsH6b-ylkpvf-dthlholxXzes77lT8/edit?usp=sharing';
 const SHEET_PRODUCTS  = 'https://docs.google.com/spreadsheets/d/16LeDf6YsbA_lO7kAUuY_NcIPC2r45XBmyH014KsLVmI/edit?usp=sharing';
 const SHEET_QUESTIONS = 'https://docs.google.com/spreadsheets/d/1RNVo3PTC3oB-XSsEtV08oUyd2rsM9-NgUDz3bmicfOE/edit?usp=sharing';
-
-const SKIN_HIGHLIGHTS = [
-  { oil: '건성',   sens: '비민감',  desc: '유수분 부족하나 장벽은 안정적. 풍부한 보습에 집중.' },
-  { oil: '중성',   sens: '비민감',  desc: '유수분 밸런스 안정적. AXIOM이 정의하는 건강한 기준점.' },
-  { oil: '지성',   sens: '과민/경보', desc: '피지 많고 반응성 최고. 오일 컨트롤과 진정을 동시에.' },
-  { oil: '수부지', sens: '민감',    desc: '수분 부족한 지성 피부. 가벼운 수분 + 장벽 강화 필수.' },
-  { oil: '복합성', sens: '민감 주의', desc: '부위별 관리가 핵심. T존 유분, U존 수분 분리 접근.' },
-];
 
 const CATEGORY_LABELS = {
   toner:     '토너',
@@ -378,88 +369,6 @@ function SheetLink({ href, label }) {
   );
 }
 
-function SkinTypeMatrix({ visible }) {
-  const oilTypes = scoring.axis1.types;
-  const sensGrades = scoring.axis2.grades;
-
-  const thBase = {
-    padding: 'clamp(8px,1vw,14px)',
-    borderBottom: `1px solid ${colors.line}`,
-    borderRight: `1px solid ${colors.line}`,
-    fontFamily: font.family,
-  };
-  const tdBase = {
-    padding: 'clamp(8px,1vw,14px)',
-    borderBottom: `1px solid ${colors.line}`,
-    borderRight: `1px solid ${colors.line}`,
-    verticalAlign: 'middle',
-    fontFamily: font.family,
-  };
-
-  return (
-    <div
-      style={{
-        marginTop: 'clamp(56px,7vw,96px)',
-        marginBottom: 'clamp(48px,6vw,80px)',
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'none' : 'translateY(24px)',
-        transition: 'opacity 0.7s ease, transform 0.7s ease',
-      }}
-    >
-      <p style={{ margin: '0 0 clamp(16px,2vw,24px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkMuted }}>
-        결과: 20종 피부 타입 매트릭스
-      </p>
-
-      <div style={{ overflowX: 'auto', marginBottom: 'clamp(24px,3vw,36px)', borderRadius: layout.rMd, border: `1px solid ${colors.line}` }}>
-        <table style={{ borderCollapse: 'collapse', width: '100%', minWidth: 560 }}>
-          <thead>
-            <tr>
-              <th style={{ ...thBase, background: colors.bgDeep, color: colors.inkFaint, fontWeight: 700, textAlign: 'left', fontSize: t.caption.size, letterSpacing: '0.06em', minWidth: 100 }}>
-                유수분 \ 민감도
-              </th>
-              {sensGrades.map(g => (
-                <th key={g.code} style={{ ...thBase, background: colors.bgDeep, textAlign: 'center', minWidth: 110 }}>
-                  <span style={{ display: 'block', fontSize: t.body.size, fontWeight: 700, color: colors.ink }}>{g.grade}</span>
-                  <span style={{ display: 'block', fontSize: t.caption.size, fontWeight: 600, color: colors.brand, marginTop: 2 }}>{g.min}~{g.max}점</span>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {oilTypes.map((tp, ri) => (
-              <tr key={tp.code}>
-                <td style={{ ...tdBase, background: colors.bgDeep }}>
-                  <span style={{ display: 'block', fontSize: t.body.size, fontWeight: 700, color: colors.ink }}>{tp.type}</span>
-                  <span style={{ display: 'block', fontSize: t.caption.size, color: colors.inkFaint, marginTop: 2 }}>{tp.min}~{tp.max}점</span>
-                </td>
-                {sensGrades.map((g, ci) => (
-                  <td key={g.code} style={{ ...tdBase, textAlign: 'center', background: (ri + ci) % 2 === 0 ? colors.bgDeep : 'transparent' }}>
-                    <span style={{ fontSize: t.body.size, fontWeight: 600, color: colors.inkMuted }}>{tp.type}·{g.grade}</span>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <p style={{ margin: '0 0 clamp(12px,1.5vw,18px)', fontSize: t.sublabel.size, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: colors.inkMuted }}>
-        핵심 타입 하이라이트
-      </p>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'clamp(8px,1.5vw,14px)' }} className="highlight-grid">
-        {SKIN_HIGHLIGHTS.map((h, i) => (
-          <div key={i} style={{ background: colors.bgDeep, border: `1px solid ${colors.line}`, borderRadius: layout.rMd, padding: 'clamp(12px,1.5vw,20px)' }}>
-            <p style={{ margin: '0 0 8px', fontSize: t.body.size, fontWeight: 700, color: colors.brand }}>{h.oil} · {h.sens}</p>
-            <p style={{ margin: 0, fontSize: t.lead.size, fontWeight: 400, color: colors.inkMuted, lineHeight: t.lead.lh }}>{h.desc}</p>
-          </div>
-        ))}
-      </div>
-
-      <SheetLink href={SHEET_RESULTS} label="전체 피부 진단 결과 보러가기" />
-    </div>
-  );
-}
-
 const SKIN_TYPE_ORDER = ['건성', '중성', '지성', '수부지', '복합성'];
 const CAT_KEYS = ['toner', 'ampoule', 'tubeCream', 'jarCream', 'sunscreen'];
 
@@ -529,13 +438,203 @@ function ProductMapping({ visible }) {
   );
 }
 
+const AI_FLOW = ['진단 응답', '2축 분류', 'Gemini API', '맞춤 해석'];
+
+const AI_NODES = [
+  {
+    tier: '분류 엔진',
+    stack: 'Rule-based Classifier',
+    desc: '유수분 5 × 민감도 4 = 20타입. 개인 응답 점수로 피부 코드를 결정합니다.',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="5" r="2" />
+        <path d="M12 7v4" />
+        <circle cx="6" cy="15" r="2" />
+        <circle cx="18" cy="15" r="2" />
+        <path d="M10 11l-2 2M14 11l2 2" />
+      </svg>
+    ),
+  },
+  {
+    tier: 'AI 생성',
+    stack: 'Google Gemini API',
+    desc: '응답 맥락 기반 프롬프트 구성. 피부 코드에 맞는 해석 문장을 실시간으로 생성합니다.',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z" />
+        <path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8L19 14z" />
+      </svg>
+    ),
+  },
+  {
+    tier: '전달',
+    stack: 'Explainability Copy',
+    desc: '정량 수치 배제, 브랜드 내러티브. 2~3줄 해석 문장으로 결과의 신뢰를 확보합니다.',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+      </svg>
+    ),
+  },
+];
+
+function AiInterpretation({ visible }) {
+  return (
+    <div
+      style={{
+        marginTop: 'clamp(56px,7vw,96px)',
+        paddingTop: 'clamp(40px,5vw,64px)',
+        borderTop: `1px solid ${colors.line}`,
+      }}
+    >
+      <div style={{ marginBottom: 'clamp(32px,4vw,52px)' }}>
+        <p
+          style={{
+            margin: '0 0 12px',
+            fontSize: t.eyebrow.size,
+            fontWeight: t.eyebrow.weight,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            color: colors.brand,
+            fontFamily: font.display,
+          }}
+        >
+          AI INTERPRETATION
+        </p>
+        <h2
+          style={{
+            margin: '0 0 16px',
+            fontSize: 'clamp(21px,3.75vw,47px)',
+            fontWeight: t.h1.weight,
+            lineHeight: t.h1.lh,
+            letterSpacing: t.h1.ls,
+            color: colors.ink,
+            fontFamily: font.family,
+            wordBreak: 'keep-all',
+          }}
+        >
+          Gemini API로 전달하는 진단 결과
+        </h2>
+        <p
+          style={{
+            margin: 0,
+            fontSize: t.lead.size,
+            fontWeight: 400,
+            lineHeight: t.lead.lh,
+            color: colors.inkMuted,
+            maxWidth: '56ch',
+            wordBreak: 'keep-all',
+            fontFamily: font.family,
+          }}
+        >
+          20가지 결과 분류 이후 개인의 응답 맥락을 읽어 Gemini가 맞춤 해석 문장을 생성합니다.
+        </p>
+      </div>
+
+      <div
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'none' : 'translateY(24px)',
+          transition: 'opacity 0.7s ease, transform 0.7s ease',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 0,
+            overflowX: 'auto',
+            paddingBottom: 12,
+            marginBottom: 'clamp(32px,4vw,52px)',
+          }}
+          className="flow-ai"
+        >
+          {AI_FLOW.map((label, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+              <div
+                style={{
+                  padding: 'clamp(10px,1.2vw,14px) clamp(14px,1.8vw,22px)',
+                  background: i === 0
+                    ? 'rgba(90,154,181,0.12)'
+                    : i === AI_FLOW.length - 1
+                      ? 'rgba(90,154,181,0.16)'
+                      : colors.bgDeep,
+                  border: `1px solid ${i === 0 || i === AI_FLOW.length - 1 ? colors.brand : colors.line}`,
+                  borderRadius: 10,
+                  textAlign: 'center',
+                  minWidth: 'clamp(72px,9vw,110px)',
+                }}
+              >
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: 'clamp(11px,1.1vw,14px)',
+                    fontWeight: 700,
+                    color: i === 0 || i === AI_FLOW.length - 1 ? colors.brand : colors.inkMuted,
+                    fontFamily: font.family,
+                    letterSpacing: '0.02em',
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {label}
+                </p>
+              </div>
+              {i < AI_FLOW.length - 1 && (
+                <svg width="28" height="12" viewBox="0 0 28 12" fill="none" style={{ flexShrink: 0, marginLeft: -1 }}>
+                  <path d="M0 6h22M18 1l6 5-6 5" stroke={colors.brand} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: 'clamp(10px,1.5vw,18px)',
+          }}
+          className="ai-stack-grid"
+        >
+          {AI_NODES.map((node, i) => (
+            <div
+              key={i}
+              style={{
+                background: colors.bgDeep,
+                border: `1px solid ${colors.line}`,
+                borderRadius: 'clamp(10px,1.2vw,16px)',
+                padding: 'clamp(20px,2.5vw,32px)',
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'none' : 'translateY(16px)',
+                transition: `opacity 0.5s ease ${i * 100}ms, transform 0.5s ease ${i * 100}ms`,
+              }}
+            >
+              <div style={{ color: colors.brand, marginBottom: 14 }}>{node.icon}</div>
+              <p style={{ margin: '0 0 4px', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkFaint, fontFamily: font.family }}>
+                {node.tier}
+              </p>
+              <p style={{ margin: '0 0 10px', fontSize: 'clamp(14px,1.6vw,18px)', fontWeight: 700, color: colors.ink, fontFamily: font.family, letterSpacing: '0.01em' }}>
+                {node.stack}
+              </p>
+              <p style={{ margin: 0, fontSize: t.body.size, fontWeight: 400, color: colors.inkMuted, lineHeight: 1.5, fontFamily: font.family }}>
+                {node.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function DataLogic() {
   const [diagramRef,  diagramVisible]  = useReveal({ threshold: 0.1 });
   const [axis1Ref,    axis1Visible]    = useReveal({ threshold: 0.1 });
   const [axis2Ref,    axis2Visible]    = useReveal({ threshold: 0.1 });
   const [exampleRef,  exampleVisible]  = useReveal({ threshold: 0.1 });
-  const [matrixRef,   matrixVisible]   = useReveal({ threshold: 0.1 });
   const [productRef,  productVisible]  = useReveal({ threshold: 0.1 });
+  const [aiRef,       aiVisible]       = useReveal({ threshold: 0.08 });
 
   return (
     <section
@@ -569,12 +668,12 @@ export default function DataLogic() {
         <Accordion />
         <SheetLink href={SHEET_QUESTIONS} label="전체 질문 데이터 로직 보러가기" />
 
-        <div ref={matrixRef}>
-          <SkinTypeMatrix visible={matrixVisible} />
-        </div>
-
         <div ref={productRef}>
           <ProductMapping visible={productVisible} />
+        </div>
+
+        <div ref={aiRef}>
+          <AiInterpretation visible={aiVisible} />
         </div>
       </div>
 
@@ -583,13 +682,14 @@ export default function DataLogic() {
           .axis2-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .example-row { flex-direction: column !important; }
           .example-row > span { transform: rotate(90deg); }
+          .ai-stack-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 640px) {
           .axis1-row { gap: 10px !important; }
           .diagram-row { gap: 8px !important; }
+          .flow-ai { gap: 0 !important; }
         }
         @media (max-width: 900px) {
-          .highlight-grid { grid-template-columns: 1fr 1fr !important; }
           .product-row { grid-template-columns: repeat(3, 1fr) !important; }
         }
         @media (max-width: 600px) {
