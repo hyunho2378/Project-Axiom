@@ -6,11 +6,11 @@ const CLIENT_DATALAB = 'https://project-axiom-puce.vercel.app/datalab';
 
 // 정적 예시 데이터 (실시간 아님)
 const SNAPSHOT_DATA = [
-  { label: '지성',   pct: 32, code: 'ST-OIL' },
-  { label: '중성',   pct: 28, code: 'ST-NORM' },
-  { label: '건성',   pct: 18, code: 'ST-DRY' },
+  { label: '지성', pct: 32, code: 'ST-OIL' },
+  { label: '중성', pct: 28, code: 'ST-NORM' },
+  { label: '건성', pct: 18, code: 'ST-DRY' },
   { label: '수부지', pct: 13, code: 'ST-COMB' },
-  { label: '복합성', pct:  9, code: 'ST-MISC' },
+  { label: '복합성', pct: 9, code: 'ST-MISC' },
 ];
 
 const STACK_NODES = [
@@ -277,9 +277,9 @@ function LiveCTA({ visible }) {
 }
 
 export default function LivingData() {
-  const [archRef,  archVisible]  = useReveal({ threshold: 0.08 });
-  const [snapRef,  snapVisible]  = useReveal({ threshold: 0.08 });
-  const [ctaRef,   ctaVisible]   = useReveal({ threshold: 0.15 });
+  const [archRef, archVisible] = useReveal({ threshold: 0.08 });
+  const [snapRef, snapVisible] = useReveal({ threshold: 0.08 });
+  const [ctaRef, ctaVisible] = useReveal({ threshold: 0.15 });
 
   return (
     <section
@@ -289,7 +289,9 @@ export default function LivingData() {
       <div style={{ maxWidth: layout.container, margin: '0 auto' }}>
         <SectionHeader
           eyebrow="LIVING DATA"
-          headline="데이터가 쌓일수록 서비스가 나아집니다"
+          headline="서비스 사용 기록이 데이터베이스에 저장됩니다.git add .
+git commit -m "자5수"
+git push"
           sub="사용자가 진단을 마치면 응답이 데이터베이스에 쌓이고, 이 데이터를 집계해 서비스를 개선합니다."
           align="left"
         />
