@@ -135,7 +135,7 @@ function BlobSection() {
             border: `1px solid ${step === 0 ? colors.line : colors.brandDeep}`,
             borderRadius: layout.rSm,
             color: step === 0 ? colors.inkFaint : colors.brand,
-            fontFamily: font.display,
+            fontFamily: font.family,
             fontSize: t.caption.size,
             fontWeight: 700,
             letterSpacing: '0.1em',
@@ -148,7 +148,7 @@ function BlobSection() {
         </button>
 
         <div style={{ flex: 1, textAlign: 'center' }}>
-          <p style={{ margin: 0, fontSize: t.caption.size, fontWeight: 700, color: colors.brand, fontFamily: font.display, letterSpacing: '0.12em' }}>
+          <p style={{ margin: 0, fontSize: t.caption.size, fontWeight: 700, color: colors.brand, fontFamily: font.family, letterSpacing: '0.12em' }}>
             STEP {step} / 10
           </p>
           <p style={{ margin: '2px 0 0', fontSize: t.caption.size, fontWeight: 500, color: colors.inkMuted }}>
@@ -165,7 +165,7 @@ function BlobSection() {
             border: `1px solid ${step === 10 ? colors.line : colors.brandDeep}`,
             borderRadius: layout.rSm,
             color: step === 10 ? colors.inkFaint : colors.brand,
-            fontFamily: font.display,
+            fontFamily: font.family,
             fontSize: t.caption.size,
             fontWeight: 700,
             letterSpacing: '0.1em',
