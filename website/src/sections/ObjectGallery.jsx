@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { colors, font, type as t, layout } from '../tokens/web.js';
 import { useReveal } from '../lib/useReveal.js';
 import SectionHeader from '../components/SectionHeader.jsx';
+import AxiomPlanet from '../components/AxiomPlanet.jsx';
 
 const STAGE_LABELS = [
   '분석 시작 전', '분석 시작', '성별 선택', '나이대 선택',
@@ -74,62 +75,11 @@ function LazyIframe({ src, title }) {
   );
 }
 
-function PlanetIframe({ src, title }) {
-  const [loaded, setLoaded] = useState(false);
-  const [ready,  setReady]  = useState(false);
-  const [step,   setStep]   = useState(0);
-  const obsRef    = useRef(null);
-  const iframeRef = useRef(null);
-
-  useEffect(() => {
-    const el = obsRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setLoaded(true); },
-      { rootMargin: '300px' }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!ready) return;
-    iframeRef.current?.contentWindow?.postMessage({ type: 'AXIOM_SET_STEP', step }, '*');
-  }, [step, ready]);
-
+function PlanetSection() {
+  const [step, setStep] = useState(0);
   return (
-    <div ref={obsRef} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-      <div style={{
-        width: '100%',
-        height: IFRAME_H,
-        background: colors.bg,
-        borderRadius: layout.rMd,
-        overflow: 'hidden',
-        border: `1px solid ${colors.line}`,
-        flexShrink: 0,
-      }}>
-        {loaded ? (
-          <iframe
-            ref={iframeRef}
-            src={src}
-            title={title}
-            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
-            loading="lazy"
-            onLoad={() => {
-              setTimeout(() => {
-                setReady(true);
-                iframeRef.current?.contentWindow?.postMessage({ type: 'AXIOM_SET_STEP', step: 0 }, '*');
-              }, 300);
-            }}
-          />
-        ) : (
-          <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ color: colors.line, fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-              LOADING
-            </span>
-          </div>
-        )}
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <AxiomPlanet step={step} height={IFRAME_H} />
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <button
@@ -280,10 +230,10 @@ function ObjectCard({ obj, isLast }) {
       }}
       className="obj-card"
     >
-      {/* LEFT: 3D iframe */}
+      {/* LEFT: 3D */}
       {obj.interaction === 'step'
-        ? <PlanetIframe src={`/3d-ref/${obj.file}`} title={obj.label} />
-        : <LazyIframe   src={`/3d-ref/${obj.file}`} title={obj.label} />}
+        ? <PlanetSection />
+        : <LazyIframe src={`/3d-ref/${obj.file}`} title={obj.label} />}
 
       {/* RIGHT: info */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(16px,2vw,24px)', paddingTop: 'clamp(8px,1vw,16px)' }}>
