@@ -39,11 +39,11 @@
     }
   ],
   "overview": {
-    "headline": "브랜딩 · UX · AI · 3D",
-    "description": "시각·논리·AI·구현을 하나로 통합한, AI 피부 진단 기반 하이엔드 뷰티 큐레이션 플랫폼 UX 서비스 디자인.",
+    "headline": "브랜딩 + UX + AI + 3D",
+    "description": "시각과 논리, AI 활용 3D 구현을 하나로 통합한 AI 피부 진단 기반 하이엔드 뷰티 큐레이션 플랫폼 UX 서비스 디자인",
     "roles": [
       {
-        "label": "BX / 브랜딩",
+        "label": "브랜딩(BX)",
         "desc": "네이밍·슬로건·컬러 시스템·타이포그래피·브랜드 서사 설계"
       },
       {
@@ -51,12 +51,12 @@
         "desc": "데스크 리서치, 설문 52명, 인터뷰 12명, 인사이트 도출"
       },
       {
-        "label": "AI 진단 로직",
+        "label": "데이터 진단 로직",
         "desc": "2축 채점 시스템, 20가지 피부 코드, Q1~Q10 질문 설계"
       },
       {
-        "label": "3D 시각화",
-        "desc": "Three.js 제품 오브제 5종, 조명 프리셋, Claude Code 협업"
+        "label": "AI 활용 3D 시각화",
+        "desc": "Three.js 제품 오브제 5종, 조명 프리셋, Claude Code 활용"
       }
     ],
     "techStack": {
