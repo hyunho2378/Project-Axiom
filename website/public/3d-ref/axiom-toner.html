@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="UTF-8"><title>AXIOM Toner</title>
+<html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>AXIOM Toner</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#040A12;overflow:hidden}canvas{display:block;width:100vw;height:100vh}#picker{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:10}.btn{padding:4px 10px;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:rgba(192,216,224,.65);background:rgba(8,30,50,.4);border:1px solid rgba(42,104,133,.4);cursor:pointer;transition:all .3s;backdrop-filter:blur(10px);font-family:"Noto Sans KR",sans-serif;font-weight:300}.btn:hover{color:#fff;border-color:#6CA0BC}.btn.active{background:rgba(42,104,133,.55);color:#fff;border-color:#8AAEC0}</style>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#040A12;overflow:hidden}canvas{display:block;width:100vw;height:100vh}#picker{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;flex-wrap:wrap;justify-content:center;gap:4px;z-index:10;max-width:calc(100vw - 32px)}.btn{padding:4px 10px;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:rgba(192,216,224,.65);background:rgba(8,30,50,.4);border:1px solid rgba(42,104,133,.4);cursor:pointer;transition:all .3s;backdrop-filter:blur(10px);font-family:"Noto Sans KR",sans-serif;font-weight:300}.btn:hover{color:#fff;border-color:#6CA0BC}.btn.active{background:rgba(42,104,133,.55);color:#fff;border-color:#8AAEC0}</style>
 </head><body><canvas id="c"></canvas><div id="picker"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
