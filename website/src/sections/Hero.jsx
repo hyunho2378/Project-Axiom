@@ -56,7 +56,7 @@ export default function Hero() {
               fontFamily: font.display,
             }}
           >
-            {meta.team} · {meta.purpose}
+            {meta.purpose}
           </p>
 
           {/* 워드마크 */}
