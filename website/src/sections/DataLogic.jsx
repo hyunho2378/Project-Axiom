@@ -444,7 +444,7 @@ const AI_NODES = [
   {
     tier: '분류 엔진',
     stack: 'Rule-based Classifier',
-    desc: '유수분과 민감도 두 축으로 20가지 피부 코드를 나누고, 개인의 응답 점수로 코드를 결정합니다',
+    desc: '유수분과 민감도 두 축으로 20가지 피부 코드를 나누고, 개인의 응답 점수로 코드를 결정합니다.',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="5" r="2" />
@@ -458,7 +458,7 @@ const AI_NODES = [
   {
     tier: 'AI 생성',
     stack: 'Google Gemini API',
-    desc: '응답 맥락으로 프롬프트를 구성하고, 피부 코드에 맞는 해석 문장을 실시간으로 생성합니다',
+    desc: '응답 맥락으로 프롬프트를 구성하고, 피부 코드에 맞는 해석 문장을 실시간으로 생성합니다.',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z" />
@@ -469,7 +469,7 @@ const AI_NODES = [
   {
     tier: '전달',
     stack: 'Explainability Copy',
-    desc: '정량 수치 대신 2~3줄의 해석 문장으로 결과를 전하고, 사용자의 신뢰를 확보합니다',
+    desc: '정량 수치 대신 2~3줄의 해석 문장으로 결과를 전하고, 사용자의 신뢰를 확보합니다.',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />

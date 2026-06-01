@@ -17,7 +17,7 @@ const STACK_NODES = [
   {
     tier: 'Frontend',
     stack: 'Vercel · React',
-    desc: '진단 설문 화면을 보여주고, 결과를 실시간으로 시각화합니다',
+    desc: '진단 설문 화면을 보여주고, 결과를 실시간으로 시각화합니다.',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -28,7 +28,7 @@ const STACK_NODES = [
   {
     tier: 'Backend',
     stack: 'Render · Express · Prisma',
-    desc: '응답을 집계해 피부타입 분포를 계산하고 전달합니다',
+    desc: '응답을 집계해 피부타입 분포를 계산하고 전달합니다.',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="2" width="20" height="8" rx="2" />
@@ -41,7 +41,7 @@ const STACK_NODES = [
   {
     tier: 'Database',
     stack: 'NeonDB · Postgres',
-    desc: '설문 응답을 영구 저장하고, 집계 쿼리를 처리합니다',
+    desc: '설문 응답을 영구 저장하고, 집계 쿼리를 처리합니다.',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <ellipse cx="12" cy="5" rx="9" ry="3" />
@@ -290,7 +290,7 @@ export default function LivingData() {
         <SectionHeader
           eyebrow="LIVING DATA"
           headline="데이터가 쌓일수록 서비스가 나아집니다"
-          sub="사용자가 진단을 마치면 응답이 데이터베이스에 쌓이고, 이 데이터를 집계해 서비스를 개선합니다"
+          sub="사용자가 진단을 마치면 응답이 데이터베이스에 쌓이고, 이 데이터를 집계해 서비스를 개선합니다."
           align="left"
         />
 
