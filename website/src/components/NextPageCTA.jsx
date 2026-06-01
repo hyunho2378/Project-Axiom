@@ -14,18 +14,6 @@ export default function NextPageCTA({ to, label, hint }) {
         gap: 20,
       }}
     >
-      {hint && (
-        <p style={{
-          margin: 0,
-          fontSize: t.caption.size,
-          fontWeight: 600,
-          letterSpacing: '0.22em',
-          textTransform: 'uppercase',
-          color: colors.inkMuted,
-        }}>
-          {hint}
-        </p>
-      )}
       <Link
         to={to}
         className="btn-glow"
