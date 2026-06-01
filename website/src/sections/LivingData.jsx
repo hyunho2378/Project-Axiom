@@ -17,7 +17,7 @@ const STACK_NODES = [
   {
     tier: 'Frontend',
     stack: 'Vercel · React',
-    desc: '진단 설문 UI, 실시간 시각화',
+    desc: '진단 설문 화면을 보여주고, 결과를 실시간으로 시각화합니다',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -28,7 +28,7 @@ const STACK_NODES = [
   {
     tier: 'Backend',
     stack: 'Render · Express · Prisma',
-    desc: '/api/stats 집계, 피부타입 분포 반환',
+    desc: '응답을 집계해 피부타입 분포를 계산하고 전달합니다',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="2" width="20" height="8" rx="2" />
@@ -41,7 +41,7 @@ const STACK_NODES = [
   {
     tier: 'Database',
     stack: 'NeonDB · Postgres',
-    desc: '설문 응답 영구 저장, 집계 쿼리',
+    desc: '설문 응답을 영구 저장하고, 집계 쿼리를 처리합니다',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <ellipse cx="12" cy="5" rx="9" ry="3" />
@@ -98,7 +98,7 @@ function ArchFlow({ visible }) {
                   fontSize: 'clamp(11px,1.1vw,14px)',
                   fontWeight: 700,
                   color: i === 0 || i === FLOW.length - 1 ? colors.brand : colors.inkMuted,
-                  fontFamily: i === 1 || i === 2 || i === 3 ? font.display : font.family,
+                  fontFamily: font.family,
                   letterSpacing: '0.02em',
                   lineHeight: 1.3,
                 }}
@@ -141,7 +141,7 @@ function ArchFlow({ visible }) {
             <p style={{ margin: '0 0 4px', fontSize: t.caption.size, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.inkFaint }}>
               {node.tier}
             </p>
-            <p style={{ margin: '0 0 10px', fontSize: 'clamp(14px,1.6vw,18px)', fontWeight: 700, color: colors.ink, fontFamily: font.display, letterSpacing: '0.01em' }}>
+            <p style={{ margin: '0 0 10px', fontSize: 'clamp(14px,1.6vw,18px)', fontWeight: 700, color: colors.ink, fontFamily: font.family, letterSpacing: '0.01em' }}>
               {node.stack}
             </p>
             <p style={{ margin: 0, fontSize: t.body.size, fontWeight: 400, color: colors.inkMuted, lineHeight: 1.5 }}>
@@ -220,7 +220,7 @@ function StaticSnapshot({ visible }) {
                 />
               </div>
               <div style={{ width: 'clamp(40px,4vw,52px)', flexShrink: 0 }}>
-                <span style={{ fontSize: t.body.size, fontWeight: 700, color: colors.brand, fontFamily: font.display }}>{d.pct}%</span>
+                <span style={{ fontSize: t.body.size, fontWeight: 700, color: colors.brand, fontFamily: font.family }}>{d.pct}%</span>
               </div>
             </div>
           ))}
@@ -265,7 +265,7 @@ function LiveCTA({ visible }) {
           fontWeight: 700,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
-          fontFamily: font.display,
+          fontFamily: font.family,
           color: colors.ink,
           textDecoration: 'none',
         }}
@@ -289,8 +289,8 @@ export default function LivingData() {
       <div style={{ maxWidth: layout.container, margin: '0 auto' }}>
         <SectionHeader
           eyebrow="LIVING DATA"
-          headline="쌓이는 데이터가 서비스를 만든다"
-          sub="사용자가 진단을 완료할 때마다 응답이 DB에 쌓이고, 집계가 서비스를 개선한다"
+          headline="데이터가 쌓일수록 서비스가 나아집니다"
+          sub="사용자가 진단을 마치면 응답이 데이터베이스에 쌓이고, 이 데이터를 집계해 서비스를 개선합니다"
           align="left"
         />
 
