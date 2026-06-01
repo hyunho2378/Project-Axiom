@@ -10,11 +10,14 @@
   },
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.19.4",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
+    "@react-three/postprocessing": "^2.19.1",
     "lucide-react": "^0.462.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.16.0",
-    "three": "^0.128.0"
+    "three": "^0.160.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
