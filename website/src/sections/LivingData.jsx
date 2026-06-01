@@ -289,9 +289,7 @@ export default function LivingData() {
       <div style={{ maxWidth: layout.container, margin: '0 auto' }}>
         <SectionHeader
           eyebrow="LIVING DATA"
-          headline="서비스 사용 기록이 데이터베이스에 저장됩니다.git add .
-git commit -m "자5수"
-git push"
+          headline="서비스 사용 기록이 데이터베이스에 저장됩니다."
           sub="사용자가 진단을 마치면 응답이 데이터베이스에 쌓이고, 이 데이터를 집계해 서비스를 개선합니다."
           align="left"
         />
