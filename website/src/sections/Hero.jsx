@@ -53,7 +53,7 @@ export default function Hero() {
               letterSpacing: '0.18em',
               textTransform: 'uppercase',
               color: colors.brand,
-              fontFamily: font.display,
+              fontFamily: font.family,
             }}
           >
             {meta.purpose}
